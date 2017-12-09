@@ -1,4 +1,4 @@
-#' Resolve names
+#' Resolve taxa names
 #'
 #' @description
 #'     Resolve input taxonomoic names against an authority and output a table
@@ -20,10 +20,12 @@
 #'     Method for resolving your taxonomic data against an authority. There
 #'     are 2 options:
 #'     \itemize{
-#'         \item{manual} NOT YET SUPPORTED: Outputs a table with all possible accepted options
-#'         from which you manually select.
+#'         \item{manual} NOT YET SUPPORTED: Outputs a table with all possible
+#'         accepted options from which you manually select.
 #'         \item{automatic} Output table with one-to-one matches where the resolved
 #'         name is the first accepted match for a taxon.
+#'         \item{interactive} You are prompted to select from a list of options
+#'         when a one-to-one match can't be found.
 #'     }
 #'
 #' @return
@@ -65,13 +67,13 @@ resolve_names <- function(path, data.file, taxon.col, method){
 
   data_file <- validate_file_names(path, data.file)
 
-  # Validate taxon.col
-
-  # (Add taxon.col validation here)
-
   # Validate method
 
-  # (Add method validation here)
+  method.low <- tolower(method)
+
+  if (!str_detect(method.low, "^automatic$|^interactive$|^manual$")){
+    stop('Invalid value entered for the "method" argument. Please choose "automatic", "interactive", or "manual".')
+  }
 
   # Detect operating system
 
@@ -80,6 +82,31 @@ resolve_names <- function(path, data.file, taxon.col, method){
   # Detect field delimiter
 
   sep <- detect_delimeter(path, data.files = data_file, os)
+
+  # Validate taxon.col
+
+  message(paste0("Checking ", data_file, " for valid column names."))
+
+  data_path <- paste(path,
+                     "/",
+                     data_file,
+                     sep = "")
+
+  df_table <- read.table(data_path,
+                         header = TRUE,
+                         sep = delim_guess,
+                         quote = "\"",
+                         as.is = TRUE,
+                         fill = T,
+                         comment.char = "")
+
+  columns <- colnames(df_table)
+  columns_in <- taxon.col
+  use_i <- str_detect(string = columns,
+                      pattern = str_c("^", columns_in, "$", collapse = "|"))
+  if (sum(use_i) == 0){
+    stop(paste0('Invalid "taxon.col" entered: ', columns_in, ' Please fix this.'))
+  }
 
   # Create taxon list from data.file ------------------------------------------
 
