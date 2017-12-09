@@ -4,7 +4,7 @@
 \alias{detect_delimeter}
 \title{Detect field delimeter}
 \usage{
-detect_delimeter(path = "", data.files = c("data.file.1", 
+detect_delimeter(path = "", data.files = c("data.file.1",
     "data.file.2", "etc.") , os = "")
 }
 \arguments{
@@ -14,12 +14,12 @@ containing the data files from which to detect the field delimeters.}
 \item{data.files}{A list of character strings specifying the names of the data files
 from which to detect the field delimeters of.}
 
-\item{os}{A character string specifying the operating system in which this 
-function is to be called. Valid options are generated from 
+\item{os}{A character string specifying the operating system in which this
+function is to be called. Valid options are generated from
 \code{detect_os}.}
 }
 \value{
-A character string representation of the field delimeters listed in 
+A character string representation of the field delimeters listed in
     order of files listed in the data.files argument.
     \item{"\\t"}{tab}
     \item{","}{comma}
@@ -27,6 +27,6 @@ A character string representation of the field delimeters listed in
     \item{"|"}{pipe}
 }
 \description{
-Detect field delimiter of input files and return character string 
+Detect field delimiter of input files and return character string
     representation.
 }

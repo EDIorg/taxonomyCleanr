@@ -10,6 +10,7 @@ Depends:
     R (>= 3.2.5),
     EML (>= 1.0.1),
     stringr (>= 1.2.0),
+    taxize (>= 0.8.8),
     reader (>= 1.0.6)
 License: Creative Commons license CC0 1.0 Universal
 Encoding: UTF-8

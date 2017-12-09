@@ -2,7 +2,7 @@
 % Please edit documentation in R/resolve_names.R
 \name{resolve_names}
 \alias{resolve_names}
-\title{Resolve names}
+\title{Resolve taxa names}
 \usage{
 resolve_names(path = "", data.file = "", taxon.col = "", mode = "")
 }
@@ -18,10 +18,12 @@ binomials and common names.}
 \item{method}{Method for resolving your taxonomic data against an authority. There
 are 2 options:
 \itemize{
-    \item{manual} NOT YET SUPPORTED: Outputs a table with all possible accepted options
-    from which you manually select.
+    \item{manual} NOT YET SUPPORTED: Outputs a table with all possible
+    accepted options from which you manually select.
     \item{automatic} Output table with one-to-one matches where the resolved
     name is the first accepted match for a taxon.
+    \item{interactive} You are prompted to select from a list of options
+    when a one-to-one match can't be found.
 }}
 }
 \value{

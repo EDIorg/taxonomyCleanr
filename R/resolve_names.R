@@ -327,8 +327,6 @@ resolve_names <- function(path, data.file, taxon.col, method){
     # Send to Global Names Resolver
     # Not all names may resolve because of colloquial terms and non-species terms
 
-    message('Resolving scientific names.')
-
     gnr_out <- gnr_resolve(names = data_L0,
                            data_source_ids = ds,
                            resolve_once = F,
