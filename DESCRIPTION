@@ -1,9 +1,16 @@
 Package: taxonomyCleanr
-Title: What the Package Does (one line, title case)
+Title: A workflow and set of functions to clean taxonomy data using R.
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-Depends: R (>= 3.2.5)
-License: What license is it under?
+Authors@R: person("Colin", "Smith", email = "csmith.tar@gmail.com", role = c("aut", "cre"))
+Description: 
+    Resolves user supplied taxonomy data against a taxonomic authority, retrieves taxonomic 
+    serial numbers, updates users data, and creates the taxonomicCoverage metadata element in 
+    the Ecological Metadata Language (EML).
+Depends: 
+    R (>= 3.2.5),
+    EML (>= 1.0.1),
+    stringr (>= 1.2.0),
+    reader (>= 1.0.6)
+License: Creative Commons license CC0 1.0 Universal
 Encoding: UTF-8
 LazyData: true
