@@ -1,4 +1,4 @@
-# taxonCleanr
+# taxonomyCleanr
 
 Taxonomic data can be challenging to work with. Some of these challenges include incorrect spelling, use of non-accepted names, colloquial terms, synonyms, and generally ambiguity in what a taxa actually is. This R package helps you resolve taxonomic data to a taxonomic authority.
 
@@ -8,9 +8,9 @@ Taxonomic data can be challenging to work with. Some of these challenges include
 
 #### Documenation
 
-[A schematic representation of the workflows supported by this package.](https://github.com/EDIorg/EMLassemblyline/blob/master/documentation/schematic.md)
+[A schematic representation of the workflows supported by this package.](https://github.com/EDIorg/taxonomyCleanr/blob/master/documentation/schematic.md)
 
-[Instructions for running these workflows](https://github.com/EDIorg/EMLassemblyline/blob/master/documentation/V2_instructions.md)
+[Instructions for running these workflows](https://github.com/EDIorg/taxonomyCleanr/blob/master/documentation/example.md)
 
 #### R package
 
