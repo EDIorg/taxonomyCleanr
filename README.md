@@ -8,8 +8,6 @@ Taxonomic data can be challenging to work with. Some of these challenges include
 
 #### Documenation
 
-[A schematic representation of the workflows supported by this package.](https://github.com/EDIorg/taxonomyCleanr/blob/master/documentation/schematic.md)
-
 [Instructions for running these workflows](https://github.com/EDIorg/taxonomyCleanr/blob/master/documentation/instructions.md)
 
 #### R package
