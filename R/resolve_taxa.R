@@ -1,4 +1,4 @@
-#' Resolve taxa names
+#' Resolve taxa
 #'
 #' @description
 #'     Resolve input taxonomoic names against an authority and output a table
@@ -74,7 +74,7 @@
 #'
 
 
-resolve_names <- function(path, data.file, taxon.col, method){
+resolve_taxa <- function(path, data.file, taxon.col, method){
 
   # Check arguments and parameterize ------------------------------------------
 
@@ -131,12 +131,12 @@ resolve_names <- function(path, data.file, taxon.col, method){
                      sep = "")
 
   data_L0 <- suppressWarnings(read.table(data_path,
-                                       header = TRUE,
-                                       sep = sep,
-                                       quote = "\"",
-                                       as.is = TRUE,
-                                       fill = T,
-                                       comment.char = ""))
+                                         header = TRUE,
+                                         sep = sep,
+                                         quote = "\"",
+                                         as.is = TRUE,
+                                         fill = T,
+                                         comment.char = ""))
 
   columns <- colnames(data_L0)
   columns_in <- taxon.col
@@ -198,8 +198,8 @@ resolve_names <- function(path, data.file, taxon.col, method){
     message('Resolving common names.')
 
     data_sources <- data.frame(id = seq(2),
-                                title = c("itis", "worms"),
-                                stringsAsFactors = F)
+                               title = c("itis", "worms"),
+                               stringsAsFactors = F)
     # print("Reference the list of sources above to resolve common names against.")
     # answer <- readline("Enter the row number of the source to query: ")
     # ds <- as.integer(answer)
@@ -287,9 +287,9 @@ resolve_names <- function(path, data.file, taxon.col, method){
 
     for (i in 1:length(all_resolved_names$matched_name)){
       info <- suppressWarnings(get_tsn(searchterm = all_resolved_names$matched_name[i],
-                      searchtype = "scientific",
-                      accepted = T,
-                      ask = F))
+                                       searchtype = "scientific",
+                                       accepted = T,
+                                       ask = F))
       if (attr(info, "match") == "found"){
         all_resolved_names$authority_taxon_id[i] <- info[1]
       }
