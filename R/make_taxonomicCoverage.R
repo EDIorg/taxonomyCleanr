@@ -2,14 +2,14 @@
 #'
 #' @description
 #'     Make the taxonomicCoverage EML element from information contained in
-#'     the file \emph{taxon_map.txt}.
+#'     the file \emph{taxon.txt}.
 #'
 #' @usage
 #'     make_taxonomicCoverage(path = "")
 #'
 #' @param path
-#'     A path of the directory containing the file \emph{taxon_map.txt}, which
-#'     is created by the function \code{resolve_names}.
+#'     A path of the directory containing the file \emph{taxon.txt}, which
+#'     is created by the function \code{update_data}.
 #'
 #' @return
 #'     The taxonomicCoverage EML element written to the file
@@ -17,12 +17,6 @@
 #'     When creating EML for your dataset using the \code{EMLassemblyline}
 #'     (\href{https://github.com/EDIorg/EMLassemblyline}), this file is read
 #'     and the contents incorporated into the EML for this dataset.
-#'
-#'     A tab delimited file in the dataset working directory titled
-#'     \emph{taxon.txt} containing the unique taxon of your dataset and the
-#'     corresponding taxonomic authority information. This table's format
-#'     matches that of the \emph{taxon} table of the \emph{ecocomDP} project
-#'     (\href{https://github.com/EDIorg/ecocomDP}).
 #'
 #' @export
 #'
