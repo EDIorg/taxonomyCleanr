@@ -142,41 +142,41 @@ update_data(path = "/Users/csmith/Desktop/taxonomy_dataset",
             
 ```
 
-Output from this function is a revised version of your raw data appended with a time stamp of when the revision occured. 
+Output from this function are 2 tables. A revised version of your raw data appended with a time stamp of when the revision occured and a table named taxon.txt.
 
-## Step 3: Create metadata
+The revised table contains these columns:
+1. **taxon.col** The column of your raw data containing the taxa names. Where a new authority resolved name was found this information has replaced the original contents. When no new authority resolved names were found, then the original content is present.
+2. **taxon_rank** The taxon rank of authority resovled taxon information.
+3. **taxon_authority_system** The taxon authority system of resolved taxon information.
+4. **taxon_authority_id** The TSN of the taxon from the corresponding authority.
+
+taxon.txt is essentially the [taxon table](https://github.com/EDIorg/ecocomDP/blob/master/documentation/model/ecocomDP.png) of the [ecocomDP project](https://github.com/EDIorg/ecocomDP), is used to create the taxonomicCoverage EML element for your metadata, and contains these columns:
+1. **taxon_id** A column that may be used as a key between taxa listed in taxon.txt and the revised data table.
+2. **taxon_rank** Taxonomic rank of the organism determined from the resove_taxa function.
+3. **taxon_name** A list of all the unique taxa present in the revised data table.
+4. **authority_system** Name of the system assigning the taxonID.
+5. **authority_taxon_id** The TSN of the taxon from the corresponding authority system.
+
+
+## Step 6: Create metadata
+
+Now that you have cleaned up your taxonomic data it is time to document it (Figure 4). Adding this taxonomic information to the metadata of your dataset will improve discoverability and allow searches on the rank specific information of your data.
+
 ![](https://github.com/EDIorg/taxonomyCleanr/blob/master/documentation/make_eml.png)
+Figure 4: Make the taxonomicCoverage EML element for your data.
 
-
-
-
-
-
-
-
-### Step 4: Resolve names
+Create the taxonomicCoverage EML element by calling on the `make_taxonomicCoverage` function. It requires these arguments:
+1. **path** A path of the directory containing the file *taxon.txt*
 
 ```
-# Resolve taxonomic names
-resolve_names(path = "C:\\Users\\Colin\\Documents\\EDI\\data_sets\\plant_data",
-              data.file = "e249_Plant_aboveground_biomass_data",
-              taxon.col = "Species",
-              method = "interactive")
-```
+# View documentation for this function
+?make_taxonomicCoverage
 
-
-### Step 5: Resolve names
+# Create the taxonomicCoverage EML element for your data
+make_taxonomicCoverage(path = "/Users/csmith/Desktop/taxonomy_dataset")
 
 ```
-# Update data
-update_data(path = "C:\\Users\\Colin\\Documents\\EDI\\data_sets\\plant_data",
-              data.file = "e249_Plant_aboveground_biomass_data",
-              taxon.col = "Species")
-```
 
-### Step 6: make taxonomicCoverage
+Output to your working directory is the file taxonomicCoverage.xml which contains the taxonomic information in the EML format. The information of this file is incorporated into the EML for your dataset using the [`EMLassemblyline`](https://github.com/EDIorg/EMLassemblyline).
 
-```
-# Make taxonomicCoverage EML snippet
-make_taxonomicCoverage(path = "C:\\Users\\Colin\\Documents\\EDI\\data_sets\\plant_data")
-```
+Once you've created the EML metadata for your dataset you can upload your data package (data + metadata) to the [Environmental Data Initiative repository](https://portal.edirepository.org/nis/home.jsp). Contact EDI to obtain a user account for the data portal at info@environmentaldatainitiative.org).
