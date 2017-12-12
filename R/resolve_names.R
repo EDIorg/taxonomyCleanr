@@ -281,6 +281,21 @@ resolve_names <- function(path, data.file, taxon.col, method){
 
     all_resolved_names <- all_resolved_names[ ,-4]
 
+    # Write results to file -------------------------------------------------------
+
+    message('Writing results to "taxon_map.txt".')
+
+    write.table(all_resolved_names,
+                file = paste(path,
+                             "/",
+                             "taxon_map.txt",
+                             sep = ""),
+                col.names = T,
+                row.names = F,
+                sep = "\t",
+                eol = "\r\n",
+                quote = F)
+
 
 
 
@@ -289,12 +304,7 @@ resolve_names <- function(path, data.file, taxon.col, method){
 
   } else if (method == "manual"){
 
-
-
-
-    stop('This method is not yet supported. Please select "automatic" or "interactive"')
-
-    message('Method = "interactive"')
+    message('Method = "manual"')
 
     # Select authority ------------------------------------------------------------
 
@@ -345,138 +355,221 @@ resolve_names <- function(path, data.file, taxon.col, method){
     use_i <- data_L0 %in% unique(gnr_out[["user_supplied_name"]])
     unidentified_taxa <- data_L0[!use_i]
 
+    # data_out <- data.frame(user_supplied_name = character(0),
+    #                        authority_match = character(0),
+    #                        authority_name = character(0),
+    #                        name_usage = character(0),
+    #                        authority_taxon_id = character(0),
+    #                        stringsAsFactors = F)
+
     ut_out <- data.frame(user_supplied_name = character(0),
                          authority_match = character(0),
                          authority_name = character(0),
-                         do_not_use = character(0),
+                         name_usage = character(0),
+                         authority_taxon_id = character(0),
                          stringsAsFactors = F)
 
-    for (i in 1:length(data_source)){
-      comm2sci_reply <- comm2sci(commnames = unidentified_taxa, db = data_sources$title[i])
-      if (length(comm2sci_reply) != 0){
-        for (j in 1:length(comm2sci_reply)){
-          usn <- names(comm2sci_reply)[j]
-          if (identical(comm2sci_reply[[j]], character(0))){
-            mn <- "could not be resolved"
-          } else {
-            mn <- comm2sci_reply[[j]]
-          }
-          dst <- data_sources$title[i]
-          usn <- rep(usn, length(mn))
-          dst <- rep(dst, length(mn))
-          utr <- rep("", length(mn))
-          dat_out <- data.frame(user_supplied_name = usn,
-                                authority_match = mn,
-                                authority_name = dst,
-                                do_not_use = utr,
-                                stringsAsFactors = F)
-          ut_out <- rbind(ut_out, dat_out)
+    if (!identical(unidentified_taxa, character(0))){
+      for (i in 1:length(unidentified_taxa)){
+        comm2sci_reply <- as.data.frame(terms(query = unidentified_taxa[i],
+                                              what = "common"))
+        if (!isTRUE((dim(comm2sci_reply)[1] == 0) & (dim(comm2sci_reply)[2] == 0))){
+          ut_out <- rbind(ut_out,
+                          data.frame(user_supplied_name = unidentified_taxa[i],
+                                     authority_match = comm2sci_reply$scientificName,
+                                     authority_name = "ITIS",
+                                     name_usage = comm2sci_reply$nameUsage,
+                                     authority_taxon_id = comm2sci_reply$tsn))
+        } else if ((isTRUE((dim(comm2sci_reply)[1] == 0) & (dim(comm2sci_reply)[2] == 0)))){
+          ut_out <- rbind(ut_out,
+                          data.frame(user_supplied_name = unidentified_taxa[i],
+                                     authority_match = "",
+                                     authority_name = "",
+                                     name_usage = "",
+                                     authority_taxon_id = ""))
         }
       }
     }
 
-    # Prompt user to select from list of resolvable options
 
-    if (dim(ut_out)[1] != 0){
-      ut_out <- ut_out[order(ut_out$user_supplied_name), ]
-      ut_out$authority_name <- toupper(ut_out$authority_name)
 
-      ut_out2 <- data.frame(user_supplied_name = character(0),
-                            authority_match = character(0),
-                            authority_name = character(0),
-                            do_not_use = character(0),
-                            stringsAsFactors = F)
-      uni_supplied_names <- unique(ut_out$user_supplied_name)
-      for (i in 1:length(uni_supplied_names)){
-        use_i <- ut_out$user_supplied_name == uni_supplied_names[i]
-        hold <- ut_out[use_i, ]
-        ut_out2 <- rbind(ut_out2, hold)
-      }
-      use_i <- ut_out2$authority_match == "could not be resolved"
-      ut_out2 <- ut_out2[!use_i, ]
 
-      ut_out3 <- data.frame(user_supplied_name = character(0),
-                            authority_match = character(0),
-                            authority_name = character(0),
-                            do_not_use = character(0),
-                            stringsAsFactors = F)
-      uni_supplied_names <- unique(ut_out2$user_supplied_name)
+    # for (i in 1:length(data_source)){
+    #   comm2sci_reply <- comm2sci(commnames = unidentified_taxa, db = data_sources$title[i])
+    #   if (length(comm2sci_reply) != 0){
+    #     for (j in 1:length(comm2sci_reply)){
+    #       usn <- names(comm2sci_reply)[j]
+    #       if (identical(comm2sci_reply[[j]], character(0))){
+    #         mn <- "could not be resolved"
+    #       } else {
+    #         mn <- comm2sci_reply[[j]]
+    #       }
+    #       dst <- data_sources$title[i]
+    #       usn <- rep(usn, length(mn))
+    #       dst <- rep(dst, length(mn))
+    #       utr <- rep("", length(mn))
+    #       dat_out <- data.frame(user_supplied_name = usn,
+    #                             authority_match = mn,
+    #                             authority_name = dst,
+    #                             do_not_use = utr,
+    #                             stringsAsFactors = F)
+    #       ut_out <- rbind(ut_out, dat_out)
+    #     }
+    #   }
+    # }
+    #
+    # # Prompt user to select from list of resolvable options
+    #
+    # if (dim(ut_out)[1] != 0){
+    #   ut_out <- ut_out[order(ut_out$user_supplied_name), ]
+    #   ut_out$authority_name <- toupper(ut_out$authority_name)
+    #
+    #   ut_out2 <- data.frame(user_supplied_name = character(0),
+    #                         authority_match = character(0),
+    #                         authority_name = character(0),
+    #                         do_not_use = character(0),
+    #                         stringsAsFactors = F)
+    #   uni_supplied_names <- unique(ut_out$user_supplied_name)
+    #   for (i in 1:length(uni_supplied_names)){
+    #     use_i <- ut_out$user_supplied_name == uni_supplied_names[i]
+    #     hold <- ut_out[use_i, ]
+    #     ut_out2 <- rbind(ut_out2, hold)
+    #   }
+    #   use_i <- ut_out2$authority_match == "could not be resolved"
+    #   ut_out2 <- ut_out2[!use_i, ]
+    #
+    #   ut_out3 <- data.frame(user_supplied_name = character(0),
+    #                         authority_match = character(0),
+    #                         authority_name = character(0),
+    #                         do_not_use = character(0),
+    #                         stringsAsFactors = F)
+    #   uni_supplied_names <- unique(ut_out2$user_supplied_name)
+    #
+    #   for (i in 1:length(uni_supplied_names)){
+    #     hold <- c()
+    #     use_i <- ut_out2$user_supplied_name == uni_supplied_names[i]
+    #     hold <- ut_out2[use_i, ]
+    #     rownames(hold) <- seq(nrow(hold))
+    #     print(hold[ , 1:2])
+    #     print("Reference the list of matches above")
+    #     answer <- readline("Enter the row number of the correct match for your data: ")
+    #     print(paste("You selected ...", hold$authority_match[as.integer(answer)]))
+    #     ut_out3 <- rbind(ut_out3, hold[as.integer(answer), ])
+    #   }
+    #   ut_out <- ut_out3
+    # }
 
-      for (i in 1:length(uni_supplied_names)){
-        hold <- c()
-        use_i <- ut_out2$user_supplied_name == uni_supplied_names[i]
-        hold <- ut_out2[use_i, ]
-        rownames(hold) <- seq(nrow(hold))
-        print(hold[ , 1:2])
-        print("Reference the list of matches above")
-        answer <- readline("Enter the row number of the correct match for your data: ")
-        print(paste("You selected ...", hold$authority_match[as.integer(answer)]))
-        ut_out3 <- rbind(ut_out3, hold[as.integer(answer), ])
-      }
-      ut_out <- ut_out3
-    }
 
 
 
 
     # Combine resolvable names (scientific and common) ----------------------------
 
-    if ((exists("data_out") & exists("ut_out")) == T){
-      all_resolved_names <- rbind(data_out, ut_out)
-    } else if ((exists("data_out") & !exists("ut_out")) == T){
+    if (exists("data_out")){
       all_resolved_names <- data_out
-    } else if ((exists("ut_out") & !exists("data_out")) == T){
-      all_resolved_names <- ut_out
-    }
 
+      # Add authority_taxon_id to all_resolved_names (only supported for ITIS right now)
 
+      message('Identifying taxonomic serial numbers.')
 
-    # Add authority_taxon_id to all_resolved_names (only supported for ITIS right now)
-    # get_tsn only works for ITIS. Could add other db options.
+      all_resolved_names$authority_taxon_id <- character(nrow(all_resolved_names))
+      colnames(all_resolved_names) <- c("user_supplied_name",
+                                        "authority_match",
+                                        "authority_name",
+                                        "name_usage",
+                                        "authority_taxon_id")
 
-    message('Identifying taxonomic serial numbers.')
+      data_out <- data.frame(user_supplied_name = character(0),
+                             authority_match = character(0),
+                             authority_name = character(0),
+                             name_usage = character(0),
+                             authority_taxon_id = character(0),
+                             stringsAsFactors = F)
 
-    all_resolved_names$authority_taxon_id <- character(nrow(all_resolved_names))
-
-    for (i in 1:length(all_resolved_names$authority_match)){
-      info <- suppressWarnings(get_tsn(searchterm = all_resolved_names$authority_match[i],
-                                       searchtype = "scientific",
-                                       accepted = T,
-                                       ask = F))
-      if (attr(info, "match") == "found"){
-        all_resolved_names$authority_taxon_id[i] <- info[1]
-      } else {
+      for (i in 1:length(all_resolved_names$authority_match)){
         info <- suppressWarnings(get_tsn(searchterm = all_resolved_names$authority_match[i],
                                          searchtype = "scientific",
                                          accepted = T,
-                                         ask = T))
-        all_resolved_names$authority_taxon_id[i] <- info[1]
+                                         ask = F))
+        if (attr(info, "match") == "found"){
+          all_resolved_names$authority_taxon_id[i] <- info[1]
+          all_resolved_names$name_usage[i] <- "accepted"
+          data_out <- rbind(data_out,
+                            all_resolved_names[i, ])
+        } else {
+          info <- suppressWarnings(terms(query = all_resolved_names$authority_match[i],
+                                         what = "scientific"))
+          info <- as.data.frame(info)
+          if (!isTRUE((dim(info)[1] == 0) & (dim(info)[2] == 0))){
+            data_out <- rbind(data_out,
+                              data.frame(user_supplied_name = all_resolved_names$user_supplied_name[i],
+                                         authority_match = info$scientificName,
+                                         authority_name = "ITIS",
+                                         name_usage = info$nameUsage,
+                                         authority_taxon_id = info$tsn))
+          } else if ((isTRUE((dim(info)[1] == 0) & (dim(info)[2] == 0)))){
+            data_out <- rbind(data_out,
+                              data.frame(user_supplied_name = all_resolved_names$user_supplied_name[i],
+                                         authority_match = "",
+                                         authority_name = "",
+                                         name_usage = "",
+                                         authority_taxon_id = ""))
+          }
+        }
       }
     }
 
-    # Add taxon_rank to all_resolved_names (only supported for ITIS right now) ----
+    # Combine resolved scientific and common names
 
-    message('Identifying taxonomic ranks.')
-
-    all_resolved_names$taxon_rank <- character(nrow(all_resolved_names))
-    use_i <- is.na(all_resolved_names$authority_taxon_id)
-    all_resolved_names$authority_taxon_id[use_i] <- ""
-
-    for (i in 1:length(all_resolved_names$authority_match)){
-      info <- all_resolved_names$authority_taxon_id[i]
-      if (!info == ""){
-        info <- itis_taxrank(query = as.numeric(info))
-        all_resolved_names$taxon_rank[i] <- info
-      }
+    if (isTRUE(exists("data_out") & (dim(ut_out)[1] != 0))){
+      data_out <- rbind(ut_out, data_out)
+    } else if (isTRUE(!exists("data_out") & (dim(ut_out)[1] != 0))){
+      data_out <- ut_out
     }
 
-    # Remove donotuse column
+    # Add column to indicate selection then rearrange column order
 
-    all_resolved_names <- all_resolved_names[ ,-4]
+    data_out$selection <- ""
 
+    data_out <- data.frame(selection = data_out$selection,
+                           user_supplied_name = data_out$user_supplied_name,
+                           authority_match = data_out$authority_match,
+                           name_usage = data_out$name_usage,
+                           authority_name = data_out$authority_name,
+                           authority_taxon_id = data_out$authority_taxon_id,
+                           stringsAsFactors = F)
 
+    # Add selection mark to uniquely resolved taxon
 
+    use_i <- !data_out$user_supplied_name %in% data_out$user_supplied_name[duplicated(data_out$user_supplied_name)]
+    data_out$selection[use_i] <- "x"
 
+    # Remove "x" from unique taxon with no info in authority_match column
+
+    use_i <- data_out$authority_match == ""
+    data_out$selection[use_i] <- ""
+
+    # Add space between user_supplied_names to simplify reading
+
+    df_new <- as.data.frame(lapply(data_out, as.character), stringsAsFactors = FALSE)
+    taxon_choices <- do.call(rbind, by(df_new, df_new$user_supplied_name, rbind, ""))
+
+    # Write results to file -------------------------------------------------------
+
+    message('Writing results to "taxon_choices.txt".')
+
+    write.table(taxon_choices,
+                file = paste(path,
+                             "/",
+                             "taxon_choices.txt",
+                             sep = ""),
+                col.names = T,
+                row.names = F,
+                sep = "\t",
+                eol = "\r\n",
+                quote = F)
+
+    message("Done.")
 
 
 
@@ -667,22 +760,24 @@ resolve_names <- function(path, data.file, taxon.col, method){
 
     all_resolved_names <- all_resolved_names[ ,-4]
 
+    # Write results to file -------------------------------------------------------
+
+    message('Writing results to "taxon_map.txt".')
+
+    write.table(all_resolved_names,
+                file = paste(path,
+                             "/",
+                             "taxon_map.txt",
+                             sep = ""),
+                col.names = T,
+                row.names = F,
+                sep = "\t",
+                eol = "\r\n",
+                quote = F)
+
   }
 
-  # Write results to file -------------------------------------------------------
 
-  message('Writing results to "taxon_map.txt".')
-
-  write.table(all_resolved_names,
-              file = paste(path,
-                           "/",
-                           "taxon_map.txt",
-                           sep = ""),
-              col.names = T,
-              row.names = F,
-              sep = "\t",
-              eol = "\r\n",
-              quote = F)
 
 }
 
