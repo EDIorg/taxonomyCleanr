@@ -1,6 +1,6 @@
 # taxonomyCleanr
 
-Taxonomic data can be challenging to work with. Some of these challenges include incorrect spelling, use of non-accepted names, colloquial terms, synonyms, and generally ambiguity in what a taxa actually is. This R package helps you resolve taxonomic data to a taxonomic authority.
+Taxonomic data can be challenging to work with. Some of these challenges include incorrect spelling, use of non-accepted names, colloquial terms, synonyms, and generally ambiguity in what a taxa actually is. This R package helps you solve some of these issues and resolve your taxonomic data to a taxonomic authority.
 
 ## Getting started
 
