@@ -1,6 +1,6 @@
 # taxonomyCleanr
 
-Taxonomic data can be messy and challenging to work with. Incorrect spelling, the use of common names, unaccepted names, and synonyms, contribute to ambiguity in what a taxon actually is. This R package helps you resolve taxonomic data to a taxonomic authority and to get the accepted names and taxonomic serial numbers for your taxa.
+Taxonomic data can be messy and challenging to work with. Incorrect spelling, the use of common names, unaccepted names, and synonyms, contribute to ambiguity in what a taxon actually is. This R package helps you resolve taxonomic data to a taxonomic authority, get accepted names and taxonomic serial numbers, as well as create metadata for your taxa in the Ecological Metadata Language (EML) format.
 
 ## Getting started
 
