@@ -2,15 +2,15 @@
 
 ### Overview
 
-The process of cleaning and documenting your taxonomy data is rather straight forward (Figure 1). After some initial preparations you send your data through the `resolve_taxa` function to correct spelling errors, get taxonomic serial numbers (TSN), and taxa ranks. The outputs of this step are then passed to the `update_data` function that creates a revision of your raw data containing the resolved taxonomic data obtained in the previous step. You then run the `make_taxonomicCoverage` function to create the EML metadata tree containing all the rank specific information of your taxonomy data. The .xml output is later incorporated into the full EML metadata document you create with the [`EMLassemblyline`](https://github.com/EDIorg/EMLassemblyline) or [`ecocomDP`](https://github.com/EDIorg/ecocomDP) R packages.
+The process of cleaning your taxonomy data and generating the associated metadata is rather straight forward (Figure 1). After some initial data preparations, you'll send your taxa list through `resolve_taxa` to correct spelling errors, get taxonomic serial numbers (TSN) and taxanomic ranks. You'll then pass the output of `resolve_taxa` to `update_data` to create a revision of your raw data containing the cleaned taxa. You then pass the `update_data` to `make_taxonomicCoverage` function to create the taxonomicCoverage EML metadata element. The resultant taxonomicCoverage.xml file is later incorporated into the full EML metadata you will create for your dataset using the [`EMLassemblyline`](https://github.com/EDIorg/EMLassemblyline) or [`ecocomDP`](https://github.com/EDIorg/ecocomDP) R packages.
 
 ![](https://github.com/EDIorg/taxonomyCleanr/blob/master/documentation/overview.png)
 
-Figure 1: An overview of cleaning and documenting your taxonomy data with the taxonomyCleanr R package.
+Figure 1: An overview of the taxa cleaning and documenting process.
 
 #### Installation
 
-Install from the GitHub.
+Install the `taxonomyCleanr` from the GitHub.
 
 ```
 # Install and load devtools
@@ -24,7 +24,7 @@ library(taxonomyCleanr)
 
 ### Step 1: Create a directory for your dataset
 
-Create a new directory for your dataset. This is where outputs from the taxonomyCleanr will be stored. Name this directory after your dataset. Replace spaces with underscores (e.g. `name of your directory` should be `name_of_your_directory`).
+Create a new directory for your dataset. This is where outputs from the `taxonomyCleanr` will be stored. Name this directory after your dataset. Replace spaces with underscores (e.g. `name of your directory` should be `name_of_your_directory`).
 
 ### Step 2: Move your dataset to the directory
 
@@ -39,10 +39,9 @@ Rename these files following these rules:
 
 e.g. `name.of.(your) d@t@.file` should be `name_of_your_data_file`
 
-
 ### Step 3: Format table and column names
 
-The input data to `taxonomyCleanr` must be a table composed of columns containing variables (row 1) and rows containing observations (rows 2, 3, 4, ...). Column names must follow these rules:
+The input data to `taxonomyCleanr` must be a table composed of columns containing variables (first row) and rows containing observations (subsequent rows). Column names must follow these rules:
 
 * replace symbols with words
 * replace parentheses with underscores
@@ -51,27 +50,34 @@ The input data to `taxonomyCleanr` must be a table composed of columns containin
 
 e.g. `land.cover.use (%)` should be `percent_land_cover_use`
 
-### Step 4: Resolve to a taxonomic authority
+### Step 4: Format taxonomy data
 
-Currently `taxonomyCleanr` resolves against the [Integrated Taxonomic Information System (ITIS)](https://www.itis.gov/). Additional authority options will be available soon.
+Your taxonomy data must be contained within a single column and may contain a mix of:
+* Species binomials
+* Rank specific names
+* Common names
 
-Correct spelling errors, get taxonomic serial numbers (TSN), and obtain taxa ranks for your data. There are 3 methods for for doing this (Figure 2):
+### Step 5: Resolve to a taxonomic authority
+
+Currently `taxonomyCleanr` resolves against the [Integrated Taxonomic Information System (ITIS)](https://www.itis.gov/). Additional authority options will be made available soon.
+
+Correct spelling errors, get taxonomic serial numbers (TSN), and obtain taxa ranks for your data. There are 3 methods for accomplishing this (Figure 2):
 
 ![](https://github.com/EDIorg/taxonomyCleanr/blob/master/documentation/resolve_taxa.png)
 Figure 2: The 3 methods by which you may resolve your taxonomy data to an authority.
 
-1. **Manual** Use this option if you are not in a position to pass judgement on the taxonomic data. This is a good option if you are a data manager helping a data provider clean their taxonomy data. However, this may be good option for you if you can pass judgement on the taxonomic data (see notes on the interactive method below). The output of manual mode is the taxon_choices.txt file which is a tab delimited table containing the unique taxa of the raw data with corresponding options to select from. After someone has passed through this table selected the correct matches, this file is converted to taxon_map.txt with the `choices2map` function. taxon_map.txt contains the relationships between your raw taxa data and your resolved taxa data.
-2. **Interactive** Use this option if you are in a position to pass judgement on the correct identification of the taxa contained in the dataset you are cleaning. When `resolve_taxa` encounters ambiguity with a taxon you will be prompted to select the correct taxon from a list. Your selections made during this interactive session with the RStudio Console window will be recorded to the taxon_map.txt file containing the relationships between your raw taxa data and your resolved taxa data. This option has a few issues you should be aware of:
-    + You can not stop and save your work part way through the name resolution process and resume at a later time. You will have to start over from the beginning, which may be cumbersome for large taxa lists.
+1. **Manual** Use this option if you are not able to pass judgement on the taxa. This is a good option if you are a data manager helping a data provider clean their taxa. However, this is also a good option if you can pass judgement on the taxonomic data (see notes on short comings of the interactive method below). The output of the manual method is the taxon_choices.txt file, a tab delimited table containing the raw taxa list with corresponding authority resolved options to select from. After the manual selection process has completed, taxon_choices.txt is converted to taxon_map.txt using `choices2map`. taxon_map.txt contains the relationships between your raw taxa and your authority resolved taxa.
+2. **Interactive** Use this option if you are able to pass judgement on the correct identification of the taxa contained in the dataset you are cleaning. When `resolve_taxa` encounters multiple authority options for a taxon you will be prompted to select which option to use. Selections made during this interactive session will be recorded to the taxon_map.txt file containing the relationships between your raw taxa and your authority resolved taxa. This option has a few issues to be aware of:
+    + You cannot stop and save your work part way through the name resolution process and resume later. You will have to start over from the beginning, which may be cumbersome for large taxa lists.
     + If you want to revisit the options for a single taxon, you will have to revisit and pass judgement on all the other taxon that don't have issues.
-    + There is no way to reverse a decision made during the interactive mode. Once you select a taxon and press enter, there is no way to change your input.
-3. **Automatic** Use this option if you are not in a position to pass judgement on the taxonomic data, and don't have a data provider to select any options that may arise if there are multiple options for a taxon. This option resolves the fewest number of input taxa to an authority but is sometimes the best option.
+    + There is no way to reverse a decision made during the interactive session. Once you select a taxon and press enter, there is no way to change your input.
+3. **Automatic** Use this option if you are able to pass judgement on the taxa, and don't have a data provider to work with in selecting from multiple options when they arise. This option resolves the fewest number of taxa to an authority but is sometimes the only option.
 
-The `resolve_taxa` function requires a few arguments:
-1. **path** A path of the directory containing the data table containing taxonomic information.
-2. **data.file** Name of the input data table containing the taxonomic data.
-3. **taxon.col** Name of the column containing the taxonomic names including species binomials, rank specific names, and or common names.
-4. **method** Method for resolving your taxonomic data against an authority. There are 3 options (see above for descriptions):
+`resolve_taxa` requires a few arguments:
+* **path** A path of the directory containing the taxonomy data table.
+* **data.file** Name of the data table containing the taxonomy data.
+* **taxon.col** Name of the column in data.file containing the taxa.
+* **method** Method for resolving your taxa to an authority. There are 3 options (see above for descriptions):
     + manual
     + interactive
     + automatic
@@ -88,85 +94,83 @@ resolve_taxa(path = "/Users/csmith/Desktop/taxonomy_dataset",
 
 ```
 
-Your working directory now contains the tab delimited taxon_choices.txt file. Open this with a spreadsheet editor. This file contains the columns:
-1. **selection** A column for marking which matches you want to make between your raw taxon name and the authority match.
-2. **user_supplied_name** Containing the unique taxa from your raw dataset. Each taxon is listed once if there is only one authority match. The name listed in this column will be repeated for each authority match that is available for you to select from.
-3. **authority_match** List of possible matches between the user supplied raw taxon data and the authority match.
-4. **name_usage** An indication of whether the authority match is accepted, not accepted or valid.
-5. **authority_name** Name of the authority queried. As of now only ITIS is supported.
-6. **authority_taxon_id** The taxonomic serial number provided by the taxonomic authority.
-Now select which matches to make between your user supplied taxon names and the corresponding authority match. Select one match for each unique user supplied name by entering `x` in the *selection* column and on the line you want for the match. You should use matches that are *accepted* over matches that are *valid* or *not accepted*. NOTE: 
-    + An `x` has been added to rows where there is no ambiguity in what the user supplied taxon is (you don't need to add an `x` here).
-    + When no authority match could be made you will see empty values in the *authority_match*, *name_usage*, *authority_name*, and *authority_taxon_id* columns. You may want to conduct a manual search of ITIS to see if you can find a match. If found, simply add this information to the taxon_choices.txt file. If you can't find a match then leave the file contents as is. There is no harm in leaving this information in the file.
-    + A blank line has been added between each group of potential authority matches to a single user supplied taxon. This helps with the readability of the files content.
+This function call will output the tab delimited taxon_choices.txt file to your dataset directory. Open this with a spreadsheet editor. This file contains the columns:
+* **selection** A column for marking which matches you want to make between your raw taxa and the list of authority matches.
+* **user_supplied_name** Contains the unique taxa from your raw data table. Each taxon is listed once if there is only one authority match. Each taxon is repeated if there is more than one authority match.
+* **authority_match** Contains the possible authority matches for taxa listed in the user_supplied_name column. There may be more than one authority match for each of your user supplied names.
+* **name_usage** Indicates whether the authority match is accepted, not accepted or valid for your user supplied name.
+* **authority_name** Contains the authority name from which the authority match was derived from. Only ITIS is currently supported.
+* **authority_taxon_id** The taxonomic serial number provided by the taxonomic authority for an authority match to your user supplied name.
+Now select which matches to make for your taxa. Select one match for each unique user supplied name by entering `x` in the *selection* column and on the line of the match. You should use matches that are *accepted* over matches that are *valid* or *not accepted*. NOTE: 
+    + An `x` has been added to rows where there are no options for selecting a different match.
+    + When no authority match could be made, you will see empty values in the *authority_match*, *name_usage*, *authority_name*, and *authority_taxon_id* columns. You may want to conduct a manual search of ITIS to see if you can find a match and then add this information to the taxon_choices.txt file. If you can't find a match, then leave the contents as is. There is no harm in leaving this information in the file.
+    + A blank line has been added between each user supplied taxa that has multiple authority matches. This improves the readability of taxon_choices.txt.
     
-Once you've completed the manual match selection process, you will need to create the taxon_map.txt file. Do this using the `choices2map` function. This function requires one argument:
-
-1. **path** A path of the directory containing the taxon_choices.txt file.
+Once you've completed the manual selection process, you will need to create the taxon_map.txt file. Use `choices2map` to do this. `choices2map` requires one argument:
+* **path** A path of the directory containing the taxon_choices.txt file.
 
 ```
 # View documentation for this function
 ?choices2map
 
-# Run the choices2map function to convert taxon_choices.txt to taxon_map.txt
+# Run choices2map to convert taxon_choices.txt to taxon_map.txt
 choices2map(path = "/Users/csmith/Desktop/taxonomy_dataset")
 
 ```
-This function outputs the taxon_map.txt containing the relationships between your raw taxonomic data, the authority matched taxa, and corresponding TSNs, and taxon ranks. Open this tab delimited file in a spreadsheet editor. The fields of taxon_map.txt are:
-1. **user_supplied_name** Containing the unique taxa from your raw dataset.
-2. **authority_match** Containing the authority recognized match.
-3. **authority_name** Name of the authority from which the match came from.
-4. **authority_taxon_id** The taxonomic serial number provided by the taxonomic authority. If this field is blank you may want to look up the authority match in ITIS and see if you can find the TSN for this taxon.
-5. **taxon_rank** Rank value of the authority match. If this field is blank you may want to look up the authority match in ITIS and see if you can find the taxon rank for this taxon.
+`choices2map` outputs taxon_map.txt containing the relationships between your raw taxa list, the authority matched taxa, and corresponding TSNs, and taxon ranks. Open this tab delimited file in a spreadsheet editor. The columns of taxon_map.txt are:
+* **user_supplied_name** Containing the unique taxa from your raw dataset.
+* **matched_name** Containing the authority match.
+* **data_source_title** Name of the authority from which the match was made.
+* **authority_taxon_id** The TSN provided by the taxonomic authority. If this field is blank you may want to look up the authority match in ITIS and see if you can find the TSN for this taxon.
+* **taxon_rank** Rank value of the authority match. If this field is blank you may want to look up the authority match in ITIS and see if you can find the associated taxon rank.
 
-## Step 5: Update your raw data table
+## Step 6: Update your raw data
 
-Once you are satisfied with the mapping from your raw taxa to the authority resolved taxa then you may create a revision of your data table with the `update_data` function. This function uses the information in taxon_map.txt to update your raw data (Figure 3).
+Once satisfied with the mapping from your raw taxa list to an authority, you should create a revision of your data with the updated taxa information using `update_data` (Figure 3).
 
 ![](https://github.com/EDIorg/taxonomyCleanr/blob/master/documentation/update_data.png)
-Figure 3: Create a revision of the raw data table using the update_data function, which calls on the relationships contained in taxon_map.txt to create the revised table and the taxon.txt table.
+Figure 3: Update your raw data table with `update_data`, which calls on the relationships contained in taxon_map.txt to create the revised table and the taxon.txt table.
 
 The `update_data` function requires a few arguments:
-1. **path** A path of the directory containing the raw data table.
-2. **data.file** Name of the data table containing the taxonomic data.
-3. **taxon.col** Name of the column containing the taxonomic names including species binomials, rank specific names, and or common names.
+* **path** A path of the directory containing your raw data table.
+* **data.file** Name of the file containing the taxonomy data.
+* **taxon.col** Name of the column containing the taxonomic names including species binomials, rank specific names, and or common names.
 
 ```
 # View documentation for this function
 ?update_data
 
-# Run update_data to create a revision of your raw data table
+# Run update_data to create a revision of the raw data table
 update_data(path = "/Users/csmith/Desktop/taxonomy_dataset",
             data.file = "plant_survey.csv",
             taxon.col = "Species")
             
 ```
 
-Output from this function are 2 tables. A revised version of your raw data appended with a time stamp of when the revision occured and a table named taxon.txt.
+`update_data` outputs a revised version of your raw data appended with a time stamp of when the revision occurred, and outputs a table named taxon.txt with a time stamp. These files are output into the dataset working directory.
 
-The revised table contains these columns:
-1. **taxon.col** The column of your raw data containing the taxa names. Where a new authority resolved name was found this information has replaced the original contents. When no new authority resolved names were found, then the original content is present.
-2. **taxon_rank** The taxon rank of authority resovled taxon information.
-3. **taxon_authority_system** The taxon authority system of resolved taxon information.
-4. **taxon_authority_id** The TSN of the taxon from the corresponding authority.
+The revised data file contains these additional columns:
+* **taxon.col** The column of your raw data table containing the taxa names. Where a new authority resolved name was found this information has replaced the original contents. When no new authority resolved taxa name was found, then the original content remains unaltered.
+* **taxon_rank** The rank of the authority resolved taxa.
+* **taxon_authority_system** The taxonomic authority system used to resolve the taxa.
+* **taxon_authority_id** The TSN of the taxon from the corresponding authority.
 
-taxon.txt is essentially the [taxon table](https://github.com/EDIorg/ecocomDP/blob/master/documentation/model/ecocomDP.png) of the [ecocomDP project](https://github.com/EDIorg/ecocomDP), is used to create the taxonomicCoverage EML element for your metadata, and contains these columns:
-1. **taxon_id** A column that may be used as a key between taxa listed in taxon.txt and the revised data table.
-2. **taxon_rank** Taxonomic rank of the organism determined from the resove_taxa function.
-3. **taxon_name** A list of all the unique taxa present in the revised data table.
-4. **authority_system** Name of the system assigning the taxonID.
-5. **authority_taxon_id** The TSN of the taxon from the corresponding authority system.
+taxon.txt is used to create the taxonomicCoverage EML element for your metadata and is essentially the [taxon table](https://github.com/EDIorg/ecocomDP/blob/master/documentation/model/ecocomDP.png) of the [ecocomDP project](https://github.com/EDIorg/ecocomDP). taxon.txt contains these columns:
+* **taxon_id** A column that may be used as a key between taxa listed in taxon.txt and the revised data table. You have to make the relationship between your data table and the taxon_id column of taxon.txt. It is not automatically done for you.
+* **taxon_rank** Taxonomic rank of the listed taxa.
+* **taxon_name** A list of all the unique taxa present in your revised data table.
+* **authority_system** Name of the taxonomic authority system assigning the TSN.
+* **authority_taxon_id** The TSN of the taxon from the corresponding authority system.
 
+## Step 7: Create the taxonomicCoverage metadata element
 
-## Step 6: Create metadata
-
-Now that you have cleaned up your taxonomic data it is time to document it (Figure 4). Adding this taxonomic information to the metadata of your dataset will improve discoverability and allow searches on the rank specific information of your data.
+Now that you've cleaned up your taxonomic data it is time to document it (Figure 4). Adding your newly cleaned taxonomy data to the metadata of your dataset will improve the discovery of your data.
 
 ![](https://github.com/EDIorg/taxonomyCleanr/blob/master/documentation/make_eml.png)
-Figure 4: Make the taxonomicCoverage EML element for your data.
+Figure 4: Make the taxonomicCoverage EML element for your dataset's taxa.
 
-Create the taxonomicCoverage EML element by calling on the `make_taxonomicCoverage` function. It requires these arguments:
-1. **path** A path of the directory containing the file *taxon.txt*
+Create the taxonomicCoverage EML element by *removing the date-time stamp appended to your taxon.txt file* during the `update_data` step, and by calling on the `make_taxonomicCoverage` function. `make_taxonomicCoverage` requires one argument:
+* **path** A path of the directory containing the file *taxon.txt*.
 
 ```
 # View documentation for this function
@@ -178,5 +182,9 @@ make_taxonomicCoverage(path = "/Users/csmith/Desktop/taxonomy_dataset")
 ```
 
 Output to your working directory is the file taxonomicCoverage.xml which contains the taxonomic information in the EML format. The information of this file is incorporated into the EML for your dataset using the [`EMLassemblyline`](https://github.com/EDIorg/EMLassemblyline).
+
+## Step 8: Create EML metadata for your entire dataset and upload to EDI's respository
+
+Create EML metadata for your dataset using the [`EMLassemblyline`](https://github.com/EDIorg/EMLassemblyline).
 
 Once you've created the EML metadata for your dataset you can upload your data package (data + metadata) to the [Environmental Data Initiative repository](https://portal.edirepository.org/nis/home.jsp). Contact EDI to obtain a user account for the data portal at info@environmentaldatainitiative.org).
