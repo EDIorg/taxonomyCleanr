@@ -1,6 +1,6 @@
 # taxonomyCleanr
 
-Taxonomic data can be challenging to work with. Some of these challenges include incorrect spelling, use of non-accepted names, colloquial terms, synonyms, and generally ambiguity in what a taxa actually is. This R package helps you solve some of these issues and resolve your taxonomic data to a taxonomic authority.
+Taxonomic data can be messy and challenging to work with. Incorrect spelling, the use of common names, unaccepted names, and synonyms, contribute to ambiguity in what a taxon actually is. This R package helps you resolve taxonomic data to a taxonomic authority and to get the accepted names and taxonomic serial numbers for your taxa.
 
 ## Getting started
 
@@ -8,11 +8,11 @@ Taxonomic data can be challenging to work with. Some of these challenges include
 
 #### Documenation
 
-[Instructions for running these workflows](https://github.com/EDIorg/taxonomyCleanr/blob/master/documentation/instructions.md)
+[Instructions for running the taxonomyCleanr](https://github.com/EDIorg/taxonomyCleanr/blob/master/documentation/instructions.md)
 
 #### R package
 
-`taxonomyCleanr` is a collection of wrapper functions to the `taxize` R package developed by [Chamberlain et al. (2016)](https://github.com/ropensci/taxize). `taxize` contains substantially more functionality than is available in the `taxonomyCleanr`, we recommend you take a look at their fine work.
+`taxonomyCleanr` is a collection of wrapper functions to the `taxize` R package developed by [Chamberlain et al. (2016)](https://github.com/ropensci/taxize). `taxize` contains substantially more functionality than used by the `taxonomyCleanr`. We recommend a browse through the [`taize` documentation](https://cran.r-project.org/web/packages/taxize/taxize.pdf) to see all they have to offer.
 
 The `taxonomyCleanr` R package is available here on GitHub. To install, go to your RStudio Console window and enter these lines of code:
 
@@ -26,11 +26,11 @@ install_github("EDIorg/taxonomyCleanr")
 library(taxonomyCleanr)
 ```
 
-Now reference the documentation listed above to start operating the `taxonomyCleaner`.
+Now follow [these instructions](https://github.com/EDIorg/taxonomyCleanr/blob/master/documentation/instructions.md) to begin operating the `taxonomyCleaner`.
 
 ## Running the tests
 
-We have not yet formalized our testing.
+Our tests will be made availble soon!
 
 ## Contributing
 
@@ -38,7 +38,7 @@ We welcome contributions of all forms including code, bug reports, and requests 
 
 ## Versioning
 
-No released versions of `taxonomyCleanr` are yet available.
+Verioning for the `taxonomyCleanr` follows [semantic versioning](https://semver.org/). `taxonomyCleanr` is ready for use but is in a pre-release version. Once some final features have been added and testing complete, the production version 1.0.0 will be released.
 
 ## Authors
 
