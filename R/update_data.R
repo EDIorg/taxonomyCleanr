@@ -20,8 +20,14 @@
 #' @return
 #'     A copy of your data table containing revised taxonomic data (for those
 #'     taxa that could be resolved, non-resolved taxa are not updated). The
-#'     copy of your data is appended with \emph{taxon_cleaned_} and the current
-#'     date-time stamp. This copy is made in the directory specified by path.
+#'     copy of your data is appended with the current date-time stamp. This
+#'     copy is made in the directory specified by path.
+#'
+#'     A tab delimited file \emph{taxon.txt} appended with the current
+#'     date-time stamp. This date-time stamp links the revised table and
+#'     \emph{taxon.txt} together. \emph{taxon.txt} is used by
+#'     \code{make_taxonomicCoverage} to create the taxonomicCoverage EML tree
+#'     for your taxa.
 #'
 #' @export
 #'
@@ -29,6 +35,8 @@
 update_data <- function(path, data.file, taxon.col){
 
   # Check arguments and parameterize ------------------------------------------
+
+  message('Checking arguments.')
 
   if (missing(path)){
     stop('Input argument "path" is missing! Specify the path to your dataset working directory.')
@@ -70,7 +78,7 @@ update_data <- function(path, data.file, taxon.col){
 
   # Read in data file -----------------------------------------------------------
 
-  print(paste("Reading in ...", data_file))
+  message(paste("Reading", data_file))
 
   data_L0 <- read.table(paste(path, "/", data_file, sep = ""),
                         header = T,
@@ -78,7 +86,11 @@ update_data <- function(path, data.file, taxon.col){
                         as.is = T,
                         na.strings = "NA")
 
-  print("Reading in ... taxon_map.txt")
+  if (!file.exists(paste(path, "/", "taxon_map.txt", sep = ""))){
+    stop("taxon_map.txt doen't exist. It is required for this function to opperate.")
+  }
+
+  message("Reading in taxon_map.txt")
 
   taxon_map <- read.table(paste(path, "/", "taxon_map.txt", sep = ""),
                           header = T,
@@ -88,7 +100,9 @@ update_data <- function(path, data.file, taxon.col){
 
   # Add columns and write to file ---------------------------------------------
 
-  print("Adding new columns ... taxon_name, taxon_rank, authority_system, authority_taxon_id")
+  message(paste0("Revising taxa listed in ", '\"', taxon.col, '\" column.'))
+
+  message("Adding new columns: taxon_rank, authority_system, authority_taxon_id")
 
   new_df <- data.frame(taxon_name = character(nrow(data_L0)),
                        taxon_rank = character(nrow(data_L0)),
@@ -124,6 +138,8 @@ update_data <- function(path, data.file, taxon.col){
   new_file_name <- str_replace(new_file_name, ":", "")
   new_file_name <- str_replace(new_file_name, ":", "")
 
+  message(paste0('Writing ', new_file_name))
+
   write.table(data_out,
               file = paste(path,
                            "/",
@@ -135,6 +151,40 @@ update_data <- function(path, data.file, taxon.col){
               eol = "\r\n",
               quote = F)
 
+
+
+  # Create table for EML taxonomicCoverage element ----------------------------
+
+  use_i <- is.na(taxon_map$authority_taxon_id)
+
+  taxon_table <- data.frame(taxon_id = seq(dim(taxon_map)[1]),
+                            taxon_rank = taxon_map$taxon_rank,
+                            taxon_name = taxon_map$matched_name,
+                            authority_system = taxon_map$data_source_title,
+                            authority_taxon_id = taxon_map$authority_taxon_id,
+                            stringsAsFactors = F)
+
+  new_file_name <- paste("taxon",
+                         "_",
+                         str_replace(Sys.time(), " ", "_"),
+                         file_extension,
+                         sep = "")
+
+  new_file_name <- str_replace(new_file_name, ":", "")
+  new_file_name <- str_replace(new_file_name, ":", "")
+
+  message(paste0('Writing ', new_file_name))
+
+  write.table(taxon_table,
+              file = paste(path,
+                           "/",
+                           new_file_name,
+                           sep = ""),
+              col.names = T,
+              row.names = F,
+              sep = "\t",
+              eol = "\r\n",
+              quote = F)
 
 }
 

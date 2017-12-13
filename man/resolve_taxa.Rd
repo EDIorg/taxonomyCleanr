@@ -63,10 +63,6 @@ A tab delimited file in the dataset working directory titled
     \emph{taxon_map.txt} containing the relationships between your input
     taxon data and the resolved names. This file is used by
     \code{update_data} to update the taxonomic data of your data table.
-
-    A tab delimited file in the dataset working directory titled
-    \emph{taxon.txt}. This file is used to create the taxonomicCoverage
-    element of the EML for your dataset.
 }
 \description{
 Resolve input taxonomoic names against an authority and output a table

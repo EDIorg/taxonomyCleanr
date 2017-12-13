@@ -18,8 +18,14 @@ binomials and common names.}
 \value{
 A copy of your data table containing revised taxonomic data (for those
     taxa that could be resolved, non-resolved taxa are not updated). The
-    copy of your data is appended with \emph{taxon_cleaned_} and the current
-    date-time stamp. This copy is made in the directory specified by path.
+    copy of your data is appended with the current date-time stamp. This
+    copy is made in the directory specified by path.
+
+    A tab delimited file \emph{taxon.txt} appended with the current
+    date-time stamp. This date-time stamp links the revised table and
+    \emph{taxon.txt} together. \emph{taxon.txt} is used by
+    \code{make_taxonomicCoverage} to create the taxonomicCoverage EML tree
+    for your taxa.
 }
 \description{
 Update the taxonomic information in your data table based on the
