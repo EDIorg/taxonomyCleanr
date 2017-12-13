@@ -76,6 +76,31 @@ update_data <- function(path, data.file, taxon.col){
 
   file_extension <- substr(data_file, nchar(data_file)-3, nchar(data_file))
 
+  # Validate taxon.col
+
+  message(paste0("Reading ", data_file, "."))
+
+  data_path <- paste(path,
+                     "/",
+                     data_file,
+                     sep = "")
+
+  data_L0 <- suppressWarnings(read.table(data_path,
+                                         header = TRUE,
+                                         sep = sep,
+                                         quote = "\"",
+                                         as.is = TRUE,
+                                         fill = T,
+                                         comment.char = ""))
+
+  columns <- colnames(data_L0)
+  columns_in <- taxon.col
+  use_i <- str_detect(string = columns,
+                      pattern = str_c("^", columns_in, "$", collapse = "|"))
+  if (sum(use_i) == 0){
+    stop(paste0('Invalid "taxon.col" entered: ', columns_in, ' Please fix this.'))
+  }
+
   # Read in data file -----------------------------------------------------------
 
   message(paste("Reading", data_file))

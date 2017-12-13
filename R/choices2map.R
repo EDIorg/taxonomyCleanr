@@ -54,6 +54,10 @@ choices2map <- function(path){
 
   use_i <- taxon_choices$selection != ""
 
+  if (sum(is.na(use_i)) == dim(taxon_choices)[1]){
+    stop("No selections were made in the taxon_choices.txt file. Please select which raw taxa and authority resolved taxa pairings you'd like to use.")
+  }
+
   the_choosen_ones <- taxon_choices[use_i, ]
 
   # Add taxon_rank to all_resolved_names (only supported for ITIS right now) ----
