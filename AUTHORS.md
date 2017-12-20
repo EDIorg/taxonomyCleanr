@@ -7,4 +7,7 @@
 
 ### Contributors
 
-This project is new and doesn't yet have any contributions from outside the team listed above.
+A special thanks to these folks for their contributions to this project:
+
+* [Stevan Earl](https://sustainability.asu.edu/person/stevan-earl/), for testing and recommending new features.
+
