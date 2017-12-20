@@ -66,8 +66,8 @@ Correct spelling errors, get taxonomic serial numbers (TSN), and obtain taxa ran
 ![](https://github.com/EDIorg/taxonomyCleanr/blob/master/documentation/resolve_taxa.png)
 Figure 2: The 3 methods by which you may resolve your taxonomy data to an authority.
 
-1. **Manual** Use this option if you are not able to pass judgement on the taxa. This is a good option if you are a data manager helping a data provider clean their taxa. However, this is also a good option if you can pass judgement on the taxonomic data (see notes on short comings of the interactive method below). The output of the manual method is the taxon_choices.txt file, a tab delimited table containing the raw taxa list with corresponding authority resolved options to select from. After the manual selection process has completed, taxon_choices.txt is converted to taxon_map.txt using `choices2map`. taxon_map.txt contains the relationships between your raw taxa and your authority resolved taxa.
-2. **Interactive** Use this option if you are able to pass judgement on the correct identification of the taxa contained in the dataset you are cleaning. When `resolve_taxa` encounters multiple authority options for a taxon you will be prompted to select which option to use. Selections made during this interactive session will be recorded to the taxon_map.txt file containing the relationships between your raw taxa and your authority resolved taxa. This option has a few issues to be aware of:
+1. **Manual** Use this option if you are not able to pass judgement on the taxa. This is a good option if you are a data manager helping a data provider clean their taxa. However, this is also a good option if you can pass judgement on the taxonomic data (see notes on short comings of the interactive method below). The output of the manual method is the taxon_choices.csv file, a comma delimited table containing the raw taxa list with corresponding authority resolved options to select from. After the manual selection process has completed, taxon_choices.csv is converted to taxon_map.csv using `choices2map`. taxon_map.csv contains the relationships between your raw taxa and your authority resolved taxa.
+2. **Interactive** Use this option if you are able to pass judgement on the correct identification of the taxa contained in the dataset you are cleaning. When `resolve_taxa` encounters multiple authority options for a taxon you will be prompted to select which option to use. Selections made during this interactive session will be recorded to the taxon_map.csv file containing the relationships between your raw taxa and your authority resolved taxa. This option has a few issues to be aware of:
     + You cannot stop and save your work part way through the name resolution process and resume later. You will have to start over from the beginning, which may be cumbersome for large taxa lists.
     + If you want to revisit the options for a single taxon, you will have to revisit and pass judgement on all the other taxon that don't have issues.
     + There is no way to reverse a decision made during the interactive session. Once you select a taxon and press enter, there is no way to change your input.
@@ -94,7 +94,7 @@ resolve_taxa(path = "/Users/csmith/Desktop/taxonomy_dataset",
 
 ```
 
-This function call will output the tab delimited taxon_choices.txt file to your dataset directory. Open this with a spreadsheet editor. This file contains the columns:
+This function call will output the comma delimited taxon_choices.csv file to your dataset directory. Open this with a spreadsheet editor. This file contains the columns:
 * **selection** A column for marking which matches you want to make between your raw taxa and the list of authority matches.
 * **user_supplied_name** Contains the unique taxa from your raw data table. Each taxon is listed once if there is only one authority match. Each taxon is repeated if there is more than one authority match.
 * **authority_match** Contains the possible authority matches for taxa listed in the user_supplied_name column. There may be more than one authority match for each of your user supplied names.
@@ -103,24 +103,24 @@ This function call will output the tab delimited taxon_choices.txt file to your 
 * **authority_taxon_id** The taxonomic serial number provided by the taxonomic authority for an authority match to your user supplied name.
 Now select which matches to make for your taxa. Select one match for each unique user supplied name by entering `x` in the *selection* column and on the line of the match. You should use matches that are *accepted* over matches that are *valid* or *not accepted*. NOTE: 
     + An `x` has been added to rows where there are no options for selecting a different match.
-    + When no authority match could be made, you will see empty values in the *authority_match*, *name_usage*, *authority_name*, and *authority_taxon_id* columns. You may want to conduct a manual search of ITIS to see if you can find a match and then add this information to the taxon_choices.txt file. If you can't find a match, then leave the contents as is. There is no harm in leaving this information in the file.
-    + A blank line has been added between each user supplied taxa that has multiple authority matches. This improves the readability of taxon_choices.txt.
+    + When no authority match could be made, you will see empty values in the *authority_match*, *name_usage*, *authority_name*, and *authority_taxon_id* columns. You may want to conduct a manual search of ITIS to see if you can find a match and then add the associated information to the *authority_name* and *authority_taxon_id* columns of the taxon_choices.csv file (*authority_match* and *name_usage* information is not required). If you can't find a match, then leave the contents as is. There is no harm in leaving this information in the file.
+    + A blank line has been added between each user supplied taxa that has multiple authority matches. This improves the readability of taxon_choices.csv.
     
-Once you've completed the manual selection process, you will need to create the taxon_map.txt file. Use `choices2map` to do this. `choices2map` requires one argument:
-* **path** A path of the directory containing the taxon_choices.txt file.
+Once you've completed the manual selection process, you will need to create the taxon_map.csv file. Use `choices2map` to do this. `choices2map` requires one argument:
+* **path** A path of the directory containing the taxon_choices.csv file.
 
 ```
 # View documentation for this function
 ?choices2map
 
-# Run choices2map to convert taxon_choices.txt to taxon_map.txt
+# Run choices2map to convert taxon_choices.csv to taxon_map.csv
 choices2map(path = "/Users/csmith/Desktop/taxonomy_dataset")
 
 ```
-`choices2map` outputs taxon_map.txt containing the relationships between your raw taxa list, the authority matched taxa, and corresponding TSNs, and taxon ranks. Open this tab delimited file in a spreadsheet editor. The columns of taxon_map.txt are:
+`choices2map` outputs taxon_map.csv containing the relationships between your raw taxa list, the authority matched taxa, and corresponding TSNs, and taxon ranks. Open this comma delimited file in a spreadsheet editor. The columns of taxon_map.csv are:
 * **user_supplied_name** Containing the unique taxa from your raw dataset.
-* **matched_name** Containing the authority match.
-* **data_source_title** Name of the authority from which the match was made.
+* **matched_name** Containing the authority match. If this field is blank you may want to look up the user_supplied_name in ITIS to see if you can find a match. If you do then enter the name in this column.
+* **data_source_title** Name of the authority from which the match was made. If this field is blank you may want to look up the authority match in ITIS. If you find a match enter "ITIS" in th this column.
 * **authority_taxon_id** The TSN provided by the taxonomic authority. If this field is blank you may want to look up the authority match in ITIS and see if you can find the TSN for this taxon.
 * **taxon_rank** Rank value of the authority match. If this field is blank you may want to look up the authority match in ITIS and see if you can find the associated taxon rank.
 
@@ -129,7 +129,7 @@ choices2map(path = "/Users/csmith/Desktop/taxonomy_dataset")
 Once satisfied with the mapping from your raw taxa list to an authority, you should create a revision of your data with the updated taxa information using `update_data` (Figure 3).
 
 ![](https://github.com/EDIorg/taxonomyCleanr/blob/master/documentation/update_data.png)
-Figure 3: Update your raw data table with `update_data`, which calls on the relationships contained in taxon_map.txt to create the revised table and the taxon.txt table.
+Figure 3: Update your raw data table with `update_data`, which calls on the relationships contained in taxon_map.csv to create the revised table and the taxon.txt table.
 
 The `update_data` function requires a few arguments:
 * **path** A path of the directory containing your raw data table.
