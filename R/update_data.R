@@ -2,7 +2,7 @@
 #'
 #' @description
 #'     Update the taxonomic information in your data table based on the
-#'     mapping containted in \emph{taxon_map.txt} created by the \code{resolve_names}
+#'     mapping containted in \emph{taxon_map.csv} created by the \code{resolve_names}
 #'     function.
 #'
 #' @usage
@@ -10,7 +10,7 @@
 #'
 #' @param path
 #'     A path of the directory containing the data table containing taxonomic
-#'     information and the file \emph{taxon_map.txt} for this dataset.
+#'     information and the file \emph{taxon_map.csv} for this dataset.
 #' @param data.file
 #'     Name of the data table containing taxonomic data.
 #' @param taxon.col
@@ -23,9 +23,9 @@
 #'     copy of your data is appended with the current date-time stamp. This
 #'     copy is made in the directory specified by path.
 #'
-#'     A tab delimited file \emph{taxon.txt} appended with the current
+#'     A comma delimited file \emph{taxon.csv} appended with the current
 #'     date-time stamp. This date-time stamp links the revised table and
-#'     \emph{taxon.txt} together. \emph{taxon.txt} is used by
+#'     \emph{taxon.csv} together. \emph{taxon.csv} is used by
 #'     \code{make_taxonomicCoverage} to create the taxonomicCoverage EML tree
 #'     for your taxa.
 #'
@@ -111,15 +111,15 @@ update_data <- function(path, data.file, taxon.col){
                         as.is = T,
                         na.strings = "NA")
 
-  if (!file.exists(paste(path, "/", "taxon_map.txt", sep = ""))){
-    stop("taxon_map.txt doen't exist. It is required for this function to opperate.")
+  if (!file.exists(paste(path, "/", "taxon_map.csv", sep = ""))){
+    stop("taxon_map.csv doen't exist. It is required for this function to opperate.")
   }
 
-  message("Reading in taxon_map.txt")
+  message("Reading in taxon_map.csv")
 
-  taxon_map <- read.table(paste(path, "/", "taxon_map.txt", sep = ""),
+  taxon_map <- read.table(paste(path, "/", "taxon_map.csv", sep = ""),
                           header = T,
-                          sep = "\t",
+                          sep = ",",
                           as.is = T,
                           na.strings = "NA")
 
@@ -173,7 +173,6 @@ update_data <- function(path, data.file, taxon.col){
               col.names = T,
               row.names = F,
               sep = sep,
-              eol = "\r\n",
               quote = F)
 
 

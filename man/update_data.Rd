@@ -8,7 +8,7 @@ update_data(path = "", data.file = "", taxon.col = "")
 }
 \arguments{
 \item{path}{A path of the directory containing the data table containing taxonomic
-information and the file \emph{taxon_map.txt} for this dataset.}
+information and the file \emph{taxon_map.csv} for this dataset.}
 
 \item{data.file}{Name of the data table containing taxonomic data.}
 
@@ -21,14 +21,14 @@ A copy of your data table containing revised taxonomic data (for those
     copy of your data is appended with the current date-time stamp. This
     copy is made in the directory specified by path.
 
-    A tab delimited file \emph{taxon.txt} appended with the current
+    A comma delimited file \emph{taxon.csv} appended with the current
     date-time stamp. This date-time stamp links the revised table and
-    \emph{taxon.txt} together. \emph{taxon.txt} is used by
+    \emph{taxon.csv} together. \emph{taxon.csv} is used by
     \code{make_taxonomicCoverage} to create the taxonomicCoverage EML tree
     for your taxa.
 }
 \description{
 Update the taxonomic information in your data table based on the
-    mapping containted in \emph{taxon_map.txt} created by the \code{resolve_names}
+    mapping containted in \emph{taxon_map.csv} created by the \code{resolve_names}
     function.
 }

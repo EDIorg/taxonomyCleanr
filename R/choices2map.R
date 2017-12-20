@@ -1,20 +1,20 @@
-#' Convert taxon_choices.txt to taxon_map.txt
+#' Convert taxon_choices.csv to taxon_map.csv
 #'
 #' @description
-#'     This function converts the file taxon_choices.txt (created with the
+#'     This function converts the file taxon_choices.csv (created with the
 #'     manual method of \code{resolve_taxa}, and later completed by the user)
-#'     to the file taxon_map.txt (used to update the taxa listed in the raw
+#'     to the file taxon_map.csv (used to update the taxa listed in the raw
 #'     data table).
 #'
 #' @usage
 #'     choices2map(path = "")
 #'
 #' @param path
-#'     A path of the directory containing \emph{taxon_choices.txt}.
+#'     A path of the directory containing \emph{taxon_choices.csv}.
 #'
 #' @return
-#'     A tab delimited file in the dataset working directory titled
-#'     \emph{taxon_map.txt} containing the relationships between your input
+#'     A comma delimited file in the dataset working directory titled
+#'     \emph{taxon_map.csv} containing the relationships between your input
 #'     taxon data and the resolved names. This file is used by
 #'     \code{update_data} to update the taxonomic data of your data table.
 #'
@@ -37,16 +37,16 @@ choices2map <- function(path){
 
   # Read in data file -----------------------------------------------------------
 
-  if (!file.exists(paste(path, "/", "taxon_choices.txt", sep = ""))){
-    stop("taxon_choices.txt doen't exist. Please create it.")
+  if (!file.exists(paste(path, "/", "taxon_choices.csv", sep = ""))){
+    stop("taxon_choices.csv doen't exist. Please create it.")
   }
 
 
-  message("Reading taxon_choices.txt.")
+  message("Reading taxon_choices.csv.")
 
-  taxon_choices <- read.table(paste(path, "/", "taxon_choices.txt", sep = ""),
+  taxon_choices <- read.table(paste(path, "/", "taxon_choices.csv", sep = ""),
                         header = T,
-                        sep = "\t",
+                        sep = ",",
                         as.is = T,
                         na.strings = "NA")
 
@@ -55,7 +55,7 @@ choices2map <- function(path){
   use_i <- taxon_choices$selection != ""
 
   if (sum(is.na(use_i)) == dim(taxon_choices)[1]){
-    stop("No selections were made in the taxon_choices.txt file. Please select which raw taxa and authority resolved taxa pairings you'd like to use.")
+    stop("No selections were made in the taxon_choices.csv file. Please select which raw taxa and authority resolved taxa pairings you'd like to use.")
   }
 
   the_choosen_ones <- taxon_choices[use_i, ]
@@ -73,11 +73,12 @@ choices2map <- function(path){
     if (!info == ""){
       info <- itis_taxrank(query = as.numeric(info))
       the_choosen_ones$taxon_rank[i] <- info
+
     }
   }
 
 
-  # Create taxon.txt ----------------------------------------------------------
+  # Create taxon.csv ----------------------------------------------------------
 
   taxon_map <- data.frame(user_supplied_name = the_choosen_ones$user_supplied_name,
                           matched_name = the_choosen_ones$authority_match,
@@ -87,17 +88,16 @@ choices2map <- function(path){
                           stringsAsFactors = F)
 
 
-  message('Writing taxon_map.txt.')
+  message('Writing taxon_map.csv.')
 
   write.table(taxon_map,
               file = paste(path,
                            "/",
-                           "taxon_map.txt",
+                           "taxon_map.csv",
                            sep = ""),
               col.names = T,
               row.names = F,
-              sep = "\t",
-              eol = "\r\n",
+              sep = ",",
               quote = F)
 
   message('Done.')

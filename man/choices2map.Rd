@@ -2,22 +2,22 @@
 % Please edit documentation in R/choices2map.R
 \name{choices2map}
 \alias{choices2map}
-\title{Convert taxon_choices.txt to taxon_map.txt}
+\title{Convert taxon_choices.csv to taxon_map.csv}
 \usage{
 choices2map(path = "")
 }
 \arguments{
-\item{path}{A path of the directory containing \emph{taxon_choices.txt}.}
+\item{path}{A path of the directory containing \emph{taxon_choices.csv}.}
 }
 \value{
-A tab delimited file in the dataset working directory titled
-    \emph{taxon_map.txt} containing the relationships between your input
+A comma delimited file in the dataset working directory titled
+    \emph{taxon_map.csv} containing the relationships between your input
     taxon data and the resolved names. This file is used by
     \code{update_data} to update the taxonomic data of your data table.
 }
 \description{
-This function converts the file taxon_choices.txt (created with the
+This function converts the file taxon_choices.csv (created with the
     manual method of \code{resolve_taxa}, and later completed by the user)
-    to the file taxon_map.txt (used to update the taxa listed in the raw
+    to the file taxon_map.csv (used to update the taxa listed in the raw
     data table).
 }

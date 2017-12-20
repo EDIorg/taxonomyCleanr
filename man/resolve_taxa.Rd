@@ -59,8 +59,8 @@ are 2 options:
 }}
 }
 \value{
-A tab delimited file in the dataset working directory titled
-    \emph{taxon_map.txt} containing the relationships between your input
+A comma delimited file in the dataset working directory titled
+    \emph{taxon_map.csv} containing the relationships between your input
     taxon data and the resolved names. This file is used by
     \code{update_data} to update the taxonomic data of your data table.
 }

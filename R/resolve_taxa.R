@@ -61,8 +61,8 @@
 #'     }
 #'
 #' @return
-#'     A tab delimited file in the dataset working directory titled
-#'     \emph{taxon_map.txt} containing the relationships between your input
+#'     A comma delimited file in the dataset working directory titled
+#'     \emph{taxon_map.csv} containing the relationships between your input
 #'     taxon data and the resolved names. This file is used by
 #'     \code{update_data} to update the taxonomic data of your data table.
 #'
@@ -239,22 +239,21 @@ resolve_taxa <- function(path, data.file, taxon.col, method){
 
       # Write results to file -------------------------------------------------------
 
-      message('Writing results to "taxon_map.txt".')
+      message('Writing results to "taxon_map.csv".')
 
       write.table(all_resolved_names,
                   file = paste(path,
                                "/",
-                               "taxon_map.txt",
+                               "taxon_map.csv",
                                sep = ""),
                   col.names = T,
                   row.names = F,
-                  sep = "\t",
-                  eol = "\r\n",
+                  sep = ",",
                   quote = F)
 
     } else {
 
-      message('Unable to resolve taxonomic data. taxon_map.txt was not created.')
+      message('Unable to resolve taxonomic data. taxon_map.csv was not created.')
       message('Done.')
 
     }
@@ -354,77 +353,6 @@ resolve_taxa <- function(path, data.file, taxon.col, method){
     }
 
 
-
-
-    # for (i in 1:length(data_source)){
-    #   comm2sci_reply <- comm2sci(commnames = unidentified_taxa, db = data_sources$title[i])
-    #   if (length(comm2sci_reply) != 0){
-    #     for (j in 1:length(comm2sci_reply)){
-    #       usn <- names(comm2sci_reply)[j]
-    #       if (identical(comm2sci_reply[[j]], character(0))){
-    #         mn <- "could not be resolved"
-    #       } else {
-    #         mn <- comm2sci_reply[[j]]
-    #       }
-    #       dst <- data_sources$title[i]
-    #       usn <- rep(usn, length(mn))
-    #       dst <- rep(dst, length(mn))
-    #       utr <- rep("", length(mn))
-    #       dat_out <- data.frame(user_supplied_name = usn,
-    #                             authority_match = mn,
-    #                             authority_name = dst,
-    #                             do_not_use = utr,
-    #                             stringsAsFactors = F)
-    #       ut_out <- rbind(ut_out, dat_out)
-    #     }
-    #   }
-    # }
-    #
-    # # Prompt user to select from list of resolvable options
-    #
-    # if (dim(ut_out)[1] != 0){
-    #   ut_out <- ut_out[order(ut_out$user_supplied_name), ]
-    #   ut_out$authority_name <- toupper(ut_out$authority_name)
-    #
-    #   ut_out2 <- data.frame(user_supplied_name = character(0),
-    #                         authority_match = character(0),
-    #                         authority_name = character(0),
-    #                         do_not_use = character(0),
-    #                         stringsAsFactors = F)
-    #   uni_supplied_names <- unique(ut_out$user_supplied_name)
-    #   for (i in 1:length(uni_supplied_names)){
-    #     use_i <- ut_out$user_supplied_name == uni_supplied_names[i]
-    #     hold <- ut_out[use_i, ]
-    #     ut_out2 <- rbind(ut_out2, hold)
-    #   }
-    #   use_i <- ut_out2$authority_match == "could not be resolved"
-    #   ut_out2 <- ut_out2[!use_i, ]
-    #
-    #   ut_out3 <- data.frame(user_supplied_name = character(0),
-    #                         authority_match = character(0),
-    #                         authority_name = character(0),
-    #                         do_not_use = character(0),
-    #                         stringsAsFactors = F)
-    #   uni_supplied_names <- unique(ut_out2$user_supplied_name)
-    #
-    #   for (i in 1:length(uni_supplied_names)){
-    #     hold <- c()
-    #     use_i <- ut_out2$user_supplied_name == uni_supplied_names[i]
-    #     hold <- ut_out2[use_i, ]
-    #     rownames(hold) <- seq(nrow(hold))
-    #     print(hold[ , 1:2])
-    #     print("Reference the list of matches above")
-    #     answer <- readline("Enter the row number of the correct match for your data: ")
-    #     print(paste("You selected ...", hold$authority_match[as.integer(answer)]))
-    #     ut_out3 <- rbind(ut_out3, hold[as.integer(answer), ])
-    #   }
-    #   ut_out <- ut_out3
-    # }
-
-
-
-
-
     # Combine resolvable names (scientific and common) ----------------------------
 
     if (exists("data_out")){
@@ -518,17 +446,16 @@ resolve_taxa <- function(path, data.file, taxon.col, method){
 
     # Write results to file -------------------------------------------------------
 
-    message('Writing results to "taxon_choices.txt".')
+    message('Writing results to "taxon_choices.csv".')
 
     write.table(taxon_choices,
                 file = paste(path,
                              "/",
-                             "taxon_choices.txt",
+                             "taxon_choices.csv",
                              sep = ""),
                 col.names = T,
                 row.names = F,
-                sep = "\t",
-                eol = "\r\n",
+                sep = ",",
                 quote = F)
 
     message("Done.")
@@ -724,17 +651,16 @@ resolve_taxa <- function(path, data.file, taxon.col, method){
 
     # Write results to file -------------------------------------------------------
 
-    message('Writing results to "taxon_map.txt".')
+    message('Writing results to "taxon_map.csv".')
 
     write.table(all_resolved_names,
                 file = paste(path,
                              "/",
-                             "taxon_map.txt",
+                             "taxon_map.csv",
                              sep = ""),
                 col.names = T,
                 row.names = F,
-                sep = "\t",
-                eol = "\r\n",
+                sep = ",",
                 quote = F)
 
   }
