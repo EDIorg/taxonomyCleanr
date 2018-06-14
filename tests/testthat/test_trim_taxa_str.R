@@ -44,46 +44,61 @@ testthat::test_that('trim_taxa_str removes white spaces', {
 
 testthat::test_that('trim_taxa_str removes rank abbreviations', {
 
-  # Species
-
-  expect_equal(
-    trim_taxa_str(
-      'Genus Sp.'
-    ),
-    'Genus'
-  )
-
-  expect_equal(
-    trim_taxa_str(
-      'Genus  Sp.'
-    ),
-    'Genus'
-  )
-
-  expect_equal(
-    trim_taxa_str(
-      'Genus Spp.'
-    ),
-    'Genus'
-  )
-
-  expect_equal(
-    trim_taxa_str(
-      'Genus sp.'
-    ),
-    'Genus'
-  )
+  # Common species abbreviations at the genus level
 
   expect_equal(
     trim_taxa_str(
       c(
-        'Genus sp.',
-        'Genus ssp.')
-    ),
+        'Genus S',
+        'Genus S.',
+        'Genus S..',
+        'Genus Sp',
+        'Genus Sp.',
+        'Genus S.p.',
+        'Genus Sp..',
+        'Genus Spp',
+        'Genus   Spp.',
+        'Genus Sp.p.',
+        'Genus S.p.p.',
+        'Genus C',
+        'Genus C.',
+        'Genus C..',
+        'Genus Cf',
+        'Genus Cf.',
+        'Genus C.f.',
+        'Genus Cf..',
+        'Genus    Cff',
+        'Genus Cff.',
+        'Genus Cf.f.',
+        'Genus C.f.f.',
+        'Genus species'
+        )
+      ),
     c(
       'Genus',
-      'Genus'
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus',
+      'Genus species'
       )
-  )
+    )
 
 })

@@ -36,18 +36,16 @@ trim_taxa_str <- function(x){
     'both'
     )
 
-  # Remove rank abbreviations -------------------------------------------------
-
-  # Species
+  # Remove common species abbreviations at the genus level --------------------
 
   x <- str_remove(
     x,
-    '[:space:]+[:alnum:]+\\.$'
+    paste0(
+      '[:space:]+(?i)[s|c]+(\\.*[f|p]*\\.)+$',
+      '|[:space:]+(?i)[s|c]+([f|p]*\\.)+$',
+      '|[:space:]+(?i)[s|c]+([f|p]*)+$',
+      '|[:space:]+(?i)[s|c]+(\\.*[f|p]*)+$')
   )
-
-
-
-
 
   # Return --------------------------------------------------------------------
 
