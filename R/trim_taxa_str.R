@@ -15,8 +15,8 @@
 #'     List of conditions `trim_taxa_str` addresses:
 #'     \itemize{
 #'         \item{'White spaces, trailing and leading'} White spaces are common.
-#'         \item{'Abbreviated values trailing a rank value'} 'Sp.' is an
-#'         example common where a genus is listed but the species in unknown.
+#'         \item{'Species abbreviations trailing a genus value'} E.g. "Sp.",
+#'         "Spp.", "Cf.", "Cf...", etc.
 #'     }
 #'
 #' @return
