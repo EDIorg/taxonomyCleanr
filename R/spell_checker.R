@@ -10,12 +10,11 @@
 #' @param x
 #'     A character string, or vector of character strings, representing taxa
 #'     names.
-#' @param pattern
-#'     A character string, or vector of character strings, representing the
-#'     taxa pattern to be searched.
-#' @param pds
-#'     A vector of character strings representing authorities to query as specified in GNI
-#'     resolver
+#' @param preferred.data.sources
+#'     An ordered numeric vector of ID's corresponding to data sources (i.e.
+#'     taxonomic authorities) you'd like to query, in the order of decreasing
+#'     preference. Run `gnr_datasources()` to get valid data source options
+#'     and ID's.
 #'
 #' @return
 #'     A data frame with the search term, returned value, GNI identification
@@ -25,35 +24,46 @@
 #'
 
 
-spell_checker <- function(x, pattern, pds){
+spell_checker <- function(x, preferred.data.sources){
 
   data_out <- data.frame(
-    search_term = character(length(pattern)),
-    result = character(length(pattern)),
-    source = character(length(pattern)),
-    score = character(length(pattern)),
+    search_term = character(length(x)),
+    result = character(length(x)),
+    source = character(length(x)),
+    id = character(length(x)),
+    score = character(length(x)),
     stringsAsFactors = F
   )
 
-  for (i in 1:length(pattern)){
-    query <- gnr_resolve(
-      x[i],
-      preferred_data_sources = pds,
-      best_match_only = T)
+  for (i in 1:length(x)){
 
-    # query <- gni_search(
-    #   search_term = pattern[i]
-    # )
+    query <- suppressWarnings(
+      gnr_resolve(
+        paste0(
+          x[i],
+          '*'
+          ),
+        resolve_once = T,
+        canonical = T,
+        best_match_only = T,
+        preferred_data_sources = as.character(
+          preferred.data.sources
+          )
+        )
+      )
 
     if (length(query) == 0){
-      data_out[i, 1] <- x[i]
-      data_out[i, 2] <- NA_character_
-      data_out[i, 3] <- NA_character_
+      data_out[i, 'search_term'] <- x[i]
+      data_out[i, 'result'] <- NA_character_
+      data_out[i, 'source'] <- NA_character_
+      data_out[i, 'id'] <- NA_character_
+      data_out[i, 'score'] <- NA_character_
     } else {
-      data_out[i, 1] <- x[i]
-      data_out[i, 2] <- query$matched_name[1]
-      data_out[i, 3] <- query$data_source_title[1]
-      data_out[i, 4] <- query$score[1]
+      data_out[i, 'search_term'] <- x[i]
+      data_out[i, 'result'] <- query$matched_name2[1]
+      data_out[i, 'source'] <- query$data_source_title[1]
+      data_out[i, 'id'] <- NA_character_
+      data_out[i, 'score'] <- query$score[1]
     }
   }
 

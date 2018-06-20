@@ -10,11 +10,10 @@ spell_checker(x, pattern)
 \item{x}{A character string, or vector of character strings, representing taxa
 names.}
 
-\item{pattern}{A character string, or vector of character strings, representing the
-taxa pattern to be searched.}
-
-\item{pds}{A vector of character strings representing authorities to query as specified in GNI
-resolver}
+\item{preferred.data.sources}{An ordered numeric vector of ID's corresponding to data sources (i.e.
+taxonomic authorities) you'd like to query, in the order of decreasing
+preference. Run `gnr_datasources()` to get valid data source options
+and ID's.}
 }
 \value{
 A data frame with the search term, returned value, GNI identification

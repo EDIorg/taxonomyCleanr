@@ -1,14 +1,14 @@
-#' Replace taxon name
+#' Replace taxon
 #'
 #' @description
 #'     Replace a taxon name of a data frame with a user specified name.
 #'
 #' @usage
-#'     update_taxon_name(x, input, output)
+#'     update_taxon_name(x, taxa.col, input, output)
 #'
 #' @param x
 #'     The data frame containing a vector of taxa names to be operated on.
-#' @param col.name
+#' @param taxa.col
 #'     A character string specifying the column name containing taxa names to
 #'     be operated on.
 #' @param input
@@ -23,7 +23,7 @@
 #' @export
 #'
 
-replace_taxon_name <- function(x, col.name, input, output){
+replace_taxon <- function(x, taxa.col, input, output){
 
 
 # Check arguments ---------------------------------------------------------
@@ -34,8 +34,8 @@ replace_taxon_name <- function(x, col.name, input, output){
   if (missing(input)){
     stop('Input argument "input" is missing!')
   }
-  if (missing(col.name)){
-    stop('Input argument "col.name" is missing!')
+  if (missing(taxa.col)){
+    stop('Input argument "taxa.col" is missing!')
   }
   if (missing(output)){
     stop('Input argument "output" is missing!')
@@ -43,11 +43,13 @@ replace_taxon_name <- function(x, col.name, input, output){
 
 # Update taxon ------------------------------------------------------------
 
+  use_i <- x[ ,taxa.col] == input
+
+  x[ ,taxa.col][use_i] <- output
 
 
+# Return ------------------------------------------------------------------
 
-
-
-
+  x
 
 }

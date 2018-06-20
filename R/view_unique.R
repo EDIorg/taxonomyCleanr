@@ -21,6 +21,16 @@
 
 view_unique <- function(x){
 
+
+# Check arguments ---------------------------------------------------------
+
+  if (missing(x)){
+    stop('Input argument "x" is missing!')
+  }
+  if (class(x) == 'data.frame'){
+    stop('Input argument "x" can not be a data frame!')
+  }
+
   unique_taxa <- table(x)
 
   View(unique_taxa)
