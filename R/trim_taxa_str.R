@@ -29,6 +29,16 @@
 
 trim_taxa_str <- function(x){
 
+
+# Check arguments ---------------------------------------------------------
+
+  if (missing(x)){
+    stop('Input argument "x" is missing!')
+  }
+  if (class(x) != 'character'){
+    stop('Input argument "x" must be a character string or vector of character strings!')
+  }
+
   # Trim white space ----------------------------------------------------------
 
   x <- str_trim(

@@ -16,8 +16,11 @@ preference. Run `gnr_datasources()` to get valid data source options
 and ID's.}
 }
 \value{
-A data frame with the search term, returned value, GNI identification
-    number
+A data frame with the input taxon (search_term), corresponding match
+    from the Global Names Resolver (result), an indicator of whether
+    search_term and result differ (difference), the data source resolved
+    against (source), the data source ID for the resolved taxon (id), and
+    the match score (score).
 }
 \description{
 Check taxa spelling against the Global Names Index (GNI) and get GNI of
