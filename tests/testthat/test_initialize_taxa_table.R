@@ -1,57 +1,46 @@
-context('Initialize the taxa table to document cleaning operations')
+context('Initialize table for cleaning taxa')
 library(taxonomyCleanr)
 
-# df <- data.frame(
-#   taxa = c(
-#     'taxa 1',
-#     'taxa 2',
-#     'taxa 3',
-#     'taxa 3'
-#     ),
-#   count = c(
-#     2,
-#     4,
-#     5,
-#     4
-#     ),
-#   stringsAsFactors = F
-#   )
+# Initialize test data ----------------------------------------------------
 
-data <- read_tsv(
-  paste0(
-    path.package(
-      "taxonomyCleanr"
+data <- data.frame(
+  taxa = c(
+    'taxa 1',
+    'taxa 2',
+    'taxa 3',
+    'taxa 3'
     ),
-    "/test_data.txt"
+  count = c(
+    2,
+    4,
+    5,
+    4
+    ),
+  stringsAsFactors = F
   )
-)
-
-data <- as.data.frame(data)
 
 dim_data <- c(
   length(
     unique(
-      data$Species
+      data$taxa
       )
     ),
-  ncol(
-    data
-    )
+  10
   )
 
+# Test dimensions ---------------------------------------------------------
 
-# List unique taxa --------------------------------------------------------
-
-testthat::test_that('List uniqe taxa', {
+testthat::test_that('Test dimensions', {
 
   expect_equal(
     dim(
       initialize_taxa_table(
         x = data,
-        col = 'Species'
+        col = 'taxa'
         )
       ),
     dim_data
     )
+
   })
 

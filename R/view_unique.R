@@ -20,9 +20,7 @@
 #' @export
 #'
 
-
 view_unique <- function(x, col){
-
 
 # Check arguments ---------------------------------------------------------
 

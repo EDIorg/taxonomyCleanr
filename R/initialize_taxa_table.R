@@ -63,6 +63,11 @@ initialize_taxa_table <- function(path, x, col){
     stop('Input argument "col" is missing!')
   }
 
+  test_file_connection(
+    path = path,
+    file.name = 'taxa_cleaning_table.csv'
+  )
+
 # Initialize taxon cleaning table -----------------------------------------
 
   use_i <- length(
@@ -103,6 +108,6 @@ initialize_taxa_table <- function(path, x, col){
     )
   }
 
-
+  data_out
 
 }

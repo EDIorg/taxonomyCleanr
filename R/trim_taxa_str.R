@@ -44,14 +44,21 @@ trim_taxa_str <- function(x, col){
     stop('Input argument "col" is missing!')
   }
 
-  # Trim white space ----------------------------------------------------------
+  # test_file_connection(
+  #
+  # )
+
+
+
+
+# Trim white space --------------------------------------------------------
 
   x[ , col] <- str_trim(
     x[ , col],
     'both'
     )
 
-  # Remove common species abbreviations at the genus level --------------------
+# Remove common species abbreviations at the genus level ------------------
 
   x[ , col] <- str_remove(
     x[ , col],
@@ -61,6 +68,10 @@ trim_taxa_str <- function(x, col){
       '|[:space:]+(?i)[s|c]+([f|p]*)+$',
       '|[:space:]+(?i)[s|c]+(\\.*[f|p]*)+$')
   )
+
+# Document provenance -----------------------------------------------------
+
+
 
   # Return --------------------------------------------------------------------
 
