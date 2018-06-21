@@ -5,11 +5,13 @@
 #'     taxon.
 #'
 #' @usage
-#'     view_unique(x)
+#'     view_unique(x, col)
 #'
 #' @param x
-#'     A character string, or vector of character strings, representing taxa
-#'     names to be analyzed.
+#'     A data frame containing the vector of taxa names to be cleaned.
+#' @param col
+#'     A character string specifying the column in x containing taxa names to
+#'     be cleaned.
 #'
 #' @return
 #'     A data frame with taxa and associated counts found in the input, sorted
@@ -19,7 +21,7 @@
 #'
 
 
-view_unique <- function(x){
+view_unique <- function(x, col){
 
 
 # Check arguments ---------------------------------------------------------
@@ -27,15 +29,20 @@ view_unique <- function(x){
   if (missing(x)){
     stop('Input argument "x" is missing!')
   }
-  if (class(x) == 'data.frame'){
-    stop('Input argument "x" can not be a data frame!')
+  if (class(x) != 'data.frame'){
+    stop('Input argument "x" must be a data frame!')
+  }
+  if (missing(col)){
+    stop('Input argument "col" is missing!')
   }
 
-  unique_taxa <- table(x)
+# Count unique taxa -------------------------------------------------------
+
+  unique_taxa <- table(x[ , col])
 
   View(unique_taxa)
 
-  # Return --------------------------------------------------------------------
+# Return output -----------------------------------------------------------
 
   unique_taxa
 

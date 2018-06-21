@@ -4,11 +4,13 @@
 \alias{view_unique}
 \title{View unique occurence and counts}
 \usage{
-view_unique(x)
+view_unique(x, col)
 }
 \arguments{
-\item{x}{A character string, or vector of character strings, representing taxa
-names to be analyzed.}
+\item{x}{A data frame containing the vector of taxa names to be cleaned.}
+
+\item{col}{A character string specifying the column in x containing taxa names to
+be cleaned.}
 }
 \value{
 A data frame with taxa and associated counts found in the input, sorted

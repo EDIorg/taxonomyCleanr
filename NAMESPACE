@@ -3,6 +3,7 @@
 export(choices2map)
 export(detect_delimeter)
 export(detect_os)
+export(initialize_taxa_table)
 export(make_taxonomicCoverage)
 export(remove_taxon)
 export(replace_taxon)

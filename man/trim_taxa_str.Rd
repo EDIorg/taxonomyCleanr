@@ -4,11 +4,13 @@
 \alias{trim_taxa_str}
 \title{Trim taxa strings}
 \usage{
-trim_raw_taxon_str(x)
+trim_raw_taxon_str(x, col)
 }
 \arguments{
-\item{x}{A character string, or vector of character strings, representing taxa
-names to be trimmed.}
+\item{x}{A data frame containing the vector of taxa names to be cleaned.}
+
+\item{col}{A character string specifying the column in x containing taxa names to
+be cleaned.}
 }
 \value{
 A character string, or vector of strings, with excess characters

@@ -5,11 +5,13 @@
 #'     authority for a match may reduce the frequency of mismatches.
 #'
 #' @usage
-#'     trim_raw_taxon_str(x)
+#'     trim_raw_taxon_str(x, col)
 #'
 #' @param x
-#'     A character string, or vector of character strings, representing taxa
-#'     names to be trimmed.
+#'     A data frame containing the vector of taxa names to be cleaned.
+#' @param col
+#'     A character string specifying the column in x containing taxa names to
+#'     be cleaned.
 #'
 #' @details
 #'     List of conditions `trim_taxa_str` addresses:
@@ -27,7 +29,7 @@
 #'
 
 
-trim_taxa_str <- function(x){
+trim_taxa_str <- function(x, col){
 
 
 # Check arguments ---------------------------------------------------------
@@ -35,21 +37,24 @@ trim_taxa_str <- function(x){
   if (missing(x)){
     stop('Input argument "x" is missing!')
   }
-  if (class(x) != 'character'){
-    stop('Input argument "x" must be a character string or vector of character strings!')
+  if (class(x) != 'data.frame'){
+    stop('Input argument "x" must be a data frame!')
+  }
+  if (missing(col)){
+    stop('Input argument "col" is missing!')
   }
 
   # Trim white space ----------------------------------------------------------
 
-  x <- str_trim(
-    x,
+  x[ , col] <- str_trim(
+    x[ , col],
     'both'
     )
 
   # Remove common species abbreviations at the genus level --------------------
 
-  x <- str_remove(
-    x,
+  x[ , col] <- str_remove(
+    x[ , col],
     paste0(
       '[:space:]+(?i)[s|c]+(\\.*[f|p]*\\.)+$',
       '|[:space:]+(?i)[s|c]+([f|p]*\\.)+$',
