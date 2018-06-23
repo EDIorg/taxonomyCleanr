@@ -4,21 +4,22 @@
 \alias{trim_taxa_str}
 \title{Trim taxa strings}
 \usage{
-trim_raw_taxon_str(x, col)
+trim_raw_taxon_str(path)
 }
 \arguments{
-\item{x}{A data frame containing the vector of taxa names to be cleaned.}
-
-\item{col}{A character string specifying the column in x containing taxa names to
-be cleaned.}
+\item{path}{A character string specifying the path to taxa_map.csv. This table
+tracks relationships between your raw and cleaned data and is operated
+on by this function.}
 }
 \value{
-A character string, or vector of strings, with excess characters
-    trimmed. See details for trimming conditions.
+\itemize{
+        \item{1.} An updated version of taxa_map.csv with trimmed taxa strings.
+        \item{2.} A data frame of taxa_map.csv with trimmed taxa strings.
+    }
 }
 \description{
-Trim excess text from raw taxa strings. Doing this before querying an
-    authority for a match may reduce the frequency of mismatches.
+Trim excess text from taxa names. Doing this before querying a taxonomic
+    authority reduces the frequency of mismatches.
 }
 \details{
 List of conditions `trim_taxa_str` addresses:

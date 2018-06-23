@@ -1,17 +1,16 @@
 #' Trim taxa strings
 #'
 #' @description
-#'     Trim excess text from raw taxa strings. Doing this before querying an
-#'     authority for a match may reduce the frequency of mismatches.
+#'     Trim excess text from taxa names. Doing this before querying a taxonomic
+#'     authority reduces the frequency of mismatches.
 #'
 #' @usage
-#'     trim_raw_taxon_str(x, col)
+#'     trim_raw_taxon_str(path)
 #'
-#' @param x
-#'     A data frame containing the vector of taxa names to be cleaned.
-#' @param col
-#'     A character string specifying the column in x containing taxa names to
-#'     be cleaned.
+#' @param path
+#'     A character string specifying the path to taxa_map.csv. This table
+#'     tracks relationships between your raw and cleaned data and is operated
+#'     on by this function.
 #'
 #' @details
 #'     List of conditions `trim_taxa_str` addresses:
@@ -22,46 +21,60 @@
 #'     }
 #'
 #' @return
-#'     A character string, or vector of strings, with excess characters
-#'     trimmed. See details for trimming conditions.
+#'     \itemize{
+#'         \item{1.} An updated version of taxa_map.csv with trimmed taxa strings.
+#'         \item{2.} A data frame of taxa_map.csv with trimmed taxa strings.
+#'     }
 #'
 #' @export
 #'
 
 
-trim_taxa_str <- function(x, col){
+trim_taxa_str <- function(path){
 
 
 # Check arguments ---------------------------------------------------------
 
-  if (missing(x)){
-    stop('Input argument "x" is missing!')
-  }
-  if (class(x) != 'data.frame'){
-    stop('Input argument "x" must be a data frame!')
-  }
-  if (missing(col)){
-    stop('Input argument "col" is missing!')
+  if (missing(path)){
+    stop('Input argument "path" is missing!')
   }
 
-  # test_file_connection(
-  #
-  # )
+  validate_path(path)
 
+  use_i <- file.exists(
+    paste0(
+      path,
+      '/taxa_map.csv'
+      )
+    )
+  if (!isTRUE(use_i)){
+    stop('taxa_map.csv is missing! Create it with initialize_taxa_map.R.')
+  }
 
+# Read taxa_map.csv -------------------------------------------------------
 
+  x <- suppressMessages(
+    as.data.frame(
+      read_csv(
+        paste0(
+          path,
+          '/taxa_map.csv'
+          )
+        )
+      )
+    )
 
 # Trim white space --------------------------------------------------------
 
-  x[ , col] <- str_trim(
-    x[ , col],
+  x[ , 'taxa_trimmed'] <- str_trim(
+    x[ , 'taxa_raw'],
     'both'
     )
 
 # Remove common species abbreviations at the genus level ------------------
 
-  x[ , col] <- str_remove(
-    x[ , col],
+  x[ , 'taxa_trimmed'] <- str_remove(
+    x[ , 'taxa_trimmed'],
     paste0(
       '[:space:]+(?i)[s|c]+(\\.*[f|p]*\\.)+$',
       '|[:space:]+(?i)[s|c]+([f|p]*\\.)+$',
@@ -71,9 +84,19 @@ trim_taxa_str <- function(x, col){
 
 # Document provenance -----------------------------------------------------
 
+  # Only list taxa names in taxa_trimmed that are different than taxa_raw
 
+  use_i <- x[ , 'taxa_raw'] == x[ , 'taxa_trimmed']
+  x[ , 'taxa_trimmed'][use_i] <- NA_character_
 
-  # Return --------------------------------------------------------------------
+  # Write to file
+
+  write_taxa_map(
+    x = x,
+    path = path
+    )
+
+# Return output -----------------------------------------------------------
 
   x
 

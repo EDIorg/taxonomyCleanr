@@ -2,15 +2,20 @@
 % Please edit documentation in R/view_unique.R
 \name{view_unique}
 \alias{view_unique}
-\title{View unique occurence and counts}
+\title{View unique taxa and counts}
 \usage{
-view_unique(x, col)
+view_unique(x, col, path)
 }
 \arguments{
-\item{x}{A data frame containing the vector of taxa names to be cleaned.}
+\item{x}{A data frame of your data containing the vector of taxa names to be
+cleaned.}
 
 \item{col}{A character string specifying the column in x containing taxa names to
 be cleaned.}
+
+\item{path}{A character string specifying the path to taxa_map.csv. This table
+tracks relationships between your raw and cleaned data and is used by
+this function.}
 }
 \value{
 A data frame with taxa and associated counts found in the input, sorted

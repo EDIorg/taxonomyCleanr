@@ -6,30 +6,29 @@
 #' @usage
 #'     remove_taxon(x, taxa.col, input)
 #'
-#' @param x
-#'     The data frame containing a vector of taxa names to be operated on.
-#' @param taxa.col
-#'     A character string specifying the column name containing taxa names to
-#'     be operated on.
+#' @param path
+#'     A character string specifying the path to taxa_map.csv. This table
+#'     tracks relationships between your raw and cleaned data and is operated
+#'     on by this function.
 #' @param input
 #'     A character string specifying the taxon to be removed.
 #'
 #' @return
-#'     Your data frame (x) with the taxon and associated record removed.
+#'     \itemize{
+#'         \item{1.} An updated version of taxa_map.csv with removed taxa names.
+#'         \item{2.} A data frame of taxa_map.csv with removed taxa names.
+#'     }
 #'
 #' @export
 #'
 
-remove_taxon <- function(x, taxa.col, input){
+remove_taxon <- function(path, input){
 
 
   # Check arguments ---------------------------------------------------------
 
-  if (missing(x)){
-    stop('Input argument "x" is missing!')
-  }
-  if (missing(taxa.col)){
-    stop('Input argument "taxa.col" is missing!')
+  if (missing(path)){
+    stop('Input argument "path" is missing!')
   }
   if (missing(input)){
     stop('Input argument "input" is missing!')
@@ -38,12 +37,56 @@ remove_taxon <- function(x, taxa.col, input){
     stop('The argument "input" does not support character vectors!')
   }
 
+  validate_path(path)
+
+  use_i <- file.exists(
+    paste0(
+      path,
+      '/taxa_map.csv'
+    )
+  )
+  if (!isTRUE(use_i)){
+    stop('taxa_map.csv is missing! Create it with initialize_taxa_map.R.')
+  }
+
+  # Read taxa_map.csv -------------------------------------------------------
+
+  x <- suppressMessages(
+    as.data.frame(
+      read_csv(
+        paste0(
+          path,
+          '/taxa_map.csv'
+        )
+      )
+    )
+  )
+
   # Update taxon ------------------------------------------------------------
 
-  use_i <- x[ ,taxa.col] == input
+  use_i <- x[ , 'taxa_raw'] == input
 
-  x <- x[!use_i, ]
+  if (sum(use_i) == 0){
+    stop(
+      paste0(
+        '"',
+        input,
+        '"',
+        'does not match any taxa. Check your spelling.'
+      )
+    )
+  } else {
+    x[use_i, 'taxa_removed'] <- "TRUE"
+  }
 
+  # Document provenance -----------------------------------------------------
+
+  # Write to file
+
+  write_taxa_map(
+    x = x,
+    path = path
+  )
 
   # Return ------------------------------------------------------------------
 

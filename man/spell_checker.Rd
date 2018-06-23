@@ -7,8 +7,9 @@
 spell_checker(x, pattern)
 }
 \arguments{
-\item{x}{A character string, or vector of character strings, representing taxa
-names.}
+\item{path}{A character string specifying the path to taxa_map.csv. This table
+tracks relationships between your raw and cleaned data and is operated
+on by this function.}
 
 \item{preferred.data.sources}{An ordered numeric vector of ID's corresponding to data sources (i.e.
 taxonomic authorities) you'd like to query, in the order of decreasing
@@ -16,11 +17,11 @@ preference. Run `gnr_datasources()` to get valid data source options
 and ID's.}
 }
 \value{
-A data frame with the input taxon (search_term), corresponding match
-    from the Global Names Resolver (result), an indicator of whether
-    search_term and result differ (difference), the data source resolved
-    against (source), the data source ID for the resolved taxon (id), and
-    the match score (score).
+\itemize{
+        \item{1.} An updated version of taxa_map.csv with resolved taxa
+        names.
+        \item{2.} A data frame of taxa_map.csv with resolved taxa names.
+    }
 }
 \description{
 Check taxa spelling against the Global Names Index (GNI) and get GNI of

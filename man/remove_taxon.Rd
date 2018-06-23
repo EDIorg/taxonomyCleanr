@@ -7,15 +7,17 @@
 remove_taxon(x, taxa.col, input)
 }
 \arguments{
-\item{x}{The data frame containing a vector of taxa names to be operated on.}
-
-\item{taxa.col}{A character string specifying the column name containing taxa names to
-be operated on.}
+\item{path}{A character string specifying the path to taxa_map.csv. This table
+tracks relationships between your raw and cleaned data and is operated
+on by this function.}
 
 \item{input}{A character string specifying the taxon to be removed.}
 }
 \value{
-Your data frame (x) with the taxon and associated record removed.
+\itemize{
+        \item{1.} An updated version of taxa_map.csv with removed taxa names.
+        \item{2.} A data frame of taxa_map.csv with removed taxa names.
+    }
 }
 \description{
 Remove a taxon, and the associated record, from a data frame.

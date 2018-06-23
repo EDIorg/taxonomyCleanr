@@ -1,17 +1,22 @@
-#' View unique occurence and counts
+#' View unique taxa and counts
 #'
 #' @description
 #'     View unique occurences and counts of taxa to help identify misspelled
 #'     taxon.
 #'
 #' @usage
-#'     view_unique(x, col)
+#'     view_unique(x, col, path)
 #'
 #' @param x
-#'     A data frame containing the vector of taxa names to be cleaned.
+#'     A data frame of your data containing the vector of taxa names to be
+#'     cleaned.
 #' @param col
 #'     A character string specifying the column in x containing taxa names to
 #'     be cleaned.
+#' @param path
+#'     A character string specifying the path to taxa_map.csv. This table
+#'     tracks relationships between your raw and cleaned data and is used by
+#'     this function.
 #'
 #' @return
 #'     A data frame with taxa and associated counts found in the input, sorted
@@ -20,7 +25,7 @@
 #' @export
 #'
 
-view_unique <- function(x, col){
+view_unique <- function(x, col, path){
 
 # Check arguments ---------------------------------------------------------
 
@@ -34,7 +39,77 @@ view_unique <- function(x, col){
     stop('Input argument "col" is missing!')
   }
 
-# Count unique taxa -------------------------------------------------------
+  if (!missing(path)){
+    validate_path(path)
+    use_i <- file.exists(
+      paste0(
+        path,
+        '/taxa_map.csv'
+      )
+    )
+    if (!isTRUE(use_i)){
+      stop('taxa_map.csv is missing! Create it with initialize_taxa_map.R.')
+    }
+  }
+
+# Read taxa_map.csv -------------------------------------------------------
+
+  taxa_map <- suppressMessages(
+    as.data.frame(
+      read_csv(
+        paste0(
+          path,
+          '/taxa_map.csv'
+        )
+      )
+    )
+  )
+
+  # Update x with taxa_trimmed ----------------------------------------------
+
+  use_i <- !is.na(taxa_map[ , 'taxa_trimmed'])
+
+  values_raw <- taxa_map[ , 'taxa_raw'][use_i]
+
+
+  values_new <- taxa_map[ , 'taxa_trimmed'][use_i]
+
+  if (sum(use_i) > 0){
+    for (i in 1:length(values_raw)){
+      use_i2 <- values_raw[i] == x[ , col]
+      x[use_i2, col] <- values_new[i]
+    }
+  }
+
+  # Update x with taxa_replacement ------------------------------------------
+
+  use_i <- !is.na(taxa_map[ , 'taxa_replacement'])
+
+  values_raw <- taxa_map[use_i, 'taxa_raw']
+
+  values_new <- taxa_map[use_i, 'taxa_replacement']
+
+  if (sum(use_i) > 0){
+    for (i in 1:length(values_raw)){
+      use_i2 <- values_raw[i] == x[ , col]
+      x[use_i2, col] <- values_new[i]
+    }
+  }
+
+  # Update x with taxa_removed ------------------------------------------
+
+  use_i <- !is.na(taxa_map[ , 'taxa_removed'])
+
+  values_raw <- taxa_map[use_i, 'taxa_raw']
+
+  if (sum(use_i) > 0){
+    for (i in 1:length(values_raw)){
+      use_i2 <- values_raw[i] == x[ , col]
+      x <- x[!use_i2, ]
+    }
+  }
+
+# Count unique taxa and view ----------------------------------------------
 
   unique_taxa <- table(x[ , col])
 

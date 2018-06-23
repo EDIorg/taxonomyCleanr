@@ -1,4 +1,4 @@
-#' Initialize taxa table
+#' Initialize taxa map
 #'
 #' @description
 #'     Initialize the taxa table that will map the resolved taxa back to the
@@ -6,7 +6,7 @@
 #'     provenance information about the taxa cleaning process.
 #'
 #' @usage
-#'     initialize_taxa_table(path, x, col)
+#'     initialize_taxa_map(path, x, col)
 #'
 #' @param path
 #'     A character string specifying the path to which the taxa table will be
@@ -18,7 +18,7 @@
 #'     be cleaned.
 #'
 #' @return
-#'     A .csv file written to path containing the fields:
+#'     A .csv file named (taxa_map.csv) written to path containing the fields:
 #'     \itemize{
 #'         \item{'taxa_raw'} Unique taxa names listed in x.
 #'         \item{'taxa_trimmed'} The contents of taxa_raw, but with white space
@@ -46,12 +46,12 @@
 #' @export
 #'
 
-initialize_taxa_table <- function(path, x, col){
+initialize_taxa_map <- function(path, x, col){
 
 # Check arguments ---------------------------------------------------------
 
   if (missing(path)){
-    warning('Input argument "path" is missing!')
+    warning('Input argument "path" is missing. Include a path if you want results written to file.')
   }
   if (missing(x)){
     stop('Input argument "x" is missing!')
@@ -62,11 +62,6 @@ initialize_taxa_table <- function(path, x, col){
   if (missing(col)){
     stop('Input argument "col" is missing!')
   }
-
-  test_file_connection(
-    path = path,
-    file.name = 'taxa_cleaning_table.csv'
-  )
 
 # Initialize taxon cleaning table -----------------------------------------
 
@@ -98,15 +93,10 @@ initialize_taxa_table <- function(path, x, col){
 
 # Write taxon cleaning table to file --------------------------------------
 
-  if (!missing(path)){
-    write_csv(
-      x = data_out,
-      path = paste0(
-        path,
-        '/taxa_cleaning_table.csv'
-      )
-    )
-  }
+  write_taxa_map(
+    x = data_out,
+    path = path
+  )
 
   data_out
 

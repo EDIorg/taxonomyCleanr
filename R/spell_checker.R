@@ -7,9 +7,10 @@
 #' @usage
 #'     spell_checker(x, pattern)
 #'
-#' @param x
-#'     A character string, or vector of character strings, representing taxa
-#'     names.
+#' @param path
+#'     A character string specifying the path to taxa_map.csv. This table
+#'     tracks relationships between your raw and cleaned data and is operated
+#'     on by this function.
 #' @param preferred.data.sources
 #'     An ordered numeric vector of ID's corresponding to data sources (i.e.
 #'     taxonomic authorities) you'd like to query, in the order of decreasing
@@ -17,45 +18,83 @@
 #'     and ID's.
 #'
 #' @return
-#'     A data frame with the input taxon (search_term), corresponding match
-#'     from the Global Names Resolver (result), an indicator of whether
-#'     search_term and result differ (difference), the data source resolved
-#'     against (source), the data source ID for the resolved taxon (id), and
-#'     the match score (score).
+#'     \itemize{
+#'         \item{1.} An updated version of taxa_map.csv with resolved taxa
+#'         names.
+#'         \item{2.} A data frame of taxa_map.csv with resolved taxa names.
+#'     }
 #'
 #' @export
 #'
 
 
-spell_checker <- function(x, preferred.data.sources){
+spell_checker <- function(path, preferred.data.sources){
 
 
-# Check arguments ---------------------------------------------------------
+  # Check arguments ---------------------------------------------------------
 
-  if (missing(x)){
-    stop('Input argument "x" is missing!')
-  }
-  if (class(x) != 'character'){
-    stop('Input argument "x" must be a character string or vector of character strings!')
+  if (missing(path)){
+    stop('Input argument "path" is missing!')
   }
   if (missing(preferred.data.sources)){
     stop('Input argument "preferred.data.sources" is missing!')
   }
 
-# Initialize output data frame --------------------------------------------
+  validate_path(path)
 
-  data_out <- data.frame(
-    search_term = character(length(x)),
-    result = character(length(x)),
-    difference = character(length(x)),
-    source = character(length(x)),
-    id = character(length(x)),
-    score = character(length(x)),
-    stringsAsFactors = F
+  use_i <- file.exists(
+    paste0(
+      path,
+      '/taxa_map.csv'
+    )
+  )
+  if (!isTRUE(use_i)){
+    stop('taxa_map.csv is missing! Create it with initialize_taxa_map.R.')
+  }
+
+  # Read taxa_map.csv -------------------------------------------------------
+
+  taxa_map <- suppressMessages(
+    as.data.frame(
+      read_csv(
+        paste0(
+          path,
+          '/taxa_map.csv'
+        )
+      )
+    )
   )
 
+  # Update taxa list from taxa_map --------------------------------------------
 
-# Call Global Names Resolver (GNR) ----------------------------------------
+  # Trim taxa
+
+  use_i <- !is.na(taxa_map[ , 'taxa_trimmed'])
+
+  values_new <- taxa_map[ , 'taxa_trimmed'][use_i]
+
+  taxa_map[use_i, 'taxa_raw'] <- values_new
+
+  # Replace taxa
+
+  use_i <- !is.na(taxa_map[ , 'taxa_replacement'])
+
+  values_new <- taxa_map[ , 'taxa_replacement'][use_i]
+
+  taxa_map[use_i, 'taxa_raw'] <- values_new
+
+  # Remove taxa
+
+  use_i <- !is.na(taxa_map[ , 'taxa_removed'])
+
+  taxa_map <- taxa_map[!use_i, ]
+
+  # List
+
+  x <- taxa_map[ , 'taxa_raw']
+
+
+  # Call Global Names Resolver (GNR) ----------------------------------------
 
   for (i in 1:length(x)){
 

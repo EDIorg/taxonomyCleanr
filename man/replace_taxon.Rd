@@ -4,22 +4,23 @@
 \alias{replace_taxon}
 \title{Replace taxon}
 \usage{
-update_taxon_name(x, taxa.col, input, output)
+update_taxon_name(path, input, output)
 }
 \arguments{
-\item{x}{The data frame containing a vector of taxa names to be operated on.}
+\item{path}{A character string specifying the path to taxa_map.csv. This table
+tracks relationships between your raw and cleaned data and is operated
+on by this function.}
 
-\item{taxa.col}{A character string specifying the column name containing taxa names to
-be operated on.}
+\item{input}{A character string specifying an existing taxon name.}
 
-\item{input}{A character string specifying the extant taxon name.}
-
-\item{output}{A character string specifying the taxon name to replace the extant taxon
-name.}
+\item{output}{A character string specifying a replacement taxon name.}
 }
 \value{
-Your data frame (x) with the updated taxa names.
+\itemize{
+        \item{1.} An updated version of taxa_map.csv with new taxa names.
+        \item{2.} A data frame of taxa_map.csv with new taxa names.
+    }
 }
 \description{
-Replace a taxon name of a data frame with a user specified name.
+Replace a taxon name with another.
 }

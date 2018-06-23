@@ -1,52 +1,95 @@
 #' Replace taxon
 #'
 #' @description
-#'     Replace a taxon name of a data frame with a user specified name.
+#'     Replace a taxon name with another.
 #'
 #' @usage
-#'     update_taxon_name(x, taxa.col, input, output)
+#'     update_taxon_name(path, input, output)
 #'
-#' @param x
-#'     The data frame containing a vector of taxa names to be operated on.
-#' @param taxa.col
-#'     A character string specifying the column name containing taxa names to
-#'     be operated on.
+#' @param path
+#'     A character string specifying the path to taxa_map.csv. This table
+#'     tracks relationships between your raw and cleaned data and is operated
+#'     on by this function.
 #' @param input
-#'     A character string specifying the extant taxon name.
+#'     A character string specifying an existing taxon name.
 #' @param output
-#'     A character string specifying the taxon name to replace the extant taxon
-#'     name.
+#'     A character string specifying a replacement taxon name.
 #'
 #' @return
-#'     Your data frame (x) with the updated taxa names.
+#'     \itemize{
+#'         \item{1.} An updated version of taxa_map.csv with new taxa names.
+#'         \item{2.} A data frame of taxa_map.csv with new taxa names.
+#'     }
 #'
 #' @export
 #'
 
-replace_taxon <- function(x, taxa.col, input, output){
+replace_taxon <- function(path, input, output){
 
 
 # Check arguments ---------------------------------------------------------
 
-  if (missing(x)){
+  if (missing(path)){
     stop('Input argument "x" is missing!')
   }
   if (missing(input)){
     stop('Input argument "input" is missing!')
   }
-  if (missing(taxa.col)){
-    stop('Input argument "taxa.col" is missing!')
-  }
   if (missing(output)){
     stop('Input argument "output" is missing!')
   }
 
+  validate_path(path)
+
+  use_i <- file.exists(
+    paste0(
+      path,
+      '/taxa_map.csv'
+    )
+  )
+  if (!isTRUE(use_i)){
+    stop('taxa_map.csv is missing! Create it with initialize_taxa_map.R.')
+  }
+
+  # Read taxa_map.csv -------------------------------------------------------
+
+  x <- suppressMessages(
+    as.data.frame(
+      read_csv(
+        paste0(
+          path,
+          '/taxa_map.csv'
+        )
+      )
+    )
+  )
+
 # Update taxon ------------------------------------------------------------
 
-  use_i <- x[ ,taxa.col] == input
+  use_i <- x[ , 'taxa_raw'] == input
 
-  x[ ,taxa.col][use_i] <- output
+  if (sum(use_i) == 0){
+    stop(
+      paste0(
+        '"',
+        input,
+        '"',
+        'does not match any taxa. Check your spelling.'
+      )
+    )
+  } else {
+    x[use_i, 'taxa_replacement'] <- output
+  }
 
+
+# Document provenance -----------------------------------------------------
+
+  # Write to file
+
+  write_taxa_map(
+    x = x,
+    path = path
+  )
 
 # Return ------------------------------------------------------------------
 
