@@ -13,7 +13,7 @@ on by this function.}
 
 \item{preferred.data.sources}{An ordered numeric vector of ID's corresponding to data sources (i.e.
 taxonomic authorities) you'd like to query, in the order of decreasing
-preference. Run `gnr_datasources()` to get valid data source options
+preference. Run `view_authorities` to get valid data source options
 and ID's.}
 }
 \value{

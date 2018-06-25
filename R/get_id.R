@@ -30,9 +30,6 @@ get_id <- function(path){
   if (missing(path)){
     stop('Input argument "path" is missing!')
   }
-  if (missing(preferred.data.sources)){
-    stop('Input argument "preferred.data.sources" is missing!')
-  }
 
   validate_path(path)
 
@@ -58,6 +55,8 @@ get_id <- function(path){
       )
     )
   )
+
+
 
 
 
