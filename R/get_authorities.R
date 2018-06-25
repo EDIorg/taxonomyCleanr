@@ -1,11 +1,11 @@
-#' Check taxa spelling
+#' Get taxonomic authorities
 #'
 #' @description
-#'     Check taxa spelling against the Global Names Index (GNI) and get GNI of
-#'     corresponding output.
+#'     Use fuzzy searching in the Global Names Resolver to correct spelling
+#'     and locate appropriate authorities.
 #'
 #' @usage
-#'     spell_checker(x, pattern)
+#'     get_authorities(path, preferred.data.sources)
 #'
 #' @param path
 #'     A character string specifying the path to taxa_map.csv. This table
@@ -28,7 +28,7 @@
 #'
 
 
-spell_checker <- function(path, preferred.data.sources){
+get_authorities <- function(path, preferred.data.sources){
 
 
   # Check arguments ---------------------------------------------------------
@@ -65,43 +65,30 @@ spell_checker <- function(path, preferred.data.sources){
     )
   )
 
-  # Update taxa list from taxa_map --------------------------------------------
+  # Resolve taxa to preferred authorities -----------------------------------
 
-  # Trim taxa
+  for (i in 1:nrow(taxa_map)){
 
-  use_i <- !is.na(taxa_map[ , 'taxa_trimmed'])
+    # Get taxon from taxa_map.csv
 
-  values_new <- taxa_map[ , 'taxa_trimmed'][use_i]
+    taxon <- taxa_map[i, 'taxa_raw']
 
-  taxa_map[use_i, 'taxa_raw'] <- values_new
+    if (!is.na(taxa_map[i, 'taxa_trimmed'])){
+      taxon <- taxa_map[i, 'taxa_trimmed']
+    }
+    if (!is.na(taxa_map[i, 'taxa_replacement'])){
+      taxon <- taxa_map[i, 'taxa_replacement']
+    }
+    if (!is.na(taxa_map[i, 'taxa_removed'])){
+      taxon <- 'unresolvable_taxa'
+    }
 
-  # Replace taxa
-
-  use_i <- !is.na(taxa_map[ , 'taxa_replacement'])
-
-  values_new <- taxa_map[ , 'taxa_replacement'][use_i]
-
-  taxa_map[use_i, 'taxa_raw'] <- values_new
-
-  # Remove taxa
-
-  use_i <- !is.na(taxa_map[ , 'taxa_removed'])
-
-  taxa_map <- taxa_map[!use_i, ]
-
-  # List
-
-  x <- taxa_map[ , 'taxa_raw']
-
-
-  # Call Global Names Resolver (GNR) ----------------------------------------
-
-  for (i in 1:length(x)){
+    # Call Global Names Resolver (GNR)
 
     query <- suppressWarnings(
       gnr_resolve(
         paste0(
-          x[i],
+          taxon,
           '*'
           ),
         resolve_once = T,
@@ -113,29 +100,28 @@ spell_checker <- function(path, preferred.data.sources){
         )
       )
 
-    if (length(query) == 0){
-      data_out[i, 'search_term'] <- x[i]
-      data_out[i, 'result'] <- NA_character_
-      data_out[i, 'difference'] <- NA_character_
-      data_out[i, 'source'] <- NA_character_
-      data_out[i, 'id'] <- NA_character_
-      data_out[i, 'score'] <- NA_character_
-    } else {
-      data_out[i, 'search_term'] <- x[i]
-      data_out[i, 'result'] <- query$matched_name2[1]
-      if (x[i] == query$matched_name2[1]){
-        data_out[i, 'difference'] <- 'no'
-      } else {
-        data_out[i, 'difference'] <- 'yes'
-      }
-      data_out[i, 'source'] <- query$data_source_title[1]
-      data_out[i, 'id'] <- NA_character_
-      data_out[i, 'score'] <- query$score[1]
+    query <- as.data.frame(query)
+
+    # Update taxa_map.csv
+
+    if (length(query) != 0){
+      taxa_map[i, 'taxa_clean'] <- query[1, 'matched_name2']
+      taxa_map[i, 'authority'] <- query[1, 'data_source_title']
+      taxa_map[i, 'score'] <- query[1, 'score']
     }
   }
 
+  # Document provenance -----------------------------------------------------
+
+  # Write to file
+
+  write_taxa_map(
+    x = taxa_map,
+    path = path
+  )
+
 # Return output -----------------------------------------------------------
 
-  data_out
+  taxa_map
 
 }

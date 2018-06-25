@@ -27,7 +27,7 @@
 replace_taxon <- function(path, input, output){
 
 
-# Check arguments ---------------------------------------------------------
+  # Check arguments ---------------------------------------------------------
 
   if (missing(path)){
     stop('Input argument "x" is missing!')
@@ -64,7 +64,7 @@ replace_taxon <- function(path, input, output){
     )
   )
 
-# Update taxon ------------------------------------------------------------
+  # Update taxon ------------------------------------------------------------
 
   use_i <- x[ , 'taxa_raw'] == input
 
@@ -81,8 +81,7 @@ replace_taxon <- function(path, input, output){
     x[use_i, 'taxa_replacement'] <- output
   }
 
-
-# Document provenance -----------------------------------------------------
+  # Document provenance -----------------------------------------------------
 
   # Write to file
 
@@ -91,7 +90,7 @@ replace_taxon <- function(path, input, output){
     path = path
   )
 
-# Return ------------------------------------------------------------------
+  # Return ------------------------------------------------------------------
 
   x
 
