@@ -77,14 +77,16 @@ get_id <- function(path){
     # Get authority and query for ID and rank
 
     # Catalogue of Life
-    if (taxa_map[i, 'authority'] == 'Catalogue of Life'){
+    use_i <- taxa_map[i, 'authority'] == 'Catalogue of Life'
+    if (!is.na(use_i) & isTRUE(use_i)){
       response <- get_ids_(
         taxon,
         'col'
         )
+      Sys.sleep(s)
       if (nrow(response[[1]][[1]]) > 0){
         response <- as.data.frame(response$col)
-        response <- response[complete.cases(response), ]
+        #response <- response[complete.cases(response), ]
         use_i <- response[ , 2] == taxon
         response <- response[use_i, ]
         if (nrow(response) > 0){
@@ -95,14 +97,17 @@ get_id <- function(path){
     }
 
     # ITIS
-    if (taxa_map[i, 'authority'] == 'ITIS'){
+    use_i <- taxa_map[i, 'authority'] == 'ITIS'
+    if (!is.na(use_i) & isTRUE(use_i)){
+      # Need to catch outputs from ask and select from those. A TSN for i = 16 is availble that is not reported elsewhere.
       response <- get_ids_(
         taxon,
         'itis'
       )
-      if (nrow(response[[1]][[1]]) > 0){
+      Sys.sleep(s)
+      if (!is.null(response[[1]][[1]])){
         response <- as.data.frame(response[[1]][[1]])
-        response <- response[complete.cases(response), ]
+        #response <- response[complete.cases(response), ]
         use_i <- response[ , 2] == taxon
         response <- response[use_i, ]
         if (nrow(response) > 0){
@@ -113,7 +118,8 @@ get_id <- function(path){
     }
 
     # World Register of Marine Species
-    if (taxa_map[i, 'authority'] == 'World Register of Marine Species'){
+    use_i <- taxa_map[i, 'authority'] == 'World Register of Marine Species'
+    if (!is.na(use_i) & isTRUE(use_i)){
       response <- get_wormsid_(
         taxon,
         searchtype = 'scientific',
@@ -121,9 +127,10 @@ get_id <- function(path){
         ask = F,
         messages = F
       )
+      Sys.sleep(s)
       if (!is.null(response[[1]])){
         response <- as.data.frame(response[[1]])
-        response <- response[complete.cases(response), ]
+        #response <- response[complete.cases(response), ]
         use_i <- response[ , 2] == taxon
         response <- response[use_i, ]
         if (nrow(response) > 0){
@@ -136,14 +143,16 @@ get_id <- function(path){
     }
 
     # GBIF Backbone Taxonomy
-    if (taxa_map[i, 'authority'] == 'GBIF Backbone Taxonomy'){
+    use_i <- taxa_map[i, 'authority'] == 'GBIF Backbone Taxonomy'
+    if (!is.na(use_i) & isTRUE(use_i)){
       response <- get_ids_(
         taxon,
         'gbif'
       )
+      Sys.sleep(s)
       if (nrow(response[[1]][[1]]) > 0){
         response <- as.data.frame(response[[1]][[1]])
-        response <- response[complete.cases(response), ]
+        #response <- response[complete.cases(response), ]
         use_i <- response[ , 2] == taxon
         response <- response[use_i, ]
         if (nrow(response) > 0){
@@ -154,11 +163,13 @@ get_id <- function(path){
     }
 
     # Tropicos - Missouri Botanical Garden
-    if (taxa_map[i, 'authority'] == 'Tropicos - Missouri Botanical Garden'){
+    use_i <- taxa_map[i, 'authority'] == 'Tropicos - Missouri Botanical Garden'
+    if (!is.na(use_i) & isTRUE(use_i)){
       response <- get_ids_(
         taxon,
         'tropicos'
       )
+      Sys.sleep(s)
       if (nrow(response[[1]][[1]]) > 0){
         response <- as.data.frame(response[[1]][[1]])
         use_i <- response[ , 2] == taxon
@@ -171,8 +182,20 @@ get_id <- function(path){
       }
     }
 
-
-
   }
+
+  # Document provenance -----------------------------------------------------
+
+  # Write to file
+
+  write_taxa_map(
+    x = taxa_map,
+    path = path
+  )
+
+  # Return ------------------------------------------------------------------
+
+  taxa_map
+
 
 }
