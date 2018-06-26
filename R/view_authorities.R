@@ -25,43 +25,40 @@ view_authorities <- function(){
 
   # Mark supported databases ------------------------------------------------
 
-  gnr_list$supported <- NA
+  gnr_list$return_to_user <- NA
 
   use_i <- gnr_list[ , 'title'] == 'ITIS'
-  gnr_list[use_i, 'supported'] <- 'itis'
-  gnr_list[use_i, 'title'] <- 'Integrated Taxonomic Information System (ITIS)'
+  gnr_list[use_i, 'return_to_user'] <- 'Integrated Taxonomic Information System (ITIS)'
 
-  use_i <- gnr_list[ , 'title'] == 'NCBI'
-  gnr_list[use_i, 'supported'] <- 'ncbi'
+  # # Can not query via get_ids_.R. Key required.
+  # use_i <- gnr_list[ , 'title'] == 'NCBI'
+  # gnr_list[use_i, 'return_to_user'] <- 'National Center for Biotchnology Information (NCBI)'
 
-  use_i <- gnr_list[ , 'title'] == 'EOL'
-  gnr_list[use_i, 'supported'] <- 'eol'
-  gnr_list[use_i, 'title'] <- 'Encyclopedia of Life (EOL)'
+  # # Difficulty securing accurate ranks
+  # use_i <- gnr_list[ , 'title'] == 'EOL'
+  # gnr_list[use_i, 'return_to_user'] <- 'Encyclopedia of Life (EOL)'
 
   use_i <- gnr_list[ , 'title'] == 'Tropicos - Missouri Botanical Garden'
-  gnr_list[use_i, 'supported'] <- 'tropicos'
+  gnr_list[use_i, 'return_to_user'] <- 'Tropicos - Missouri Botanical Garden'
 
   use_i <- gnr_list[ , 'title'] == 'GBIF Backbone Taxonomy'
-  gnr_list[use_i, 'supported'] <- 'gbif'
-  gnr_list[use_i, 'title'] <- 'Global Biodiversity Information Facility'
+  gnr_list[use_i, 'return_to_user'] <- 'Global Biodiversity Information Facility (GBIF)'
 
   use_i <- gnr_list[ , 'title'] == 'Catalogue of Life'
-  gnr_list[use_i, 'supported'] <- 'get_colid'
+  gnr_list[use_i, 'return_to_user'] <- 'Catalogue of Life (COL)'
 
-  use_i <- gnr_list[ , 'title'] == 'IUCN Red List of Threatened Species'
-  gnr_list[use_i, 'supported'] <- 'get_iucn'
+  # # Authentication required
+  # use_i <- gnr_list[ , 'title'] == 'IUCN Red List of Threatened Species'
+  # gnr_list[use_i, 'return_to_user'] <- 'International Union for Conservation of Nature and Natural Resources (IUCN) Red List of Threatened Species'
 
-  use_i <- gnr_list[ , 'title'] == 'Open Tree of Life Reference Taxonomy'
-  gnr_list[use_i, 'supported'] <- 'get_tolid'
+  # # No support for this resource
+  # use_i <- gnr_list[ , 'title'] == 'Open Tree of Life Reference Taxonomy'
+  # gnr_list[use_i, 'return_to_user'] <- 'Open Tree of Life Reference Taxonomy'
 
   use_i <- gnr_list[ , 'title'] == 'World Register of Marine Species'
-  gnr_list[use_i, 'supported'] <- 'get_wormsid'
-  gnr_list[use_i, 'title'] <- 'World Register of Marine Species (WORMS)'
+  gnr_list[use_i, 'return_to_user'] <- 'World Register of Marine Species (WORMS)'
 
-  View(gnr_list[complete.cases(gnr_list), c('id', 'title')])
-
-
-
-
+  taxonomic_authorities <- gnr_list[complete.cases(gnr_list), c('id', 'return_to_user')]
+  View(taxonomic_authorities)
 
 }

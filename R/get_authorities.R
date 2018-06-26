@@ -52,6 +52,12 @@ get_authorities <- function(path, preferred.data.sources){
     stop('taxa_map.csv is missing! Create it with initialize_taxa_map.R.')
   }
 
+  use_i <- as.character(preferred.data.sources) %in% c('1','3','9','11','165')
+  if (sum(use_i) != length(use_i)){
+    stop('Input argument "preferred.data.sources" contains unsupported data source IDs!')
+
+  }
+
   # Read taxa_map.csv -------------------------------------------------------
 
   taxa_map <- suppressMessages(
