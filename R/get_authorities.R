@@ -89,6 +89,14 @@ get_authorities <- function(path, preferred.data.sources){
       taxon <- 'unresolvable_taxa'
     }
 
+    message(
+      paste0(
+        'Getting authority for "',
+        taxon,
+        '"'
+      )
+    )
+
     # Call Global Names Resolver (GNR)
 
     query <- suppressWarnings(
