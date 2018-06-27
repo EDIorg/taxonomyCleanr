@@ -1,18 +1,14 @@
 # taxonomyCleanr
 
-Taxonomic data can be messy and challenging to work with. Incorrect spelling, the use of common names, unaccepted names, and the use of synonyms all contribute to ambiguity in what a taxon is. This R package helps you resolve these issues by resolving your taxonomic data to an authority system and helps you create metadata for your taxonomic data in the Ecological Metadata Language (EML) format.
+Taxonomic data can be challenging to work with. Incorrect spelling, common names, unaccepted names, and the use of synonyms all contribute to ambiguity in the representation of a taxon. `taxonomyCleanr` helps address these issues by providing a user friendly workflow for resolving taxa to an authority (e.g. [Integrated Taxonomic Information System](https://www.itis.gov/)) and provides additional useful outputs (e.g. Rendering of taxonomic information in the [Ecological Metadata Language (EML)](https://knb.ecoinformatics.org/#external//emlparser/docs/index.html)).
 
 ## Getting started
 
-### Documenation
-
-[Instructions for using the taxonomyCleanr](https://github.com/EDIorg/taxonomyCleanr/blob/master/documentation/instructions.md)
-
 ### R package
 
-`taxonomyCleanr` is a collection of wrapper functions to the `taxize` R package developed by [Chamberlain et al. (2016)](https://github.com/ropensci/taxize). `taxize` offers substantially more functionality than used by the `taxonomyCleanr`. We recommend a browse through the [`taxize` documentation](https://cran.r-project.org/web/packages/taxize/taxize.pdf) to see all it has to offer.
+`taxonomyCleanr` is a collection of wrapper functions to the `taxize` R package developed by [Chamberlain et al. (2016)](https://github.com/ropensci/taxize). `taxize` offers substantially more functionality than used by `taxonomyCleanr`. We recommend a browse through the [`taxize` documentation](https://cran.r-project.org/web/packages/taxize/taxize.pdf) to see all it has to offer.
 
-The `taxonomyCleanr` R package is available here on GitHub. To install, go to your RStudio Console window and enter these lines of code:
+`taxonomyCleanr` is available here on GitHub. To install:
 
 ```
 # Install and load devtools
@@ -24,9 +20,9 @@ install_github("EDIorg/taxonomyCleanr")
 library(taxonomyCleanr)
 ```
 
-## Running the tests
+### Documenation
 
-We are still formulating our tests. Please check back soon!
+[Instructions for the taxonomyCleanr](https://github.com/EDIorg/taxonomyCleanr/blob/master/documentation/instructions.md)
 
 ## Contributing
 
