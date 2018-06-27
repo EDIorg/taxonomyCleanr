@@ -74,6 +74,14 @@ get_id <- function(path){
       taxon <- 'unresolvable_taxa'
     }
 
+    message(
+      paste0(
+        'Getting data for "',
+        taxon,
+        '"'
+      )
+    )
+
     # Get authority and query for ID and rank
 
     # Catalogue of Life
@@ -83,7 +91,6 @@ get_id <- function(path){
         taxon,
         'col'
         )
-      Sys.sleep(s)
       if (nrow(response[[1]][[1]]) > 0){
         response <- as.data.frame(response$col)
         #response <- response[complete.cases(response), ]
@@ -99,19 +106,16 @@ get_id <- function(path){
     # ITIS
     use_i <- taxa_map[i, 'authority'] == 'ITIS'
     if (!is.na(use_i) & isTRUE(use_i)){
-      # Need to catch outputs from ask and select from those. A TSN for i = 16 is availble that is not reported elsewhere.
-      response <- get_ids_(
-        taxon,
-        'itis'
-      )
-      Sys.sleep(s)
-      if (!is.null(response[[1]][[1]])){
-        response <- as.data.frame(response[[1]][[1]])
-        #response <- response[complete.cases(response), ]
-        use_i <- response[ , 2] == taxon
+      response <- as.data.frame(
+        itis_terms(
+          taxon
+          )
+        )
+      if (nrow(response) > 0){
+        use_i <- response[ , 'scientificName'] == taxon
         response <- response[use_i, ]
         if (nrow(response) > 0){
-          taxa_map[i, 'authority_id'] <- as.character(response[1, 1])
+          taxa_map[i, 'authority_id'] <- as.character(response[1, 'tsn'])
           taxa_map[i, 'rank'] <- itis_taxrank(as.numeric(taxa_map[i, 'authority_id']))
         }
       }
@@ -127,7 +131,6 @@ get_id <- function(path){
         ask = F,
         messages = F
       )
-      Sys.sleep(s)
       if (!is.null(response[[1]])){
         response <- as.data.frame(response[[1]])
         #response <- response[complete.cases(response), ]
@@ -149,7 +152,6 @@ get_id <- function(path){
         taxon,
         'gbif'
       )
-      Sys.sleep(s)
       if (nrow(response[[1]][[1]]) > 0){
         response <- as.data.frame(response[[1]][[1]])
         #response <- response[complete.cases(response), ]
@@ -169,7 +171,6 @@ get_id <- function(path){
         taxon,
         'tropicos'
       )
-      Sys.sleep(s)
       if (nrow(response[[1]][[1]]) > 0){
         response <- as.data.frame(response[[1]][[1]])
         use_i <- response[ , 2] == taxon
@@ -196,6 +197,5 @@ get_id <- function(path){
   # Return ------------------------------------------------------------------
 
   taxa_map
-
 
 }
