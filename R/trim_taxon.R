@@ -1,4 +1,4 @@
-#' Trim taxa strings
+#' Trim taxon strings
 #'
 #' @description
 #'     Trim excess text from taxa names. Doing this before querying a taxonomic
@@ -13,7 +13,7 @@
 #'     on by this function.
 #'
 #' @details
-#'     List of conditions `trim_taxa_str` addresses:
+#'     List of conditions `trim_taxon` addresses:
 #'     \itemize{
 #'         \item{'White spaces, trailing and leading'} White spaces are common.
 #'         \item{'Species abbreviations trailing a genus value'} E.g. "Sp.",
@@ -30,7 +30,7 @@
 #'
 
 
-trim_taxa_str <- function(path){
+trim_taxon <- function(path){
 
 
 # Check arguments ---------------------------------------------------------
