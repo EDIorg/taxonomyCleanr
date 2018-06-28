@@ -109,3 +109,6 @@ Year	Sample_Date	Plot	Heat_Treatment	Species	Mass
 2007	8/28/07	78	Low	Petalostemum	6.53
 2007	8/28/07	78	Low	Poa cf...	0.9
 2007	8/28/07	78	Low	Schizachyrium sPp	10.83
+2007	8/24/07	64	Low	_Koeleria_cristata	0.83
+2007	8/24/07	64	Low	Lespedeza_capitata	44.1
+2007	8/24/07	64	Low	_Liatris_aspera_	14
