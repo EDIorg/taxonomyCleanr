@@ -64,6 +64,14 @@ trim_taxon <- function(path){
       )
     )
 
+  # Replace underscores with blank spaces -------------------------------------
+
+  x[ , 'taxa_trimmed'] <- str_replace_all(
+    x[ , 'taxa_trimmed'],
+    '_',
+    ' '
+    )
+
 # Trim white space --------------------------------------------------------
 
   x[ , 'taxa_trimmed'] <- str_trim(
