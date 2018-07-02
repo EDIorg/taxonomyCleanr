@@ -1,670 +1,142 @@
 #' Resolve taxa
 #'
 #' @description
-#'     Resolve input taxonomoic names against an authority and output a table
-#'     that maps your raw taxon data to the resolved names. This map is later
-#'     used by \code{update_data} to revise the taxon listed in your data.
+#'     Resolve taxa to preferred authorities and get associated ID's.
 #'
 #' @usage
-#'     resolve_names(path = "", data.file = "", taxon.col = "", mode = "")
+#'     resolve_taxa(path, data.sources)
 #'
 #' @param path
-#'     A path of the directory containing the data table containing taxonomic
-#'     information.
-#' @param data.file
-#'     Name of the input data table containing taxonomic data.
-#' @param taxon.col
-#'     Name of the column containing the taxonomic names including species
-#'     binomials, rank specific names, and or common names.
-#' @param method
-#'     Method for resolving your taxonomic data against an authority. There
-#'     are 2 options:
-#'     \itemize{
-#'         \item{manual} Use this option if you are not in a position to pass
-#'         judgement on the taxonomic data. This is a good option if you are
-#'         a data manager helping a data provider clean their taxonomy data.
-#'         However, this may be good option for you if you can pass judgement
-#'         on the taxonomic data (see notes on the interactive method below).
-#'         The output of manual mode is the taxon_choices.txt file which is a
-#'         tab delimited table containing the unique taxa of the raw data
-#'         with corresponding options to select from. After someone has
-#'         passed through this table selected the correct matches, this file
-#'         is converted to taxon_map.txt with the `choices2map` function.
-#'         taxon_map.txt contains the relationships between your raw taxa data
-#'         and your resolved taxa data.
-#'         \item{interactive} Use this option if you are in a position to pass
-#'         judgement on the correct identification of the taxa contained in
-#'         the dataset you are cleaning. When `resolve_taxa` encounters
-#'         ambiguity with a taxon you will be prompted to select the correct
-#'         taxon from a list. Your selections made during this interactive
-#'         session with the RStudio Console window will be recorded to the
-#'         taxon_map.txt file containing the relationships between your raw
-#'         taxa data and your resolved taxa data. This option has a few issues
-#'         you should be aware of:
-#'         \itemize{
-#'             \item{1.} You can not stop and save your work part way through
-#'             the name resolution process and resume at a later time. You will
-#'             have to start over from the beginning, which may be cumbersome
-#'             for large taxa lists.
-#'             \item{2.} If you want to revisit the options for a single taxon,
-#'             you will have to revisit and pass judgement on all the other
-#'             taxon that don't have issues.
-#'             \item{3.} There is no way to reverse a decision made during the
-#'             interactive mode. Once you select a taxon and press enter, there
-#'             is no way to change your input.
-#'         }
-#'         \item{automatic} Use this option if you are not in a position to pass
-#'         judgement on the taxonomic data, and don't have a data provider to
-#'         select any options that may arise if there are multiple options for
-#'         a taxon. This option resolves the fewest number of input taxa to an
-#'         authority but is sometimes the best option.
-#'     }
+#'     A character string specifying the path to taxa_map.csv. This table
+#'     tracks relationships between your raw and cleaned data and is operated
+#'     on by this function. Create this file with `initialize_taxa_map`.
+#' @param data.sources
+#'     An ordered numeric vector of ID's corresponding to data sources (i.e.
+#'     taxonomic authorities) you'd like to query, in the order of decreasing
+#'     preference. Run `view_authorities` to get valid data source options
+#'     and ID's.
+#'
+#' @details
+#'     A taxa are resolved to data sources in order of listed preference. If
+#'     an authority and ID match can not be made, then the next preferred data
+#'     source will be queried, and so on.
 #'
 #' @return
-#'     A comma delimited file in the dataset working directory titled
-#'     \emph{taxon_map.csv} containing the relationships between your input
-#'     taxon data and the resolved names. This file is used by
-#'     \code{update_data} to update the taxonomic data of your data table.
+#'     \itemize{
+#'         \item{1.} An updated version of taxa_map.csv containing authorities
+#'         and corresponding IDs.
+#'         \item{2.} A data frame of taxa_map.csv with resolved authorities and
+#'         IDs.
+#'     }
 #'
 #' @export
 #'
 
+resolve_taxa <- function(path, data.sources){
 
-resolve_taxa <- function(path, data.file, taxon.col, method){
-
-  # Check arguments and parameterize ------------------------------------------
-
-  message('Checking arguments.')
+  # Check arguments ---------------------------------------------------------
 
   if (missing(path)){
-    stop('Input argument "path" is missing! Specify the path to your dataset working directory.')
+    stop('Input argument "path" is missing!')
   }
-  if (missing(data.file)){
-    stop('Input argument "data.file" is missing! Specify the name of your data file containing taxonomic data.')
+  if (missing(data.sources)){
+    stop('Input argument "data.sources" is missing!')
   }
-  if (missing(taxon.col)){
-    stop('Input argument "taxon.col" is missing! Specify the column of your data table containing taxon names.')
-  }
-  if (missing(method)){
-    stop('Input argument "method" is missing! Specify the method for resolving your taxonomic names.')
-  }
-
-  # Validate path
 
   validate_path(path)
 
-  # Validate data.files
-
-  data_file <- validate_file_names(path, data.file)
-
-  # Validate method
-
-  method.low <- tolower(method)
-
-  if (!str_detect(method.low, "^automatic$|^interactive$|^manual$")){
-    stop('Invalid value entered for the "method" argument. Please choose "automatic", "interactive", or "manual".')
+  use_i <- file.exists(
+    paste0(
+      path,
+      '/taxa_map.csv'
+    )
+  )
+  if (!isTRUE(use_i)){
+    stop('taxa_map.csv is missing! Create it with initialize_taxa_map.R.')
   }
 
-  # Detect operating system
-
-  os <- detect_os()
-
-  # Detect field delimiter
-
-  sep <- detect_delimeter(path, data.files = data_file, os)
-
-  # Validate number of fields
-
-  validate_fields(path, data.files = data_file)
-
-  # Validate taxon.col
-
-  message(paste0("Reading ", data_file, "."))
-
-  data_path <- paste(path,
-                     "/",
-                     data_file,
-                     sep = "")
-
-  data_L0 <- suppressWarnings(read.table(data_path,
-                                         header = TRUE,
-                                         sep = sep,
-                                         quote = "\"",
-                                         as.is = TRUE,
-                                         fill = T,
-                                         comment.char = ""))
-
-  columns <- colnames(data_L0)
-  columns_in <- taxon.col
-  use_i <- str_detect(string = columns,
-                      pattern = str_c("^", columns_in, "$", collapse = "|"))
-  if (sum(use_i) == 0){
-    stop(paste0('Invalid "taxon.col" entered: ', columns_in, ' Please fix this.'))
-  }
-
-  # Create taxon list from data.file ------------------------------------------
-
-  message("Creating taxon list.")
-
-  data_L0 <- unique(data_L0[[taxon.col]])
-
-  # Resolve taxonomic names to authority --------------------------------------
-
-
-  if (method == "automatic"){
-
-    message('Resolving taxon names using the "automatic" method.')
-
-    # Select authority and retrieve options
-
-    # (out <- gnr_datasources())
-    # message("Refer to the list of authorities to resolve taxonomic names against.")
-    # answer <- readline("Enter the row number of the one you'd like to use: ")
-    # ds <- as.integer(answer)
-    ds <- as.integer("3") # Restrict to ITIS (for now)
-    # print(paste("You selected ...", out$title[as.integer(answer)]))
-
-    # Send to Global Names Resolver
-    # Not all names may resolve because of colloquial terms and non-species terms
-
-    message('Resolving scientific names.')
-
-    gnr_out <- gnr_resolve(names = data_L0,
-                           data_source_ids = ds,
-                           resolve_once = F,
-                           with_context = F,
-                           canonical = T,
-                           best_match_only = T)
-
-    if (dim(gnr_out)[1] != 0){
-      data_out <- subset(gnr_out,
-                         select = c(user_supplied_name,
-                                    matched_name2,
-                                    data_source_title))
-
-      colnames(data_out)[2] <- "matched_name"
-
-      data_out$do_not_use <- character(dim(data_out)[1])
-
-      # Attempt to resolve common names ---------------------------------------------
-      # Identify remaining names and send through common2science name resolver.
-      # Print to file for spread sheet selection (manual).
-
-      # message('Resolving common names.')
-
-      data_sources <- data.frame(id = seq(2),
-                                 title = c("itis", "worms"),
-                                 stringsAsFactors = F)
-      # print("Reference the list of sources above to resolve common names against.")
-      # answer <- readline("Enter the row number of the source to query: ")
-      # ds <- as.integer(answer)
-      ds <- as.integer("1") # default to ITIS (for now)
-
-      all_resolved_names <- rbind(data_out)
-
-      # Add authority_taxon_id to all_resolved_names (only supported for ITIS right now)
-      # get_tsn only works for ITIS. Could add other db options.
-
-      message('Identifying taxonomic serial numbers.')
-
-      all_resolved_names$authority_taxon_id <- character(nrow(all_resolved_names))
-
-      for (i in 1:length(all_resolved_names$matched_name)){
-        info <- suppressWarnings(get_tsn(searchterm = all_resolved_names$matched_name[i],
-                                         searchtype = "scientific",
-                                         accepted = T,
-                                         ask = F))
-        if (attr(info, "match") == "found"){
-          all_resolved_names$authority_taxon_id[i] <- info[1]
-        }
-      }
-
-      # Add taxon_rank to all_resolved_names (only supported for ITIS right now)
-
-      message('Identifying taxon ranks.')
-
-      all_resolved_names$taxon_rank <- character(nrow(all_resolved_names))
-
-      for (i in 1:length(all_resolved_names$matched_name)){
-        info <- all_resolved_names$authority_taxon_id[i]
-        if (!info == ""){
-          info <- itis_taxrank(query = as.numeric(info))
-          all_resolved_names$taxon_rank[i] <- info
-        }
-      }
-
-      # Remove donotuse column
-
-      all_resolved_names <- all_resolved_names[ ,-4]
-
-      # Write results to file -------------------------------------------------------
-
-      message('Writing results to "taxon_map.csv".')
-
-      write.table(all_resolved_names,
-                  file = paste(path,
-                               "/",
-                               "taxon_map.csv",
-                               sep = ""),
-                  col.names = T,
-                  row.names = F,
-                  sep = ",",
-                  quote = F)
-
-    } else {
-
-      message('Unable to resolve taxonomic data. taxon_map.csv was not created.')
-      message('Done.')
-
-    }
-
-
-
-
-
-
-  } else if (method == "manual"){
-
-    message('Method = "manual"')
-
-    # Select authority ------------------------------------------------------------
-
-    data_source <- as.integer("3") # Restrict to ITIS (for now)
-
-    # Send to Global Names Resolver (GNR) -----------------------------------------
-    # NOTE: Colloquial terms will  not resolve, nor will any non-sensical taxon
-    # (e.g. "unsorted biomass"). These are resolved in the next step.
-
-    message('Resolving scientific names.')
-
-    gnr_out <- gnr_resolve(names = data_L0,
-                           data_source_ids = data_source,
-                           resolve_once = F,
-                           with_context = F,
-                           canonical = T,
-                           best_match_only = T)
-
-    if (length(gnr_out) != 0){
-
-      data_out <- subset(gnr_out,
-                         select = c(user_supplied_name,
-                                    matched_name2,
-                                    data_source_title))
-
-      colnames(data_out)[2] <- "authority_match"
-      colnames(data_out)[3] <- "authority_name"
-
-      data_out$do_not_use <- character(dim(data_out)[1])
-
-    }
-
-    # Attempt to resolve common names
-    # Identify remaining names and send through common2science name resolver.
-    # Print to file for spread sheet selection (manual).
-
-    message('Resolving common names.')
-
-    data_sources <- data.frame(id = seq(2),
-                               title = c("itis", "worms"),
-                               stringsAsFactors = F)
-
-    data_source <- as.integer("1") # Restrict to ITIS (for now)
-
-
-    # List unidentified taxa.
-
-    use_i <- data_L0 %in% unique(gnr_out[["user_supplied_name"]])
-    unidentified_taxa <- data_L0[!use_i]
-
-    # data_out <- data.frame(user_supplied_name = character(0),
-    #                        authority_match = character(0),
-    #                        authority_name = character(0),
-    #                        name_usage = character(0),
-    #                        authority_taxon_id = character(0),
-    #                        stringsAsFactors = F)
-
-    ut_out <- data.frame(user_supplied_name = character(0),
-                         authority_match = character(0),
-                         authority_name = character(0),
-                         name_usage = character(0),
-                         authority_taxon_id = character(0),
-                         stringsAsFactors = F)
-
-    if (!identical(unidentified_taxa, character(0))){
-      for (i in 1:length(unidentified_taxa)){
-        comm2sci_reply <- as.data.frame(terms(query = unidentified_taxa[i],
-                                              what = "common"))
-        if (!isTRUE((dim(comm2sci_reply)[1] == 0) & (dim(comm2sci_reply)[2] == 0))){
-          ut_out <- rbind(ut_out,
-                          data.frame(user_supplied_name = unidentified_taxa[i],
-                                     authority_match = comm2sci_reply$scientificName,
-                                     authority_name = "ITIS",
-                                     name_usage = comm2sci_reply$nameUsage,
-                                     authority_taxon_id = comm2sci_reply$tsn))
-        } else if ((isTRUE((dim(comm2sci_reply)[1] == 0) & (dim(comm2sci_reply)[2] == 0)))){
-          ut_out <- rbind(ut_out,
-                          data.frame(user_supplied_name = unidentified_taxa[i],
-                                     authority_match = "",
-                                     authority_name = "",
-                                     name_usage = "",
-                                     authority_taxon_id = ""))
-        }
-      }
-    }
-
-
-    # Combine resolvable names (scientific and common) ----------------------------
-
-    if (exists("data_out")){
-      all_resolved_names <- data_out
-
-      # Add authority_taxon_id to all_resolved_names (only supported for ITIS right now)
-
-      message('Identifying taxonomic serial numbers.')
-
-      all_resolved_names$authority_taxon_id <- character(nrow(all_resolved_names))
-      colnames(all_resolved_names) <- c("user_supplied_name",
-                                        "authority_match",
-                                        "authority_name",
-                                        "name_usage",
-                                        "authority_taxon_id")
-
-      data_out <- data.frame(user_supplied_name = character(0),
-                             authority_match = character(0),
-                             authority_name = character(0),
-                             name_usage = character(0),
-                             authority_taxon_id = character(0),
-                             stringsAsFactors = F)
-
-      for (i in 1:length(all_resolved_names$authority_match)){
-        info <- suppressWarnings(get_tsn(searchterm = all_resolved_names$authority_match[i],
-                                         searchtype = "scientific",
-                                         accepted = T,
-                                         ask = F))
-        if (attr(info, "match") == "found"){
-          all_resolved_names$authority_taxon_id[i] <- info[1]
-          all_resolved_names$name_usage[i] <- "accepted"
-          data_out <- rbind(data_out,
-                            all_resolved_names[i, ])
-        } else {
-          info <- suppressWarnings(terms(query = all_resolved_names$authority_match[i],
-                                         what = "scientific"))
-          info <- as.data.frame(info)
-          if (!isTRUE((dim(info)[1] == 0) & (dim(info)[2] == 0))){
-            data_out <- rbind(data_out,
-                              data.frame(user_supplied_name = all_resolved_names$user_supplied_name[i],
-                                         authority_match = info$scientificName,
-                                         authority_name = "ITIS",
-                                         name_usage = info$nameUsage,
-                                         authority_taxon_id = info$tsn))
-          } else if ((isTRUE((dim(info)[1] == 0) & (dim(info)[2] == 0)))){
-            data_out <- rbind(data_out,
-                              data.frame(user_supplied_name = all_resolved_names$user_supplied_name[i],
-                                         authority_match = "",
-                                         authority_name = "",
-                                         name_usage = "",
-                                         authority_taxon_id = ""))
-          }
-        }
-      }
-    }
-
-    # Combine resolved scientific and common names
-
-    if (isTRUE(exists("data_out") & (dim(ut_out)[1] != 0))){
-      data_out <- rbind(ut_out, data_out)
-    } else if (isTRUE(!exists("data_out") & (dim(ut_out)[1] != 0))){
-      data_out <- ut_out
-    }
-
-    # Add column to indicate selection then rearrange column order
-
-    data_out$selection <- ""
-
-    data_out <- data.frame(selection = data_out$selection,
-                           user_supplied_name = data_out$user_supplied_name,
-                           authority_match = data_out$authority_match,
-                           name_usage = data_out$name_usage,
-                           authority_name = data_out$authority_name,
-                           authority_taxon_id = data_out$authority_taxon_id,
-                           stringsAsFactors = F)
-
-    # Add selection mark to uniquely resolved taxon
-
-    use_i <- !data_out$user_supplied_name %in% data_out$user_supplied_name[duplicated(data_out$user_supplied_name)]
-    data_out$selection[use_i] <- "x"
-
-    # Remove "x" from unique taxon with no info in authority_match column
-
-    use_i <- data_out$authority_match == ""
-    data_out$selection[use_i] <- ""
-
-    # Add space between user_supplied_names to simplify reading
-
-    df_new <- as.data.frame(lapply(data_out, as.character), stringsAsFactors = FALSE)
-    taxon_choices <- do.call(rbind, by(df_new, df_new$user_supplied_name, rbind, ""))
-
-    # Write results to file -------------------------------------------------------
-
-    message('Writing results to "taxon_choices.csv".')
-
-    write.table(taxon_choices,
-                file = paste(path,
-                             "/",
-                             "taxon_choices.csv",
-                             sep = ""),
-                col.names = T,
-                row.names = F,
-                sep = ",",
-                quote = F)
-
-    message("Done.")
-
-
-
-
-
-
-
-
-  } else if (method == "interactive"){
-
-    message('Method = "interactive"')
-
-    # Select authority ------------------------------------------------------------
-
-    data_source <- as.integer("3") # Restrict to ITIS (for now)
-
-    # Send to Global Names Resolver (GNR) -----------------------------------------
-    # NOTE: Colloquial terms will  not resolve, nor will any non-sensical taxon
-    # (e.g. "unsorted biomass"). These are resolved in the next step.
-
-    message('Resolving scientific names.')
-
-    gnr_out <- gnr_resolve(names = data_L0,
-                           data_source_ids = data_source,
-                           resolve_once = F,
-                           with_context = F,
-                           canonical = T,
-                           best_match_only = T)
-
-    if (length(gnr_out) != 0){
-
-      data_out <- subset(gnr_out,
-                         select = c(user_supplied_name,
-                                    matched_name2,
-                                    data_source_title))
-
-      colnames(data_out)[2] <- "authority_match"
-      colnames(data_out)[3] <- "authority_name"
-
-      data_out$do_not_use <- character(dim(data_out)[1])
-
-    }
-
-    # Attempt to resolve common names
-    # Identify remaining names and send through common2science name resolver.
-    # Print to file for spread sheet selection (manual).
-
-    message('Resolving common names.')
-
-    data_sources <- data.frame(id = seq(2),
-                               title = c("itis", "worms"),
-                               stringsAsFactors = F)
-
-    data_source <- as.integer("1") # Restrict to ITIS (for now)
-
-
-    # List unidentified taxa.
-
-    use_i <- data_L0 %in% unique(gnr_out[["user_supplied_name"]])
-    unidentified_taxa <- data_L0[!use_i]
-
-    ut_out <- data.frame(user_supplied_name = character(0),
-                         authority_match = character(0),
-                         authority_name = character(0),
-                         do_not_use = character(0),
-                         stringsAsFactors = F)
-
-    for (i in 1:length(data_source)){
-      comm2sci_reply <- comm2sci(commnames = unidentified_taxa, db = data_sources$title[i])
-      if (length(comm2sci_reply) != 0){
-        for (j in 1:length(comm2sci_reply)){
-          usn <- names(comm2sci_reply)[j]
-          if (identical(comm2sci_reply[[j]], character(0))){
-            mn <- "could not be resolved"
-          } else {
-            mn <- comm2sci_reply[[j]]
-          }
-          dst <- data_sources$title[i]
-          usn <- rep(usn, length(mn))
-          dst <- rep(dst, length(mn))
-          utr <- rep("", length(mn))
-          dat_out <- data.frame(user_supplied_name = usn,
-                                authority_match = mn,
-                                authority_name = dst,
-                                do_not_use = utr,
-                                stringsAsFactors = F)
-          ut_out <- rbind(ut_out, dat_out)
-        }
-      }
-    }
-
-    # Prompt user to select from list of resolvable options
-
-    if (dim(ut_out)[1] != 0){
-      ut_out <- ut_out[order(ut_out$user_supplied_name), ]
-      ut_out$authority_name <- toupper(ut_out$authority_name)
-
-      ut_out2 <- data.frame(user_supplied_name = character(0),
-                            authority_match = character(0),
-                            authority_name = character(0),
-                            do_not_use = character(0),
-                            stringsAsFactors = F)
-      uni_supplied_names <- unique(ut_out$user_supplied_name)
-      for (i in 1:length(uni_supplied_names)){
-        use_i <- ut_out$user_supplied_name == uni_supplied_names[i]
-        hold <- ut_out[use_i, ]
-        ut_out2 <- rbind(ut_out2, hold)
-      }
-      use_i <- ut_out2$authority_match == "could not be resolved"
-      ut_out2 <- ut_out2[!use_i, ]
-
-      ut_out3 <- data.frame(user_supplied_name = character(0),
-                            authority_match = character(0),
-                            authority_name = character(0),
-                            do_not_use = character(0),
-                            stringsAsFactors = F)
-      uni_supplied_names <- unique(ut_out2$user_supplied_name)
-
-      for (i in 1:length(uni_supplied_names)){
-        hold <- c()
-        use_i <- ut_out2$user_supplied_name == uni_supplied_names[i]
-        hold <- ut_out2[use_i, ]
-        rownames(hold) <- seq(nrow(hold))
-        print(hold[ , 1:2])
-        print("Reference the list of matches above")
-        answer <- readline("Enter the row number of the correct match for your data: ")
-        print(paste("You selected ...", hold$authority_match[as.integer(answer)]))
-        ut_out3 <- rbind(ut_out3, hold[as.integer(answer), ])
-      }
-      ut_out <- ut_out3
-    }
-
-
-
-
-    # Combine resolvable names (scientific and common) ----------------------------
-
-    if ((exists("data_out") & exists("ut_out")) == T){
-      all_resolved_names <- rbind(data_out, ut_out)
-    } else if ((exists("data_out") & !exists("ut_out")) == T){
-      all_resolved_names <- data_out
-    } else if ((exists("ut_out") & !exists("data_out")) == T){
-      all_resolved_names <- ut_out
-    }
-
-
-
-    # Add authority_taxon_id to all_resolved_names (only supported for ITIS right now)
-    # get_tsn only works for ITIS. Could add other db options.
-
-    message('Identifying taxonomic serial numbers.')
-
-    all_resolved_names$authority_taxon_id <- character(nrow(all_resolved_names))
-
-    for (i in 1:length(all_resolved_names$authority_match)){
-      info <- suppressWarnings(get_tsn(searchterm = all_resolved_names$authority_match[i],
-                                       searchtype = "scientific",
-                                       accepted = T,
-                                       ask = F))
-      if (attr(info, "match") == "found"){
-        all_resolved_names$authority_taxon_id[i] <- info[1]
-      } else {
-        info <- suppressWarnings(get_tsn(searchterm = all_resolved_names$authority_match[i],
-                                         searchtype = "scientific",
-                                         accepted = T,
-                                         ask = T))
-        all_resolved_names$authority_taxon_id[i] <- info[1]
-      }
-    }
-
-    # Add taxon_rank to all_resolved_names (only supported for ITIS right now) ----
-
-    message('Identifying taxonomic ranks.')
-
-    all_resolved_names$taxon_rank <- character(nrow(all_resolved_names))
-    use_i <- is.na(all_resolved_names$authority_taxon_id)
-    all_resolved_names$authority_taxon_id[use_i] <- ""
-
-    for (i in 1:length(all_resolved_names$authority_match)){
-      info <- all_resolved_names$authority_taxon_id[i]
-      if (!info == ""){
-        info <- itis_taxrank(query = as.numeric(info))
-        all_resolved_names$taxon_rank[i] <- info
-      }
-    }
-
-    # Remove donotuse column
-
-    all_resolved_names <- all_resolved_names[ ,-4]
-
-    # Write results to file -------------------------------------------------------
-
-    message('Writing results to "taxon_map.csv".')
-
-    write.table(all_resolved_names,
-                file = paste(path,
-                             "/",
-                             "taxon_map.csv",
-                             sep = ""),
-                col.names = T,
-                row.names = F,
-                sep = ",",
-                quote = F)
+  use_i <- as.character(data.sources) %in% c('1','3','9','11','165')
+  if (sum(use_i) != length(use_i)){
+    stop('Input argument "data.sources" contains unsupported data source IDs!')
 
   }
 
+  # Read taxa_map.csv -------------------------------------------------------
+
+  taxa_map <- suppressMessages(
+    as.data.frame(
+      read_csv(
+        paste0(
+          path,
+          '/taxa_map.csv'
+        )
+      )
+    )
+  )
+
+  for (i in 1:nrow(taxa_map)){
+
+    # Get taxon from taxa_map.csv
+
+    taxon <- taxa_map[i, 'taxa_raw']
+
+    if (!is.na(taxa_map[i, 'taxa_trimmed'])){
+      taxon <- taxa_map[i, 'taxa_trimmed']
+    }
+    if (!is.na(taxa_map[i, 'taxa_replacement'])){
+      taxon <- taxa_map[i, 'taxa_replacement']
+    }
+    if (!is.na(taxa_map[i, 'taxa_removed'])){
+      taxon <- 'unresolvable_taxa'
+    }
+
+
+    resolve_taxa_sub <- function(x, data.sources){
+
+      i <- 1
+      taxon_id <- NULL
+
+      while ((is.null(taxon_id)) | (i != length(data.sources))){
+
+        # Get authority
+
+        output <- get_authority(
+          taxon = x,
+          data.source = data.sources
+        )
+
+        # Get ID
+
+        output2 <- get_id(
+          taxon = output$resolved_name,
+          authority = output$authority
+        )
+
+        taxon_id <- output2$taxon_id
+        i <- i + 1
+
+      }
+
+
+    }
+
+    # Update taxa_map.csv
+
+    if (length(query) != 0){
+      taxa_map[i, 'taxa_clean'] <- query[1, 'matched_name2']
+      taxa_map[i, 'authority'] <- query[1, 'data_source_title']
+      taxa_map[i, 'score'] <- query[1, 'score']
+    }
+  }
+
+  # Document provenance -----------------------------------------------------
+
+  # Write to file
+
+  write_taxa_map(
+    x = taxa_map,
+    path = path
+  )
 
 
 }
@@ -674,8 +146,163 @@ resolve_taxa <- function(path, data.file, taxon.col, method){
 
 
 
+get_authority <- function(taxon, data.source){
+
+  # Resolve taxa to authority -------------------------------------------------
+
+  message(
+    paste0(
+      'Getting authority for "',
+      taxon,
+      '"'
+    )
+  )
+
+  # Call Global Names Resolver (GNR)
+
+  query <- suppressWarnings(
+    as.data.frame(
+      gnr_resolve(
+        paste0(
+          taxon,
+          '*'
+          ),
+        resolve_once = T,
+        canonical = T,
+        best_match_only = T,
+        preferred_data_sources = as.character(
+          data.source
+          )
+        )
+      )
+    )
+
+  # Return output -------------------------------------------------------------
+
+  list(
+    'resolved_name' =  query[1, 'matched_name2'],
+    'authority' = query[1, 'data_source_title'],
+    'score' = query[1, 'score'])
+
+}
 
 
 
 
 
+get_id <- function(taxon, authority){
+
+  # Get ID and rank from taxon and authority ----------------------------------
+
+  # Get authority and query for ID and rank
+
+  # # Catalogue of Life
+  # if (!is.na(use_i) & isTRUE(use_i)){
+  #   response <- get_ids_(
+  #     taxon,
+  #     'col'
+  #   )
+  #   if (nrow(response[[1]][[1]]) > 0){
+  #     response <- as.data.frame(response$col)
+  #     #response <- response[complete.cases(response), ]
+  #     use_i <- response[ , 2] == taxon
+  #     response <- response[use_i, ]
+  #     if (nrow(response) > 0){
+  #       taxa_map[i, 'authority_id'] <- as.character(response[1, 1])
+  #       taxa_map[i, 'rank'] <- response[1, 3]
+  #     }
+  #   }
+  # }
+
+  # ITIS
+  if (!is.na(authority) & (authority == 'ITIS')){
+    response <- as.data.frame(
+      itis_terms(
+        taxon
+      )
+    )
+    if (nrow(response) > 0){
+      use_i <- response[ , 'scientificName'] == taxon
+      response <- response[use_i, ]
+      if (nrow(response) > 0){
+        taxon_id <- as.character(response[1, 'tsn'])
+        taxon_rank <- itis_taxrank(as.numeric(taxon_id))
+      }
+    }
+  }
+
+  # # World Register of Marine Species
+  # # use_i <- taxa_map[i, 'authority'] == 'World Register of Marine Species'
+  # if (!is.na(use_i) & isTRUE(use_i)){
+  #   response <- get_wormsid_(
+  #     taxon,
+  #     searchtype = 'scientific',
+  #     accepted = F,
+  #     ask = F,
+  #     messages = F
+  #   )
+  #   if (!is.null(response[[1]])){
+  #     response <- as.data.frame(response[[1]])
+  #     #response <- response[complete.cases(response), ]
+  #     use_i <- response[ , 2] == taxon
+  #     response <- response[use_i, ]
+  #     if (nrow(response) > 0){
+  #       taxa_map[i, 'authority_id'] <- as.character(response[1, 1])
+  #       response <- classification(as.character(response[1, 1]), db = 'worms')
+  #       response <- as.data.frame(response[[1]])
+  #       taxa_map[i, 'rank'] <- response[nrow(response), 2]
+  #     }
+  #   }
+  # }
+
+  # # GBIF Backbone Taxonomy
+  # # use_i <- taxa_map[i, 'authority'] == 'GBIF Backbone Taxonomy'
+  # if (!is.na(use_i) & isTRUE(use_i)){
+  #   response <- get_ids_(
+  #     taxon,
+  #     'gbif'
+  #   )
+  #   if (nrow(response[[1]][[1]]) > 0){
+  #     response <- as.data.frame(response[[1]][[1]])
+  #     #response <- response[complete.cases(response), ]
+  #     use_i <- response[ , 2] == taxon
+  #     response <- response[use_i, ]
+  #     if (nrow(response) > 0){
+  #       taxa_map[i, 'authority_id'] <- as.character(response[1, 1])
+  #       taxa_map[i, 'rank'] <- response[1, 3]
+  #     }
+  #   }
+  # }
+  #
+  # # Tropicos - Missouri Botanical Garden
+  # # use_i <- taxa_map[i, 'authority'] == 'Tropicos - Missouri Botanical Garden'
+  # if (!is.na(use_i) & isTRUE(use_i)){
+  #   response <- get_ids_(
+  #     taxon,
+  #     'tropicos'
+  #   )
+  #   if (nrow(response[[1]][[1]]) > 0){
+  #     response <- as.data.frame(response[[1]][[1]])
+  #     use_i <- response[ , 2] == taxon
+  #     response <- response[use_i, ]
+  #     if (nrow(response) > 0){
+  #       taxa_map[i, 'authority_id'] <- as.character(response[1, 1])
+  #       response <- tax_rank(taxa_map[i, 'authority_id'], db = 'tropicos')
+  #       taxa_map[i, 'rank'] <- response[[1]]
+  #     }
+  #   }
+  # }
+
+  # Return --------------------------------------------------------------------
+
+  if (!exists('taxon_id')){
+    taxon_id <- NULL
+  }
+  if (!exists('taxon_rank')){
+    taxon_rank <- NULL
+  }
+
+  list('taxon_id' = taxon_id,
+       'taxon_rank' = taxon_rank)
+
+}

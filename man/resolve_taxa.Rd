@@ -4,68 +4,31 @@
 \alias{resolve_taxa}
 \title{Resolve taxa}
 \usage{
-resolve_names(path = "", data.file = "", taxon.col = "", mode = "")
+resolve_taxa(path, data.sources)
 }
 \arguments{
-\item{path}{A path of the directory containing the data table containing taxonomic
-information.}
+\item{path}{A character string specifying the path to taxa_map.csv. This table
+tracks relationships between your raw and cleaned data and is operated
+on by this function. Create this file with `initialize_taxa_map`.}
 
-\item{data.file}{Name of the input data table containing taxonomic data.}
-
-\item{taxon.col}{Name of the column containing the taxonomic names including species
-binomials, rank specific names, and or common names.}
-
-\item{method}{Method for resolving your taxonomic data against an authority. There
-are 2 options:
-\itemize{
-    \item{manual} Use this option if you are not in a position to pass
-    judgement on the taxonomic data. This is a good option if you are
-    a data manager helping a data provider clean their taxonomy data.
-    However, this may be good option for you if you can pass judgement
-    on the taxonomic data (see notes on the interactive method below).
-    The output of manual mode is the taxon_choices.txt file which is a
-    tab delimited table containing the unique taxa of the raw data
-    with corresponding options to select from. After someone has
-    passed through this table selected the correct matches, this file
-    is converted to taxon_map.txt with the `choices2map` function.
-    taxon_map.txt contains the relationships between your raw taxa data
-    and your resolved taxa data.
-    \item{interactive} Use this option if you are in a position to pass
-    judgement on the correct identification of the taxa contained in
-    the dataset you are cleaning. When `resolve_taxa` encounters
-    ambiguity with a taxon you will be prompted to select the correct
-    taxon from a list. Your selections made during this interactive
-    session with the RStudio Console window will be recorded to the
-    taxon_map.txt file containing the relationships between your raw
-    taxa data and your resolved taxa data. This option has a few issues
-    you should be aware of:
-    \itemize{
-        \item{1.} You can not stop and save your work part way through
-        the name resolution process and resume at a later time. You will
-        have to start over from the beginning, which may be cumbersome
-        for large taxa lists.
-        \item{2.} If you want to revisit the options for a single taxon,
-        you will have to revisit and pass judgement on all the other
-        taxon that don't have issues.
-        \item{3.} There is no way to reverse a decision made during the
-        interactive mode. Once you select a taxon and press enter, there
-        is no way to change your input.
-    }
-    \item{automatic} Use this option if you are not in a position to pass
-    judgement on the taxonomic data, and don't have a data provider to
-    select any options that may arise if there are multiple options for
-    a taxon. This option resolves the fewest number of input taxa to an
-    authority but is sometimes the best option.
-}}
+\item{data.sources}{An ordered numeric vector of ID's corresponding to data sources (i.e.
+taxonomic authorities) you'd like to query, in the order of decreasing
+preference. Run `view_authorities` to get valid data source options
+and ID's.}
 }
 \value{
-A comma delimited file in the dataset working directory titled
-    \emph{taxon_map.csv} containing the relationships between your input
-    taxon data and the resolved names. This file is used by
-    \code{update_data} to update the taxonomic data of your data table.
+\itemize{
+        \item{1.} An updated version of taxa_map.csv containing authorities
+        and corresponding IDs.
+        \item{2.} A data frame of taxa_map.csv with resolved authorities and
+        IDs.
+    }
 }
 \description{
-Resolve input taxonomoic names against an authority and output a table
-    that maps your raw taxon data to the resolved names. This map is later
-    used by \code{update_data} to revise the taxon listed in your data.
+Resolve taxa to preferred authorities and get associated ID's.
+}
+\details{
+A taxa are resolved to data sources in order of listed preference. If
+    an authority and ID match can not be made, then the next preferred data
+    source will be queried, and so on.
 }
