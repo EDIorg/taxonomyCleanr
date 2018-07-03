@@ -112,3 +112,5 @@ Year	Sample_Date	Plot	Heat_Treatment	Species	Mass
 2007	8/24/07	64	Low	_Koeleria_cristata	0.83
 2007	8/24/07	64	Low	Lespedeza_capitata	44.1
 2007	8/24/07	64	Low	_Liatris_aspera_	14
+2007	8/24/07	64	Low		0.83
+2007	8/24/07	64	Low		44.1
