@@ -68,7 +68,7 @@ replace_taxon <- function(path, input, output){
 
   use_i <- x[ , 'taxa_raw'] == input
 
-  if (sum(use_i) == 0){
+  if (sum(use_i, na.rm = T) == 0){
     stop(
       paste0(
         '"',
@@ -78,6 +78,7 @@ replace_taxon <- function(path, input, output){
       )
     )
   } else {
+    use_i[is.na(use_i)] <- FALSE
     x[use_i, 'taxa_replacement'] <- output
   }
 
