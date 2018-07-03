@@ -78,11 +78,11 @@ initialize_taxa_map <- function(path, x, col){
     taxa_removed = rep(NA_character_, use_i),
     taxa_clean = rep(NA_character_, use_i),
     rank = rep(NA_character_, use_i),
-    selection = rep(NA_character_, use_i),
-    difference = rep(NA_character_, use_i),
     authority = rep(NA_character_, use_i),
     authority_id = rep(NA_character_, use_i),
     score = rep(NA_character_, use_i),
+    selection = rep(NA_character_, use_i),
+    difference = rep(NA_character_, use_i),
     stringsAsFactors = F
   )
 
