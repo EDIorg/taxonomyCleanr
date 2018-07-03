@@ -90,33 +90,66 @@ resolve_taxa <- function(path, data.sources){
       taxon <- 'unresolvable_taxa'
     }
 
-
     resolve_taxa_sub <- function(x, data.sources){
 
-      i <- 1
-      taxon_id <- NULL
+      output <- data.frame(
+        taxa_clean = rep(NA_character_, length(data.sources)),
+        rank = rep(NA_character_, length(data.sources)),
+        authority = rep(NA_character_, length(data.sources)),
+        authority_id = rep(NA_character_, length(data.sources)),
+        score = rep(NA_character_, length(data.sources)),
+        stringsAsFactors = F
+      )
+      j <- 1
 
-      while ((is.null(taxon_id)) | (i != length(data.sources))){
+      while (j != (length(data.sources)+1)){
 
-        # Get authority
+        # Resolve name, authority, and score
 
-        output <- get_authority(
+        out_auth <- get_authority(
           taxon = x,
-          data.source = data.sources
+          data.source = as.character(data.sources[j])
         )
 
-        # Get ID
+        # Resolve ID, and rank
 
-        output2 <- get_id(
-          taxon = output$resolved_name,
-          authority = output$authority
+        out_id <- get_id(
+          taxon = out_auth['resolved_name'],
+          authority = out_auth['authority']
         )
 
-        taxon_id <- output2$taxon_id
-        i <- i + 1
+        # Parse results into output data frame
+
+        output[j, 'taxa_clean'] <- out_auth['resolved_name']
+        output[j, 'rank'] <- out_id['taxon_rank']
+        output[j, 'authority'] <- out_auth['authority']
+        output[j, 'authority_id'] <- out_id['taxon_id']
+        output[j, 'score'] <- out_auth['score']
+
+        j <- j + 1
 
       }
 
+      # Get best match
+
+      if (sum(is.na(output[ , 'authority_id'])) == nrow(output)){
+        if (sum(is.na(output[ , 'authority'])) != nrow(output)){
+          output <- output[!is.na(output[ , 'authority']), ]
+          output <- output[1, ]
+        } else {
+          output <- output[1, ]
+        }
+      }
+
+      # Return
+
+      list(
+        output[1, 'taxa_clean'],
+        output[1, 'rank'],
+        output[1, 'authority'],
+        output[1, 'authority_id'],
+        output[1, 'score']
+        )
 
     }
 
@@ -179,10 +212,17 @@ get_authority <- function(taxon, data.source){
 
   # Return output -------------------------------------------------------------
 
-  list(
-    'resolved_name' =  query[1, 'matched_name2'],
-    'authority' = query[1, 'data_source_title'],
-    'score' = query[1, 'score'])
+  if (nrow(query) == 0){
+    list(
+      'resolved_name' =  NA_character_,
+      'authority' = NA_character_,
+      'score' = NA_character_)
+  } else {
+    list(
+      'resolved_name' =  query[1, 'matched_name2'],
+      'authority' = query[1, 'data_source_title'],
+      'score' = query[1, 'score'])
+  }
 
 }
 
@@ -227,7 +267,13 @@ get_id <- function(taxon, authority){
       if (nrow(response) > 0){
         taxon_id <- as.character(response[1, 'tsn'])
         taxon_rank <- itis_taxrank(as.numeric(taxon_id))
+      } else {
+        taxon_id <- NA_character_
+        taxon_rank <- NA_character_
       }
+    } else {
+      taxon_id <- NA_character_
+      taxon_rank <- NA_character_
     }
   }
 
@@ -296,10 +342,10 @@ get_id <- function(taxon, authority){
   # Return --------------------------------------------------------------------
 
   if (!exists('taxon_id')){
-    taxon_id <- NULL
+    taxon_id <- NA_character_
   }
   if (!exists('taxon_rank')){
-    taxon_rank <- NULL
+    taxon_rank <- NA_character_
   }
 
   list('taxon_id' = taxon_id,
