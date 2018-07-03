@@ -66,7 +66,7 @@ remove_taxon <- function(path, input){
 
   use_i <- x[ , 'taxa_raw'] == input
 
-  if (sum(use_i) == 0){
+  if (sum(use_i, na.rm = T) == 0){
     stop(
       paste0(
         '"',
@@ -76,6 +76,7 @@ remove_taxon <- function(path, input){
       )
     )
   } else {
+    use_i[is.na(use_i)] <- FALSE
     x[use_i, 'taxa_removed'] <- "TRUE"
   }
 
