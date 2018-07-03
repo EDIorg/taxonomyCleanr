@@ -12,6 +12,7 @@ Depends:
     stringr (>= 1.2.0),
     taxize (>= 0.8.8),
     ritis (>= 0.5.4),
+    readr (>= 1.1.1),
     reader (>= 1.0.6)
 License: Creative Commons license CC0 1.0 Universal
 Encoding: UTF-8
