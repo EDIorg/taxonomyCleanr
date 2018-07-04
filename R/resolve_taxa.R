@@ -96,7 +96,7 @@ resolve_taxa <- function(path, data.sources){
   # Optimize match ------------------------------------------------------------
 
   query <- optimize_match(
-    x = taxa_list[4, 'taxa'],
+    x = taxa_list[1, 'taxa'],
     data.sources = data.sources
   )
 
@@ -129,6 +129,8 @@ resolve_taxa <- function(path, data.sources){
   use_i <- match(colnames(query), colnames(taxa_map))
 
   taxa_map[taxa_list[ ,'index'], use_i] <- query
+
+  taxa_map[ , 'rank'] <- str_to_title(taxa_map[ , 'rank'])
 
   # Document provenance -----------------------------------------------------
 
@@ -180,9 +182,14 @@ get_authority <- function(taxon, data.source){
 
   # Resolve taxa to authority -------------------------------------------------
 
+  gnr_list <- gnr_datasources()
+  use_i <- gnr_list[ , 'id'] == data.source
+
   message(
     paste0(
-      'Getting authority for "',
+      'Searching ',
+      gnr_list[use_i, 'title'],
+      ' for "',
       taxon,
       '"'
     )
@@ -215,6 +222,15 @@ get_authority <- function(taxon, data.source){
       'authority' = NA_character_,
       'score' = NA_character_)
   } else {
+    if (query[1, 'matched_name2'] == ""){
+      query[1, 'matched_name2'] <- NA_character_
+    }
+    if (query[1, 'data_source_title'] == ""){
+      query[1, 'data_source_title'] <- NA_character_
+    }
+    if (query[1, 'score'] == "NaN"){
+      query[1, 'score'] <- NA_character_
+    }
     list(
       'resolved_name' =  query[1, 'matched_name2'],
       'authority' = query[1, 'data_source_title'],
@@ -253,30 +269,38 @@ get_authority <- function(taxon, data.source){
 
 get_id <- function(taxon, authority){
 
+  taxon_id <- NA_character_
+  taxon_rank <- NA_character_
+
   # Get ID and rank from taxon and authority ----------------------------------
 
   # Get authority and query for ID and rank
 
-  # # Catalogue of Life
-  # if (!is.na(use_i) & isTRUE(use_i)){
-  #   response <- get_ids_(
-  #     taxon,
-  #     'col'
-  #   )
-  #   if (nrow(response[[1]][[1]]) > 0){
-  #     response <- as.data.frame(response$col)
-  #     #response <- response[complete.cases(response), ]
-  #     use_i <- response[ , 2] == taxon
-  #     response <- response[use_i, ]
-  #     if (nrow(response) > 0){
-  #       taxa_map[i, 'authority_id'] <- as.character(response[1, 1])
-  #       taxa_map[i, 'rank'] <- response[1, 3]
-  #     }
-  #   }
-  # }
+  # Catalogue of Life
+  if ((!is.na(authority)) & (authority == 'Catalogue of Life')){
+    response <- get_ids_(
+      taxon,
+      'col'
+    )
+    if (nrow(response[[1]][[1]]) > 0){
+      response <- as.data.frame(response$col)
+      use_i <- response[ , 2] == taxon
+      response <- response[use_i, ]
+      if (nrow(response) > 0){
+        taxon_id <- as.character(response[1, 1])
+        taxon_rank <- response[1, 3]
+      } else {
+        taxon_id <- NA_character_
+        taxon_rank <- NA_character_
+      }
+    } else {
+      taxon_id <- NA_character_
+      taxon_rank <- NA_character_
+    }
+  }
 
   # ITIS
-  if (!is.na(authority) & (authority == 'ITIS')){
+  if ((!is.na(authority)) & (authority == 'ITIS')){
     response <- as.data.frame(
       itis_terms(
         taxon
@@ -298,67 +322,82 @@ get_id <- function(taxon, authority){
     }
   }
 
-  # # World Register of Marine Species
-  # # use_i <- taxa_map[i, 'authority'] == 'World Register of Marine Species'
-  # if (!is.na(use_i) & isTRUE(use_i)){
-  #   response <- get_wormsid_(
-  #     taxon,
-  #     searchtype = 'scientific',
-  #     accepted = F,
-  #     ask = F,
-  #     messages = F
-  #   )
-  #   if (!is.null(response[[1]])){
-  #     response <- as.data.frame(response[[1]])
-  #     #response <- response[complete.cases(response), ]
-  #     use_i <- response[ , 2] == taxon
-  #     response <- response[use_i, ]
-  #     if (nrow(response) > 0){
-  #       taxa_map[i, 'authority_id'] <- as.character(response[1, 1])
-  #       response <- classification(as.character(response[1, 1]), db = 'worms')
-  #       response <- as.data.frame(response[[1]])
-  #       taxa_map[i, 'rank'] <- response[nrow(response), 2]
-  #     }
-  #   }
-  # }
+  # World Register of Marine Species
+  if ((!is.na(authority)) & (authority == 'World Register of Marine Species')){
+    response <- get_wormsid_(
+      taxon,
+      searchtype = 'scientific',
+      accepted = F,
+      ask = F,
+      messages = F
+    )
+    if (!is.null(response[[1]])){
+      response <- as.data.frame(response[[1]])
+      use_i <- response[ , 2] == taxon
+      response <- response[use_i, ]
+      if (nrow(response) > 0){
+        taxon_id <- as.character(response[ , 'AphiaID'])
+        response <- classification(taxon_id, db = 'worms')
+        response <- as.data.frame(response[[1]])
+        taxon_rank <- response[nrow(response), 2]
+      } else {
+        taxon_id <- NA_character_
+        taxon_rank <- NA_character_
+      }
+    } else {
+      taxon_id <- NA_character_
+      taxon_rank <- NA_character_
+    }
+  }
 
-  # # GBIF Backbone Taxonomy
-  # # use_i <- taxa_map[i, 'authority'] == 'GBIF Backbone Taxonomy'
-  # if (!is.na(use_i) & isTRUE(use_i)){
-  #   response <- get_ids_(
-  #     taxon,
-  #     'gbif'
-  #   )
-  #   if (nrow(response[[1]][[1]]) > 0){
-  #     response <- as.data.frame(response[[1]][[1]])
-  #     #response <- response[complete.cases(response), ]
-  #     use_i <- response[ , 2] == taxon
-  #     response <- response[use_i, ]
-  #     if (nrow(response) > 0){
-  #       taxa_map[i, 'authority_id'] <- as.character(response[1, 1])
-  #       taxa_map[i, 'rank'] <- response[1, 3]
-  #     }
-  #   }
-  # }
-  #
-  # # Tropicos - Missouri Botanical Garden
-  # # use_i <- taxa_map[i, 'authority'] == 'Tropicos - Missouri Botanical Garden'
-  # if (!is.na(use_i) & isTRUE(use_i)){
-  #   response <- get_ids_(
-  #     taxon,
-  #     'tropicos'
-  #   )
-  #   if (nrow(response[[1]][[1]]) > 0){
-  #     response <- as.data.frame(response[[1]][[1]])
-  #     use_i <- response[ , 2] == taxon
-  #     response <- response[use_i, ]
-  #     if (nrow(response) > 0){
-  #       taxa_map[i, 'authority_id'] <- as.character(response[1, 1])
-  #       response <- tax_rank(taxa_map[i, 'authority_id'], db = 'tropicos')
-  #       taxa_map[i, 'rank'] <- response[[1]]
-  #     }
-  #   }
-  # }
+  # GBIF Backbone Taxonomy
+  if ((!is.na(authority)) & (authority == 'GBIF Backbone Taxonomy')){
+    response <- get_ids_(
+      taxon,
+      'gbif'
+    )
+    if (nrow(response[[1]][[1]]) > 0){
+      response <- as.data.frame(response[[1]][[1]])
+      use_i <- response[ , 6] == taxon
+      response <- response[use_i, ]
+      if (nrow(response) > 0){
+        taxon_id <- as.character(response[1, 'usagekey'])
+        response <- classification(taxon_id, db = 'gbif')
+        response <- as.data.frame(response[[1]])
+        taxon_rank <- response[nrow(response), 2]
+      } else {
+        taxon_id <- NA_character_
+        taxon_rank <- NA_character_
+      }
+    } else {
+      taxon_id <- NA_character_
+      taxon_rank <- NA_character_
+    }
+  }
+
+  # Tropicos - Missouri Botanical Garden
+  if ((!is.na(authority)) & (authority == 'Tropicos - Missouri Botanical Garden')){
+    response <- get_ids_(
+      taxon,
+      'tropicos'
+    )
+    if (nrow(response[[1]][[1]]) > 0){
+      response <- as.data.frame(response[[1]][[1]])
+      use_i <- response[ , 2] == taxon
+      response <- response[use_i, ]
+      if (nrow(response) > 0){
+        taxon_id <- as.character(response[1, 'nameid'])
+        response <- tax_rank(taxon_id, db = 'tropicos')
+        taxon_rank <- response[[1]]
+      } else {
+        taxon_id <- NA_character_
+        taxon_rank <- NA_character_
+      }
+    } else {
+      taxon_id <- NA_character_
+      taxon_rank <- NA_character_
+    }
+  }
 
   # Return --------------------------------------------------------------------
 
@@ -366,6 +405,12 @@ get_id <- function(taxon, authority){
     taxon_id <- NA_character_
   }
   if (!exists('taxon_rank')){
+    taxon_rank <- NA_character_
+  }
+  if (is.null(taxon_id)){
+    taxon_id <- NA_character_
+  }
+  if (is.null(taxon_rank)){
     taxon_rank <- NA_character_
   }
 
@@ -435,10 +480,12 @@ optimize_match <- function(x, data.sources){
 
     # Resolve ID, and rank
 
-    out_id <- get_id(
-      taxon = out_auth['resolved_name'],
-      authority = out_auth['authority']
-    )
+    out_id <- suppressWarnings(
+      get_id(
+        taxon = out_auth['resolved_name'],
+        authority = out_auth['authority']
+        )
+      )
 
     # Parse results into output data frame
 
