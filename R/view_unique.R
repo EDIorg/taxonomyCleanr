@@ -77,6 +77,7 @@ view_unique <- function(x, col, path){
   if (sum(use_i) > 0){
     for (i in 1:length(values_raw)){
       use_i2 <- values_raw[i] == x[ , col]
+      use_i2[is.na(use_i2)] <- FALSE
       x[use_i2, col] <- values_new[i]
     }
   }
@@ -92,6 +93,7 @@ view_unique <- function(x, col, path){
   if (sum(use_i) > 0){
     for (i in 1:length(values_raw)){
       use_i2 <- values_raw[i] == x[ , col]
+      use_i2[is.na(use_i2)] <- FALSE
       x[use_i2, col] <- values_new[i]
     }
   }
@@ -105,6 +107,7 @@ view_unique <- function(x, col, path){
   if (sum(use_i) > 0){
     for (i in 1:length(values_raw)){
       use_i2 <- values_raw[i] == x[ , col]
+      use_i2[is.na(use_i2)] <- FALSE
       x <- x[!use_i2, ]
     }
   }
