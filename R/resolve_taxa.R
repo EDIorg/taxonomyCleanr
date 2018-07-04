@@ -13,8 +13,8 @@
 #' @param data.sources
 #'     An ordered numeric vector of ID's corresponding to data sources (i.e.
 #'     taxonomic authorities) you'd like to query, in the order of decreasing
-#'     preference. Run `view_authorities` to get valid data source options
-#'     and ID's.
+#'     preference. Run `view_authorities` to see data source that support
+#'     `resolve_taxa`.
 #'
 #' @details
 #'     A taxa are resolved to data sources in order of listed preference. If
@@ -94,11 +94,6 @@ resolve_taxa <- function(path, data.sources){
   taxa_list <- taxa_list[!use_i, ]
 
   # Optimize match ------------------------------------------------------------
-
-  query <- optimize_match(
-    x = taxa_list[1, 'taxa'],
-    data.sources = data.sources
-  )
 
   query <- lapply(
     taxa_list[ , 'taxa'],
