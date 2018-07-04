@@ -12,9 +12,9 @@ tracks relationships between your raw and cleaned data and is operated
 on by this function. Create this file with `initialize_taxa_map`.}
 
 \item{data.sources}{An ordered numeric vector of ID's corresponding to data sources (i.e.
-taxonomic authorities) you'd like to query, in the order of decreasing
-preference. Run `view_authorities` to get valid data source options
-and ID's.}
+taxonomic authorities) to query, in the order of decreasing
+preference. Run `view_authorities` to see data source that support
+`resolve_common`.}
 }
 \value{
 \itemize{
