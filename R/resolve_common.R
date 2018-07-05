@@ -55,7 +55,7 @@ resolve_common <- function(path, data.sources){
     stop('taxa_map.csv is missing! Create it with initialize_taxa_map.R.')
   }
 
-  use_i <- as.character(data.sources) %in% c('1','3','9','11','165')
+  use_i <- as.character(data.sources) %in% c('3','12')
   if (sum(use_i) != length(use_i)){
     stop('Input argument "data.sources" contains unsupported data source IDs!')
 
@@ -101,13 +101,6 @@ resolve_common <- function(path, data.sources){
 
   # Optimize match ------------------------------------------------------------
 
-  # !!! start test
-  query <- optimize_match_common(
-    x = taxa_list[1, 'taxa'],
-    data.sources = data.sources
-  )
-  # !!! end test
-
   query <- lapply(
     taxa_list[ , 'taxa'],
     optimize_match_common,
@@ -131,8 +124,7 @@ resolve_common <- function(path, data.sources){
     'taxa_clean',
     'rank',
     'authority',
-    'authority_id',
-    'score')
+    'authority_id')
 
   use_i <- match(colnames(query), colnames(taxa_map))
 
@@ -153,99 +145,6 @@ resolve_common <- function(path, data.sources){
 }
 
 
-
-
-
-
-
-
-
-#' Get taxonomic authority for common
-#'
-#' @description
-#'     Use fuzzy searching in the Global Names Resolver to correct spelling
-#'     and locate appropriate authorities.
-#'
-#' @usage
-#'     get_authorities(path, data.source)
-#'
-#' @param taxon
-#'     A character string representation of the taxon to search on.
-#' @param data.source
-#'     A numeric ID corresponding to the data source (i.e. taxonomic authority)
-#'     you'd like to query. Run `view_authorities` to get valid data source
-#'     options and ID's.
-#'
-#' @return
-#'     \itemize{
-#'         \item{resolved_name} Resolved taxon name.
-#'         \item{authority} Name of the authority searched.
-#'         \item{score} Relative match score provided by the authority.
-#'     }
-#'
-#' @export
-#'
-
-get_authority_common <- function(taxon, data.source){
-
-  # Resolve taxa to authority -------------------------------------------------
-
-  gnr_list <- gnr_datasources()
-  use_i <- gnr_list[ , 'id'] == data.source
-
-  message(
-    paste0(
-      'Searching ',
-      gnr_list[use_i, 'title'],
-      ' for "',
-      taxon,
-      '"'
-    )
-  )
-
-  # Call Global Names Resolver (GNR)
-
-  query <- suppressWarnings(
-    as.data.frame(
-      gnr_resolve(
-        paste0(
-          taxon,
-          '*'
-        ),
-        resolve_once = T,
-        canonical = T,
-        best_match_only = T,
-        preferred_data_sources = as.character(
-          data.source
-        )
-      )
-    )
-  )
-
-  # Return output -------------------------------------------------------------
-
-  if (nrow(query) == 0){
-    list(
-      'resolved_name' =  NA_character_,
-      'authority' = NA_character_,
-      'score' = NA_character_)
-  } else {
-    if (query[1, 'matched_name2'] == ""){
-      query[1, 'matched_name2'] <- NA_character_
-    }
-    if (query[1, 'data_source_title'] == ""){
-      query[1, 'data_source_title'] <- NA_character_
-    }
-    if (query[1, 'score'] == "NaN"){
-      query[1, 'score'] <- NA_character_
-    }
-    list(
-      'resolved_name' =  query[1, 'matched_name2'],
-      'authority' = query[1, 'data_source_title'],
-      'score' = query[1, 'score'])
-  }
-
-}
 
 
 
@@ -279,6 +178,8 @@ get_id_common <- function(taxon, authority){
 
   taxon_id <- NA_character_
   taxon_rank <- NA_character_
+  taxon_authority <- NA_character_
+  taxon_clean <- NA_character_
 
   # Match authority -----------------------------------------------------------
 
@@ -305,13 +206,19 @@ get_id_common <- function(taxon, authority){
       if (nrow(response) > 0){
         taxon_id <- as.character(response[1, 1])
         taxon_rank <- 'Common'
+        taxon_authority <- authority
+        taxon_clean <- taxon
       } else {
         taxon_id <- NA_character_
         taxon_rank <- NA_character_
+        taxon_authority <- NA_character_
+        taxon_clean <- NA_character_
       }
     } else {
       taxon_id <- NA_character_
       taxon_rank <- NA_character_
+      taxon_authority <- NA_character_
+      taxon_clean <- NA_character_
     }
   }
 
@@ -381,13 +288,19 @@ get_id_common <- function(taxon, authority){
       if (nrow(response) > 0){
         taxon_id <- as.character(response[1, 'pageid'])
         taxon_rank <- 'common'
+        taxon_authority <- authority
+        taxon_clean <- taxon
       } else {
         taxon_id <- NA_character_
         taxon_rank <- NA_character_
+        taxon_authority <- NA_character_
+        taxon_clean <- NA_character_
       }
     } else {
       taxon_id <- NA_character_
       taxon_rank <- NA_character_
+      taxon_authority <- NA_character_
+      taxon_clean <- NA_character_
     }
   }
 
@@ -399,15 +312,29 @@ get_id_common <- function(taxon, authority){
   if (!exists('taxon_rank')){
     taxon_rank <- NA_character_
   }
+  if (!exists('taxon_authority')){
+    taxon_id <- NA_character_
+  }
+  if (!exists('taxon_clean')){
+    taxon_rank <- NA_character_
+  }
   if (is.null(taxon_id)){
     taxon_id <- NA_character_
   }
   if (is.null(taxon_rank)){
     taxon_rank <- NA_character_
   }
+  if (is.null(taxon_authority)){
+    taxon_authority <- NA_character_
+  }
+  if (is.null(taxon_clean)){
+    taxon_clean <- NA_character_
+  }
 
   list('taxon_id' = taxon_id,
-       'taxon_rank' = taxon_rank)
+       'taxon_rank' = taxon_rank,
+       'taxon_authority' = taxon_authority,
+       'taxon_clean' = taxon_clean)
 
 }
 
@@ -456,19 +383,11 @@ optimize_match_common <- function(x, data.sources){
     rank = rep(NA_character_, length(data.sources)),
     authority = rep(NA_character_, length(data.sources)),
     authority_id = rep(NA_character_, length(data.sources)),
-    score = rep(NA_character_, length(data.sources)),
     stringsAsFactors = F
   )
   j <- 1
 
   while (j != (length(data.sources)+1)){
-
-    # Resolve name, authority, and score
-
-    # out_auth <- get_authority_common(
-    #   taxon = x,
-    #   data.source = as.character(data.sources[j])
-    # )
 
     # Resolve ID, and rank
 
@@ -481,11 +400,10 @@ optimize_match_common <- function(x, data.sources){
 
     # Parse results into output data frame
 
-    output[j, 'taxa_clean'] <- out_auth['resolved_name']
-    output[j, 'rank'] <- out_id['taxon_rank']
-    output[j, 'authority'] <- out_auth['authority']
-    output[j, 'authority_id'] <- out_id['taxon_id']
-    output[j, 'score'] <- out_auth['score']
+    output[j, 'taxa_clean'] <- out_id[['taxon_clean']]
+    output[j, 'rank'] <- out_id[['taxon_rank']]
+    output[j, 'authority'] <- out_id[['taxon_authority']]
+    output[j, 'authority_id'] <- out_id[['taxon_id']]
 
     j <- j + 1
 
@@ -510,8 +428,7 @@ optimize_match_common <- function(x, data.sources){
     output[1, 'taxa_clean'],
     output[1, 'rank'],
     output[1, 'authority'],
-    output[1, 'authority_id'],
-    output[1, 'score']
+    output[1, 'authority_id']
   )
 
 }
