@@ -4,31 +4,28 @@
 \alias{update_data}
 \title{Update data}
 \usage{
-update_data(path = "", data.file = "", taxon.col = "")
+update_data(path = "", data.file = "", col = "")
 }
 \arguments{
-\item{path}{A path of the directory containing the data table containing taxonomic
-information and the file \emph{taxon_map.csv} for this dataset.}
+\item{path}{A path of the directory containing taxa_map.csv and the raw data table.}
 
-\item{data.file}{Name of the data table containing taxonomic data.}
+\item{x}{A data frame containing the vector of taxa names to be updated.}
 
-\item{taxon.col}{Name of the column containing the taxonomic names including species
-binomials and common names.}
+\item{col}{A character string specifying the column in x containing taxa names to
+be updated.}
 }
 \value{
-A copy of your data table containing revised taxonomic data (for those
-    taxa that could be resolved, non-resolved taxa are not updated). The
-    copy of your data is appended with the current date-time stamp. This
-    copy is made in the directory specified by path.
+A copy of your data table containing appended columns containing:
+    \itemize{
+        \item{resolved_taxa} Resolved taxa names.
+        \item{rank} Taxonomic rank.
+        \item{authority} Authority system the resolved names correspond with.
+        \item{authority_id} Taxonomic IDs of the authority system.
 
-    A comma delimited file \emph{taxon.csv} appended with the current
-    date-time stamp. This date-time stamp links the revised table and
-    \emph{taxon.csv} together. \emph{taxon.csv} is used by
-    \code{make_taxonomicCoverage} to create the taxonomicCoverage EML tree
-    for your taxa.
+    }
 }
 \description{
 Update the taxonomic information in your data table based on the
-    mapping containted in \emph{taxon_map.csv} created by the \code{resolve_names}
+    mapping containted in \emph{taxa_map.csv}.
     function.
 }
