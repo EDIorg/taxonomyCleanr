@@ -6,7 +6,7 @@
 #'     function.
 #'
 #' @usage
-#'     update_data(path = "", data.file = "", col = "")
+#'     update_data(path, x, col, retain.raw, sep)
 #'
 #' @param path
 #'     A path of the directory containing taxa_map.csv and the raw data table.
@@ -15,29 +15,28 @@
 #' @param col
 #'     A character string specifying the column in x containing taxa names to
 #'     be updated.
-#' @retain.raw
-#'     TRUE or FALSE, indicating whether the raw taxa column should be included
-#'     in the output.
-#' @sep
+#' @param sep
 #'     The column delimiter to use when writting the table to file. Can be ","
 #'     or "\t".
 #'
 #' @return
 #'     A copy of your data table containing appended columns containing:
 #'     \itemize{
-#'         \item{resolved_taxa} Resolved taxa names.
-#'         \item{rank} Taxonomic rank.
-#'         \item{authority} Authority system the resolved names correspond with.
-#'         \item{authority_id} Taxonomic IDs of the authority system.
+#'         \item{taxa_clean} Both resolved and unresolved taxa.
+#'         \item{taxa_rank} Taxonomic rank of resolved taxa, otherwise NA.
+#'         \item{taxa_authority} Authority system of resolved taxa, otherwise
+#'         NA.
+#'         \item{taxa_authority_id} Resolved taxa identifiers from
+#'         corresponding authority system.
 #'
 #'     }
 #'
 #' @export
 #'
 
-update_data <- function(path, x, col, retain.raw, sep){
+update_data <- function(path, x, col, sep){
 
-  # Check arguments and parameterize ------------------------------------------
+  # Check arguments -----------------------------------------------------------
 
   message('Checking arguments.')
 
@@ -50,9 +49,6 @@ update_data <- function(path, x, col, retain.raw, sep){
   if (missing(col)){
     stop('Input argument "col" is missing!')
   }
-  if (missing(retain.raw)){
-    stop('Input argument "retain.raw" is missing!')
-  }
   if (missing(sep)){
     stop('Input argument "sep" is missing!')
   }
@@ -63,18 +59,19 @@ update_data <- function(path, x, col, retain.raw, sep){
 
   # Validate taxon.col
 
-  columns <- colnames(data_L0)
-  columns_in <- taxon.col
+  columns <- colnames(x)
+  columns_in <- col
   use_i <- str_detect(string = columns,
                       pattern = str_c("^", columns_in, "$", collapse = "|"))
   if (sum(use_i) == 0){
-    stop(paste0('Invalid "taxon.col" entered: ', columns_in, ' Please fix this.'))
+    stop(paste0('Invalid "col" entered: ', columns_in, ' Please fix this.'))
   }
 
-  # Validate retain.raw
-
   # Validate sep
-  # (Add sep validation here)
+
+  if ((sep != ',') | sep != '\t'){
+    stop('Invalid "sep" value entered. Must be "," or "\\t".')
+  }
 
   # Read taxa_map.csv -------------------------------------------------------
 
@@ -90,70 +87,57 @@ update_data <- function(path, x, col, retain.raw, sep){
   )
 
 
-  # Update data table -------------------------------------------------------
+  # Update data ---------------------------------------------------------------
 
-  if (retain.raw == T){
+  message('Updating data (retain.raw = TRUE).')
 
-    # Add columns
+  message("Adding columns: taxa_clean, taxa_rank, authority, authority_id")
 
-    message(paste0("Revising taxa listed in ", '\"', taxon.col, '\" column.'))
+  # Match taxa
 
-    message("Adding new columns: taxon_rank, authority_system, authority_taxon_id")
+  use_i <- match(x[ , col], taxa_map[ , 'taxa_raw'])
 
-    new_df <- data.frame(taxon_name = character(nrow(data_L0)),
-                         taxon_rank = character(nrow(data_L0)),
-                         taxon_authority_system = character(nrow(data_L0)),
-                         taxon_authority_taxon_id = character(nrow(data_L0)),
-                         stringsAsFactors = F)
+  new_df <- taxa_map[use_i, c('taxa_clean', 'rank', 'authority', 'authority_id')]
 
-    taxon_L0 <- data_L0[[taxon.col]]
+  use_i <- is.na(new_df[ , 'taxa_clean'])
 
-    for (i in 1:nrow(taxon_map)){
-      use_i <- taxon_map$user_supplied_name[i] == taxon_L0
-      new_df[use_i, ] <- taxon_map[i, c("matched_name", "taxon_rank", "data_source_title", "authority_taxon_id")]
-    }
-    use_i <- new_df$taxon_rank == ""
-    new_df[use_i, ] <- NA_character_
+  new_df[use_i, 'taxa_clean'] <- x[use_i, col]
 
-    # Add resolvable taxon to taxon.col, else leave original contents
+  # Rename columns
 
-    data_L0[!use_i, taxon.col] <- new_df$taxon_name[!use_i]
+  colnames(new_df) <- c(
+    'taxa_clean',
+    'taxa_rank',
+    'taxa_authority',
+    'taxa_authority_id'
+  )
 
-    # Append new_df without the taxon_name column
+  # Append new_df to x
 
-    data_out <- cbind(data_L0, new_df[ ,c("taxon_rank", "taxon_authority_system", "taxon_authority_taxon_id")])
-
-
-  } else if (retain.raw == F){
-
-    # Update raw taxa
-
-    # Add columns
-
-  }
+  data_out <- cbind(x, new_df)
 
   # Write to file -----------------------------------------------------------
 
-  new_file_name <- paste(substr(data_file, 1, nchar(data_file)-4),
-                         "_",
-                         str_replace(Sys.time(), " ", "_"),
-                         file_extension,
-                         sep = "")
+  message('Writing to file.')
 
-  new_file_name <- str_replace(new_file_name, ":", "")
-  new_file_name <- str_replace(new_file_name, ":", "")
+  if (sep == ','){
+    new_file_name <- 'taxonomyCleanr_output.csv'
+  } else if (sep == '\t'){
+    new_file_name <- 'taxonomyCleanr_output.txt'
+  }
 
-  message(paste0('Writing ', new_file_name))
-
-  write.table(data_out,
-              file = paste(path,
-                           "/",
-                           new_file_name,
-                           sep = ""),
-              col.names = T,
-              row.names = F,
-              sep = sep,
-              quote = F)
+  write.table(
+    x = data_out,
+    file = paste0(
+      path,
+      "/",
+      new_file_name
+      ),
+    col.names = T,
+    row.names = F,
+    sep = sep,
+    quote = F
+    )
 
 
 }

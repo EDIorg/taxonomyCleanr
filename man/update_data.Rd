@@ -4,7 +4,7 @@
 \alias{update_data}
 \title{Update data}
 \usage{
-update_data(path = "", data.file = "", col = "")
+update_data(path, x, col, retain.raw, sep)
 }
 \arguments{
 \item{path}{A path of the directory containing taxa_map.csv and the raw data table.}
@@ -13,14 +13,19 @@ update_data(path = "", data.file = "", col = "")
 
 \item{col}{A character string specifying the column in x containing taxa names to
 be updated.}
+
+\item{sep}{The column delimiter to use when writting the table to file. Can be ","
+or "\t".}
 }
 \value{
 A copy of your data table containing appended columns containing:
     \itemize{
-        \item{resolved_taxa} Resolved taxa names.
-        \item{rank} Taxonomic rank.
-        \item{authority} Authority system the resolved names correspond with.
-        \item{authority_id} Taxonomic IDs of the authority system.
+        \item{taxa_clean} Both resolved and unresolved taxa.
+        \item{taxa_rank} Taxonomic rank of resolved taxa, otherwise NA.
+        \item{taxa_authority} Authority system of resolved taxa, otherwise
+        NA.
+        \item{taxa_authority_id} Resolved taxa identifiers from
+        corresponding authority system.
 
     }
 }
