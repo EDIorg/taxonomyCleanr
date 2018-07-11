@@ -2,14 +2,22 @@
 
 ### Overview
 
-The process of cleaning your taxonomy data and generating the associated metadata is rather straight forward (Figure 1). First, you send your data through the `resolve_taxa` function to correct spelling errors, get taxonomic serial numbers (TSNs) and taxonomic ranks. Second, you run `update_data` to create a revision of your raw data containing the cleaned taxa. Third, run `make_taxonomicCoverage` to create the taxonomicCoverage EML metadata node. The resultant taxonomicCoverage.xml file can be later incorporated into the full EML metadata for your data using the [`EMLassemblyline`](https://github.com/EDIorg/EMLassemblyline) or [`ecocomDP`](https://github.com/EDIorg/ecocomDP) R packages.
+The process of cleaning your taxa is rather straight forward and requires little to no taxonomic expertise. After a cursory inspection, and manual correction of any egregious cases, you send your list of taxa to a resolver function that searches through a set of taxonomic authorities to see if they can be found (while accomodating minor variance in spelling). If found, the authority system, taxonomic identification number, and taxonomic rank are retrieved and logged to file. Taxa that cannot be resolved are noted so you (or a data provider) can investigate further. Once your taxa have been resolved, you pass your taxa list and taxa_map.csv to `update_data` to update the taxonomic data of your dataset.
 
-![](https://github.com/EDIorg/taxonomyCleanr/blob/master/documentation/overview.png)
+Below is a demonstration of the `taxonomyCleanr` using example data that comes with the package install. Give it a try if you'd like!
 
-Figure 1: An overview of the taxa cleaning and metadata creation process.
+* [Install taxonomyCleanr](#installation)
+* [Load data](#load-data)
+* Create taxa_map.csv
+* View taxa
+* Trim taxa
+* Replace taxa
+* Remove taxa
+* Resolve taxa (scientific)
+* Resolve taxa (common)
+* Update data
 
 ### Installation
-
 Install the `taxonomyCleanr` from the GitHub.
 
 ```
@@ -22,7 +30,7 @@ install_github("EDIorg/taxonomyCleanr")
 library(taxonomyCleanr)
 ```
 
-### Step 1: Prepare dataset for the taxonomyCleanr
+### Load data
 
 #### Create a directory for the dataset
 
