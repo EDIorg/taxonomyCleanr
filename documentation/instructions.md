@@ -13,8 +13,8 @@ Below is a demonstration of the `taxonomyCleanr` using example data that comes w
 * [Trim taxa](#trim-taxa)
 * [Replace taxa](#replace-taxa)
 * [Remove taxa](#remove-taxa)
-* [Resolve taxa: scientific](#resolve-taxa:-scientific) 
-* [Resolve taxa: common](#resolve-taxa:-common)
+* [Resolve taxa scientific](#resolve-taxa-scientific) 
+* [Resolve taxa common](#resolve-taxa-common)
 * [Update data](#update-data)
 * Make EML (coming soon)
 
@@ -120,7 +120,7 @@ output <- remove_taxon(path = my_path, input = 'Miscellaneous litter')
 output <- view_unique(x = data, col = 'Species', path = my_path)
 ```
 
-### Resolve taxa: scientific
+### Resolve taxa scientific
 Now that the taxa list is looking some what reasonable, we can try resolving the taxa to an authority system. First the authority systems we wish to use should be identified.
 
 ```
@@ -135,7 +135,7 @@ output <- resolve_taxa(path = my_path, data.sources = c(3,9))
 ```
 Taxa that could be resolved are listed in taxa_map.csv under the columns taxa_clean, rank, authority, and authority_id. Some of the taxa couldn't be resolved so these columns contain NA. For taxa that can't be resolved, it may be worth while performing a manual search of the queried authorities (in this case ITIS and WORMS) or to retry `resolve_taxa` with a different set of authorities, or to manually search a new authority and enter the discovered information to taxa_map.csv manually.
 
-### Resolve taxa: common
+### Resolve taxa common
 Some of the taxa that can't be resolved have common names. To resolve taxa with common names use `resolve_common`.
 
 ```
