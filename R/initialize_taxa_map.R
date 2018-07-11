@@ -30,17 +30,15 @@
 #'         `remove_taxon`.
 #'         \item{'taxa_clean'} Cleaned taxa names that have been resolved to a
 #'         taxonomic authority.
-#'         \item{'selection'} An character string indicating which taxa_clean
-#'         to use when more than one exists for a taxa_raw. Any character
-#'         string in this field functions as a suitable identifier.
-#'         \item{'difference'} Logical values indicating whether a difference
-#'         between taxa_clean and taxa_raw exists.
+#'         \item{'rank'} Taxonomic rank for resolved taxon.
 #'         \item{'authority'} Taxonomic authorities against which taxa_clean
 #'         was resolved.
 #'         \item{'authority_id'} Unique identification numbers within each
 #'         authority.
 #'         \item{'score'} A numeric score, supplied by the authority,
 #'         indicating the strength of match between taxa_raw and taxa_clean.
+#'         \item{'difference'} A logical value indicating whether the contents
+#'         resolved_taxa differ from raw_taxa.
 #'     }
 #'
 #' @export
@@ -81,7 +79,6 @@ initialize_taxa_map <- function(path, x, col){
     authority = rep(NA_character_, use_i),
     authority_id = rep(NA_character_, use_i),
     score = rep(NA_character_, use_i),
-    selection = rep(NA_character_, use_i),
     difference = rep(NA_character_, use_i),
     stringsAsFactors = F
   )
