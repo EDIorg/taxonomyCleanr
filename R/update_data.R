@@ -20,7 +20,8 @@
 #'     or "\t".
 #'
 #' @return
-#'     A copy of your data table containing appended columns containing:
+#'     A copy of your data table (taxonomyCleanr_output) containing appended
+#'     columns containing:
 #'     \itemize{
 #'         \item{taxa_clean} Both resolved and unresolved taxa.
 #'         \item{taxa_rank} Taxonomic rank of resolved taxa, otherwise NA.
@@ -28,8 +29,8 @@
 #'         NA.
 #'         \item{taxa_authority_id} Resolved taxa identifiers from
 #'         corresponding authority system.
-#'
 #'     }
+#'     Unresolvable taxa will have NA values for the appended columns.
 #'
 #' @export
 #'
@@ -69,7 +70,7 @@ update_data <- function(path, x, col, sep){
 
   # Validate sep
 
-  if ((sep != ',') | sep != '\t'){
+  if ((sep != ',') & (sep != '\t')){
     stop('Invalid "sep" value entered. Must be "," or "\\t".')
   }
 

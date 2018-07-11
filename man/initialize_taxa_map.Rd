@@ -20,21 +20,27 @@ A .csv file named (taxa_map.csv) written to path containing the fields:
     \itemize{
         \item{'taxa_raw'} Unique taxa names listed in x.
         \item{'taxa_trimmed'} The contents of taxa_raw, but with white space
-        and common abbreviations (e.g. "Spp.", "C.f.") trimmed.
+        and common abbreviations (e.g. "Spp.", "C.f.") trimmed. Column
+        contents are outputs from `trim_taxon`.
         \item{'taxa_replacement'} The taxa name used as a replacement for
-        taxa_raw, and as implemented through `replace_taxon`.
+        taxa_raw. Column contents are outputs from `replace_taxon`.
         \item{'taxa_removed'} A logical value indicating whether the
-        corresponding taxa_raw should be removed, and as implemented via
-        `remove_taxon`.
+        corresponding taxa_raw should be removed. Column contents are
+        outputs from `remove_taxon`.
         \item{'taxa_clean'} Cleaned taxa names that have been resolved to a
-        taxonomic authority.
-        \item{'rank'} Taxonomic rank for resolved taxon.
+        taxonomic authority. Column contents are outputs from `resolve_taxa`
+        and `resolve_common`.
+        \item{'rank'} Taxonomic rank for resolved taxon. Column contents
+        are outputs from `resolve_taxa` and `resolve_common`.
         \item{'authority'} Taxonomic authorities against which taxa_clean
-        was resolved.
+        was resolved. Column contents are outputs from `resolve_taxa` and
+        `resolve_common`.
         \item{'authority_id'} Unique identification numbers within each
-        authority.
+        authority. Column contents are outputs from `resolve_taxa` and
+        `resolve_common`.
         \item{'score'} A numeric score, supplied by the authority,
         indicating the strength of match between taxa_raw and taxa_clean.
+        Column contents are outputs from `resolve_taxa` and `resolve_common`.
         \item{'difference'} A logical value indicating whether the contents
         resolved_taxa differ from raw_taxa.
     }

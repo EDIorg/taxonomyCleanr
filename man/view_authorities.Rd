@@ -8,11 +8,12 @@ view_authorities()
 }
 \value{
 A data frame and view of taxonomic authorities and corresponding
-    identifiers supported by `get_authorities`.
+    identifiers supported by `resolve_taxa` and `resolve_common`.
 }
 \description{
 List taxonomic authorities supported by the `taxonomyCleanr`.
 }
 \details{
-This is a wrapper function to `taxize::gnr_datasources`.
+View taxonomic authorities supported by `resolve_taxa` and
+    `resolve_common`.
 }

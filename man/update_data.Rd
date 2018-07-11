@@ -18,7 +18,8 @@ be updated.}
 or "\t".}
 }
 \value{
-A copy of your data table containing appended columns containing:
+A copy of your data table (taxonomyCleanr_output) containing appended
+    columns containing:
     \itemize{
         \item{taxa_clean} Both resolved and unresolved taxa.
         \item{taxa_rank} Taxonomic rank of resolved taxa, otherwise NA.
@@ -26,8 +27,8 @@ A copy of your data table containing appended columns containing:
         NA.
         \item{taxa_authority_id} Resolved taxa identifiers from
         corresponding authority system.
-
     }
+    Unresolvable taxa will have NA values for the appended columns.
 }
 \description{
 Update the taxonomic information in your data table based on the
