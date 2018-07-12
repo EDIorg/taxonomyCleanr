@@ -1,3 +1,6 @@
+# NOTE: This branch (master) of the taxonomyCleanr project is obsolete and will soon be replaced with the development branch. Please use the development branch.
+
+
 # taxonomyCleanr
 
 Taxonomic data can be messy and challenging to work with. Incorrect spelling, the use of common names, unaccepted names, and the use of synonyms all contribute to ambiguity in what a taxon is. This R package helps you resolve these issues by resolving your taxonomic data to an authority system and helps you create metadata for your taxonomic data in the Ecological Metadata Language (EML) format.
