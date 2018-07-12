@@ -28,7 +28,7 @@ install.packages("devtools")
 library(devtools)
 
 # Install and load taxonomyCleanr
-install_github("EDIorg/taxonomyCleanr")
+install_github("EDIorg/taxonomyCleanr", ref = "development")
 library(taxonomyCleanr)
 ```
 
