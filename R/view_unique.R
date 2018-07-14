@@ -104,6 +104,13 @@ view_unique <- function(x, col, path){
 
   values_raw <- taxa_map[use_i, 'taxa_raw']
 
+  if (sum(is.na(values_raw)) > 0){
+    x[is.na(x[ , col]), col] <- 'NA'
+    values_raw[is.na(values_raw)] <- 'NA'
+  } else {
+    x[is.na(x[ , col]), col] <- 'NA'
+  }
+
   if (sum(use_i) > 0){
     for (i in 1:length(values_raw)){
       use_i2 <- values_raw[i] == x[ , col]
