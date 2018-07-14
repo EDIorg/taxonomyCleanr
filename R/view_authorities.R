@@ -75,6 +75,8 @@ view_authorities <- function(){
 
   taxonomic_authorities <- gnr_list[complete.cases(gnr_list), c('id', 'return_to_user', 'resolve_taxa', 'resolve_common')]
   colnames(taxonomic_authorities) <- c('id', 'authorities', 'resolve_taxa', 'resolve_common')
+  rownames(taxonomic_authorities) <- c()
+
   View(taxonomic_authorities)
 
   taxonomic_authorities
