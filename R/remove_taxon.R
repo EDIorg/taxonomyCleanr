@@ -64,6 +64,10 @@ remove_taxon <- function(path, input){
 
   # Update taxon ------------------------------------------------------------
 
+  if (input == 'NA'){
+    x[is.na(x[ , 'taxa_raw']), 'taxa_raw'] <- 'NA'
+  }
+
   use_i <- x[ , 'taxa_raw'] == input
 
   if (sum(use_i, na.rm = T) == 0){
