@@ -54,15 +54,14 @@ view_unique <- function(x, col, path){
 
 # Read taxa_map.csv -------------------------------------------------------
 
-  taxa_map <- suppressMessages(
-    as.data.frame(
-      read_csv(
-        paste0(
-          path,
-          '/taxa_map.csv'
-        )
-      )
-    )
+  taxa_map <- read.table(
+    paste0(
+      path,
+      '/taxa_map.csv'
+    ),
+    header = T,
+    sep = ',',
+    stringsAsFactors = F
   )
 
   # Update x with taxa_trimmed ----------------------------------------------
@@ -107,9 +106,9 @@ view_unique <- function(x, col, path){
   if (sum(is.na(values_raw)) > 0){
     x[is.na(x[ , col]), col] <- 'NA'
     values_raw[is.na(values_raw)] <- 'NA'
-  } else {
-    x[is.na(x[ , col]), col] <- 'NA'
-  }
+  } #else {
+  #   x[is.na(x[ , col]), col] <- 'NA'
+  # }
 
   if (sum(use_i) > 0){
     for (i in 1:length(values_raw)){
@@ -118,6 +117,10 @@ view_unique <- function(x, col, path){
       x <- x[!use_i2, ]
     }
   }
+
+  # Replace NA with 'NA' to make visible --------------------------------------
+
+  x[is.na(x[ , col]), col] <- 'NA'
 
 # Count unique taxa and view ----------------------------------------------
 

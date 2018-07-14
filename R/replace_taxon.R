@@ -53,15 +53,14 @@ replace_taxon <- function(path, input, output){
 
   # Read taxa_map.csv -------------------------------------------------------
 
-  x <- suppressMessages(
-    as.data.frame(
-      read_csv(
-        paste0(
-          path,
-          '/taxa_map.csv'
-        )
-      )
-    )
+  x <- read.table(
+    paste0(
+      path,
+      '/taxa_map.csv'
+    ),
+    header = T,
+    sep = ',',
+    stringsAsFactors = F
   )
 
   # Update taxon ------------------------------------------------------------
