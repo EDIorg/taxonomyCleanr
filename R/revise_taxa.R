@@ -1,4 +1,4 @@
-#' Update data
+#' Revise taxonomic data
 #'
 #' @description
 #'     Update the taxonomic information in your data table based on the
@@ -6,7 +6,7 @@
 #'     function.
 #'
 #' @usage
-#'     update_data(path, x, col, retain.raw, sep)
+#'     revise_taxa(path, x, col, retain.raw, sep)
 #'
 #' @param path
 #'     A path of the directory containing taxa_map.csv and the raw data table.
@@ -35,7 +35,7 @@
 #' @export
 #'
 
-update_data <- function(path, x, col, sep){
+revise_taxa <- function(path, x, col, sep){
 
   # Check arguments -----------------------------------------------------------
 
