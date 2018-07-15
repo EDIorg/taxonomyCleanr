@@ -1,20 +1,20 @@
-#' Resolve common
+#' Resolve taxa with common names
 #'
 #' @description
 #'     Resolve common names to preferred authorities and get associated ID's.
 #'
 #' @usage
-#'     resolve_common(path, data.sources)
+#'     resolve_comm_taxa(path, data.sources)
 #'
 #' @param path
 #'     A character string specifying the path to taxa_map.csv. This table
 #'     tracks relationships between your raw and cleaned data and is operated
-#'     on by this function. Create this file with `initialize_taxa_map`.
+#'     on by this function. Create this file with `create_taxa_map`.
 #' @param data.sources
 #'     An ordered numeric vector of ID's corresponding to data sources (i.e.
 #'     taxonomic authorities) to query, in the order of decreasing
-#'     preference. Run `view_authorities` to see data source that support
-#'     `resolve_common`.
+#'     preference. Run `view_taxa_authorities` to see data source that support
+#'     `resolve_comm`.
 #'
 #' @details
 #'     Common names are resolved to data sources in order of listed preference.
@@ -32,7 +32,7 @@
 #' @export
 #'
 
-resolve_common <- function(path, data.sources){
+resolve_comm_taxa <- function(path, data.sources){
 
   # Check arguments ---------------------------------------------------------
 
@@ -432,3 +432,4 @@ optimize_match_common <- function(x, data.sources){
   )
 
 }
+

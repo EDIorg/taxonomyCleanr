@@ -1,11 +1,11 @@
-#' Trim taxon strings
+#' Trim taxa
 #'
 #' @description
 #'     Trim excess text from taxa names. Doing this before querying a taxonomic
 #'     authority reduces the frequency of mismatches.
 #'
 #' @usage
-#'     trim_raw_taxon_str(path)
+#'     trim_raw_taxa_str(path)
 #'
 #' @param path
 #'     A character string specifying the path to taxa_map.csv. This table
@@ -13,7 +13,7 @@
 #'     on by this function.
 #'
 #' @details
-#'     List of conditions `trim_taxon` addresses:
+#'     List of conditions `trim_taxa` addresses:
 #'     \itemize{
 #'         \item{'White spaces, trailing and leading'} White spaces are common.
 #'         \item{'Species abbreviations trailing a genus value'} E.g. "Sp.",
@@ -30,7 +30,7 @@
 #'
 
 
-trim_taxon <- function(path){
+trim_taxa <- function(path){
 
 
 # Check arguments ---------------------------------------------------------

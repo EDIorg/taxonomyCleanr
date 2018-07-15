@@ -1,10 +1,10 @@
-#' View authorities
+#' View taxonomic authorities
 #'
 #' @description
 #'     List taxonomic authorities supported by the `taxonomyCleanr`.
 #'
 #' @usage
-#'     view_authorities()
+#'     view_taxa_authorities()
 #'
 #' @details
 #'     View taxonomic authorities supported by `resolve_taxa` and
@@ -18,7 +18,7 @@
 #'
 
 
-view_authorities <- function(){
+view_taxa_authorities <- function(){
 
   # Get GNR datasources -----------------------------------------------------
 
@@ -74,7 +74,7 @@ view_authorities <- function(){
   gnr_list[use_i, 'resolve_common'] <- 'not supported'
 
   taxonomic_authorities <- gnr_list[complete.cases(gnr_list), c('id', 'return_to_user', 'resolve_taxa', 'resolve_common')]
-  colnames(taxonomic_authorities) <- c('id', 'authorities', 'resolve_taxa', 'resolve_common')
+  colnames(taxonomic_authorities) <- c('id', 'authority', 'resolve_sci_taxa', 'resolve_comm_taxa')
   rownames(taxonomic_authorities) <- c()
 
   View(taxonomic_authorities)

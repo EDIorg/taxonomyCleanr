@@ -1,40 +1,42 @@
-#' Remove taxon
+#' Replace taxa
 #'
 #' @description
-#'     Remove a taxon, and the associated record, from a data frame.
+#'     Replace a taxon name with another.
 #'
 #' @usage
-#'     remove_taxon(x, taxa.col, input)
+#'     replace_taxa(path, input, output)
 #'
 #' @param path
 #'     A character string specifying the path to taxa_map.csv. This table
 #'     tracks relationships between your raw and cleaned data and is operated
 #'     on by this function.
 #' @param input
-#'     A character string specifying the taxon to be removed.
+#'     A character string specifying an existing taxon name.
+#' @param output
+#'     A character string specifying a replacement taxon name.
 #'
 #' @return
 #'     \itemize{
-#'         \item{1.} An updated version of taxa_map.csv with removed taxa names.
-#'         \item{2.} A data frame of taxa_map.csv with removed taxa names.
+#'         \item{1.} An updated version of taxa_map.csv with new taxa names.
+#'         \item{2.} A data frame of taxa_map.csv with new taxa names.
 #'     }
 #'
 #' @export
 #'
 
-remove_taxon <- function(path, input){
+replace_taxa <- function(path, input, output){
 
 
   # Check arguments ---------------------------------------------------------
 
   if (missing(path)){
-    stop('Input argument "path" is missing!')
+    stop('Input argument "x" is missing!')
   }
   if (missing(input)){
     stop('Input argument "input" is missing!')
   }
-  if (length(input) > 1){
-    stop('The argument "input" does not support character vectors!')
+  if (missing(output)){
+    stop('Input argument "output" is missing!')
   }
 
   validate_path(path)
@@ -61,11 +63,7 @@ remove_taxon <- function(path, input){
     stringsAsFactors = F
   )
 
-  # Update taxon ------------------------------------------------------------
-
-  if (input == 'NA'){
-    x[is.na(x[ , 'taxa_raw']), 'taxa_raw'] <- 'NA'
-  }
+  # Update taxa ------------------------------------------------------------
 
   use_i <- x[ , 'taxa_raw'] == input
 
@@ -80,7 +78,7 @@ remove_taxon <- function(path, input){
     )
   } else {
     use_i[is.na(use_i)] <- FALSE
-    x[use_i, 'taxa_removed'] <- "TRUE"
+    x[use_i, 'taxa_replacement'] <- output
   }
 
   # Document provenance -----------------------------------------------------

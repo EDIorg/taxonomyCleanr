@@ -1,20 +1,20 @@
-#' Resolve taxa
+#' Resolve taxa with scientific names
 #'
 #' @description
 #'     Resolve taxa to preferred authorities and get associated ID's.
 #'
 #' @usage
-#'     resolve_taxa(path, data.sources)
+#'     resolve_sci_taxa(path, data.sources)
 #'
 #' @param path
 #'     A character string specifying the path to taxa_map.csv. This table
 #'     tracks relationships between your raw and cleaned data and is operated
-#'     on by this function. Create this file with `initialize_taxa_map`.
+#'     on by this function. Create this file with `create_taxa_map`.
 #' @param data.sources
 #'     An ordered numeric vector of ID's corresponding to data sources (i.e.
 #'     taxonomic authorities) you'd like to query, in the order of decreasing
-#'     preference. Run `view_authorities` to see data source that support
-#'     `resolve_taxa`.
+#'     preference. Run `view_taxa_authorities` to see data source that support
+#'     `resolve_sci_taxa`.
 #'
 #' @details
 #'     A taxa are resolved to data sources in order of listed preference. If
@@ -32,7 +32,7 @@
 #' @export
 #'
 
-resolve_taxa <- function(path, data.sources){
+resolve_sci_taxa <- function(path, data.sources){
 
   # Check arguments ---------------------------------------------------------
 

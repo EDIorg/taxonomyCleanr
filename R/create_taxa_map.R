@@ -1,12 +1,12 @@
-#' Initialize taxa map
+#' Create taxa map
 #'
 #' @description
-#'     Initialize the taxa table that will map the resolved taxa back to the
+#'     Create the taxa table that will map the resolved taxa back to the
 #'     raw taxa in the original data table, and which will be populated with
 #'     provenance information about the taxa cleaning process.
 #'
 #' @usage
-#'     initialize_taxa_map(path, x, col)
+#'     create_taxa_map(path, x, col)
 #'
 #' @param path
 #'     A character string specifying the path to which the taxa table will be
@@ -50,7 +50,7 @@
 #' @export
 #'
 
-initialize_taxa_map <- function(path, x, col){
+create_taxa_map <- function(path, x, col){
 
 # Check arguments ---------------------------------------------------------
 
@@ -67,7 +67,7 @@ initialize_taxa_map <- function(path, x, col){
     stop('Input argument "col" is missing!')
   }
 
-# Initialize taxon cleaning table -----------------------------------------
+# create taxon cleaning table -----------------------------------------
 
   use_i <- length(
     unique(

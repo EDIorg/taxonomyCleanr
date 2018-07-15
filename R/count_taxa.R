@@ -1,11 +1,11 @@
-#' View unique taxa and counts
+#' Get counts of unique taxa
 #'
 #' @description
 #'     View unique occurences and counts of taxa to help identify misspelled
 #'     taxon.
 #'
 #' @usage
-#'     view_unique(x, col, path)
+#'     count_taxa(x, col, path)
 #'
 #' @param x
 #'     A data frame of your data containing the vector of taxa names to be
@@ -25,7 +25,7 @@
 #' @export
 #'
 
-view_unique <- function(x, col, path){
+count_taxa <- function(x, col, path){
 
 # Check arguments ---------------------------------------------------------
 
@@ -124,7 +124,16 @@ view_unique <- function(x, col, path){
 
 # Count unique taxa and view ----------------------------------------------
 
-  unique_taxa <- table(x[ , col])
+  unique_taxa <- as.data.frame(
+    table(
+      x[ , col]
+      ),
+    stringsAsFactors = F
+    )
+
+  rownames(unique_taxa) <- c()
+  colnames(unique_taxa) <- c('Taxa', 'Count')
+
 
   View(unique_taxa)
 
