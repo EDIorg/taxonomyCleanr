@@ -27,7 +27,7 @@ library(taxonomyCleanr)
 
 ### Documenation
 
-[Instructions for the taxonomyCleanr](https://github.com/EDIorg/taxonomyCleanr/blob/development/documentation/instructions.md)
+[A demonstration of the taxonomyCleanr](https://cdn.rawgit.com/EDIorg/taxonomyCleanr/development/documentation/instructions.html)
 
 ## Contributing
 
