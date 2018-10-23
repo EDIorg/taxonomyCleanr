@@ -1,6 +1,3 @@
-# NOTE: This branch (master) of the taxonomyCleanr project is obsolete and will soon be replaced with the development branch. Please use the development branch.
-
-
 # taxonomyCleanr
 
 The `taxonomyCleanr` is a user friendly workflow and collection of functions to help you:
