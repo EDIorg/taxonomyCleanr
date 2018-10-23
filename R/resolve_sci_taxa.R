@@ -4,7 +4,7 @@
 #'     Resolve taxa to preferred authorities and get associated ID's.
 #'
 #' @usage
-#'     resolve_sci_taxa(path, data.sources)
+#'     resolve_sci_taxa(path, data.sources, x = NULL)
 #'
 #' @param path
 #'     A character string specifying the path to taxa_map.csv. This table
@@ -15,6 +15,8 @@
 #'     taxonomic authorities) you'd like to query, in the order of decreasing
 #'     preference. Run `view_taxa_authorities` to see data source that support
 #'     `resolve_sci_taxa`.
+#' @param x
+#'     (character) A vector of taxa names.
 #'
 #' @details
 #'     A taxa are resolved to data sources in order of listed preference. If
@@ -32,27 +34,36 @@
 #' @export
 #'
 
-resolve_sci_taxa <- function(path, data.sources){
+resolve_sci_taxa <- function(path, data.sources, x = NULL){
 
   # Check arguments ---------------------------------------------------------
 
-  if (missing(path)){
-    stop('Input argument "path" is missing!')
+  if (!is.null(x) & !missing(path)){
+    stop('Both "path" and "x" arguments are not allowed. Select one or the other.')
   }
+
+  if (is.null(x)){
+
+    if (missing(path)){
+      stop('Input argument "path" is missing!')
+    }
+
+    EDIutils::validate_path(path)
+    use_i <- file.exists(
+      paste0(
+        path,
+        '/taxa_map.csv'
+      )
+    )
+
+    if (!isTRUE(use_i)){
+      stop('taxa_map.csv is missing! Create it with initialize_taxa_map.R.')
+    }
+
+  }
+
   if (missing(data.sources)){
     stop('Input argument "data.sources" is missing!')
-  }
-
-  validate_path(path)
-
-  use_i <- file.exists(
-    paste0(
-      path,
-      '/taxa_map.csv'
-    )
-  )
-  if (!isTRUE(use_i)){
-    stop('taxa_map.csv is missing! Create it with initialize_taxa_map.R.')
   }
 
   use_i <- as.character(data.sources) %in% c('1','3','9','11','165')
@@ -63,35 +74,57 @@ resolve_sci_taxa <- function(path, data.sources){
 
   # Read taxa_map.csv -------------------------------------------------------
 
-  taxa_map <- suppressMessages(
-    as.data.frame(
-      read_csv(
-        paste0(
-          path,
-          '/taxa_map.csv'
+  if (!missing(path)){
+
+    taxa_map <- suppressMessages(
+      as.data.frame(
+        read_csv(
+          paste0(
+            path,
+            '/taxa_map.csv'
+          )
         )
       )
     )
-  )
+
+  } else {
+
+
+
+  }
 
   # Create taxa list ----------------------------------------------------------
 
-  taxa_list <- data.frame(
-    index = seq(nrow(taxa_map)),
-    taxa = rep(NA, nrow(taxa_map)),
-    stringsAsFactors = F
-  )
+  if (!missing(path)){
 
-  taxa_list[ , 'taxa'] <- taxa_map[ , 'taxa_raw']
+    taxa_list <- data.frame(
+      index = seq(nrow(taxa_map)),
+      taxa = rep(NA, nrow(taxa_map)),
+      stringsAsFactors = F
+    )
 
-  use_i <- !is.na(taxa_map[ , 'taxa_trimmed'])
-  taxa_list[use_i, 'taxa'] <- taxa_map[use_i, 'taxa_trimmed']
+    taxa_list[ , 'taxa'] <- taxa_map[ , 'taxa_raw']
 
-  use_i <- !is.na(taxa_map[ , 'taxa_replacement'])
-  taxa_list[use_i, 'taxa'] <- taxa_map[use_i, 'taxa_replacement']
+    use_i <- !is.na(taxa_map[ , 'taxa_trimmed'])
+    taxa_list[use_i, 'taxa'] <- taxa_map[use_i, 'taxa_trimmed']
 
-  use_i <- !is.na(taxa_map[ , 'taxa_removed'])
-  taxa_list <- taxa_list[!use_i, ]
+    use_i <- !is.na(taxa_map[ , 'taxa_replacement'])
+    taxa_list[use_i, 'taxa'] <- taxa_map[use_i, 'taxa_replacement']
+
+    use_i <- !is.na(taxa_map[ , 'taxa_removed'])
+    taxa_list <- taxa_list[!use_i, ]
+
+  } else {
+
+    taxa_list <- data.frame(
+      index = seq(length(x)),
+      taxa = rep(NA, length(x)),
+      stringsAsFactors = F
+    )
+
+    taxa_list[ , 'taxa'] <- x
+
+  }
 
   # Optimize match ------------------------------------------------------------
 
@@ -103,38 +136,76 @@ resolve_sci_taxa <- function(path, data.sources){
 
   # Update taxa_map.csv -----------------------------------------------------
 
-  query <- data.frame(
-    matrix(
-      unlist(
-        query
+  if (!missing(path)){
+
+    query <- data.frame(
+      matrix(
+        unlist(
+          query
         ),
-      nrow = length(query),
-      byrow = T
+        nrow = length(query),
+        byrow = T
       ),
-    stringsAsFactors = F
+      stringsAsFactors = F
     )
 
-  colnames(query) <- c(
-    'taxa_clean',
-    'rank',
-    'authority',
-    'authority_id',
-    'score')
+    colnames(query) <- c(
+      'taxa_clean',
+      'rank',
+      'authority',
+      'authority_id',
+      'score')
 
-  use_i <- match(colnames(query), colnames(taxa_map))
+    use_i <- match(colnames(query), colnames(taxa_map))
 
-  taxa_map[taxa_list[ ,'index'], use_i] <- query
+    taxa_map[taxa_list[ ,'index'], use_i] <- query
 
-  taxa_map[ , 'rank'] <- str_to_title(taxa_map[ , 'rank'])
+    taxa_map[ , 'rank'] <- str_to_title(taxa_map[ , 'rank'])
+
+  } else {
+
+    query <- data.frame(
+      matrix(
+        unlist(
+          query
+        ),
+        nrow = length(query),
+        byrow = T
+      ),
+      stringsAsFactors = F
+    )
+
+    colnames(query) <- c(
+      'taxa_clean',
+      'rank',
+      'authority',
+      'authority_id',
+      'score')
+
+    taxa_map <- cbind(taxa_list, query)
+
+  }
 
   # Document provenance -----------------------------------------------------
 
-  # Write to file
+  if (!missing(path)){
 
-  write_taxa_map(
-    x = taxa_map,
-    path = path
-  )
+    # Write to file
+
+    write_taxa_map(
+      x = taxa_map,
+      path = path
+    )
+
+  }
+
+  # Return --------------------------------------------------------------------
+
+  if (missing(path)){
+
+    taxa_map
+
+  }
 
 
 }
