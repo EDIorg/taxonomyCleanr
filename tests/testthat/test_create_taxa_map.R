@@ -34,7 +34,7 @@ testthat::test_that('Test dimensions', {
 
   expect_equal(
     dim(
-      initialize_taxa_map(
+      create_taxa_map(
         x = data,
         col = 'taxa'
         )

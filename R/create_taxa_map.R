@@ -97,10 +97,12 @@ create_taxa_map <- function(path, x, col){
 
 # Write taxon cleaning table to file --------------------------------------
 
-  write_taxa_map(
-    x = data_out,
-    path = path
-  )
+  if (!missing(path)){
+    write_taxa_map(
+      x = data_out,
+      path = path
+    )
+  }
 
   data_out
 
