@@ -13,7 +13,7 @@ The `taxonomyCleanr` is based on the `taxize` R package developed by [Chamberlai
 
 ### R package
 
-Install `taxonomyCleanr` from the project's GitHub development branch. The master branch contains an obsolete version of `taxonomyCleanr` that will soon be replaced by the development version.
+Install `taxonomyCleanr` GitHub
 
 ```
 # Install and load devtools
@@ -21,7 +21,7 @@ install.packages("devtools")
 library(devtools)
 
 # Install and load taxonomyCleanr
-install_github("EDIorg/taxonomyCleanr", ref = 'development')
+install_github("EDIorg/taxonomyCleanr")
 library(taxonomyCleanr)
 ```
 
@@ -32,6 +32,10 @@ library(taxonomyCleanr)
 ## Contributing
 
 We welcome contributions of all forms including bug reports, requests for development, and new functionality. Please reference our [code conduct](https://github.com/EDIorg/taxonomyCleanr/blob/master/CODE_OF_CONDUCT.md) and [contributing guidelines](https://github.com/EDIorg/taxonomyCleanr/blob/master/CONTRIBUTING.md) for submitting pull requests.
+
+## Testing
+
+Unit tests are found under /tests and follow the `testthat` methodology.
 
 ## Versioning
 
