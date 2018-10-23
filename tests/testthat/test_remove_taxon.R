@@ -7,7 +7,7 @@ testthat::test_that('remove_taxon removes a target taxon', {
 
   expect_equal(
 
-    dim(remove_taxon(
+    dim(remove_taxa(
       x = data.frame(
         location = c(
           'loc 1',
