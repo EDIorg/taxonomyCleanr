@@ -4,12 +4,14 @@
 \alias{trim_taxa}
 \title{Trim taxa}
 \usage{
-trim_raw_taxa_str(path)
+trim_raw_taxa_str(path = NULL, x = NULL)
 }
 \arguments{
 \item{path}{A character string specifying the path to taxa_map.csv. This table
 tracks relationships between your raw and cleaned data and is operated
 on by this function.}
+
+\item{x}{(character) A vector of taxa to be trimmed.}
 }
 \value{
 \itemize{

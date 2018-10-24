@@ -4,7 +4,7 @@
 \alias{resolve_sci_taxa}
 \title{Resolve taxa with scientific names}
 \usage{
-resolve_sci_taxa(path, data.sources)
+resolve_sci_taxa(path, data.sources, x = NULL)
 }
 \arguments{
 \item{path}{A character string specifying the path to taxa_map.csv. This table
@@ -15,6 +15,8 @@ on by this function. Create this file with `create_taxa_map`.}
 taxonomic authorities) you'd like to query, in the order of decreasing
 preference. Run `view_taxa_authorities` to see data source that support
 `resolve_sci_taxa`.}
+
+\item{x}{(character) A vector of taxa names.}
 }
 \value{
 \itemize{
