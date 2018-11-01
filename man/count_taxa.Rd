@@ -4,7 +4,7 @@
 \alias{count_taxa}
 \title{Get counts of unique taxa}
 \usage{
-count_taxa(x, col, path)
+count_taxa(x, col, path = NULL)
 }
 \arguments{
 \item{x}{A data frame of your data containing the vector of taxa names to be
