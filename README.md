@@ -1,10 +1,10 @@
 # taxonomyCleanr
 
 The `taxonomyCleanr` is a user friendly workflow and collection of functions to help you:
-1. Identify and correct misspelled taxa.
-2. Resolve taxa to an authority like the [Integrated Taxonomic Information System (ITIS)](https://www.itis.gov/).
-3. Get hierarchical rank values for taxa.
-4. Get common names for scientific names.
+1. Identify and correct misspelled taxa
+2. Resolve taxa to an authority (e.g. [Integrated Taxonomic Information System (ITIS)](https://www.itis.gov/))
+3. Get hierarchical rank values
+4. Get common names
 5. Render taxonomic information in the [Ecological Metadata Language (EML)](https://knb.ecoinformatics.org/#external//emlparser/docs/index.html).
 
 The `taxonomyCleanr` is based on the `taxize` R package developed by [Chamberlain et al. (2016)](https://github.com/ropensci/taxize).
@@ -13,7 +13,7 @@ The `taxonomyCleanr` is based on the `taxize` R package developed by [Chamberlai
 
 ### R package
 
-Install `taxonomyCleanr` GitHub
+Install `taxonomyCleanr` from GitHub
 
 ```
 # Install and load devtools
