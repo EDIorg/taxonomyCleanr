@@ -4,9 +4,7 @@ library(taxonomyCleanr)
 # Parameterize ----------------------------------------------------------------
 
 data <- read.table(
-  paste0(
-    path.package('taxonomyCleanr'),
-    '/inst/test_data.txt'),
+  system.file('test_data.txt', package = 'taxonomyCleanr'),
   header = TRUE,
   sep = '\t'
 )
