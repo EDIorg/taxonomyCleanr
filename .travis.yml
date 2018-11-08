@@ -2,3 +2,11 @@ language: r
 r:
   - oldrel
   - release
+cache: packages
+r_packages:
+  - EML
+  - stringr
+  - taxize
+  - ritis
+  - readr
+  - reader
