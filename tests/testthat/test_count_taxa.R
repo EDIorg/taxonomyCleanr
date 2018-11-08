@@ -1,37 +1,35 @@
-context('Count unique taxa')
+context('Count and report unique taxa')
 library(taxonomyCleanr)
 
 # Parameterize ----------------------------------------------------------------
 
 data <- read.table(
-  system.file('test_data.txt', package = 'taxonomyCleanr'),
-  header = T,
+  paste0(
+    path.package('taxonomyCleanr'),
+    '/inst/test_data.txt'),
+  header = TRUE,
   sep = '\t'
+)
+
+counts <- count_taxa(
+  x = data,
+  col = 'Species'
+)
+
+# Tests -----------------------------------------------------------------------
+
+testthat::test_that('Output data.frame', {
+
+  expect_equal(
+    class(counts),
+    'data.frame'
   )
 
-# Trim white space ------------------------------------------------------------
-
-testthat::test_that('A data frame input creates a data frame output', {
-
   expect_equal(
-    class(
-      count_taxa(
-        x = data,
-        col = 'Species'
-        )
-      ),
-    'data.frame'
-    )
-
-  expect_equal(
-    colnames(
-      count_taxa(
-        x = data,
-        col = 'Species'
-      )
-    ),
-    c('Taxa', 'Count')
+    dim(counts),
+    c(length(unique(data$Species)), ncol(counts))
   )
 
 })
+
 

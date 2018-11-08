@@ -1,46 +1,34 @@
-context('Initialize table for cleaning taxa')
+context('Initialize taxa_map.R')
 library(taxonomyCleanr)
 
-# Initialize test data ----------------------------------------------------
+# Initialize test data --------------------------------------------------------
 
-data <- data.frame(
-  taxa = c(
-    'taxa 1',
-    'taxa 2',
-    'taxa 3',
-    'taxa 3'
-    ),
-  count = c(
-    2,
-    4,
-    5,
-    4
-    ),
-  stringsAsFactors = F
-  )
+data <- read.table(
+  paste0(
+    path.package('taxonomyCleanr'),
+    '/inst/test_data.txt'),
+  header = TRUE,
+  sep = '\t'
+)
 
-dim_data <- c(
-  length(
-    unique(
-      data$taxa
-      )
-    ),
-  10
-  )
+taxa_map <- suppressWarnings(create_taxa_map(x = data, col = 'Species'))
 
-# Test dimensions ---------------------------------------------------------
+# Tests -----------------------------------------------------------------------
 
-testthat::test_that('Test dimensions', {
+testthat::test_that('Return data frame', {
 
   expect_equal(
-    dim(
-      create_taxa_map(
-        x = data,
-        col = 'taxa'
-        )
-      ),
-    dim_data
-    )
+    class(taxa_map),
+    'data.frame'
+  )
 
-  })
+})
 
+testthat::test_that('Dimensions should agree', {
+
+  expect_equal(
+    dim(taxa_map),
+    c(length(unique(data$Species)), ncol(taxa_map))
+  )
+
+})

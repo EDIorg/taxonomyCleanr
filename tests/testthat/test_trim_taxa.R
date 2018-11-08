@@ -8,8 +8,8 @@ testthat::test_that('Removes white spaces.', {
   # Leading white space
 
   expect_equal(
-    trim_taxon(
-      ' Genus'
+    trim_taxa(
+      x = ' Genus'
       ),
     'Genus'
     )
@@ -17,8 +17,8 @@ testthat::test_that('Removes white spaces.', {
   # Trailing white space
 
   expect_equal(
-    trim_taxon(
-      'Genus '
+    trim_taxa(
+      x = 'Genus '
       ),
     'Genus'
     )
@@ -26,8 +26,8 @@ testthat::test_that('Removes white spaces.', {
   # Leading & trailing white space in vector
 
   expect_equal(
-    trim_taxon(
-      c(
+    trim_taxa(
+      x = c(
         ' Genus',
         'Genus '
         )
@@ -47,8 +47,8 @@ testthat::test_that('Removes rank abbreviations.', {
   # Common species abbreviations at the genus level
 
   expect_equal(
-    trim_taxon(
-      c(
+    trim_taxa(
+      x = c(
         'Genus S',
         'Genus S.',
         'Genus S..',
@@ -108,14 +108,18 @@ testthat::test_that('Removes rank abbreviations.', {
 testthat::test_that('Replaces underscores with spaces.', {
 
   expect_equal(
-    trim_taxon(
-      'Genus_species',
-      'Genus_species_',
-      '_Genus_species_'
-    ),
-    'Genus species',
-    'Genus species',
-    'Genus species'
-  )
+    trim_taxa(
+      x = c(
+        'Genus_species',
+        'Genus_species_',
+        '_Genus_species_'
+        )
+      ),
+      c(
+        'Genus species',
+        'Genus species',
+        'Genus species'
+        )
+    )
 
 })
