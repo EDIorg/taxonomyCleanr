@@ -7,17 +7,17 @@
 make_taxonomicCoverage(path = "")
 }
 \arguments{
-\item{path}{A path of the directory containing the file \emph{taxon.txt}, which
-is created by the function \code{update_data}.}
+\item{path}{A path of the directory containing the file taxon.txt, which
+is created by the function `update_data`.}
 }
 \value{
 The taxonomicCoverage EML element written to the file
-    \emph{taxonomicCoverage.xml} in the directory specified by \emph{path}.
-    When creating EML for your dataset using the \code{EMLassemblyline}
-    (\href{https://github.com/EDIorg/EMLassemblyline}), this file is read
+    taxonomicCoverage.xml in the directory specified by path.
+    When creating EML for your dataset using the EMLassemblyline
+    (https://github.com/EDIorg/EMLassemblyline), this file is read
     and the contents incorporated into the EML for this dataset.
 }
 \description{
 Make the taxonomicCoverage EML element from information contained in
-    the file \emph{taxon.txt}.
+    the file taxon.txt.
 }
