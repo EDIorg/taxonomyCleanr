@@ -154,8 +154,6 @@ count_taxa <- function(x, col, path = NULL){
 
   }
 
-  View(unique_taxa)
-
 # Return output -----------------------------------------------------------
 
   unique_taxa
