@@ -1,4 +1,4 @@
-[![Travis-CI Build Status](https://travis-ci.com/EDIorg/taxonomyCleanr.svg?branch=master)]
+![Travis-CI Build Status](https://travis-ci.com/EDIorg/taxonomyCleanr.svg?branch=master)
 
 # taxonomyCleanr
 
