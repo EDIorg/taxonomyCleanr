@@ -63,7 +63,7 @@ revise_taxa <- function(path, x, col, sep){
   columns <- colnames(x)
   columns_in <- col
   use_i <- stringr::str_detect(string = columns,
-                      pattern = str_c("^", columns_in, "$", collapse = "|"))
+                      pattern = stringr::str_c("^", columns_in, "$", collapse = "|"))
   if (sum(use_i) == 0){
     stop(paste0('Invalid "col" entered: ', columns_in, ' Please fix this.'))
   }
@@ -127,7 +127,7 @@ revise_taxa <- function(path, x, col, sep){
     new_file_name <- 'taxonomyCleanr_output.txt'
   }
 
-  write.table(
+  utils::write.table(
     x = data_out,
     file = paste0(
       path,

@@ -4,21 +4,26 @@
 \alias{replace_taxa}
 \title{Replace taxa}
 \usage{
-replace_taxa(path, input, output)
+replace_taxa(input, output, x = NULL, col = NULL, path = NULL)
 }
 \arguments{
-\item{path}{A character string specifying the path to taxa_map.csv. This table
-tracks relationships between your raw and cleaned data and is operated
-on by this function.}
-
 \item{input}{A character string specifying an existing taxon name.}
 
 \item{output}{A character string specifying a replacement taxon name.}
+
+\item{x}{(character vector or data frame) Data containing taxa to be removed.}
+
+\item{col}{(character) A character string specifying the column in x containing
+taxa names to be cleaned. NOTE: Don't use this argument if x is a
+vector of character strings.}
+
+\item{path}{(character) A character string specifying the path to taxa_map.csv.}
 }
 \value{
 \itemize{
-        \item{1.} An updated version of taxa_map.csv with new taxa names.
-        \item{2.} A data frame of taxa_map.csv with new taxa names.
+        \item{1.} An updated version of taxa_map.csv with removed taxa names.
+        \item{2.} A data frame of taxa_map.csv with removed taxa names, if
+        the path argument is supplied.
     }
 }
 \description{

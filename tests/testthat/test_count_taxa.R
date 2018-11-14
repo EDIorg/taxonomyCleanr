@@ -3,7 +3,7 @@ library(taxonomyCleanr)
 
 # Parameterize ----------------------------------------------------------------
 
-data <- read.table(
+data <- utils::read.table(
   system.file('test_data.txt', package = 'taxonomyCleanr'),
   header = TRUE,
   sep = '\t'

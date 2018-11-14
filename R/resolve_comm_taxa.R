@@ -75,7 +75,7 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL){
 
     taxa_map <- suppressMessages(
       as.data.frame(
-        read_csv(
+        readr::read_csv(
           paste0(
             path,
             '/taxa_map.csv'
@@ -227,7 +227,7 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL){
 #'     Get a taxonomic identifier for a taxon name and corresponding authority.
 #'
 #' @usage
-#'     get_id(taxon, authority)
+#'     get_id_common(taxon, authority)
 #'
 #' @param taxon
 #'     A character string specifying taxon to get the ID for.
@@ -306,7 +306,7 @@ get_id_common <- function(taxon, authority){
   #     response <- response[use_i, ]
   #     if (nrow(response) > 0){
   #       taxon_id <- as.character(response[ , 'AphiaID'])
-  #       response <- classification(taxon_id, db = 'worms')
+  #       response <- taxize::classification(taxon_id, db = 'worms')
   #       response <- as.data.frame(response[[1]])
   #       taxon_rank <- response[nrow(response), 2]
   #     } else {
@@ -332,7 +332,7 @@ get_id_common <- function(taxon, authority){
   #     response <- response[use_i, ]
   #     if (nrow(response) > 0){
   #       taxon_id <- as.character(response[1, 'nameid'])
-  #       response <- tax_rank(taxon_id, db = 'tropicos')
+  #       response <- taxize::tax_rank(taxon_id, db = 'tropicos')
   #       taxon_rank <- response[[1]]
   #     } else {
   #       taxon_id <- NA_character_

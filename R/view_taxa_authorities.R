@@ -73,11 +73,11 @@ view_taxa_authorities <- function(){
   gnr_list[use_i, 'resolve_taxa'] <- 'supported'
   gnr_list[use_i, 'resolve_common'] <- 'not supported'
 
-  taxonomic_authorities <- gnr_list[complete.cases(gnr_list), c('id', 'return_to_user', 'resolve_taxa', 'resolve_common')]
+  taxonomic_authorities <- gnr_list[stats::complete.cases(gnr_list), c('id', 'return_to_user', 'resolve_taxa', 'resolve_common')]
   colnames(taxonomic_authorities) <- c('id', 'authority', 'resolve_sci_taxa', 'resolve_comm_taxa')
   rownames(taxonomic_authorities) <- c()
 
-  View(taxonomic_authorities)
+  utils::View(taxonomic_authorities)
 
   taxonomic_authorities
 

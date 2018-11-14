@@ -4,7 +4,7 @@
 \alias{trim_taxa}
 \title{Trim taxa}
 \usage{
-trim_raw_taxa_str(path = NULL, x = NULL)
+trim_taxa(path = NULL, x = NULL)
 }
 \arguments{
 \item{path}{A character string specifying the path to taxa_map.csv. This table

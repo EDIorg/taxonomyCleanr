@@ -78,7 +78,7 @@ resolve_sci_taxa <- function(path, data.sources, x = NULL){
 
     taxa_map <- suppressMessages(
       as.data.frame(
-        read_csv(
+        readr::read_csv(
           paste0(
             path,
             '/taxa_map.csv'
@@ -225,7 +225,7 @@ resolve_sci_taxa <- function(path, data.sources, x = NULL){
 #'     and locate appropriate authorities.
 #'
 #' @usage
-#'     get_authorities(taxon, data.source)
+#'     get_authority(taxon, data.source)
 #'
 #' @param taxon
 #'     A character string representation of the taxon to search on.
@@ -377,7 +377,7 @@ get_id <- function(taxon, authority){
       response <- response[use_i, ]
       if (nrow(response) > 0){
         taxon_id <- as.character(response[1, 'tsn'])
-        taxon_rank <- itis_taxrank(as.numeric(taxon_id))
+        taxon_rank <- taxize::itis_taxrank(as.numeric(taxon_id))
       } else {
         taxon_id <- NA_character_
         taxon_rank <- NA_character_
@@ -403,7 +403,7 @@ get_id <- function(taxon, authority){
       response <- response[use_i, ]
       if (nrow(response) > 0){
         taxon_id <- as.character(response[ , 'AphiaID'])
-        response <- classification(taxon_id, db = 'worms')
+        response <- taxize::classification(taxon_id, db = 'worms')
         response <- as.data.frame(response[[1]])
         taxon_rank <- response[nrow(response), 2]
       } else {
@@ -428,7 +428,7 @@ get_id <- function(taxon, authority){
       response <- response[use_i, ]
       if (nrow(response) > 0){
         taxon_id <- as.character(response[1, 'usagekey'])
-        response <- classification(taxon_id, db = 'gbif')
+        response <- taxize::classification(taxon_id, db = 'gbif')
         response <- as.data.frame(response[[1]])
         taxon_rank <- response[nrow(response), 2]
       } else {
@@ -453,7 +453,7 @@ get_id <- function(taxon, authority){
       response <- response[use_i, ]
       if (nrow(response) > 0){
         taxon_id <- as.character(response[1, 'nameid'])
-        response <- tax_rank(taxon_id, db = 'tropicos')
+        response <- taxize::tax_rank(taxon_id, db = 'tropicos')
         taxon_rank <- response[[1]]
       } else {
         taxon_id <- NA_character_
@@ -547,7 +547,7 @@ optimize_match <- function(x, data.sources){
     # Resolve ID, and rank
 
     out_id <- suppressWarnings(
-      taxize::get_id(
+      get_id(
         taxon = out_auth['resolved_name'],
         authority = out_auth['authority']
         )

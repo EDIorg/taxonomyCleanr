@@ -40,7 +40,7 @@ make_taxonomicCoverage <- function(path){
   #   stop('taxon.txt does not exist! Please create this file or remove the time stamp from the version you would like to use with your data.')
   # }
   #
-  # taxon <- read.table(paste(path, "/", "taxon.txt", sep = ""),
+  # taxon <- utils::read.table(paste(path, "/", "taxon.txt", sep = ""),
   #                     header = T,
   #                     sep = "\t",
   #                     as.is = T,
@@ -48,7 +48,7 @@ make_taxonomicCoverage <- function(path){
   #
   # # Create EML taxonomicCoverage element --------------------------------------
   #
-  # ids <- taxon$authority_taxon_id[complete.cases(taxon$authority_taxon_id)]
+  # ids <- taxon$authority_taxon_id[stats::complete.cases(taxon$authority_taxon_id)]
   #
   # classifications <- classification(x = ids, db = "itis")
   #

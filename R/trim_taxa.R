@@ -5,7 +5,7 @@
 #'     authority reduces the frequency of mismatches.
 #'
 #' @usage
-#'     trim_raw_taxa_str(path = NULL, x = NULL)
+#'     trim_taxa(path = NULL, x = NULL)
 #'
 #' @param path
 #'     A character string specifying the path to taxa_map.csv. This table
@@ -60,7 +60,7 @@ trim_taxa <- function(path = NULL, x = NULL){
 # Read taxa_map.csv -------------------------------------------------------
 
   if (!is.null(path)){
-    x <- read.table(
+    x <- utils::read.table(
       paste0(
         path,
         '/taxa_map.csv'

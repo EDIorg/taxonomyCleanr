@@ -5,38 +5,41 @@
 #'     taxon.
 #'
 #' @usage
-#'     count_taxa(x, col, path = NULL)
+#'     count_taxa(x, col = NULL, path = NULL)
 #'
 #' @param x
-#'     A data frame of your data containing the vector of taxa names to be
+#'     (data frame or character) A data frame or vector of taxa names to be
 #'     cleaned.
 #' @param col
-#'     A character string specifying the column in x containing taxa names to
-#'     be cleaned.
+#'     (character) A character string specifying the column in x containing
+#'     taxa names to be cleaned. NOTE: Don't use this argument if x is of
+#'     character class.
 #' @param path
-#'     A character string specifying the path to taxa_map.csv. This table
-#'     tracks relationships between your raw and cleaned data and is used by
-#'     this function.
+#'     (character) A character string specifying the path to taxa_map.csv.
+#'     This table tracks relationships between your raw and cleaned data and
+#'     is used by this function.
 #'
 #' @return
-#'     A data frame with taxa and associated counts found in the input, sorted
-#'     alphabetically by taxa.
+#'     (data frame) A data frame with taxa and associated counts found in the
+#'     input, sorted alphabetically by taxa.
 #'
 #' @export
 #'
 
-count_taxa <- function(x, col, path = NULL){
+count_taxa <- function(x, col = NULL, path = NULL){
 
   # Check arguments ---------------------------------------------------------
 
   if (missing(x)){
     stop('Input argument "x" is missing!')
-  }
-  if (class(x) != 'data.frame'){
-    stop('Input argument "x" must be a data frame!')
-  }
-  if (missing(col)){
-    stop('Input argument "col" is missing!')
+    if ((class(x) != 'data.frame') | (class(x) != 'character')){
+      stop('Input argument "x" must be a data frame or of character class!')
+      if (class(x) == 'data.frame'){
+        if (is.null(col)){
+          stop('Input argument "col" is missing!')
+        }
+      }
+    }
   }
 
   if (!is.null(path)){
@@ -55,7 +58,7 @@ count_taxa <- function(x, col, path = NULL){
   # Read taxa_map.csv -----------------------------------------------------------
 
   if (!is.null(path)){
-    taxa_map <- read.table(
+    taxa_map <- utils::read.table(
       paste0(
         path,
         '/taxa_map.csv'

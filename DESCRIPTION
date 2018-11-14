@@ -12,6 +12,8 @@ Imports:
     taxize (>= 0.8.8),
     ritis (>= 0.5.4),
     readr (>= 1.1.1),
+    stats,
+    utils,
     reader (>= 1.0.6)
 License: MIT
 Encoding: UTF-8
@@ -19,4 +21,4 @@ LazyData: true
 RoxygenNote: 6.1.0
 Suggests: testthat
 Remotes:
-    github::EDIorg/EDI-utilities/EDIutils
+    EDIorg/EDI-utilities/EDIutils

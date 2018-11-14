@@ -4,22 +4,23 @@
 \alias{count_taxa}
 \title{Get counts of unique taxa}
 \usage{
-count_taxa(x, col, path = NULL)
+count_taxa(x, col = NULL, path = NULL)
 }
 \arguments{
-\item{x}{A data frame of your data containing the vector of taxa names to be
+\item{x}{(data frame or character) A data frame or vector of taxa names to be
 cleaned.}
 
-\item{col}{A character string specifying the column in x containing taxa names to
-be cleaned.}
+\item{col}{(character) A character string specifying the column in x containing
+taxa names to be cleaned. NOTE: Don't use this argument if x is of
+character class.}
 
-\item{path}{A character string specifying the path to taxa_map.csv. This table
-tracks relationships between your raw and cleaned data and is used by
-this function.}
+\item{path}{(character) A character string specifying the path to taxa_map.csv.
+This table tracks relationships between your raw and cleaned data and
+is used by this function.}
 }
 \value{
-A data frame with taxa and associated counts found in the input, sorted
-    alphabetically by taxa.
+(data frame) A data frame with taxa and associated counts found in the
+    input, sorted alphabetically by taxa.
 }
 \description{
 View unique occurences and counts of taxa to help identify misspelled

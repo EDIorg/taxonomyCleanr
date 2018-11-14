@@ -4,7 +4,7 @@
 \alias{get_id_common}
 \title{Get taxonomic identifiers}
 \usage{
-get_id(taxon, authority)
+get_id_common(taxon, authority)
 }
 \arguments{
 \item{taxon}{A character string specifying taxon to get the ID for.}
