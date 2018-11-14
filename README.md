@@ -1,3 +1,5 @@
+[![Travis-CI Build Status](https://travis-ci.com/EDIorg/taxonomyCleanr.svg?branch=master)]
+
 # taxonomyCleanr
 
 The `taxonomyCleanr` is a user friendly workflow and collection of functions to help you:
