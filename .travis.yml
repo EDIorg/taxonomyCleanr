@@ -7,3 +7,4 @@ r_packages:
   - ritis
   - readr
   - reader
+warnings_are_errors: false
