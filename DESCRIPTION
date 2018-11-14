@@ -6,7 +6,7 @@ Description:
     Resolves user supplied taxonomy data against a taxonomic authority, retrieves taxonomic 
     serial numbers, updates users data, and creates the taxonomicCoverage metadata element in 
     the Ecological Metadata Language (EML).
-Depends:
+Imports:
     R (>= 3.2.5),
     EML (>= 1.0.1),
     stringr (>= 1.2.0),
