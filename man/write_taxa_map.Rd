@@ -4,7 +4,7 @@
 \alias{write_taxa_map}
 \title{Write taxa map}
 \usage{
-write_taxa_map(path)
+write_taxa_map(x, path)
 }
 \arguments{
 \item{x}{A data frame representation of taxa_map.csv. Data frame contents will

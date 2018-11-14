@@ -6,7 +6,7 @@
 #'     application.
 #'
 #' @usage
-#'     write_taxa_map(path)
+#'     write_taxa_map(x, path)
 #'
 #' @param x
 #'     A data frame representation of taxa_map.csv. Data frame contents will
@@ -34,13 +34,13 @@ write_taxa_map <- function(x, path){
   if (missing(path)){
     stop('Input argument "path" is missing!')
   }
-  validate_path(path)
+  EDIutils::validate_path(path)
 
   # Error if file is open ---------------------------------------------------
 
   use_i <- suppressWarnings(
     "try-error" %in% class(
-      try(write_csv(
+      try(readr::write_csv(
         x = x,
         path = paste0(
           path,

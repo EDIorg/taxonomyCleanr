@@ -39,7 +39,7 @@ replace_taxa <- function(path, input, output){
     stop('Input argument "output" is missing!')
   }
 
-  validate_path(path)
+  EDIutils::validate_path(path)
 
   use_i <- file.exists(
     paste0(

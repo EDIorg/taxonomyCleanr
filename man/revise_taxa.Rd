@@ -4,7 +4,7 @@
 \alias{revise_taxa}
 \title{Revise taxonomic data}
 \usage{
-revise_taxa(path, x, col, retain.raw, sep)
+revise_taxa(path, x, col, sep)
 }
 \arguments{
 \item{path}{A path of the directory containing taxa_map.csv and the raw data table.}
@@ -14,8 +14,8 @@ revise_taxa(path, x, col, retain.raw, sep)
 \item{col}{A character string specifying the column in x containing taxa names to
 be updated.}
 
-\item{sep}{The column delimiter to use when writting the table to file. Can be ","
-or "\t".}
+\item{sep}{The column delimiter to use when writting the table to file. Can be
+comma or tab.}
 }
 \value{
 A copy of your data table (taxonomyCleanr_output) containing appended

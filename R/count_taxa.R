@@ -40,7 +40,7 @@ count_taxa <- function(x, col, path = NULL){
   }
 
   if (!is.null(path)){
-    validate_path(path)
+    EDIutils::validate_path(path)
     use_i <- file.exists(
       paste0(
         path,

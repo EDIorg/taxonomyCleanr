@@ -252,7 +252,7 @@ get_id_common <- function(taxon, authority){
 
   # Match authority -----------------------------------------------------------
 
-  gnr_ds <- gnr_datasources()
+  gnr_ds <- taxize::gnr_datasources()
   use_i <- authority == gnr_ds[ , 'id']
   authority <- gnr_ds[use_i, 'title']
 
@@ -263,7 +263,7 @@ get_id_common <- function(taxon, authority){
   # # ITIS
   if ((!is.na(authority)) & (authority == 'ITIS')){
     response <- as.data.frame(
-      get_tsn_(
+      taxize::get_tsn_(
         searchterm = taxon,
         searchtype = 'common',
         ask = F
@@ -347,7 +347,7 @@ get_id_common <- function(taxon, authority){
   # Encyclopedia of life
   if ((!is.na(authority)) & (authority == 'Tropicos - Missouri Botanical Garden')){
         response <- as.data.frame(
-          eol_search(
+          taxize::eol_search(
             terms = taxon
             )
           )
@@ -424,12 +424,12 @@ get_id_common <- function(taxon, authority){
 #'     name and an authority ID for a taxon.
 #'
 #' @usage
-#'     optimize_match(x = "", data.sources = c())
+#'     optimize_match(x, data.sources
 #'
 #' @param x
-#'     A character string specifying the taxon.
+#'     (character) A character string specifying the taxon.
 #' @param data.sources
-#'     A numeric vector of values specifying the authorities to search across.
+#'     (Numeric) A numeric vector of values specifying the authorities to search across.
 #'     Run `view_authorities` to get valid data source options and ID's.
 #'
 #' @return

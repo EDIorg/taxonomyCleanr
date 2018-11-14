@@ -4,12 +4,12 @@
 \alias{optimize_match}
 \title{Optimize match}
 \usage{
-optimize_match(x = "", data.sources = c())
+optimize_match(x, data.sources
 }
 \arguments{
-\item{x}{A character string specifying the taxon.}
+\item{x}{(character) A character string specifying the taxon.}
 
-\item{data.sources}{A numeric vector of values specifying the authorities to search across.
+\item{data.sources}{(numeric) A numeric vector of values specifying the authorities to search across.
 Run `view_authorities` to get valid data source options and ID's.}
 }
 \value{

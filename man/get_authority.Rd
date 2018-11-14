@@ -4,7 +4,7 @@
 \alias{get_authority}
 \title{Get taxonomic authority}
 \usage{
-get_authorities(path, data.source)
+get_authorities(taxon, data.source)
 }
 \arguments{
 \item{taxon}{A character string representation of the taxon to search on.}

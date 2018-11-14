@@ -160,7 +160,7 @@ resolve_sci_taxa <- function(path, data.sources, x = NULL){
 
     taxa_map[taxa_list[ ,'index'], use_i] <- query
 
-    taxa_map[ , 'rank'] <- str_to_title(taxa_map[ , 'rank'])
+    taxa_map[ , 'rank'] <- stringr::str_to_title(taxa_map[ , 'rank'])
 
   } else {
 
@@ -225,7 +225,7 @@ resolve_sci_taxa <- function(path, data.sources, x = NULL){
 #'     and locate appropriate authorities.
 #'
 #' @usage
-#'     get_authorities(path, data.source)
+#'     get_authorities(taxon, data.source)
 #'
 #' @param taxon
 #'     A character string representation of the taxon to search on.
@@ -248,7 +248,7 @@ get_authority <- function(taxon, data.source){
 
   # Resolve taxa to authority -------------------------------------------------
 
-  gnr_list <- gnr_datasources()
+  gnr_list <- taxize::gnr_datasources()
   use_i <- gnr_list[ , 'id'] == data.source
 
   message(
@@ -265,7 +265,7 @@ get_authority <- function(taxon, data.source){
 
   query <- suppressWarnings(
     as.data.frame(
-      gnr_resolve(
+      taxize::gnr_resolve(
         paste0(
           taxon,
           '*'
@@ -344,7 +344,7 @@ get_id <- function(taxon, authority){
 
   # Catalogue of Life
   if ((!is.na(authority)) & (authority == 'Catalogue of Life')){
-    response <- get_ids_(
+    response <- taxize::get_ids_(
       taxon,
       'col'
     )
@@ -368,7 +368,7 @@ get_id <- function(taxon, authority){
   # ITIS
   if ((!is.na(authority)) & (authority == 'ITIS')){
     response <- as.data.frame(
-      itis_terms(
+      taxize::itis_terms(
         taxon
       )
     )
@@ -390,7 +390,7 @@ get_id <- function(taxon, authority){
 
   # World Register of Marine Species
   if ((!is.na(authority)) & (authority == 'World Register of Marine Species')){
-    response <- get_wormsid_(
+    response <- taxize::get_wormsid_(
       taxon,
       searchtype = 'scientific',
       accepted = F,
@@ -418,7 +418,7 @@ get_id <- function(taxon, authority){
 
   # GBIF Backbone Taxonomy
   if ((!is.na(authority)) & (authority == 'GBIF Backbone Taxonomy')){
-    response <- get_ids_(
+    response <- taxize::get_ids_(
       taxon,
       'gbif'
     )
@@ -443,7 +443,7 @@ get_id <- function(taxon, authority){
 
   # Tropicos - Missouri Botanical Garden
   if ((!is.na(authority)) & (authority == 'Tropicos - Missouri Botanical Garden')){
-    response <- get_ids_(
+    response <- taxize::get_ids_(
       taxon,
       'tropicos'
     )
@@ -502,12 +502,12 @@ get_id <- function(taxon, authority){
 #'     name and an authority ID for a taxon.
 #'
 #' @usage
-#'     optimize_match(x = "", data.sources = c())
+#'     optimize_match(x, data.sources
 #'
 #' @param x
-#'     A character string specifying the taxon.
+#'     (character) A character string specifying the taxon.
 #' @param data.sources
-#'     A numeric vector of values specifying the authorities to search across.
+#'     (numeric) A numeric vector of values specifying the authorities to search across.
 #'     Run `view_authorities` to get valid data source options and ID's.
 #'
 #' @return
@@ -547,7 +547,7 @@ optimize_match <- function(x, data.sources){
     # Resolve ID, and rank
 
     out_id <- suppressWarnings(
-      get_id(
+      taxize::get_id(
         taxon = out_auth['resolved_name'],
         authority = out_auth['authority']
         )

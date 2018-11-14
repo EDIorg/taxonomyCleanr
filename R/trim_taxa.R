@@ -74,31 +74,31 @@ trim_taxa <- function(path = NULL, x = NULL){
   # Replace underscores with blank spaces -------------------------------------
 
   if (!is.null(path)){
-    x[ , 'taxa_trimmed'] <- str_replace_all(
+    x[ , 'taxa_trimmed'] <- stringr::str_replace_all(
       x[ , 'taxa_raw'],
       '_',
       ' '
     )
   } else {
-    x <- str_replace_all(x, '_', ' ')
+    x <- stringr::str_replace_all(x, '_', ' ')
   }
 
 # Trim white space --------------------------------------------------------
 
 
   if (!is.null(path)){
-    x[ , 'taxa_trimmed'] <- str_trim(
+    x[ , 'taxa_trimmed'] <- stringr::str_trim(
       x[ , 'taxa_trimmed'],
       'both'
     )
   } else {
-    x <- str_trim(x, 'both')
+    x <- stringr::str_trim(x, 'both')
   }
 
 # Remove common species abbreviations at the genus level ------------------
 
   if (!is.null(path)){
-    x[ , 'taxa_trimmed'] <- str_remove(
+    x[ , 'taxa_trimmed'] <- stringr::str_remove(
       x[ , 'taxa_trimmed'],
       paste0(
         '[:space:]+(?i)[s|c]+(\\.*[f|p]*\\.)+$',
@@ -107,7 +107,7 @@ trim_taxa <- function(path = NULL, x = NULL){
         '|[:space:]+(?i)[s|c]+(\\.*[f|p]*)+$')
     )
   } else {
-    x <- str_remove(
+    x <- stringr::str_remove(
       x,
       paste0(
         '[:space:]+(?i)[s|c]+(\\.*[f|p]*\\.)+$',

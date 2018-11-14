@@ -22,7 +22,7 @@ view_taxa_authorities <- function(){
 
   # Get GNR datasources -----------------------------------------------------
 
-  gnr_list <- gnr_datasources()
+  gnr_list <- taxize::gnr_datasources()
 
   # Mark supported databases ------------------------------------------------
 

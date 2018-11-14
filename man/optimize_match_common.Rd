@@ -4,12 +4,12 @@
 \alias{optimize_match_common}
 \title{Optimize match common}
 \usage{
-optimize_match(x = "", data.sources = c())
+optimize_match(x, data.sources
 }
 \arguments{
-\item{x}{A character string specifying the taxon.}
+\item{x}{(character) A character string specifying the taxon.}
 
-\item{data.sources}{A numeric vector of values specifying the authorities to search across.
+\item{data.sources}{(Numeric) A numeric vector of values specifying the authorities to search across.
 Run `view_authorities` to get valid data source options and ID's.}
 }
 \value{

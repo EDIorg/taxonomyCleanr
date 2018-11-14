@@ -37,7 +37,7 @@ remove_taxa <- function(path, input){
     stop('The argument "input" does not support character vectors!')
   }
 
-  validate_path(path)
+  EDIutils::validate_path(path)
 
   use_i <- file.exists(
     paste0(

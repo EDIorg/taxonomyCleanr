@@ -6,7 +6,7 @@
 #'     function.
 #'
 #' @usage
-#'     revise_taxa(path, x, col, retain.raw, sep)
+#'     revise_taxa(path, x, col, sep)
 #'
 #' @param path
 #'     A path of the directory containing taxa_map.csv and the raw data table.
@@ -16,8 +16,8 @@
 #'     A character string specifying the column in x containing taxa names to
 #'     be updated.
 #' @param sep
-#'     The column delimiter to use when writting the table to file. Can be ","
-#'     or "\t".
+#'     The column delimiter to use when writting the table to file. Can be
+#'     comma or tab.
 #'
 #' @return
 #'     A copy of your data table (taxonomyCleanr_output) containing appended
@@ -56,13 +56,13 @@ revise_taxa <- function(path, x, col, sep){
 
   # Validate path
 
-  validate_path(path)
+  EDIutils::validate_path(path)
 
   # Validate taxon.col
 
   columns <- colnames(x)
   columns_in <- col
-  use_i <- str_detect(string = columns,
+  use_i <- stringr::str_detect(string = columns,
                       pattern = str_c("^", columns_in, "$", collapse = "|"))
   if (sum(use_i) == 0){
     stop(paste0('Invalid "col" entered: ', columns_in, ' Please fix this.'))
@@ -78,7 +78,7 @@ revise_taxa <- function(path, x, col, sep){
 
   taxa_map <- suppressMessages(
     as.data.frame(
-      read_csv(
+      readr::read_csv(
         paste0(
           path,
           '/taxa_map.csv'
