@@ -21,4 +21,4 @@ LazyData: true
 RoxygenNote: 6.1.0
 Suggests: testthat
 Remotes:
-    EDIorg/EDI-utilities/EDIutils
+    EDIorg/EDIutils
