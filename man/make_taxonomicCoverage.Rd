@@ -2,22 +2,26 @@
 % Please edit documentation in R/make_taxonomicCoverage.R
 \name{make_taxonomicCoverage}
 \alias{make_taxonomicCoverage}
-\title{Make the taxonomicCoverage EML element}
+\title{Make taxonomicCoverage EML}
 \usage{
-make_taxonomicCoverage(path = "")
+make_taxonomicCoverage(taxa.clean, authority, authority.id, path = NULL)
 }
 \arguments{
-\item{path}{A path of the directory containing the file taxon.txt, which
-is created by the function `update_data`.}
+\item{taxa.clean}{(character) Taxa names that have been resolved to a taxonomic authority.}
+
+\item{authority}{(character) Authorities to which the taxa have been resolved. Valid
+inputs are created by `resolve_sci_taxa`.}
+
+\item{authority.id}{(character) Taxonomic IDs corresponding the authority to which taxa
+have been resolved.}
+
+\item{path}{(character) The path to which the taxonomicCoverage will be written, and
+or to where taxa_map.csv is located.}
 }
 \value{
-The taxonomicCoverage EML element written to the file
+The taxonomicCoverage EML as an XML object, and or written to the file
     taxonomicCoverage.xml in the directory specified by path.
-    When creating EML for your dataset using the EMLassemblyline
-    (https://github.com/EDIorg/EMLassemblyline), this file is read
-    and the contents incorporated into the EML for this dataset.
 }
 \description{
-Make the taxonomicCoverage EML element from information contained in
-    the file taxon.txt.
+Make the hierarchical taxonomicCoverage EML node set.
 }
