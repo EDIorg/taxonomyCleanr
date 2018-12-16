@@ -27,7 +27,8 @@
 
 make_taxonomicCoverage <- function(taxa.clean, authority, authority.id, path = NULL){
 
-  data <- unname(get_classification(taxa.clean, authority, authority.id, path))
+  data <- unname(get_classification(taxa.clean = taxa.clean, authority = authority,
+                                    authority.id = authority.id, path = path))
 
   dataframe_2_taxclass <- function(x){
     if (('name' %in% colnames(x)) & ('rank' %in% colnames(x))){
@@ -45,7 +46,7 @@ make_taxonomicCoverage <- function(taxa.clean, authority, authority.id, path = N
                                        'ListOftaxonomicClassification')
 
   if (!is.null(path)){
-    write_eml(coverage, paste0(path, "/", "taxonomicCoverage.xml"))
+    write_eml(eml = taxcov, file = paste0(path, "/", "taxonomicCoverage.xml"))
   }
 
   taxcov

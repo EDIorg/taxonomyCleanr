@@ -22,10 +22,14 @@ taxclass <- get_classification(taxa.clean = data$taxa_clean[1],
 
 # Tests -----------------------------------------------------------------------
 
+# Test output attributes
 testthat::test_that('Return list', {
-  expect_equal(class(taxclass), 'list')
+  expect_equal(
+    class(get_classification(
+      taxa.clean = data$taxa_clean[1],authority = data$authority[1],
+      authority.id = as.numeric(data$authority_id[1]))),
+    'list')
 })
-
 testthat::test_that('List should be data frame', {
   expect_equal(class(taxclass[[1]]), 'data.frame')
 })

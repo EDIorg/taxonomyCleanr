@@ -44,5 +44,4 @@ get_classification <- function(taxa.clean, authority, authority.id, path = NULL)
     output <- lapply(output, as.data.frame)
     output
   }
-
 }

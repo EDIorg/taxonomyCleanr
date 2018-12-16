@@ -48,6 +48,10 @@ testthat::test_that('Count taxa_map.txt is supported', {
   expect_equal(length(unique(data$Species)),
                nrow(taxa_map))
 })
+testthat::test_that('Count taxa_map.txt is supported', {
+  expect_equal(nrow(count_taxa(x = data, col = 'Species', path = path)),
+               49)
+})
 
 
 
