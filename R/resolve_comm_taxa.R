@@ -164,7 +164,7 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL){
 
     taxa_map[taxa_list[ ,'index'], use_i] <- query
 
-    taxa_map[ , 'rank'] <- str_to_title(taxa_map[ , 'rank'])
+    taxa_map[ , 'rank'] <- stringr::str_to_title(taxa_map[ , 'rank'])
 
   } else {
 

@@ -1,0 +1,60 @@
+taxa_raw,taxa_trimmed,taxa_replacement,taxa_removed,taxa_clean,rank,authority,authority_id,score,difference
+Mosses,NA,NA,NA,Mosses,Common,ITIS,14189,NA,NA
+Unsorted biomass,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Achillea millefolium(lanulosa),NA,Achillea millefolium,NA,Achillea millefolium,Species,ITIS,35423,0.988,NA
+Crepis tectorum,NA,NA,NA,Crepis tectorum,Species,ITIS,37212,0.988,NA
+Cyperus sp.,Cyperus,NA,NA,Cyperus,Genus,ITIS,39882,0.75,NA
+Euphorbia glyptosperma,NA,NA,NA,Euphorbia glyptosperma,Species,ITIS,28074,0.988,NA
+Lespedeza capitata,NA,NA,NA,Lespedeza capitata,Species,ITIS,25897,0.988,NA
+Achillea millefolium(lanulosaaaa),NA,Achillea millefolium,NA,Achillea millefolium,Species,ITIS,35423,0.988,NA
+Achillea millefolium(lanulosabb),NA,Achillea millefolium,NA,Achillea millefolium,Species,ITIS,35423,0.988,NA
+Achillea millefolium(lanulosacc),NA,Achillea millefolium,NA,Achillea millefolium,Species,ITIS,35423,0.988,NA
+Lepidium densiflorum,NA,NA,NA,Lepidium densiflorum,Species,ITIS,22960,0.988,NA
+Poa pratensis,NA,NA,NA,Poa pratensis,Species,ITIS,41088,0.988,NA
+Rumex acetosella,NA,NA,NA,Rumex acetosella,Species,ITIS,20934,0.988,NA
+Schizachyrium scoparium,NA,NA,NA,Schizachyrium scoparium,Species,ITIS,42076,0.988,NA
+Bouteloua gracilis,NA,NA,NA,Bouteloua gracilis,Species,ITIS,41493,0.988,NA
+Koeleria cristata,NA,NA,NA,Koeleria cristata,Species,ITIS,515476,0.988,NA
+Liatris aspera,NA,NA,NA,Liatris aspera,Species,ITIS,37909,0.988,NA
+Lupinus perennis,NA,NA,NA,Lupinus perennis,Species,ITIS,26091,0.988,NA
+Panicum virgatum,NA,NA,NA,Panicum virgatum,Species,ITIS,40913,0.988,NA
+Petalostemum purpureum,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Petalostemum villosum,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Solidago nemoralis,NA,NA,NA,Solidago nemoralis,Species,ITIS,36281,0.988,NA
+Sorghastrum nutans,NA,NA,NA,Sorghastrum nutans,Species,ITIS,42102,0.988,NA
+Stipa spartea,NA,NA,NA,Stipa spartea,Species,ITIS,42166,0.988,NA
+Andropogon gerardi,NA,NA,NA,Andropogon gerardi,Species,ITIS,786156,0.988,NA
+Bouteloua curtipendula,NA,NA,NA,Bouteloua curtipendula,Species,ITIS,41500,0.988,NA
+Coreopsis palmata,NA,NA,NA,Coreopsis palmata,Species,ITIS,37148,0.988,NA
+Miscellaneous litter,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Petalostemum candidum,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Solidago rigida,NA,NA,NA,Solidago rigida,Species,ITIS,36297,0.988,NA
+Sporobolus cryptandrus,NA,NA,NA,Sporobolus cryptandrus,Species,ITIS,42132,0.988,NA
+Agropyron repens,NA,NA,NA,Agropyron repens,Species,ITIS,40382,0.988,NA
+Aristida basiramea,NA,NA,NA,Aristida basiramea,Species,ITIS,41412,0.988,NA
+Digitaria sp.,Digitaria,NA,NA,Digitaria,Genus,ITIS,40603,0.75,NA
+Erigeron canadensis,NA,NA,NA,Erigeron canadensis,Species,ITIS,196266,0.988,NA
+Hedeoma hispida,NA,NA,NA,Hedeoma hispida,Species,ITIS,502890,0.988,NA
+Physalis virginiana,NA,NA,NA,Physalis virginiana,Species,ITIS,30612,0.988,NA
+Taraxicum officinalis,NA,NA,NA,Taraxacum officinale,Species,ITIS,36213,0.75,NA
+Agrostis scabra,NA,NA,NA,Agrostis scabra,Species,ITIS,40424,0.988,NA
+Ambrosia artemisiifolia elatior,NA,NA,NA,Ambrosia artemisiifolia elatior,Infraspecies,Catalogue of Life,b6b7cf5b0ace61a8272ae8d52f69de6d,0.999,NA
+Eragrostis spectabilis,NA,NA,NA,Eragrostis spectabilis,Species,ITIS,40717,0.988,NA
+Amorpha canescens,NA,NA,NA,Amorpha canescens,Species,ITIS,25371,0.988,NA
+-9999,NA,NA,TRUE,NA,NA,NA,NA,NA,NA
+Yellow Perch,NA,NA,NA,Yellow Perch,Common,ITIS,168469,NA,NA
+Rainbow smelt,NA,NA,NA,Rainbow smelt,Common,ITIS,162041,NA,NA
+Large mouth bass,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Petalostemum S.p.,Petalostemum,NA,NA,NA,NA,NA,NA,NA,NA
+Poa Cf.,Poa,NA,NA,Poa,Genus,ITIS,41074,0.75,NA
+Schizachyrium spp.,Schizachyrium,NA,NA,Schizachyrium,Genus,ITIS,42069,0.75,NA
+Petalostemum,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Poa cf...,Poa,NA,NA,Poa,Genus,ITIS,41074,0.75,NA
+Schizachyrium sPp,Schizachyrium,NA,NA,Schizachyrium,Genus,ITIS,42069,0.75,NA
+_Koeleria_cristata,Koeleria cristata,NA,NA,Koeleria cristata,Species,ITIS,515476,0.988,NA
+Lespedeza_capitata,Lespedeza capitata,NA,NA,Lespedeza capitata,Species,ITIS,25897,0.988,NA
+_Liatris_aspera_,Liatris aspera,NA,NA,Liatris aspera,Species,ITIS,37909,0.988,NA
+NA,NA,NA,TRUE,NA,NA,NA,NA,NA,NA
+Oncorhynchus tshawytscha,NA,NA,NA,Oncorhynchus tshawytscha,Species,ITIS,161980,0.988,NA
+Oncorhynchus gorbuscha,NA,NA,NA,Oncorhynchus gorbuscha,Species,ITIS,161975,0.988,NA
+Oncorhynchus kisutch,NA,NA,NA,Oncorhynchus kisutch,Species,ITIS,161977,0.988,NA

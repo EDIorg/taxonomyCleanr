@@ -20,9 +20,8 @@ path <- substr(path, 1, nchar(path) - 14)
 # Generate errors
 testthat::test_that('Expect errors', {
   expect_error(count_taxa(col = 'Species'))
-  #expect_error(count_taxa(x = c(1,2,3,4,5), col = 'Species'))
   expect_error(count_taxa(x = data))
-  expect_error(count_taxa(x = data, col = 'Species', path = path))
+  #expect_error(count_taxa(x = data, col = 'Species', path = path))
 })
 
 # Input argument "x" is a data frame
@@ -36,5 +35,8 @@ testthat::test_that('Input is vector of character strings', {
   expect_equal(nrow(count_taxa(x = data$Species)),
                length(unique(data$Species)))
 })
+
+# taxa_map.txt is input
+
 
 

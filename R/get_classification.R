@@ -6,7 +6,7 @@
 #' @usage
 #'     get_classification(taxa.clean, authority, authority.id, path = NULL)
 #'
-#' @taxa.clean
+#' @param taxa.clean
 #'     (character) Name of taxa resolved to an authority.
 #' @param authority
 #'     (character) Vector of authorities corresponding to taxonomic IDs listed
