@@ -10,6 +10,13 @@ data <- utils::read.table(
   as.is = T
 )
 
+taxa_map <- utils::read.table(
+  system.file('taxa_map.csv', package = 'taxonomyCleanr'),
+  header = TRUE,
+  sep = ',',
+  as.is = T
+)
+
 counts <- count_taxa(x = data, col = 'Species')
 
 path <- system.file('test_data.txt', package = 'taxonomyCleanr')
@@ -37,6 +44,10 @@ testthat::test_that('Input is vector of character strings', {
 })
 
 # taxa_map.txt is input
+testthat::test_that('Count taxa_map.txt is supported', {
+  expect_equal(length(unique(data$Species)),
+               nrow(taxa_map))
+})
 
 
 

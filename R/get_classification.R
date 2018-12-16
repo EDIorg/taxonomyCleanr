@@ -38,9 +38,9 @@ get_classification <- function(taxa.clean, authority, authority.id, path = NULL)
   if (is.null(path)){
     use_i <- match(authority, cw$human.readable)
     output <- suppressMessages(mapply(taxize::classification,
-                                      x = authority.id[use_i],
+                                      x = authority.id,
                                       db = cw$machine.readable[use_i]))
-    names(output) <- taxa.clean[use_i]
+    names(output) <- taxa.clean
     output <- lapply(output, as.data.frame)
     output
   }

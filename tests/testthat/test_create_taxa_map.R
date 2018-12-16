@@ -1,4 +1,4 @@
-context('Initialize taxa_map.R')
+context('Initialize taxa_map.csv')
 library(taxonomyCleanr)
 
 # Initialize test data --------------------------------------------------------
