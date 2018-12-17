@@ -502,7 +502,7 @@ get_id <- function(taxon, authority){
 #'     name and an authority ID for a taxon.
 #'
 #' @usage
-#'     optimize_match(x, data.sources
+#'     optimize_match(x, data.sources)
 #'
 #' @param x
 #'     (character) A character string specifying the taxon.

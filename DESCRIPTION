@@ -15,6 +15,7 @@ Imports:
     stats,
     utils,
     dplyr,
+    methods,
     reader (>= 1.0.6)
 License: MIT
 Encoding: UTF-8

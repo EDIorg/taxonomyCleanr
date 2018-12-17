@@ -4,7 +4,7 @@
 \alias{optimize_match}
 \title{Optimize match}
 \usage{
-optimize_match(x, data.sources
+optimize_match(x, data.sources)
 }
 \arguments{
 \item{x}{(character) A character string specifying the taxon.}
