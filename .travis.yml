@@ -8,6 +8,8 @@ r_packages:
   - readr
   - reader
   - covr
+r_github_packages:
+  - EDIorg/EDIutils
 warnings_are_errors: false
 after_success:
   - Rscript -e 'library(covr); codecov()'
