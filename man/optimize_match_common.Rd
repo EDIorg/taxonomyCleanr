@@ -4,7 +4,7 @@
 \alias{optimize_match_common}
 \title{Optimize match common}
 \usage{
-optimize_match(x, data.sources
+optimize_match_common(x, data.sources)
 }
 \arguments{
 \item{x}{(character) A character string specifying the taxon.}

@@ -41,12 +41,13 @@ make_taxonomicCoverage <- function(taxa.clean, authority, authority.id, path = N
   }
 
   taxclass <- lapply(data, dataframe_2_taxclass)
-  taxcov <- new('taxonomicCoverage')
-  taxcov@taxonomicClassification <- as(taxclass,
+  taxcov <- methods::new('taxonomicCoverage')
+  taxcov@taxonomicClassification <- methods::as(taxclass,
                                        'ListOftaxonomicClassification')
 
   if (!is.null(path)){
-    write_eml(eml = taxcov, file = paste0(path, "/", "taxonomicCoverage.xml"))
+    EML::write_eml(eml = taxcov,
+                   file = paste0(path, "/", "taxonomicCoverage.xml"))
   }
 
   taxcov

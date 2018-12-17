@@ -8,6 +8,7 @@ r_packages:
   - readr
   - reader
   - covr
+  - methods
 r_github_packages:
   - EDIorg/EDIutils
 warnings_are_errors: false

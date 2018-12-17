@@ -424,7 +424,7 @@ get_id_common <- function(taxon, authority){
 #'     name and an authority ID for a taxon.
 #'
 #' @usage
-#'     optimize_match(x, data.sources
+#'     optimize_match_common(x, data.sources)
 #'
 #' @param x
 #'     (character) A character string specifying the taxon.
