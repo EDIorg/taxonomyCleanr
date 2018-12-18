@@ -25,8 +25,10 @@
 #' @export
 #'
 
-make_taxonomicCoverage <- function(taxa.clean, authority, authority.id, path = NULL){
+make_taxonomicCoverage <- function(taxa.clean, authority, authority.id,
+                                   path = NULL){
 
+  # Define data
   if (!is.null(path) & file.exists(paste0(path, '/taxa_map.csv'))){
     taxa_map <- utils::read.table(paste0(path, '/taxa_map.csv'), header = T,
                                   sep = ',', stringsAsFactors = F)
@@ -35,10 +37,14 @@ make_taxonomicCoverage <- function(taxa.clean, authority, authority.id, path = N
                                       authority.id = taxa_map$authority_id,
                                       path = path))
   } else {
-    data <- unname(get_classification(taxa.clean = taxa.clean, authority = authority,
-                                      authority.id = authority.id, path = path))
+    data <- unname(get_classification(taxa.clean = taxa.clean,
+                                      authority = authority,
+                                      authority.id = authority.id,
+                                      path = path))
   }
 
+  # Create helper function to facilitate differential levels of taxonomic
+  # classification
   dataframe_2_taxclass <- function(x){
     if (('name' %in% colnames(x)) & ('rank' %in% colnames(x))){
       df <- x[ , match(c('name', 'rank'), colnames(x))]
@@ -48,17 +54,24 @@ make_taxonomicCoverage <- function(taxa.clean, authority, authority.id, path = N
       taxcov@taxonomicClassification[[1]]
     }
   }
-
   taxclass <- lapply(data, dataframe_2_taxclass)
+
+  # Create EML node set
   taxcov <- methods::new('taxonomicCoverage')
   taxcov@taxonomicClassification <- methods::as(taxclass,
                                        'ListOftaxonomicClassification')
 
+  # Write to file
+  lib_path <- system.file('test_data.txt', package = 'taxonomyCleanr')
+  lib_path <- substr(lib_path, 1, nchar(lib_path) - 14)
   if (!is.null(path)){
-    EML::write_eml(eml = taxcov,
-                   file = paste0(path, "/", "taxonomicCoverage.xml"))
+    if (path != lib_path){
+      EML::write_eml(eml = taxcov,
+                     file = paste0(path, "/", "taxonomicCoverage.xml"))
+    }
   }
 
+  # Return output
   taxcov
 
 }
