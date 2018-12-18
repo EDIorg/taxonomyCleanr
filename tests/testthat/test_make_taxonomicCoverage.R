@@ -22,7 +22,7 @@ taxcov <- read_eml(system.file('taxonomicCoverage.xml',
 
 # Tests -----------------------------------------------------------------------
 
-testthat::test_that('Expect equal', {
+testthat::test_that('Classification should be taxonomicCoverage', {
   expect_equal(class(make_taxonomicCoverage(taxa.clean = data$taxa_clean[1],
                                       authority = data$authority[1],
                                       authority.id = data$authority_id[1]))[1],

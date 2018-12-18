@@ -27,11 +27,19 @@
 
 make_taxonomicCoverage <- function(taxa.clean, authority, authority.id, path = NULL){
 
-  data <- unname(get_classification(taxa.clean = taxa.clean, authority = authority,
-                                    authority.id = authority.id, path = path))
+  if (!is.null(path) & file.exists(paste0(path, '/taxa_map.csv'))){
+    taxa_map <- utils::read.table(paste0(path, '/taxa_map.csv'), header = T,
+                                  sep = ',', stringsAsFactors = F)
+    data <- unname(get_classification(taxa.clean = taxa_map$taxa_clean,
+                                      authority = taxa_map$authority,
+                                      authority.id = taxa_map$authority_id,
+                                      path = path))
+  } else {
+    data <- unname(get_classification(taxa.clean = taxa.clean, authority = authority,
+                                      authority.id = authority.id, path = path))
+  }
 
   dataframe_2_taxclass <- function(x){
-    x <- x[[1]]
     if (('name' %in% colnames(x)) & ('rank' %in% colnames(x))){
       df <- x[ , match(c('name', 'rank'), colnames(x))]
       df <- as.data.frame(t(data.frame(df$name)))
