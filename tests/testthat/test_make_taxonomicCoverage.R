@@ -10,22 +10,23 @@ data <- utils::read.table(
   sep = ',',
   as.is = TRUE
 )
-data <- data[!is.na(data$authority), ]
-data <- data[data$rank == 'Common', ]
-data <- data[data$authority == 'ITIS', ]
 
 path <- system.file('test_data.txt', package = 'taxonomyCleanr')
 path <- substr(path, 1, nchar(path) - 14)
 
-taxcov <- read_eml(system.file('taxonomicCoverage.xml',
-                               package = 'taxonomyCleanr'))
+taxcov <- EML::read_eml(system.file('taxonomicCoverage.xml',
+                                    package = 'taxonomyCleanr'))
 
 # Tests -----------------------------------------------------------------------
 
 testthat::test_that('Classification should be taxonomicCoverage', {
-  expect_equal(class(make_taxonomicCoverage(taxa.clean = data$taxa_clean[1],
-                                      authority = data$authority[1],
-                                      authority.id = data$authority_id[1]))[1],
+  expect_equal(class(make_taxonomicCoverage(taxa.clean = data$taxa_clean,
+                                      authority = data$authority,
+                                      authority.id = data$authority_id))[1],
                class(taxcov)[1])
 })
 
+testthat::test_that('Classification should match from path source', {
+  expect_equal(class(make_taxonomicCoverage(path = path))[1],
+               class(taxcov)[1])
+})
