@@ -24,7 +24,7 @@ Below is a demonstration of this process using example data that comes installed
 - [Resolve common taxa](#resolve-common-taxa)
 - [Taxa map overview](#taxa-map-overview)
 - [Revise taxa](#revise-taxa)
-- Make taxonomicCoverage.xml (coming soon)
+- [Make taxonomicCoverage EML](#make-taxonomicCoverage-EML)
 
 ### Installation
 
@@ -50,7 +50,7 @@ Load the taxonomic data into RStudio _as a data frame_. The taxa must be listed 
 
 ```{r load data, echo=TRUE, paged.print=TRUE}
 # Load test data installed with the taxonomyCleanr package
-data <- read.table(paste0(path.package('taxonomyCleanr'), '/test_data.txt'), header = T, sep = '\t', stringsAsFactors = F)
+data <- read.table(system.file('test_data.txt', package = 'taxonomyCleanr'), header = T, sep = '\t', stringsAsFactors = F)
 ```
 
 This data table has 6 columns:
@@ -291,3 +291,28 @@ knitr::kable(output, caption = "A revision of the raw data table with new taxono
 ```
 
 * [Back to top](#overview)
+
+### Make taxonomicCoverage EML
+
+When creating EML metadata (Ecological Metadata Language), it is a good practice to include the taxonomic entities and their respective hierarchies to facilitate search and discovery.
+
+```{r create taxonomicCoverage, message=FALSE, warning=FALSE}
+# View documentation
+?make_taxonomicCoverage
+
+# Create the taxonomicCoverage EML node set and write to file
+make_taxonomicCoverage(path = my_path)
+```
+
+
+* [Back to top](#overview)
+
+
+
+
+
+
+
+
+
+
