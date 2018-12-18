@@ -17,7 +17,8 @@
 #'     `resolve_comm`.
 #' @param x
 #'     (character) A vector of taxa names.
-#'
+#' @write.output
+#'     (logical) Write output to file.
 #'
 #' @details
 #'     Common names are resolved to data sources in order of listed preference.
@@ -35,7 +36,7 @@
 #' @export
 #'
 
-resolve_comm_taxa <- function(path, data.sources, x = NULL){
+resolve_comm_taxa <- function(path, data.sources, x = NULL, write.output = NULL){
 
   # Check arguments ---------------------------------------------------------
 
@@ -191,7 +192,7 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL){
 
   # Document provenance -----------------------------------------------------
 
-  if (!missing(path)){
+  if (isTRUE(write.output)){
 
     # Write to file
 
