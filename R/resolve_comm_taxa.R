@@ -4,7 +4,7 @@
 #'     Resolve common names to preferred authorities and get associated ID's.
 #'
 #' @usage
-#'     resolve_comm_taxa(path, data.sources, x = NULL)
+#'     resolve_comm_taxa(path, data.sources, x = NULL, write.output = NULL)
 #'
 #' @param path
 #'     A character string specifying the path to taxa_map.csv. This table

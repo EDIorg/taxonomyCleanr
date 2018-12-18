@@ -4,7 +4,7 @@
 \alias{resolve_comm_taxa}
 \title{Resolve taxa with common names}
 \usage{
-resolve_comm_taxa(path, data.sources, x = NULL)
+resolve_comm_taxa(path, data.sources, x = NULL, write.output = NULL)
 }
 \arguments{
 \item{path}{A character string specifying the path to taxa_map.csv. This table
