@@ -11,7 +11,7 @@ data <- utils::read.table(
   as.is = TRUE
 )
 data <- data[!is.na(data$authority), ]
-data <- data[!data$rank == 'Common', ]
+data <- data[data$rank == 'Common', ]
 data <- data[data$authority == 'ITIS', ]
 
 path <- system.file('test_data.txt', package = 'taxonomyCleanr')
