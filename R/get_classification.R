@@ -35,13 +35,12 @@ get_classification <- function(taxa.clean, authority, authority.id, path = NULL)
                                         'tropicos'),
                    stringsAsFactors = F)
 
-  if (is.null(path)){
-    use_i <- match(authority, cw$human.readable)
-    output <- suppressMessages(mapply(taxize::classification,
-                                      x = authority.id,
-                                      db = cw$machine.readable[use_i]))
-    names(output) <- taxa.clean
-    output <- lapply(output, as.data.frame)
-    output
-  }
+  use_i <- match(authority, cw$human.readable)
+  use_i[is.na(use_i)] <- 2
+  output <- suppressMessages(mapply(taxize::classification,
+                                    x = authority.id,
+                                    db = cw$machine.readable[use_i]))
+  names(output) <- taxa.clean
+  output <- lapply(output, as.data.frame)
+  output
 }
