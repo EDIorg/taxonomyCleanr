@@ -38,7 +38,7 @@ library(devtools)
 
 ```{r instload taxonomyCleanr, message=FALSE, warning=FALSE}
 # Install and load taxonomyCleanr from the development branch of the project GitHub
-install_github('EDIorg/taxonomyCleanr', ref = 'development')
+install_github('EDIorg/taxonomyCleanr')
 library(taxonomyCleanr)
 ```
 
