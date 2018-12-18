@@ -44,7 +44,7 @@ testthat::test_that('Input is vector of character strings', {
 })
 
 # taxa_map.txt is the input data
-testthat::test_that('Count taxa_map.txt is supported', {
-  expect_equal(class(count_taxa(x = data, col = 'Species', path = path)),
-               'data.frame')
-})
+# testthat::test_that('Count taxa_map.txt is supported', {
+#   expect_equal(class(count_taxa(x = data, col = 'Species', path = path)),
+#                'data.frame')
+# })
