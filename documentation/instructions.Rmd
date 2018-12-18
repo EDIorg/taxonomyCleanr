@@ -24,7 +24,7 @@ Below is a demonstration of this process using example data that comes installed
 - [Resolve common taxa](#resolve-common-taxa)
 - [Taxa map overview](#taxa-map-overview)
 - [Revise taxa](#revise-taxa)
-- [Make taxonomicCoverage EML](#make-taxonomicCoverage-EML)
+- [Make taxonomicCoverage EML](#make-taxonomiccoverage-eml)
 
 ### Installation
 
