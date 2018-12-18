@@ -17,6 +17,8 @@ preference. Run `view_taxa_authorities` to see data source that support
 `resolve_comm`.}
 
 \item{x}{(character) A vector of taxa names.}
+
+\item{write.output}{(logical) Write output to file.}
 }
 \value{
 \itemize{

@@ -32,8 +32,10 @@ count_taxa <- function(x, col = NULL, path = NULL){
 
   if (missing(x)){
     stop('Input argument "x" is missing!')
-    if ((class(x) != 'data.frame') | (class(x) != 'character')){
+  } else {
+    if ((class(x) != 'data.frame') & (class(x) != 'character')){
       stop('Input argument "x" must be a data frame or of character class!')
+    } else {
       if (class(x) == 'data.frame'){
         if (is.null(col)){
           stop('Input argument "col" is missing!')

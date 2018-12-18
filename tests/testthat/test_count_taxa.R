@@ -28,10 +28,10 @@ path <- substr(path, 1, nchar(path) - 14)
 testthat::test_that('Expect errors', {
   expect_error(count_taxa(col = 'Species'))
   expect_error(count_taxa(x = data))
-  #expect_error(count_taxa(x = data, col = 'Species', path = path))
+  expect_error(count_taxa(x = as.matrix(data), col = 'Species'))
 })
 
-# Input argument "x" is a data frame
+# Test outputs
 testthat::test_that('Output data.frame', {
   expect_equal(class(counts), 'data.frame')
   expect_equal(dim(counts), c(length(unique(data$Species)), ncol(counts)))
@@ -43,15 +43,8 @@ testthat::test_that('Input is vector of character strings', {
                length(unique(data$Species)))
 })
 
-# taxa_map.txt is input
+# taxa_map.txt is the input data
 testthat::test_that('Count taxa_map.txt is supported', {
-  expect_equal(length(unique(data$Species)),
-               nrow(taxa_map))
+  expect_equal(class(count_taxa(x = data, col = 'Species', path = path)),
+               'data.frame')
 })
-# testthat::test_that('Count taxa_map.txt is supported', {
-#   expect_equal(nrow(count_taxa(x = data, col = 'Species', path = path)),
-#                49)
-# })
-
-
-

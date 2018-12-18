@@ -17,7 +17,7 @@
 #'     `resolve_comm`.
 #' @param x
 #'     (character) A vector of taxa names.
-#' @write.output
+#' @param write.output
 #'     (logical) Write output to file.
 #'
 #' @details
@@ -191,6 +191,8 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL, write.output = NULL)
   }
 
   # Document provenance -----------------------------------------------------
+
+
 
   if (isTRUE(write.output)){
 
