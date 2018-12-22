@@ -62,29 +62,15 @@ replace_taxa <- function(input, output, x = NULL, col = NULL, path = NULL){
   # Read taxa_map.csv ---------------------------------------------------------
 
   if (!is.null(path)){
-    EDIutils::validate_path(path)
-
-    use_i <- file.exists(
-      paste0(
-        path,
-        '/taxa_map.csv'
-      )
-    )
+    use_i <- file.exists(paste0(path, '/taxa_map.csv'))
     if (!isTRUE(use_i)){
       stop('taxa_map.csv is missing! Create it with initialize_taxa_map.R.')
     }
 
     # Read taxa_map.csv -------------------------------------------------------
 
-    x <- utils::read.table(
-      paste0(
-        path,
-        '/taxa_map.csv'
-      ),
-      header = T,
-      sep = ',',
-      stringsAsFactors = F
-    )
+    x <- utils::read.table(paste0(path, '/taxa_map.csv'), header = T,sep = ',',
+      stringsAsFactors = F)
 
     # Update taxa ------------------------------------------------------------
 

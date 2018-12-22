@@ -19,8 +19,7 @@ testthat::test_that('Generate errors', {
   expect_error(remove_taxa(input = 'Stipa sparteaaaaa', x = data,
                            col = 'Species'))
   expect_error(remove_taxa(input = 'Stipa sparteaaaaa', path = path))
-  expect_equal(class(remove_taxa(input = 'Stipa sparteaaaa', path = path)),
-               'data.frame')
+  expect_error(remove_taxa(input = 'Stipa sparteaaaa', path = path))
 })
 
 testthat::test_that('Data source is taxa_map.csv', {

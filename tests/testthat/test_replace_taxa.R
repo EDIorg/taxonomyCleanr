@@ -10,7 +10,26 @@ data <- utils::read.table(
   as.is = T
 )
 
+path <- system.file('test_data.txt', package = 'taxonomyCleanr')
+path <- substr(path, 1, nchar(path) - 14)
+
 # Tests -----------------------------------------------------------------------
+
+testthat::test_that('Expect errors', {
+  expect_error(replace_taxa(input = 'Mossessss', output = 'Mossez', x = data,
+                            col = 'Species'))
+  expect_error(replace_taxa(input = 'Mossessss', output = 'Mossez',
+                            path = path))
+})
+
+testthat::test_that('Output class is data.frame', {
+  expect_equal(class(replace_taxa(input = 'Mosses', output = 'Mossez',
+                                  x = data, col = 'Species')),
+               'data.frame')
+  expect_equal(class(replace_taxa(input = 'Mosses', output = 'Mossez',
+                                  path = path)),
+               'data.frame')
+})
 
 testthat::test_that('Target taxa should be replaced in output', {
 
