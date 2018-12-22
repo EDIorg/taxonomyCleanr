@@ -50,8 +50,6 @@ count_taxa <- function(x, col = NULL, path = NULL){
     }
   }
 
-
-
   # Read taxa_map.csv -----------------------------------------------------------
 
   if (!is.null(path)){
