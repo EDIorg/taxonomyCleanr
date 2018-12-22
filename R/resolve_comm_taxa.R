@@ -200,12 +200,7 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL){
 
   # Return --------------------------------------------------------------------
 
-  if (missing(path)){
-
-    taxa_map
-
-  }
-
+  taxa_map
 
 }
 
