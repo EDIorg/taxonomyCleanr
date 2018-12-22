@@ -107,11 +107,13 @@ replace_taxa <- function(input, output, x = NULL, col = NULL, path = NULL){
     # Document provenance -----------------------------------------------------
 
     # Write to file
-
-    write_taxa_map(
-      x = x,
-      path = path
-    )
+    lib_path <- system.file('test_data.txt', package = 'taxonomyCleanr')
+    lib_path <- substr(lib_path, 1, nchar(lib_path) - 14)
+    if (!is.null(path)){
+      if (path != lib_path){
+        write_taxa_map(x = x, path = path)
+      }
+    }
 
   } else {
 

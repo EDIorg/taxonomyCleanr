@@ -4,7 +4,7 @@
 #'     Resolve common names to preferred authorities and get associated ID's.
 #'
 #' @usage
-#'     resolve_comm_taxa(path, data.sources, x = NULL, write.output = NULL)
+#'     resolve_comm_taxa(path, data.sources, x = NULL)
 #'
 #' @param path
 #'     A character string specifying the path to taxa_map.csv. This table
@@ -17,8 +17,6 @@
 #'     `resolve_comm`.
 #' @param x
 #'     (character) A vector of taxa names.
-#' @param write.output
-#'     (logical) Write output to file.
 #'
 #' @details
 #'     Common names are resolved to data sources in order of listed preference.
@@ -36,7 +34,7 @@
 #' @export
 #'
 
-resolve_comm_taxa <- function(path, data.sources, x = NULL, write.output = NULL){
+resolve_comm_taxa <- function(path, data.sources, x = NULL){
 
   # Check arguments ---------------------------------------------------------
 
@@ -192,17 +190,13 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL, write.output = NULL)
 
   # Document provenance -----------------------------------------------------
 
-
-
-  if (isTRUE(write.output)){
-
-    # Write to file
-
-    write_taxa_map(
-      x = taxa_map,
-      path = path
-    )
-
+  # Write to file
+  lib_path <- system.file('test_data.txt', package = 'taxonomyCleanr')
+  lib_path <- substr(lib_path, 1, nchar(lib_path) - 14)
+  if (!is.null(path)){
+    if (path != lib_path){
+      write_taxa_map(x = x, path = path)
+    }
   }
 
   # Return --------------------------------------------------------------------
