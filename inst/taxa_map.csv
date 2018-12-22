@@ -22,7 +22,7 @@ Petalostemum purpureum,NA,NA,NA,NA,NA,NA,NA,NA,NA
 Petalostemum villosum,NA,NA,NA,NA,NA,NA,NA,NA,NA
 Solidago nemoralis,NA,NA,NA,Solidago nemoralis,Species,ITIS,36281,0.988,NA
 Sorghastrum nutans,NA,NA,NA,Sorghastrum nutans,Species,ITIS,42102,0.988,NA
-Stipa spartea,NA,NA,NA,Stipa spartea,Species,ITIS,42166,0.988,NA
+Stipa spartea,NA,NA,TRUE,Stipa spartea,Species,ITIS,42166,0.988,NA
 Andropogon gerardi,NA,NA,NA,Andropogon gerardi,Species,ITIS,786156,0.988,NA
 Bouteloua curtipendula,NA,NA,NA,Bouteloua curtipendula,Species,ITIS,41500,0.988,NA
 Coreopsis palmata,NA,NA,NA,Coreopsis palmata,Species,ITIS,37148,0.988,NA

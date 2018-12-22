@@ -56,14 +56,7 @@ remove_taxa <- function(input, x = NULL, col = NULL, path = NULL){
   # Read taxa_map.csv ---------------------------------------------------------
 
   if (!is.null(path)){
-    EDIutils::validate_path(path)
-    use_i <- file.exists(
-      paste0(
-        path,
-        '/taxa_map.csv'
-      )
-    )
-    if (!isTRUE(use_i)){
+    if (!isTRUE(file.exists(paste0(path, '/taxa_map.csv')))){
       stop('taxa_map.csv is missing! Create it with initialize_taxa_map.R.')
     }
 
