@@ -193,7 +193,7 @@ resolve_sci_taxa <- function(path, data.sources, x = NULL){
     # Write to file
     lib_path <- system.file('test_data.txt', package = 'taxonomyCleanr')
     lib_path <- substr(lib_path, 1, nchar(lib_path) - 14)
-    if (!is.null(path)){
+    if (!missing(path)){
       if (path != lib_path){
         write_taxa_map(x = x, path = path)
       }
