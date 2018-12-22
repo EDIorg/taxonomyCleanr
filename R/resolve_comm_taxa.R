@@ -46,7 +46,6 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL){
     if (missing(path)){
       stop('Input argument "path" is missing!')
     }
-    EDIutils::validate_path(path)
     use_i <- file.exists(
       paste0(
         path,
