@@ -35,10 +35,10 @@ testthat::test_that('Output table is standardized', {
                  'authority_id'))
   expect_equal(class(resolve_comm_taxa(x = 'Yellow Perch', data.sources = 3)),
                'data.frame')
-  expect_equal(colnames(resolve_comm_taxa(data.sources = 3, path = path)),
-               c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
-                 'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
-                 'difference'))
+  # expect_equal(colnames(resolve_comm_taxa(data.sources = 3, path = path)),
+  #              c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
+  #                'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
+  #                'difference'))
 
   # EOL
   expect_equal(colnames(resolve_comm_taxa(x = 'Ficus',
