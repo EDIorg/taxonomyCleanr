@@ -126,8 +126,6 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL){
 
   }
 
-
-
   # Optimize match ------------------------------------------------------------
 
   query <- lapply(
@@ -335,15 +333,13 @@ get_id_common <- function(taxon, authority){
   # }
 
   # Encyclopedia of life
-  if ((!is.na(authority)) & (authority == 'Tropicos - Missouri Botanical Garden')){
-        response <- as.data.frame(
+  if ((!is.na(authority)) & (authority == 'EOL')){
+        response <- suppressMessages(as.data.frame(
           taxize::eol_search(
             terms = taxon
             )
-          )
+          ))
     if (nrow(response) > 0){
-      use_i <- tolower(response[ , 'content']) == tolower(taxon)
-      response <- response[use_i, ]
       if (nrow(response) > 0){
         taxon_id <- as.character(response[1, 'pageid'])
         taxon_rank <- 'common'

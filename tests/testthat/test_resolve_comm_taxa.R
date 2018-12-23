@@ -41,7 +41,7 @@ testthat::test_that('Output table is standardized', {
                  'difference'))
 
   # EOL
-  expect_equal(colnames(resolve_comm_taxa(x = 'Ficus',
+  expect_equal(colnames(resolve_comm_taxa(x = 'Yellow Perch',
                                           data.sources = 12)),
                c('index', 'taxa', 'taxa_clean', 'rank', 'authority',
                  'authority_id'))
