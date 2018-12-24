@@ -38,7 +38,6 @@ trim_taxa <- function(path = NULL, x = NULL){
 # Check arguments ---------------------------------------------------------
 
   if (!is.null(path)){
-    EDIutils::validate_path(path)
     use_i <- file.exists(
       paste0(
         path,
