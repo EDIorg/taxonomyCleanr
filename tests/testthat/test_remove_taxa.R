@@ -10,7 +10,22 @@ data <- utils::read.table(
   as.is = T
 )
 
+path <- system.file('test_data.txt', package = 'taxonomyCleanr')
+path <- substr(path, 1, nchar(path) - 14)
+
 # Tests -----------------------------------------------------------------------
+
+testthat::test_that('Generate errors', {
+  expect_error(remove_taxa(input = 'Stipa sparteaaaaa', x = data,
+                           col = 'Species'))
+  expect_error(remove_taxa(input = 'Stipa sparteaaaaa', path = path))
+  expect_error(remove_taxa(input = 'Stipa sparteaaaa', path = path))
+})
+
+testthat::test_that('Data source is taxa_map.csv', {
+  expect_equal(class(remove_taxa(input = 'Stipa spartea', path = path)),
+               'data.frame')
+})
 
 testthat::test_that('Target taxa should be missing from output', {
 

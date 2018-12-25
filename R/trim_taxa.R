@@ -38,7 +38,6 @@ trim_taxa <- function(path = NULL, x = NULL){
 # Check arguments ---------------------------------------------------------
 
   if (!is.null(path)){
-    EDIutils::validate_path(path)
     use_i <- file.exists(
       paste0(
         path,
@@ -123,11 +122,15 @@ trim_taxa <- function(path = NULL, x = NULL){
     # Only list taxa names in taxa_trimmed that are different than taxa_raw
     use_i <- x[ , 'taxa_raw'] == x[ , 'taxa_trimmed']
     x[ , 'taxa_trimmed'][use_i] <- NA_character_
+
     # Write to file
-    write_taxa_map(
-      x = x,
-      path = path
-    )
+    lib_path <- system.file('test_data.txt', package = 'taxonomyCleanr')
+    lib_path <- substr(lib_path, 1, nchar(lib_path) - 14)
+    if (!is.null(path)){
+      if (path != lib_path){
+        write_taxa_map(x = x, path = path)
+      }
+    }
   }
 
 # Return output -----------------------------------------------------------

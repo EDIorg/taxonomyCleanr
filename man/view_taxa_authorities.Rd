@@ -7,8 +7,8 @@
 view_taxa_authorities()
 }
 \value{
-A data frame and view of taxonomic authorities and corresponding
-    identifiers supported by `resolve_taxa` and `resolve_common`.
+(data frame) Taxonomic authorities and corresponding identifiers
+    supported by `resolve_taxa` and `resolve_common`.
 }
 \description{
 List taxonomic authorities supported by the `taxonomyCleanr`.

@@ -4,7 +4,7 @@
 #'     Resolve common names to preferred authorities and get associated ID's.
 #'
 #' @usage
-#'     resolve_comm_taxa(path, data.sources, x = NULL, write.output = NULL)
+#'     resolve_comm_taxa(path, data.sources, x = NULL)
 #'
 #' @param path
 #'     A character string specifying the path to taxa_map.csv. This table
@@ -17,8 +17,6 @@
 #'     `resolve_comm`.
 #' @param x
 #'     (character) A vector of taxa names.
-#' @param write.output
-#'     (logical) Write output to file.
 #'
 #' @details
 #'     Common names are resolved to data sources in order of listed preference.
@@ -36,7 +34,7 @@
 #' @export
 #'
 
-resolve_comm_taxa <- function(path, data.sources, x = NULL, write.output = NULL){
+resolve_comm_taxa <- function(path, data.sources, x = NULL){
 
   # Check arguments ---------------------------------------------------------
 
@@ -48,7 +46,6 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL, write.output = NULL)
     if (missing(path)){
       stop('Input argument "path" is missing!')
     }
-    EDIutils::validate_path(path)
     use_i <- file.exists(
       paste0(
         path,
@@ -67,7 +64,6 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL, write.output = NULL)
   use_i <- as.character(data.sources) %in% c('3','12')
   if (sum(use_i) != length(use_i)){
     stop('Input argument "data.sources" contains unsupported data source IDs!')
-
   }
 
   # Read taxa_map.csv -------------------------------------------------------
@@ -130,8 +126,6 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL, write.output = NULL)
 
   }
 
-
-
   # Optimize match ------------------------------------------------------------
 
   query <- lapply(
@@ -192,27 +186,18 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL, write.output = NULL)
 
   # Document provenance -----------------------------------------------------
 
-
-
-  if (isTRUE(write.output)){
-
-    # Write to file
-
-    write_taxa_map(
-      x = taxa_map,
-      path = path
-    )
-
+  # Write to file
+  lib_path <- system.file('test_data.txt', package = 'taxonomyCleanr')
+  lib_path <- substr(lib_path, 1, nchar(lib_path) - 14)
+  if (!missing(path)){
+    if (path != lib_path){
+      write_taxa_map(x = x, path = path)
+    }
   }
 
   # Return --------------------------------------------------------------------
 
-  if (missing(path)){
-
-    taxa_map
-
-  }
-
+  taxa_map
 
 }
 
@@ -348,15 +333,13 @@ get_id_common <- function(taxon, authority){
   # }
 
   # Encyclopedia of life
-  if ((!is.na(authority)) & (authority == 'Tropicos - Missouri Botanical Garden')){
-        response <- as.data.frame(
+  if ((!is.na(authority)) & (authority == 'EOL')){
+        response <- suppressMessages(as.data.frame(
           taxize::eol_search(
             terms = taxon
             )
-          )
+          ))
     if (nrow(response) > 0){
-      use_i <- tolower(response[ , 'content']) == tolower(taxon)
-      response <- response[use_i, ]
       if (nrow(response) > 0){
         taxon_id <- as.character(response[1, 'pageid'])
         taxon_rank <- 'common'

@@ -4,7 +4,7 @@
 \alias{resolve_comm_taxa}
 \title{Resolve taxa with common names}
 \usage{
-resolve_comm_taxa(path, data.sources, x = NULL, write.output = NULL)
+resolve_comm_taxa(path, data.sources, x = NULL)
 }
 \arguments{
 \item{path}{A character string specifying the path to taxa_map.csv. This table
@@ -17,8 +17,6 @@ preference. Run `view_taxa_authorities` to see data source that support
 `resolve_comm`.}
 
 \item{x}{(character) A vector of taxa names.}
-
-\item{write.output}{(logical) Write output to file.}
 }
 \value{
 \itemize{

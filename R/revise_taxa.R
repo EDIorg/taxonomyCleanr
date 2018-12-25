@@ -39,8 +39,6 @@ revise_taxa <- function(path, x, col, sep){
 
   # Check arguments -----------------------------------------------------------
 
-  message('Checking arguments.')
-
   if (missing(path)){
     stop('Input argument "path" is missing!')
   }
@@ -54,9 +52,11 @@ revise_taxa <- function(path, x, col, sep){
     stop('Input argument "sep" is missing!')
   }
 
-  # Validate path
+  # Check for taxa_map.csv
 
-  EDIutils::validate_path(path)
+  if (!isTRUE(file.exists(paste0(path, '/taxa_map.csv')))){
+    stop('taxa_map.csv is missing! Create it with initialize_taxa_map.R.')
+  }
 
   # Validate taxon.col
 
@@ -87,12 +87,7 @@ revise_taxa <- function(path, x, col, sep){
     )
   )
 
-
   # Update data ---------------------------------------------------------------
-
-  message('Updating data (retain.raw = TRUE).')
-
-  message("Adding columns: taxa_clean, taxa_rank, authority, authority_id")
 
   # Match taxa
 
@@ -119,27 +114,35 @@ revise_taxa <- function(path, x, col, sep){
 
   # Write to file -----------------------------------------------------------
 
-  message('Writing to file.')
+  lib_path <- system.file('taxa_map.csv', package = 'taxonomyCleanr')
+  lib_path <- substr(lib_path, 1, nchar(lib_path) - 13)
+  if (!missing(path)){
+    if (path != lib_path){
+      if (sep == ','){
+        new_file_name <- 'taxonomyCleanr_output.csv'
+      } else if (sep == '\t'){
+        new_file_name <- 'taxonomyCleanr_output.txt'
+      }
 
-  if (sep == ','){
-    new_file_name <- 'taxonomyCleanr_output.csv'
-  } else if (sep == '\t'){
-    new_file_name <- 'taxonomyCleanr_output.txt'
+      utils::write.table(
+        x = data_out,
+        file = paste0(
+          path,
+          "/",
+          new_file_name
+        ),
+        col.names = T,
+        row.names = F,
+        sep = sep,
+        quote = F
+      )
+
+    }
   }
 
-  utils::write.table(
-    x = data_out,
-    file = paste0(
-      path,
-      "/",
-      new_file_name
-      ),
-    col.names = T,
-    row.names = F,
-    sep = sep,
-    quote = F
-    )
+  # Return --------------------------------------------------------------------
 
+  data_out
 
 }
 
