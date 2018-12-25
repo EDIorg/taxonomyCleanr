@@ -1,5 +1,5 @@
-[![Travis-CI Build Status](https://travis-ci.com/clnsmth/taxonomyCleanr.svg?branch=master)](https://travis-ci.org/clnsmth/taxonomyCleanr)
-[![codecov.io](https://codecov.io/github/clnsmth/taxonomyCleanr/coverage.svg?branch=master)](https://codecov.io/github/clnsmth/taxonomyCleanr?branch=master)
+[![Travis-CI Build Status](https://travis-ci.com/EDIorg/taxonomyCleanr.svg?branch=master)](https://travis-ci.org/EDIorg/taxonomyCleanr)
+[![codecov.io](https://codecov.io/github/EDIorg/taxonomyCleanr/coverage.svg?branch=master)](https://codecov.io/github/EDIorg/taxonomyCleanr?branch=master)
 
 # taxonomyCleanr
 
