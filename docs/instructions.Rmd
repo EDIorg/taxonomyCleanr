@@ -1,8 +1,6 @@
 ---
 title: "Using the taxonomyCleanr"
-output:
-  pdf_document: default
-  html_document: default
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -34,13 +32,13 @@ Install `taxonomyCleanr` from the project GitHub.
 
 ```{r instload devtools, message=FALSE, warning=FALSE}
 # Install and load devtools (required to install the taxonomyCleanr)
-install.packages('devtools')
+#install.packages('devtools')
 library(devtools)
 ```
 
 ```{r instload taxonomyCleanr, message=FALSE, warning=FALSE}
 # Install and load taxonomyCleanr from the development branch of the project GitHub
-install_github('EDIorg/taxonomyCleanr')
+# install_github('EDIorg/taxonomyCleanr')
 library(taxonomyCleanr)
 ```
 
@@ -75,11 +73,9 @@ knitr::kable(data, caption = "Test data containing a column of taxa to be cleane
 The taxa map (taxa_map.csv) links the raw data to the cleaned data. Each cleaning function logs changes to taxa_map.csv thereby facilitating an understanding of how the data were changed and a means by which to update the raw data table. A thorough explanation of the maps contents will be provided after the cleaning and resolver processes have been run on these example data.
 
 ```{r create taxa_map.csv}
-# View documentation
-?create_taxa_map
 
 # Create the taxa map
-my_path <- '/Users/csmith/Desktop'
+my_path <- 'C:/Users/Colin/Documents/data'
 taxa_map <- create_taxa_map(path = my_path, x = data, col = 'Species')
 ```
 
@@ -90,9 +86,6 @@ taxa_map <- create_taxa_map(path = my_path, x = data, col = 'Species')
 Get the unique taxa names and respective counts with `count_taxa`. This function helps identify issues that should be fixed before sending the taxa list to the resolver functions. Doing so increases the success of an authority match. Notice, some of the taxa in the test data are obviously misspelled (e.g. _Achillea millefolium(lanulosa)_ and _Achillea millefolium(lanulosaaaa)_ likely represent the same taxon), and some of the listed names are clearly not taxa (e.g. _-9999_ and _Miscellaneous litter_).
 
 ```{r Count unique 1}
-# View documentation
-?count_taxa
-
 # Get unique taxa and counts
 output <- count_taxa(x = data, col = 'Species', path = my_path)
 ```
@@ -109,9 +102,6 @@ knitr::kable(output, caption = "Unique taxa and their respective counts. Several
 Several of the taxa have variations of common suffixes found in taxonomic data (e.g. _c.f._ and _sp._), but frequently cause issues when searching taxonomic authorities. The `trim_taxa` function removes these excess characters as well as leading and trailing white spaces and under score characters.
 
 ```{r trim taxon}
-# View documentation
-?trim_taxa
-
 # Trim excess characters from the taxa list
 output <- trim_taxa(path = my_path)
 ```
@@ -136,9 +126,6 @@ Some of the taxa are misspelled. Use `replace_taxa` to replace the misspelled ta
 
 ```{r replace taxa}
 
-# View documentation
-?replace_taxa
-
 # Replace misspelled taxa with the correct spelling
 output <- replace_taxa(path = my_path, input = 'Achillea millefolium(lanulosa)', output = 'Achillea millefolium')
 output <- replace_taxa(path = my_path, input = 'Achillea millefolium(lanulosaaaa)', output = 'Achillea millefolium')
@@ -161,9 +148,6 @@ knitr::kable(output, caption = "Unique taxa counts after replacing misspelled ta
 Some taxa in the list are clearly not taxa, and should be removed with `remove_taxa` before attempting to resolve to an authority.
 
 ```{r remove taxa}
-# View documentation
-?remove_taxa
-
 # Remove taxa
 output <- remove_taxa(path = my_path, input = '')
 output <- remove_taxa(path = my_path, input = '-9999')
@@ -186,9 +170,6 @@ knitr::kable(output, caption = "Unique taxa and counts after non-taxa have been 
 Now the list of taxa looks reasonable. Extraneous characters have been removed, occurences of similarly spelled taxa have been harmonized, and non-taxa names have been removed. Send the list of taxa to `resolve_sci_taxa`, along with a preferred list of authorities to search, and successful hits will return the accepted scientific spelling, taxonomic serial number, and taxonomic rank. `resolve_sci_taxa` will give preference to the ordering of the taxonomic authorites input to the function. View the list of authorities supported by `resolve_sci_taxa` with `view_taxa_authorities`
 
 ```{r view_authorities, eval=FALSE}
-# View documentation
-?view_taxa_authorities
-
 # Supported authorities are listed in the column titled resolve_sci_taxa
 view_taxa_authorities()
 ```
@@ -202,9 +183,6 @@ knitr::kable(output, caption = "Authorities supported by resolve_sci_taxa and re
 The authorities _ITIS_ and _WORMS_ will be used.
 
 ```{r resolve_taxa, message=FALSE, warning=FALSE}
-# View documentation for the resolve_taxa function
-?resolve_sci_taxa
-
 # Resolve taxa using ITIS and WORMS
 resolve_sci_taxa(path = my_path, data.sources = c(3,9))
 ```
@@ -229,9 +207,6 @@ knitr::kable(output, caption = "Authorities supported by the resolve_sci_taxa an
 ```
 
 ```{r resolve_common, message=FALSE, warning=FALSE}
-# View documentation for resolve_comm_taxa
-?resolve_comm_taxa
-
 # Resolve common using ITIS and Encyclopedia of Life
 resolve_comm_taxa(path = my_path, data.sources = c(3,12))
 ```
@@ -279,9 +254,6 @@ Now that the taxa have been cleaned, as best they can, the raw data table can be
 These 4 columns are appended to the raw data table and written to a file named "taxonomyCleanr_output".
 
 ```{r update data, message=FALSE, warning=FALSE}
-# View documentation
-?revise_taxa
-
 # Revise the raw data table and write to file
 revise_taxa(path = my_path, x = data, col = 'Species', sep = '\t')
 ```
@@ -299,9 +271,6 @@ knitr::kable(output, caption = "A revision of the raw data table with new taxono
 When creating EML metadata (Ecological Metadata Language), it is a good practice to include the taxonomic entities and their respective hierarchies to facilitate search and discovery.
 
 ```{r create taxonomicCoverage, message=FALSE, warning=FALSE}
-# View documentation
-?make_taxonomicCoverage
-
 # Create the taxonomicCoverage EML node set and write to file
 make_taxonomicCoverage(path = my_path)
 ```
