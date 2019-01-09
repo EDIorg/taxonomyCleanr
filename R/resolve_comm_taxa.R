@@ -191,7 +191,7 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL){
   lib_path <- substr(lib_path, 1, nchar(lib_path) - 14)
   if (!missing(path)){
     if (path != lib_path){
-      write_taxa_map(x = x, path = path)
+      write_taxa_map(x = taxa_map, path = path)
     }
   }
 
