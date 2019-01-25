@@ -39,7 +39,7 @@ view_taxa_authorities <- function(){
   use_i <- gnr_list[ , 'title'] == 'EOL'
   gnr_list[use_i, 'return_to_user'] <- 'Encyclopedia of Life (EOL)'
   gnr_list[use_i, 'resolve_taxa'] <- 'not supported'
-  gnr_list[use_i, 'resolve_common'] <- 'supported'
+  gnr_list[use_i, 'resolve_common'] <- 'not supported'
 
   use_i <- gnr_list[ , 'title'] == 'Tropicos - Missouri Botanical Garden'
   gnr_list[use_i, 'return_to_user'] <- 'Tropicos - Missouri Botanical Garden'

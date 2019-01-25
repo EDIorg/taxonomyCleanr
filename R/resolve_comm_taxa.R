@@ -61,7 +61,7 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL){
     stop('Input argument "data.sources" is missing!')
   }
 
-  use_i <- as.character(data.sources) %in% c('3','12')
+  use_i <- as.character(data.sources) %in% c('3')
   if (sum(use_i) != length(use_i)){
     stop('Input argument "data.sources" contains unsupported data source IDs!')
   }
@@ -336,7 +336,8 @@ get_id_common <- function(taxon, authority){
   if ((!is.na(authority)) & (authority == 'EOL')){
         response <- suppressMessages(as.data.frame(
           taxize::eol_search(
-            terms = taxon
+            terms = taxon,
+            exact = T
             )
           ))
     if (nrow(response) > 0){
