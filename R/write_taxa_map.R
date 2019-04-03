@@ -21,7 +21,7 @@
 #' @seealso
 #'     initialize_taxa_table
 #'
-#' @export
+#'
 #'
 
 write_taxa_map <- function(x, path){
