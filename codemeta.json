@@ -1,5 +1,8 @@
 {
-  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@context": [
+    "https://doi.org/10.5063/schema/codemeta-2.0",
+    "http://schema.org"
+  ],
   "@type": "SoftwareSourceCode",
   "identifier": "taxonomyCleanr",
   "description": "\n    Resolves user supplied taxonomy data against a taxonomic authority, retrieves taxonomic \n    serial numbers, updates users data, and creates the taxonomicCoverage metadata element in \n    the Ecological Metadata Language (EML).",
@@ -167,10 +170,19 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=reader"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "EDIutils",
+      "name": "EDIutils",
+      "sameAs": "https://github.com/EDIorg/EDIutils"
     }
   ],
   "releaseNotes": "https://github.com/EDIorg/taxonomyCleanr/blob/master/NEWS.md",
   "readme": "https://github.com/EDIorg/taxonomyCleanr/blob/master/README.md",
-  "fileSize": "71.104KB",
-  "contIntegration": ["https://travis-ci.org/EDIorg/taxonomyCleanr", "https://codecov.io/github/EDIorg/taxonomyCleanr?branch=master"]
+  "fileSize": "71.217KB",
+  "contIntegration": [
+    "https://travis-ci.org/EDIorg/taxonomyCleanr",
+    "https://codecov.io/github/EDIorg/taxonomyCleanr?branch=master"
+  ]
 }
