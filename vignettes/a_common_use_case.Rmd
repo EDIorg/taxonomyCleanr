@@ -1,5 +1,5 @@
 ---
-title: "Using the taxonomyCleanr"
+title: "A common use case for the taxonomyCleanr"
 output: html_document
 ---
 
@@ -120,7 +120,9 @@ output <- count_taxa(x = data, col = 'Species', path = my_path)
 
 ```{r view taxa_map, echo=FALSE}
 # View unique taxa after trimming
-knitr::kable(head(output, n = 10), caption = "Unique taxa and counts after trim_taxa. Notice, extraneous characters (e.g. c.f., spp., and underscores) have been removed.")
+knitr::kable(output, caption = "Unique taxa and counts after trim_taxa. Notice, extraneous characters (e.g. c.f., spp., and underscores) have been removed.") %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::scroll_box(width = '100%', height = '400px')
 ```
 
 * [Back to top](#overview)
@@ -143,7 +145,9 @@ output <- count_taxa(x = data, col = 'Species', path = my_path)
 
 ```{r replace view unique, echo=FALSE}
 # View unique taxa after trimming
-knitr::kable(head(output, n = 10), caption = "Unique taxa counts after replacing misspelled taxa.")
+knitr::kable(output, caption = "Unique taxa counts after replacing misspelled taxa.") %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::scroll_box(width = '100%', height = '400px')
 ```
 
 * [Back to top](#overview)
@@ -165,7 +169,9 @@ output <- count_taxa(x = data, col = 'Species', path = my_path)
 
 ```{r remove view unique, echo=FALSE}
 # View unique taxa after removal
-knitr::kable(head(output, n = 10), caption = "Unique taxa and counts after non-taxa have been removed.")
+knitr::kable(output, caption = "Unique taxa and counts after non-taxa have been removed.") %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::scroll_box(width = '100%', height = '400px')
 ```
 
 * [Back to top](#overview)
@@ -182,14 +188,22 @@ view_taxa_authorities()
 ```{r view_authorities_table, echo=FALSE}
 # View taxa_map.csv after running resolve_taxa
 output <- view_taxa_authorities()
-knitr::kable(head(output, n = 10), caption = "Authorities supported by resolve_sci_taxa and resolve_comm_taxa")
+knitr::kable(output, caption = "Authorities supported by resolve_sci_taxa and resolve_comm_taxa") %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::scroll_box(width = '100%', height = '400px')
 ```
 
 The authorities _ITIS_ and _WORMS_ will be used.
 
 ```{r resolve_taxa, message=FALSE, warning=FALSE}
 # Resolve taxa using ITIS and WORMS
-resolve_sci_taxa(path = my_path, data.sources = c(3,9))
+output <- resolve_sci_taxa(path = my_path, data.sources = c(3,9))
+```
+
+```{r resolve_to_sci, echo=FALSE}
+knitr::kable(output, caption = "Output from resolve_sci_taxa call") %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::scroll_box(width = '100%', height = '400px')
 ```
 
 The taxa that could be resolved to _ITIS_ and _WORMS_ were logged to taxa_map.csv, along with their taxonomic serial numbers and taxonomic ranks.
@@ -208,12 +222,20 @@ view_authorities()
 ```{r view_authorities_table_2, echo=FALSE}
 # View authorities
 output <- view_taxa_authorities()
-knitr::kable(head(output, n = 10), caption = "Authorities supported by the resolve_sci_taxa and resolve_comm_taxa")
+knitr::kable(output, caption = "Authorities supported by the resolve_sci_taxa and resolve_comm_taxa") %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::scroll_box(width = '100%', height = '400px')
 ```
 
 ```{r resolve_common, message=FALSE, warning=FALSE}
 # Resolve common using ITIS
-resolve_comm_taxa(path = my_path, data.sources = 3)
+output <- resolve_comm_taxa(path = my_path, data.sources = 3)
+```
+
+```{r view_resolve_comm_outputs, echo=FALSE}
+knitr::kable(output, caption = "Output from resolve_comm_taxa call") %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::scroll_box(width = '100%', height = '400px')
 ```
 
 * [Back to top](#overview)
@@ -242,7 +264,9 @@ Below is the taxa_map.csv for the cleaning procedures implemented on the test da
 ```{r resolve_common_taxa_map, echo=FALSE}
 output <- read.table(paste0(my_path, '/taxa_map.csv'), header = T, sep = ',', stringsAsFactors = F)
 # View taxa_map.csv after running resolve_common
-knitr::kable(head(output, n = 10), caption = "taxa_map.csv after all the cleaning procedures have been applied.")
+knitr::kable(output, caption = "taxa_map.csv after all the cleaning procedures have been applied.") %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::scroll_box(width = '100%', height = '400px')
 ```
 
 * [Back to top](#overview)
@@ -260,13 +284,13 @@ These 4 columns are appended to the raw data table and written to a file named "
 
 ```{r update data, message=FALSE, warning=FALSE}
 # Revise the raw data table and write to file
-revise_taxa(path = my_path, x = data, col = 'Species', sep = '\t')
+output <- revise_taxa(path = my_path, x = data, col = 'Species', sep = '\t')
 ```
 
 ```{r update_data_taxa_map, echo=FALSE}
-output <- read.table(paste0(my_path, '/taxonomyCleanr_output.txt'), header = T, sep = '\t', stringsAsFactors = F)
-# View taxa_map.csv after running resolve_taxa
-knitr::kable(head(output, n = 10), caption = "A revision of the raw data table with new taxonomic data appended")
+knitr::kable(output, caption = "A revision of the raw data table with new taxonomic data appended")  %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::scroll_box(width = '100%', height = '400px')
 ```
 
 * [Back to top](#overview)
@@ -280,15 +304,4 @@ When creating EML metadata (Ecological Metadata Language), it is a good practice
 make_taxonomicCoverage(path = my_path)
 ```
 
-
 * [Back to top](#overview)
-
-
-
-
-
-
-
-
-
-

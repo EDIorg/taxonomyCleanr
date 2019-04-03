@@ -75,6 +75,21 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/a_common_use_case.html">A common use case for the taxonomyCleanr</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -105,8 +120,22 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-provenance-tracking" class="hasAnchor"><a href="#section-provenance-tracking" class="anchor"></a>Provenance tracking</h2>
+          <p class="section-desc"><p>Functions for tracking changes during the data preparation and resolution steps. Most of the provenance tracking is automatically built into functions as optional arguments.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="create_taxa_map.html">create_taxa_map()</a></code> </p>
+        </td>
+        <td><p>Create taxa map</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-data-preparation" class="hasAnchor"><a href="#section-data-preparation" class="anchor"></a>Data preparation</h2>
+          <p class="section-desc"><p>Functions for preparing data prior to sending to an authority system.</p></p>
         </th>
       </tr>
       <tr>
@@ -115,54 +144,6 @@
           <p><code><a href="count_taxa.html">count_taxa()</a></code> </p>
         </td>
         <td><p>Get counts of unique taxa</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="create_taxa_map.html">create_taxa_map()</a></code> </p>
-        </td>
-        <td><p>Create taxa map</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_authority.html">get_authority()</a></code> </p>
-        </td>
-        <td><p>Get taxonomic authority</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_classification.html">get_classification()</a></code> </p>
-        </td>
-        <td><p>Get taxa classification hierarchy</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_id.html">get_id()</a></code> </p>
-        </td>
-        <td><p>Get taxonomic identifiers</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_id_common.html">get_id_common()</a></code> </p>
-        </td>
-        <td><p>Get taxonomic identifiers</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="make_taxonomicCoverage.html">make_taxonomicCoverage()</a></code> </p>
-        </td>
-        <td><p>Make taxonomicCoverage EML</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="optimize_match.html">optimize_match()</a></code> </p>
-        </td>
-        <td><p>Optimize match</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="optimize_match_common.html">optimize_match_common()</a></code> </p>
-        </td>
-        <td><p>Optimize match common</p></td>
       </tr><tr>
         
         <td>
@@ -178,6 +159,20 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="trim_taxa.html">trim_taxa()</a></code> </p>
+        </td>
+        <td><p>Trim taxa</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-resolvers" class="hasAnchor"><a href="#section-resolvers" class="anchor"></a>Resolvers</h2>
+          <p class="section-desc"><p>Functions for resolving taxa to authority systems</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
           <p><code><a href="resolve_comm_taxa.html">resolve_comm_taxa()</a></code> </p>
         </td>
         <td><p>Resolve taxa with common names</p></td>
@@ -190,27 +185,37 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="revise_taxa.html">revise_taxa()</a></code> </p>
-        </td>
-        <td><p>Revise taxonomic data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="trim_taxa.html">trim_taxa()</a></code> </p>
-        </td>
-        <td><p>Trim taxa</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="view_taxa_authorities.html">view_taxa_authorities()</a></code> </p>
         </td>
         <td><p>View taxonomic authorities</p></td>
-      </tr><tr>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-make-ecological-metadata-language-eml-" class="hasAnchor"><a href="#section-make-ecological-metadata-language-eml-" class="anchor"></a>Make Ecological Metadata Language (EML)</h2>
+          <p class="section-desc"><p>Functions for creating EML</p></p>
+        </th>
+      </tr>
+      <tr>
         
         <td>
-          <p><code><a href="write_taxa_map.html">write_taxa_map()</a></code> </p>
+          <p><code><a href="make_taxonomicCoverage.html">make_taxonomicCoverage()</a></code> </p>
         </td>
-        <td><p>Write taxa map</p></td>
+        <td><p>Make taxonomicCoverage EML</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-update-raw-data" class="hasAnchor"><a href="#section-update-raw-data" class="anchor"></a>Update raw data</h2>
+          <p class="section-desc"><p>Functions for updating the raw data table</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="revise_taxa.html">revise_taxa()</a></code> </p>
+        </td>
+        <td><p>Revise taxonomic data</p></td>
       </tr>
     </tbody>
     </table>
@@ -219,7 +224,11 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-provenance-tracking">Provenance tracking</a></li>
+      <li><a href="#section-data-preparation">Data preparation</a></li>
+      <li><a href="#section-resolvers">Resolvers</a></li>
+      <li><a href="#section-make-ecological-metadata-language-eml-">Make Ecological Metadata Language (EML)</a></li>
+      <li><a href="#section-update-raw-data">Update raw data</a></li>
     </ul>
   </div>
 </div>

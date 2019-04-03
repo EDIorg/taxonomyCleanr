@@ -1,7 +1,7 @@
 Package: taxonomyCleanr
 Title: A workflow and set of functions to clean taxonomy data using R.
 Version: 1.0.0
-Authors@R: person("Colin", "Smith", email = "csmith.tar@gmail.com", role = c("aut", "cre"))
+Authors@R: person("Colin", "Smith", email = "csmith.tar@gmail.com", role = c("aut", "cre"), comment = "https://orcid.org/0000-0003-2261-9931")
 Description:
     Resolves user supplied taxonomy data against a taxonomic authority, retrieves taxonomic 
     serial numbers, updates users data, and creates the taxonomicCoverage metadata element in 
@@ -27,3 +27,5 @@ Suggests:
 Remotes:
     EDIorg/EDIutils
 VignetteBuilder: knitr
+URL: https://github.com/EDIorg/EMLassemblyline
+BugReports: https://github.com/EDIorg/EMLassemblyline/issues

@@ -30,7 +30,7 @@ library(taxonomyCleanr)
 
 ### Documenation
 
-[A demonstration of the taxonomyCleanr](https://github.com/EDIorg/taxonomyCleanr/blob/master/docs/instructions.md#overview)
+[Check out use cases at the project website](https://ediorg.github.io/taxonomyCleanr/)
 
 ## Contributing
 
