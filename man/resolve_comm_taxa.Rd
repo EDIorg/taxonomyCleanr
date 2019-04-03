@@ -13,8 +13,8 @@ on by this function. Create this file with `create_taxa_map`.}
 
 \item{data.sources}{An ordered numeric vector of ID's corresponding to data sources (i.e.
 taxonomic authorities) to query, in the order of decreasing
-preference. Run `view_taxa_authorities` to see data source that support
-`resolve_comm`.}
+preference. Run `view_taxa_authorities` to see data sources supported
+by `resolve_comm_taxa`.}
 
 \item{x}{(character) A vector of taxa names.}
 }
@@ -28,6 +28,7 @@ preference. Run `view_taxa_authorities` to see data source that support
 }
 \description{
 Resolve common names to preferred authorities and get associated ID's.
+    Run `view_taxa_authorities` to see supported authorities.
 }
 \details{
 Common names are resolved to data sources in order of listed preference.

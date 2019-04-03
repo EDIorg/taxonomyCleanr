@@ -13,7 +13,7 @@ on by this function. Create this file with `create_taxa_map`.}
 
 \item{data.sources}{An ordered numeric vector of ID's corresponding to data sources (i.e.
 taxonomic authorities) you'd like to query, in the order of decreasing
-preference. Run `view_taxa_authorities` to see data source that support
+preference. Run `view_taxa_authorities` to see data sources supported by
 `resolve_sci_taxa`.}
 
 \item{x}{(character) A vector of taxa names.}
@@ -27,7 +27,8 @@ preference. Run `view_taxa_authorities` to see data source that support
     }
 }
 \description{
-Resolve taxa to preferred authorities and get associated ID's.
+Resolve taxa to preferred authorities and get associated ID's. Run
+    `view_taxa_authorities` to see supported authorities.
 }
 \details{
 A taxa are resolved to data sources in order of listed preference. If

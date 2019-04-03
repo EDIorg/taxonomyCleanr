@@ -2,6 +2,7 @@
 #'
 #' @description
 #'     Resolve common names to preferred authorities and get associated ID's.
+#'     Run `view_taxa_authorities` to see supported authorities.
 #'
 #' @usage
 #'     resolve_comm_taxa(path, data.sources, x = NULL)
@@ -13,8 +14,8 @@
 #' @param data.sources
 #'     An ordered numeric vector of ID's corresponding to data sources (i.e.
 #'     taxonomic authorities) to query, in the order of decreasing
-#'     preference. Run `view_taxa_authorities` to see data source that support
-#'     `resolve_comm`.
+#'     preference. Run `view_taxa_authorities` to see data sources supported
+#'     by `resolve_comm_taxa`.
 #' @param x
 #'     (character) A vector of taxa names.
 #'
