@@ -22,6 +22,8 @@
 #' @return
 #'     (list) A list taxa with corresponding hierarchical names and ranks.
 #'
+#' @export
+#'
 
 get_classification <- function(taxa.clean, authority, authority.id, path = NULL){
 

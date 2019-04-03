@@ -13,6 +13,7 @@ reference:
   - title: Resolve to authority
     desc: Functions for resolving taxa to authority systems
     contents:
+    - get_classification
     - resolve_comm_taxa
     - resolve_sci_taxa
     - view_taxa_authorities

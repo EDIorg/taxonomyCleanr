@@ -3,6 +3,7 @@
 export(count_taxa)
 export(create_taxa_map)
 export(get_authority)
+export(get_classification)
 export(get_id)
 export(get_id_common)
 export(make_taxonomicCoverage)
