@@ -12,25 +12,20 @@ The `taxonomyCleanr` is a user friendly workflow and collection of functions to 
 
 The `taxonomyCleanr` is based on the `taxize` R package developed by [Chamberlain et al. (2016)](https://github.com/ropensci/taxize).
 
-## Getting started
-
-### R package
-
-Install `taxonomyCleanr` from GitHub
+## Install
 
 ```
-# Install and load devtools
-install.packages("devtools")
-library(devtools)
-
-# Install and load taxonomyCleanr
-install_github("EDIorg/taxonomyCleanr")
-library(taxonomyCleanr)
+# Install from GitHub
+devtools::install_github("EDIorg/taxonomyCleanr")
 ```
 
-### Documenation
+## Usage
 
 [Check out use cases at the project website](https://ediorg.github.io/taxonomyCleanr/)
+
+## Roadmap
+
+Coming soon!
 
 ## Contributing
 

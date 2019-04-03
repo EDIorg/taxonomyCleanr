@@ -8,26 +8,13 @@ knitr::opts_chunk$set(echo = TRUE)
 library(kableExtra)
 ```
 
-### Overview
+# Overview
 
 The `taxonomyCleanr` is easy to use and requires no taxonomic expertiese. Simply send your data through a series of cleaning functions (`count_taxa`, `trim_taxa`, `replace_taxa`, `remove_taxa`), send the resultant output to the resolver functions (`resolve_sci_taxa`, `resolve_comm_taxa`), and create a revision of your raw data (`revise_taxa`). Voila! Clean taxonomic data!
 
 Below is a demonstration of this process using example data that comes installed with the `taxonomyCleanr` package.
 
-- [Install taxonomyCleanr](#installation)
-- [Load data](#load-data)
-- [Create taxa map](#create-taxa-map)
-- [Count taxa](#count-taxa)
-- [Trim taxa](#trim-taxa)
-- [Replace taxa](#replace-taxa)
-- [Remove taxa](#remove-taxa)
-- [Resolve scientific taxa](#resolve-scientific-taxa) 
-- [Resolve common taxa](#resolve-common-taxa)
-- [Taxa map overview](#taxa-map-overview)
-- [Revise taxa](#revise-taxa)
-- [Make taxonomicCoverage EML](#make-taxonomiccoverage-eml)
-
-### Installation
+# Installation
 
 Install `taxonomyCleanr` from the project GitHub.
 
@@ -43,9 +30,9 @@ library(devtools)
 library(taxonomyCleanr)
 ```
 
-* [Back to top](#overview)
 
-### Load data
+
+# Load data
 
 Load the taxonomic data into RStudio _as a data frame_. The taxa must be listed in a single column of character type class, not factor type class.
 
@@ -69,9 +56,9 @@ knitr::kable(data, caption = "Test data containing a column of taxa to be cleane
   kableExtra::scroll_box(width = '100%', height = '400px')
 ```
 
-* [Back to top](#overview)
 
-### Create taxa map
+
+# Create taxa map
 
 The taxa map (taxa_map.csv) links the raw data to the cleaned data. Each cleaning function logs changes to taxa_map.csv thereby facilitating an understanding of how the data were changed and a means by which to update the raw data table. A thorough explanation of the maps contents will be provided after the cleaning and resolver processes have been run on these example data.
 
@@ -82,9 +69,9 @@ my_path <- 'C:/Users/Colin/Documents/data'
 taxa_map <- create_taxa_map(path = my_path, x = data, col = 'Species')
 ```
 
-* [Back to top](#overview)
 
-### Count taxa
+
+# Count taxa
 
 Get the unique taxa names and respective counts with `count_taxa`. This function helps identify issues that should be fixed before sending the taxa list to the resolver functions. Doing so increases the success of an authority match. Notice, some of the taxa in the test data are obviously misspelled (e.g. _Achillea millefolium(lanulosa)_ and _Achillea millefolium(lanulosaaaa)_ likely represent the same taxon), and some of the listed names are clearly not taxa (e.g. _-9999_ and _Miscellaneous litter_).
 
@@ -100,9 +87,9 @@ knitr::kable(output, caption = "Unique taxa and their respective counts. Several
   kableExtra::scroll_box(width = '100%', height = '400px')
 ```
 
-* [Back to top](#overview)
 
-### Trim taxa
+
+# Trim taxa
 
 Several of the taxa have variations of common suffixes found in taxonomic data (e.g. _c.f._ and _sp._), but frequently cause issues when searching taxonomic authorities. The `trim_taxa` function removes these excess characters as well as leading and trailing white spaces and under score characters.
 
@@ -125,9 +112,9 @@ knitr::kable(output, caption = "Unique taxa and counts after trim_taxa. Notice, 
   kableExtra::scroll_box(width = '100%', height = '400px')
 ```
 
-* [Back to top](#overview)
 
-### Replace taxa
+
+# Replace taxa
 
 Some of the taxa are misspelled. Use `replace_taxa` to replace the misspelled taxa with the correct spelling, or the best guess of the correct spelling. Use `count_taxa` to verify these changes.
 
@@ -150,9 +137,9 @@ knitr::kable(output, caption = "Unique taxa counts after replacing misspelled ta
   kableExtra::scroll_box(width = '100%', height = '400px')
 ```
 
-* [Back to top](#overview)
 
-### Remove taxa
+
+# Remove taxa
 
 Some taxa in the list are clearly not taxa, and should be removed with `remove_taxa` before attempting to resolve to an authority.
 
@@ -174,9 +161,9 @@ knitr::kable(output, caption = "Unique taxa and counts after non-taxa have been 
   kableExtra::scroll_box(width = '100%', height = '400px')
 ```
 
-* [Back to top](#overview)
 
-### Resolve scientific taxa
+
+# Resolve scientific taxa
 
 Now the list of taxa looks reasonable. Extraneous characters have been removed, occurences of similarly spelled taxa have been harmonized, and non-taxa names have been removed. Send the list of taxa to `resolve_sci_taxa`, along with a preferred list of authorities to search, and successful hits will return the accepted scientific spelling, taxonomic serial number, and taxonomic rank. `resolve_sci_taxa` will give preference to the ordering of the taxonomic authorites input to the function. View the list of authorities supported by `resolve_sci_taxa` with `view_taxa_authorities`
 
@@ -208,9 +195,9 @@ knitr::kable(output, caption = "Output from resolve_sci_taxa call") %>%
 
 The taxa that could be resolved to _ITIS_ and _WORMS_ were logged to taxa_map.csv, along with their taxonomic serial numbers and taxonomic ranks.
 
-* [Back to top](#overview)
 
-### Resolve common taxa
+
+# Resolve common taxa
 
 Some of the taxa that couldn't be resolved by `resolve_sci_taxa` is because their common names were listed. Use `resolve_comm_taxa` to attempt resolution of these common names to an authority. `resolve_comm_taxa` is similar to `resolve_sci_taxa` in that it requires a preferred list of authorities to search against. Select authorities supported by `resolve_comm_taxa`.
 
@@ -238,7 +225,7 @@ knitr::kable(output, caption = "Output from resolve_comm_taxa call") %>%
   kableExtra::scroll_box(width = '100%', height = '400px')
 ```
 
-* [Back to top](#overview)
+
 
 # Taxa map overview
 
@@ -269,9 +256,9 @@ knitr::kable(output, caption = "taxa_map.csv after all the cleaning procedures h
   kableExtra::scroll_box(width = '100%', height = '400px')
 ```
 
-* [Back to top](#overview)
 
-### Revise taxa
+
+# Revise taxa
 
 Now that the taxa have been cleaned, as best they can, the raw data table can be updated with the new taxonomic information. This new information is contained in 4 new columns, which have the same definitions as listed in the taxa map:
 
@@ -293,9 +280,9 @@ knitr::kable(output, caption = "A revision of the raw data table with new taxono
   kableExtra::scroll_box(width = '100%', height = '400px')
 ```
 
-* [Back to top](#overview)
 
-### Make taxonomicCoverage EML
+
+# Make taxonomicCoverage EML
 
 When creating EML metadata (Ecological Metadata Language), it is a good practice to include the taxonomic entities and their respective hierarchies to facilitate search and discovery.
 
@@ -304,4 +291,4 @@ When creating EML metadata (Ecological Metadata Language), it is a good practice
 make_taxonomicCoverage(path = my_path)
 ```
 
-* [Back to top](#overview)
+
