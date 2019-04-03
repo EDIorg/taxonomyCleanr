@@ -5,7 +5,9 @@ library(taxonomyCleanr)
 
 testthat::test_that('View available authorities', {
 
-  expect_equal(class(view_taxa_authorities()),
+  authorities <- view_taxa_authorities()
+
+  expect_equal(class(authorities),
                'data.frame')
 
   col_names <- colnames(view_taxa_authorities())
