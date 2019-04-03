@@ -1,0 +1,26 @@
+reference:
+  - title: Provenance tracking
+    desc: Functions for tracking changes during the data preparation and resolution steps. Most of the provenance tracking is automatically built into functions as optional arguments.
+    contents:
+    - create_taxa_map
+  - title: Data preparation
+    desc: Functions for preparing data prior to sending to an authority system.
+    contents:
+    - count_taxa
+    - remove_taxa
+    - replace_taxa
+    - trim_taxa
+  - title: Resolvers
+    desc: Functions for resolving taxa to authority systems
+    contents:
+    - resolve_comm_taxa
+    - resolve_sci_taxa
+    - view_taxa_authorities
+  - title: Make Ecological Metadata Language (EML)
+    desc: Functions for creating EML
+    contents:
+    - make_taxonomicCoverage
+  - title: Update raw data
+    desc: Functions for updating the raw data table
+    contents:
+    - revise_taxa
