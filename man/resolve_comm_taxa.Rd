@@ -4,19 +4,19 @@
 \alias{resolve_comm_taxa}
 \title{Resolve taxa with common names}
 \usage{
-resolve_comm_taxa(path, data.sources, x = NULL)
+resolve_comm_taxa(path = NULL, data.sources, x = NULL)
 }
 \arguments{
-\item{path}{A character string specifying the path to taxa_map.csv. This table
-tracks relationships between your raw and cleaned data and is operated
-on by this function. Create this file with `create_taxa_map`.}
+\item{x}{(character) A vector of taxa names.}
 
 \item{data.sources}{An ordered numeric vector of ID's corresponding to data sources (i.e.
 taxonomic authorities) to query, in the order of decreasing
 preference. Run `view_taxa_authorities` to see data sources supported
 by `resolve_comm_taxa`.}
 
-\item{x}{(character) A vector of taxa names.}
+\item{path}{A character string specifying the path to taxa_map.csv. This table
+tracks relationships between your raw and cleaned data and is operated
+on by this function. Create this file with `create_taxa_map`.}
 }
 \value{
 \itemize{
