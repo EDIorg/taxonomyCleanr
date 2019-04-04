@@ -246,8 +246,8 @@ get_id_common <- function(taxon, authority){
   gnr_list <- as.data.frame(
     taxize::gnr_datasources()
   )
-  use_i <- authority == gnr_ds[ , 'id']
-  authority <- gnr_ds[use_i, 'title']
+  use_i <- authority == gnr_list[ , 'id']
+  authority <- gnr_list[use_i, 'title']
 
   # Get ID and rank from taxon and authority ----------------------------------
 
