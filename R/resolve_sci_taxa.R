@@ -5,19 +5,19 @@
 #'     `view_taxa_authorities` to see supported authorities.
 #'
 #' @usage
-#'     resolve_sci_taxa(path, data.sources, x = NULL)
+#'     resolve_sci_taxa(x = NULL, data.sources, path = NULL)
 #'
-#' @param path
-#'     A character string specifying the path to taxa_map.csv. This table
-#'     tracks relationships between your raw and cleaned data and is operated
-#'     on by this function. Create this file with `create_taxa_map`.
+#' @param x
+#'     (character) A vector of taxa names.
 #' @param data.sources
 #'     An ordered numeric vector of ID's corresponding to data sources (i.e.
 #'     taxonomic authorities) you'd like to query, in the order of decreasing
 #'     preference. Run `view_taxa_authorities` to see data sources supported by
 #'     `resolve_sci_taxa`.
-#' @param x
-#'     (character) A vector of taxa names.
+#' @param path
+#'     A character string specifying the path to taxa_map.csv. This table
+#'     tracks relationships between your raw and cleaned data and is operated
+#'     on by this function. Create this file with `create_taxa_map`.
 #'
 #' @details
 #'     A taxa are resolved to data sources in order of listed preference. If
@@ -35,17 +35,17 @@
 #' @export
 #'
 
-resolve_sci_taxa <- function(path, data.sources, x = NULL){
+resolve_sci_taxa <- function(x = NULL, data.sources, path = NULL){
 
   # Check arguments ---------------------------------------------------------
 
-  if (!is.null(x) & !missing(path)){
+  if (!is.null(x) & !is.null(path)){
     stop('Both "path" and "x" arguments are not allowed. Select one or the other.')
   }
 
   if (is.null(x)){
 
-    if (missing(path)){
+    if (is.null(path)){
       stop('Input argument "path" is missing!')
     }
 
@@ -66,15 +66,16 @@ resolve_sci_taxa <- function(path, data.sources, x = NULL){
     stop('Input argument "data.sources" is missing!')
   }
 
-  use_i <- as.character(data.sources) %in% c('1','3','9','11','165')
+  authorities <- view_taxa_authorities()
+  authorities <- authorities[authorities$resolve_sci_taxa == 'supported', ]
+  use_i <- as.character(data.sources) %in% as.character(authorities$id)
   if (sum(use_i) != length(use_i)){
     stop('Input argument "data.sources" contains unsupported data source IDs!')
-
   }
 
   # Read taxa_map.csv -------------------------------------------------------
 
-  if (!missing(path)){
+  if (!is.null(path)){
 
     taxa_map <- suppressMessages(
       as.data.frame(
@@ -95,7 +96,7 @@ resolve_sci_taxa <- function(path, data.sources, x = NULL){
 
   # Create taxa list ----------------------------------------------------------
 
-  if (!missing(path)){
+  if (!is.null(path)){
 
     taxa_list <- data.frame(
       index = seq(nrow(taxa_map)),
@@ -136,7 +137,7 @@ resolve_sci_taxa <- function(path, data.sources, x = NULL){
 
   # Update taxa_map.csv -----------------------------------------------------
 
-  if (!missing(path)){
+  if (!is.null(path)){
 
     query <- data.frame(
       matrix(
@@ -188,7 +189,7 @@ resolve_sci_taxa <- function(path, data.sources, x = NULL){
 
   # Document provenance -----------------------------------------------------
 
-  if (!missing(path)){
+  if (!is.null(path)){
 
     # Write to file
     lib_path <- system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv',
@@ -246,7 +247,9 @@ get_authority <- function(taxon, data.source){
 
   # Resolve taxa to authority -------------------------------------------------
 
-  gnr_list <- taxize::gnr_datasources()
+  gnr_list <- as.data.frame(
+    taxize::gnr_datasources()
+  )
   use_i <- gnr_list[ , 'id'] == data.source
 
   message(
@@ -295,6 +298,9 @@ get_authority <- function(taxon, data.source){
     if (query[1, 'score'] == "NaN"){
       query[1, 'score'] <- NA_character_
     }
+
+    # Return
+
     list(
       'resolved_name' =  query[1, 'matched_name2'],
       'authority' = query[1, 'data_source_title'],

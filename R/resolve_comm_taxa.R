@@ -5,19 +5,19 @@
 #'     Run `view_taxa_authorities` to see supported authorities.
 #'
 #' @usage
-#'     resolve_comm_taxa(path, data.sources, x = NULL)
+#'     resolve_comm_taxa(path = NULL, data.sources, x = NULL)
 #'
-#' @param path
-#'     A character string specifying the path to taxa_map.csv. This table
-#'     tracks relationships between your raw and cleaned data and is operated
-#'     on by this function. Create this file with `create_taxa_map`.
+#' @param x
+#'     (character) A vector of taxa names.
 #' @param data.sources
 #'     An ordered numeric vector of ID's corresponding to data sources (i.e.
 #'     taxonomic authorities) to query, in the order of decreasing
 #'     preference. Run `view_taxa_authorities` to see data sources supported
 #'     by `resolve_comm_taxa`.
-#' @param x
-#'     (character) A vector of taxa names.
+#' @param path
+#'     A character string specifying the path to taxa_map.csv. This table
+#'     tracks relationships between your raw and cleaned data and is operated
+#'     on by this function. Create this file with `create_taxa_map`.
 #'
 #' @details
 #'     Common names are resolved to data sources in order of listed preference.
@@ -35,16 +35,16 @@
 #' @export
 #'
 
-resolve_comm_taxa <- function(path, data.sources, x = NULL){
+resolve_comm_taxa <- function(x = NULL, data.sources, path = NULL){
 
   # Check arguments ---------------------------------------------------------
 
-  if (!is.null(x) & !missing(path)){
+  if (!is.null(x) & !is.null(path)){
     stop('Both "path" and "x" arguments are not allowed. Select one or the other.')
   }
 
   if (is.null(x)){
-    if (missing(path)){
+    if (is.null(path)){
       stop('Input argument "path" is missing!')
     }
     use_i <- file.exists(
@@ -62,14 +62,16 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL){
     stop('Input argument "data.sources" is missing!')
   }
 
-  use_i <- as.character(data.sources) %in% c('3')
+  authorities <- view_taxa_authorities()
+  authorities <- authorities[authorities$resolve_comm_taxa == 'supported', ]
+  use_i <- as.character(data.sources) %in% as.character(authorities$id)
   if (sum(use_i) != length(use_i)){
     stop('Input argument "data.sources" contains unsupported data source IDs!')
   }
 
   # Read taxa_map.csv -------------------------------------------------------
 
-  if (!missing(path)){
+  if (!is.null(path)){
 
     taxa_map <- suppressMessages(
       as.data.frame(
@@ -90,7 +92,7 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL){
 
   # Create taxa list ----------------------------------------------------------
 
-  if (!missing(path)){
+  if (!is.null(path)){
 
     taxa_list <- data.frame(
       index = seq(nrow(taxa_map)),
@@ -137,7 +139,7 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL){
 
   # Update taxa_map.csv -----------------------------------------------------
 
-  if (!missing(path)){
+  if (!is.null(path)){
 
     query <- data.frame(
       matrix(
@@ -190,7 +192,7 @@ resolve_comm_taxa <- function(path, data.sources, x = NULL){
   # Write to file
   lib_path <- system.file('test_data.txt', package = 'taxonomyCleanr')
   lib_path <- substr(lib_path, 1, nchar(lib_path) - 14)
-  if (!missing(path)){
+  if (!is.null(path)){
     if (path != lib_path){
       write_taxa_map(x = taxa_map, path = path)
     }
@@ -241,9 +243,11 @@ get_id_common <- function(taxon, authority){
 
   # Match authority -----------------------------------------------------------
 
-  gnr_ds <- taxize::gnr_datasources()
-  use_i <- authority == gnr_ds[ , 'id']
-  authority <- gnr_ds[use_i, 'title']
+  gnr_list <- as.data.frame(
+    taxize::gnr_datasources()
+  )
+  use_i <- authority == gnr_list[ , 'id']
+  authority <- gnr_list[use_i, 'title']
 
   # Get ID and rank from taxon and authority ----------------------------------
 
@@ -333,33 +337,33 @@ get_id_common <- function(taxon, authority){
   #   }
   # }
 
-  # Encyclopedia of life
-  if ((!is.na(authority)) & (authority == 'EOL')){
-        response <- suppressMessages(as.data.frame(
-          taxize::eol_search(
-            terms = taxon,
-            exact = T
-            )
-          ))
-    if (nrow(response) > 0){
-      if (nrow(response) > 0){
-        taxon_id <- as.character(response[1, 'pageid'])
-        taxon_rank <- 'common'
-        taxon_authority <- authority
-        taxon_clean <- taxon
-      } else {
-        taxon_id <- NA_character_
-        taxon_rank <- NA_character_
-        taxon_authority <- NA_character_
-        taxon_clean <- NA_character_
-      }
-    } else {
-      taxon_id <- NA_character_
-      taxon_rank <- NA_character_
-      taxon_authority <- NA_character_
-      taxon_clean <- NA_character_
-    }
-  }
+  # # Encyclopedia of life
+  # if ((!is.na(authority)) & (authority == 'EOL')){
+  #       response <- suppressMessages(as.data.frame(
+  #         taxize::eol_search(
+  #           terms = taxon,
+  #           exact = T
+  #           )
+  #         ))
+  #   if (nrow(response) > 0){
+  #     if (nrow(response) > 0){
+  #       taxon_id <- as.character(response[1, 'pageid'])
+  #       taxon_rank <- 'common'
+  #       taxon_authority <- authority
+  #       taxon_clean <- taxon
+  #     } else {
+  #       taxon_id <- NA_character_
+  #       taxon_rank <- NA_character_
+  #       taxon_authority <- NA_character_
+  #       taxon_clean <- NA_character_
+  #     }
+  #   } else {
+  #     taxon_id <- NA_character_
+  #     taxon_rank <- NA_character_
+  #     taxon_authority <- NA_character_
+  #     taxon_clean <- NA_character_
+  #   }
+  # }
 
   # Return --------------------------------------------------------------------
 

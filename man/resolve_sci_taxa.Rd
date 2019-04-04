@@ -4,19 +4,19 @@
 \alias{resolve_sci_taxa}
 \title{Resolve taxa with scientific names}
 \usage{
-resolve_sci_taxa(path, data.sources, x = NULL)
+resolve_sci_taxa(x = NULL, data.sources, path = NULL)
 }
 \arguments{
-\item{path}{A character string specifying the path to taxa_map.csv. This table
-tracks relationships between your raw and cleaned data and is operated
-on by this function. Create this file with `create_taxa_map`.}
+\item{x}{(character) A vector of taxa names.}
 
 \item{data.sources}{An ordered numeric vector of ID's corresponding to data sources (i.e.
 taxonomic authorities) you'd like to query, in the order of decreasing
 preference. Run `view_taxa_authorities` to see data sources supported by
 `resolve_sci_taxa`.}
 
-\item{x}{(character) A vector of taxa names.}
+\item{path}{A character string specifying the path to taxa_map.csv. This table
+tracks relationships between your raw and cleaned data and is operated
+on by this function. Create this file with `create_taxa_map`.}
 }
 \value{
 \itemize{
