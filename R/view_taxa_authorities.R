@@ -22,7 +22,9 @@ view_taxa_authorities <- function(){
 
   # Get GNR datasources -----------------------------------------------------
 
-  gnr_list <- taxize::gnr_datasources()
+  gnr_list <- as.data.frame(
+    taxize::gnr_datasources()
+  )
 
   # Mark supported databases ------------------------------------------------
 
@@ -60,7 +62,8 @@ view_taxa_authorities <- function(){
   gnr_list[use_i, 'resolve_taxa'] <- 'supported'
   gnr_list[use_i, 'resolve_common'] <- 'not supported'
 
-  taxonomic_authorities <- gnr_list[stats::complete.cases(gnr_list), c('id', 'return_to_user', 'resolve_taxa', 'resolve_common')]
+  use_i <- !is.na(gnr_list$return_to_user)
+  taxonomic_authorities <- gnr_list[use_i, c('id', 'return_to_user', 'resolve_taxa', 'resolve_common')]
   colnames(taxonomic_authorities) <- c('id', 'authority', 'resolve_sci_taxa', 'resolve_comm_taxa')
   rownames(taxonomic_authorities) <- c()
 

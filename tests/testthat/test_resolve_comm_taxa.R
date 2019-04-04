@@ -29,29 +29,48 @@ testthat::test_that('Expect errors', {
 testthat::test_that('Output table is standardized', {
 
   # ITIS
-  expect_equal(colnames(resolve_comm_taxa(x = 'Yellow Perch',
-                                          data.sources = 3)),
-               c('index', 'taxa', 'taxa_clean', 'rank', 'authority',
-                 'authority_id'))
-  expect_equal(class(resolve_comm_taxa(x = 'Yellow Perch', data.sources = 3)),
-               'data.frame')
-  expect_equal(colnames(resolve_comm_taxa(data.sources = 3, path = path)),
-               c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
-                 'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
-                 'difference'))
 
-  # # EOL
-  # expect_equal(colnames(resolve_comm_taxa(x = 'Yellow Perch',
-  #                                         data.sources = 12)),
-  #              c('index', 'taxa', 'taxa_clean', 'rank', 'authority',
-  #                'authority_id'))
-  # expect_equal(class(resolve_comm_taxa(x = 'Ficus', data.sources = 12)),
-  #              'data.frame')
-  # expect_equal(colnames(resolve_comm_taxa(data.sources = 12, path = path)),
-  #              c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
-  #                'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
-  #                'difference'))
+  output <- colnames(
+    resolve_comm_taxa(
+      x = 'Yellow Perch',
+      data.sources = 3
+    )
+  )
 
-  # resolve_comm_taxa(path = path, data.sources = 3)
+  expect_equal(
+    all(
+      output %in%
+        c('index', 'taxa', 'taxa_clean', 'rank', 'authority','authority_id')
+    ),
+    TRUE
+  )
+
+  output <- resolve_comm_taxa(
+    x = 'Yellow Perch',
+    data.sources = 3
+  )
+
+  expect_equal(
+    class(output),
+    'data.frame'
+  )
+
+  output <- colnames(
+    resolve_comm_taxa(
+      data.sources = 3,
+      path = path
+    )
+  )
+
+  expect_equal(
+    all(
+      output %in%
+        c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
+          'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
+          'difference'
+        )
+    ),
+    TRUE
+  )
 
 })

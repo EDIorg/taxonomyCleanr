@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/EDIorg/EMLassemblyline",
   "issueTracker": "https://github.com/EDIorg/EMLassemblyline/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -178,9 +178,9 @@
       "sameAs": "https://github.com/EDIorg/EDIutils"
     }
   ],
-  "releaseNotes": "https://github.com/EDIorg/taxonomyCleanr/blob/master/NEWS.md",
-  "readme": "https://github.com/EDIorg/taxonomyCleanr/blob/master/README.md",
-  "fileSize": "71.217KB",
+  "releaseNotes": "https://github.com/clnsmth/taxonomyCleanr/blob/master/NEWS.md",
+  "readme": "https://github.com/clnsmth/taxonomyCleanr/blob/master/README.md",
+  "fileSize": "71.439KB",
   "contIntegration": [
     "https://travis-ci.org/EDIorg/taxonomyCleanr",
     "https://codecov.io/github/EDIorg/taxonomyCleanr?branch=master"

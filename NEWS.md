@@ -1,3 +1,8 @@
+# taxonomyCleanr 1.0.1
+
+#### 2019-04-04
+* __Bug fix:__ Refactor calls to `taxize`. The `taxize` package changed to tibble outputs and taxonomyCleanr was expecting data frames. Inputs from taxize are now converted to data frames prior to processing. Thanks for reporting this issue @srearl!
+
 # taxonomyCleanr 1.0.0
 
 #### 2019-04-03
