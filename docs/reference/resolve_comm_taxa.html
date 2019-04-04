@@ -64,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -127,16 +127,14 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>resolve_comm_taxa</span>(<span class='no'>path</span>, <span class='no'>data.sources</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>resolve_comm_taxa</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>data.sources</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>A character string specifying the path to taxa_map.csv. This table
-tracks relationships between your raw and cleaned data and is operated
-on by this function. Create this file with `create_taxa_map`.</p></td>
+      <th>x</th>
+      <td><p>(character) A vector of taxa names.</p></td>
     </tr>
     <tr>
       <th>data.sources</th>
@@ -146,8 +144,10 @@ preference. Run `view_taxa_authorities` to see data sources supported
 by `resolve_comm_taxa`.</p></td>
     </tr>
     <tr>
-      <th>x</th>
-      <td><p>(character) A vector of taxa names.</p></td>
+      <th>path</th>
+      <td><p>A character string specifying the path to taxa_map.csv. This table
+tracks relationships between your raw and cleaned data and is operated
+on by this function. Create this file with `create_taxa_map`.</p></td>
     </tr>
     </table>
     
