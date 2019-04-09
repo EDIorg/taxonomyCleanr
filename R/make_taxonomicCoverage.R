@@ -21,6 +21,8 @@
 #'     (logical) Flag to indicate if the resulting EML taxonomicCoverage element
 #'     should be written to file as an xml document.
 #'
+#' @importFrom readr read_csv
+#'
 #' @return
 #'     The taxonomicCoverage EML as an XML object, and/or written to the file
 #'     taxonomicCoverage.xml in the directory specified by path.
@@ -33,8 +35,8 @@ make_taxonomicCoverage <- function(taxa.clean, authority, authority.id,
 
   # Define data
   if (!is.null(path) & file.exists(paste0(path, '/taxa_map.csv'))){
-    taxa_map <- utils::read.table(paste0(path, '/taxa_map.csv'), header = T,
-                                  sep = ',', stringsAsFactors = F)
+    taxa_map <- read_csv(file = paste0(path, '/taxa_map.csv'),
+                         col_names = T)
     data <- unname(get_classification(taxa.clean = taxa_map$taxa_clean,
                                       authority = taxa_map$authority,
                                       authority.id = taxa_map$authority_id,
@@ -54,7 +56,6 @@ make_taxonomicCoverage <- function(taxa.clean, authority, authority.id,
       df <- as.data.frame(t(data.frame(df$name)))
       colnames(df) <- x$rank
       taxcov <- EML::set_taxonomicCoverage(df)
-      taxcov@taxonomicClassification[[1]]
     }
   }
   taxclass <- lapply(data, dataframe_2_taxclass)
