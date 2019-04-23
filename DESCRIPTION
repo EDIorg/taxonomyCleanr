@@ -29,5 +29,5 @@ Remotes:
     clnsmth/EML103,
     EDIorg/EDIutils
 VignetteBuilder: knitr
-URL: https://github.com/EDIorg/EMLassemblyline
-BugReports: https://github.com/EDIorg/EMLassemblyline/issues
+URL: https://github.com/EDIorg/taxonomyCleanr
+BugReports: https://github.com/EDIorg/taxonomyCleanr/issues
