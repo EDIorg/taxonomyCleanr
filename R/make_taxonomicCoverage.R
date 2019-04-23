@@ -50,7 +50,7 @@ make_taxonomicCoverage <- function(taxa.clean, authority, authority.id,
       df <- x[ , match(c('name', 'rank'), colnames(x))]
       df <- as.data.frame(t(data.frame(df$name)))
       colnames(df) <- x$rank
-      taxcov <- EML::set_taxonomicCoverage(df)
+      taxcov <- EML103::set_taxonomicCoverage(df)
       taxcov@taxonomicClassification[[1]]
     }
   }
@@ -66,7 +66,7 @@ make_taxonomicCoverage <- function(taxa.clean, authority, authority.id,
   lib_path <- substr(lib_path, 1, nchar(lib_path) - 14)
   if (!is.null(path)){
     if (path != lib_path){
-      EML::write_eml(eml = taxcov,
+      EML103::write_eml(eml = taxcov,
                      file = paste0(path, "/", "taxonomicCoverage.xml"))
     }
   }

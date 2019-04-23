@@ -80,19 +80,6 @@
   "softwareRequirements": [
     {
       "@type": "SoftwareApplication",
-      "identifier": "EML",
-      "name": "EML",
-      "version": "== 1.0.3",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=EML"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "stringr",
       "name": "stringr",
       "version": ">= 1.2.0",
@@ -173,14 +160,20 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "EML103",
+      "name": "EML103",
+      "sameAs": "https://github.com/clnsmth/EML103"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "EDIutils",
       "name": "EDIutils",
       "sameAs": "https://github.com/EDIorg/EDIutils"
     }
   ],
-  "releaseNotes": "https://github.com/clnsmth/taxonomyCleanr/blob/master/NEWS.md",
-  "readme": "https://github.com/clnsmth/taxonomyCleanr/blob/master/README.md",
-  "fileSize": "71.439KB",
+  "releaseNotes": "https://github.com/EDIorg/taxonomyCleanr/blob/master/NEWS.md",
+  "readme": "https://github.com/EDIorg/taxonomyCleanr/blob/master/README.md",
+  "fileSize": "71.598KB",
   "contIntegration": [
     "https://travis-ci.org/EDIorg/taxonomyCleanr",
     "https://codecov.io/github/EDIorg/taxonomyCleanr?branch=master"

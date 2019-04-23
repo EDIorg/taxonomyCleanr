@@ -7,7 +7,6 @@ Description:
     serial numbers, updates users data, and creates the taxonomicCoverage metadata element in 
     the Ecological Metadata Language (EML).
 Imports:
-    EML (== 1.0.3),
     stringr (>= 1.2.0),
     taxize (>= 0.8.8),
     ritis (>= 0.5.4),
@@ -16,6 +15,7 @@ Imports:
     utils,
     methods,
     reader (>= 1.0.6),
+    EML103,
     EDIutils
 License: MIT
 Encoding: UTF-8
@@ -26,6 +26,7 @@ Suggests:
     knitr,
     rmarkdown
 Remotes:
+    clnsmth/EML103,
     EDIorg/EDIutils
 VignetteBuilder: knitr
 URL: https://github.com/EDIorg/EMLassemblyline
