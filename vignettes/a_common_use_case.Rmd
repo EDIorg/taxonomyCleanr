@@ -18,15 +18,9 @@ Below is a demonstration of this process using example data that comes installed
 
 Install `taxonomyCleanr` from the project GitHub.
 
-```{r instload devtools, message=FALSE, warning=FALSE}
-# Install and load devtools (required to install the taxonomyCleanr)
-#install.packages('devtools')
-library(devtools)
-```
-
 ```{r instload taxonomyCleanr, message=FALSE, warning=FALSE}
-# Install and load taxonomyCleanr from the development branch of the project GitHub
-# install_github('EDIorg/taxonomyCleanr')
+# Install from GitHub
+# remotes::install_github('EDIorg/taxonomyCleanr')
 library(taxonomyCleanr)
 ```
 
