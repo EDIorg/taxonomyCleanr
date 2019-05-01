@@ -7,8 +7,8 @@
   "identifier": "taxonomyCleanr",
   "description": "\n    Resolves user supplied taxonomy data against a taxonomic authority, retrieves taxonomic \n    serial numbers, updates users data, and creates the taxonomicCoverage metadata element in \n    the Ecological Metadata Language (EML).",
   "name": "taxonomyCleanr: A workflow and set of functions to clean taxonomy data using R.",
-  "codeRepository": "https://github.com/EDIorg/EMLassemblyline",
-  "issueTracker": "https://github.com/EDIorg/EMLassemblyline/issues",
+  "codeRepository": "https://github.com/EDIorg/taxonomyCleanr",
+  "issueTracker": "https://github.com/EDIorg/taxonomyCleanr/issues",
   "license": "https://spdx.org/licenses/MIT",
   "version": "1.0.1",
   "programmingLanguage": {
@@ -78,19 +78,6 @@
     }
   ],
   "softwareRequirements": [
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "EML",
-      "name": "EML",
-      "version": "== 1.0.3",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=EML"
-    },
     {
       "@type": "SoftwareApplication",
       "identifier": "stringr",
@@ -173,14 +160,20 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "EML103",
+      "name": "EML103",
+      "sameAs": "https://github.com/clnsmth/EML103"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "EDIutils",
       "name": "EDIutils",
       "sameAs": "https://github.com/EDIorg/EDIutils"
     }
   ],
-  "releaseNotes": "https://github.com/clnsmth/taxonomyCleanr/blob/master/NEWS.md",
-  "readme": "https://github.com/clnsmth/taxonomyCleanr/blob/master/README.md",
-  "fileSize": "71.439KB",
+  "releaseNotes": "https://github.com/EDIorg/taxonomyCleanr/blob/master/NEWS.md",
+  "readme": "https://github.com/EDIorg/taxonomyCleanr/blob/master/README.md",
+  "fileSize": "71.54KB",
   "contIntegration": [
     "https://travis-ci.org/EDIorg/taxonomyCleanr",
     "https://codecov.io/github/EDIorg/taxonomyCleanr?branch=master"

@@ -1,6 +1,6 @@
 context('Create taxonomicCoverage EML')
 library(taxonomyCleanr)
-library(EML)
+library(EML103)
 
 # Initialize test data --------------------------------------------------------
 
@@ -14,7 +14,7 @@ data <- utils::read.table(
 path <- system.file('test_data.txt', package = 'taxonomyCleanr')
 path <- substr(path, 1, nchar(path) - 14)
 
-taxcov <- EML::read_eml(system.file('taxonomicCoverage.xml',
+taxcov <- EML103::read_eml(system.file('taxonomicCoverage.xml',
                                     package = 'taxonomyCleanr'))
 
 # Tests -----------------------------------------------------------------------
