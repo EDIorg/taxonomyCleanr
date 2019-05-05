@@ -21,7 +21,7 @@ remotes::install_github("EDIorg/taxonomyCleanr")
 
 ## Usage
 
-[Check out use cases at the project website](https://ediorg.github.io/taxonomyCleanr/)
+[Check out example use cases in the taxonomyCleanr website articles](https://ediorg.github.io/taxonomyCleanr/)
 
 ## Roadmap
 
