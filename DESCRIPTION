@@ -1,6 +1,6 @@
 Package: taxonomyCleanr
 Title: A workflow and set of functions to clean taxonomy data using R.
-Version: 1.0.1
+Version: 1.1.1
 Authors@R: person("Colin", "Smith", email = "csmith.tar@gmail.com", role = c("aut", "cre"), comment = "https://orcid.org/0000-0003-2261-9931")
 Description:
     Resolves user supplied taxonomy data against a taxonomic authority, retrieves taxonomic 
@@ -15,7 +15,7 @@ Imports:
     utils,
     methods,
     reader (>= 1.0.6),
-    EML103,
+    EML (>== 2.0.0),
     EDIutils
 License: MIT
 Encoding: UTF-8
@@ -26,7 +26,6 @@ Suggests:
     knitr,
     rmarkdown
 Remotes:
-    clnsmth/EML103,
     EDIorg/EDIutils
 VignetteBuilder: knitr
 URL: https://github.com/EDIorg/taxonomyCleanr

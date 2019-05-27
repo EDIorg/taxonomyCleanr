@@ -17,6 +17,9 @@
 #' @param path
 #'     (character) The path to which the taxonomicCoverage will be written, and
 #'     or to where taxa_map.csv is located.
+#' @param write.file
+#'     (logical) Flag to indicate if the resulting EML taxonomicCoverage element
+#'     should be written to file as an xml document.
 #'
 #' @return
 #'     The taxonomicCoverage EML as an XML object, and or written to the file
@@ -26,7 +29,7 @@
 #'
 
 make_taxonomicCoverage <- function(taxa.clean, authority, authority.id,
-                                   path = NULL){
+                                   path = NULL, write.file = TRUE){
 
   # Define data
   if (!is.null(path) & file.exists(paste0(path, '/taxa_map.csv'))){
@@ -50,26 +53,27 @@ make_taxonomicCoverage <- function(taxa.clean, authority, authority.id,
       df <- x[ , match(c('name', 'rank'), colnames(x))]
       df <- as.data.frame(t(data.frame(df$name)))
       colnames(df) <- x$rank
-      taxcov <- EML103::set_taxonomicCoverage(df)
-      taxcov@taxonomicClassification[[1]]
+      taxcov <- EML::set_taxonomicCoverage(df)
     }
   }
   taxclass <- lapply(data, dataframe_2_taxclass)
 
   # Create EML node set
-  taxcov <- methods::new('taxonomicCoverage')
-  taxcov@taxonomicClassification <- methods::as(taxclass,
-                                       'ListOftaxonomicClassification')
+  taxcov <- EML::set_taxonomicCoverage(taxonomicClassification = taxclass)
 
   # Write to file
-  lib_path <- system.file('test_data.txt', package = 'taxonomyCleanr')
-  lib_path <- substr(lib_path, 1, nchar(lib_path) - 14)
-  if (!is.null(path)){
-    if (path != lib_path){
-      EML103::write_eml(eml = taxcov,
-                     file = paste0(path, "/", "taxonomicCoverage.xml"))
+  if (isTRUE(write.file)){
+    lib_path <- system.file('test_data.txt', package = 'taxonomyCleanr')
+    lib_path <- substr(lib_path, 1, nchar(lib_path) - 14)
+    if (!is.null(path)){
+      if (path != lib_path){
+        EML::write_eml(eml = taxcov,
+                       file = paste0(path, "/", "taxonomicCoverage.xml"))
+      }
     }
   }
+
+
 
   # Return output
   taxcov
