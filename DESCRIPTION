@@ -16,6 +16,7 @@ Imports:
     utils,
     methods,
     reader (>= 1.0.6),
+    EML103,
     EDIutils
 License: MIT
 Encoding: UTF-8
@@ -26,7 +27,8 @@ Suggests:
     knitr,
     rmarkdown
 Remotes:
+    clnsmth/EML103,
     EDIorg/EDIutils
 VignetteBuilder: knitr
-URL: https://github.com/EDIorg/EMLassemblyline
-BugReports: https://github.com/EDIorg/EMLassemblyline/issues
+URL: https://github.com/EDIorg/taxonomyCleanr
+BugReports: https://github.com/EDIorg/taxonomyCleanr/issues
