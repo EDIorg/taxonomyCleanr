@@ -7,7 +7,6 @@ Description:
     serial numbers, updates users data, and creates the taxonomicCoverage metadata element in 
     the Ecological Metadata Language (EML).
 Imports:
-    EML (>= 1.99.0),
     stringr (>= 1.2.0),
     taxize (>= 0.8.8),
     ritis (>= 0.5.4),
