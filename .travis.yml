@@ -8,8 +8,8 @@ r_packages:
   - reader
   - covr
   - methods
+  - EML
 r_github_packages:
-  - clnsmth/EML103
   - EDIorg/EDIutils
 warnings_are_errors: false
 after_success:
