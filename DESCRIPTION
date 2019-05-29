@@ -11,10 +11,11 @@ Imports:
     taxize (>= 0.8.8),
     ritis (>= 0.5.4),
     readr (>= 1.1.1),
+    reader (>= 1.0.6),
+    covr,
     stats,
     utils,
     methods,
-    reader (>= 1.0.6),
     EML (>= 2.0.0),
     EDIutils
 License: MIT
