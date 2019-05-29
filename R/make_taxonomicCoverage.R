@@ -22,8 +22,8 @@
 #'     should be written to file as an xml document.
 #'
 #' @return
-#'     The taxonomicCoverage EML as an XML object, and or written to the file
-#'     taxonomicCoverage.xml in the directory specified by path.
+#'     The taxonomicCoverage EML as an 'emld' 'list' object, and or written to
+#'     the file taxonomicCoverage.xml in the directory specified by path.
 #'
 #' @export
 #'
@@ -31,10 +31,23 @@
 make_taxonomicCoverage <- function(taxa.clean, authority, authority.id,
                                    path = NULL, write.file = TRUE){
 
-  # Define data
+  message('Creating <taxonomicCoverage>')
+
+  # Validate arguments --------------------------------------------------------
+
+  if (is.null(path) & isTRUE(write.file)){
+    stop('Input argument "path" is required when writing data to file.')
+  }
+
+  # Get taxa clasifications ---------------------------------------------------
+
+  # Get classifications from authorities
+  message('Retrieving classifications')
   if (!is.null(path) & file.exists(paste0(path, '/taxa_map.csv'))){
-    taxa_map <- utils::read.table(paste0(path, '/taxa_map.csv'), header = T,
-                                  sep = ',', stringsAsFactors = F)
+    taxa_map <- utils::read.table(paste0(path, '/taxa_map.csv'),
+                                  header = T,
+                                  sep = ',',
+                                  stringsAsFactors = F)
     data <- unname(get_classification(taxa.clean = taxa_map$taxa_clean,
                                       authority = taxa_map$authority,
                                       authority.id = taxa_map$authority_id,
@@ -46,7 +59,7 @@ make_taxonomicCoverage <- function(taxa.clean, authority, authority.id,
                                       path = path))
   }
 
-  # Create helper function to facilitate differential levels of taxonomic
+  # Create helper function to accomodate different levels of taxonomic
   # classification
   dataframe_2_taxclass <- function(x){
     if (('name' %in% colnames(x)) & ('rank' %in% colnames(x))){
@@ -59,23 +72,18 @@ make_taxonomicCoverage <- function(taxa.clean, authority, authority.id,
   taxclass <- lapply(data, dataframe_2_taxclass)
 
   # Create EML node set
-  taxcov <- EML::set_taxonomicCoverage(taxonomicClassification = taxclass)
+  taxcov <- EML::set_taxonomicCoverage(sci_names = taxclass)
 
-  # Write to file
+  # Write to file -------------------------------------------------------------
+
   if (isTRUE(write.file)){
-    lib_path <- system.file('test_data.txt', package = 'taxonomyCleanr')
-    lib_path <- substr(lib_path, 1, nchar(lib_path) - 14)
-    if (!is.null(path)){
-      if (path != lib_path){
-        EML::write_eml(eml = taxcov,
-                       file = paste0(path, "/", "taxonomicCoverage.xml"))
-      }
-    }
+    message('Writing taxonomicCoverage.xml')
+    EML::write_eml(eml = taxcov,
+                   file = paste0(path, "/", "taxonomicCoverage.xml"))
   }
 
-
-
-  # Return output
+  # Return output -------------------------------------------------------------
+  message('Done.')
   taxcov
 
 }
