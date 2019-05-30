@@ -12,5 +12,14 @@ r_packages:
 r_github_packages:
   - EDIorg/EDIutils
 warnings_are_errors: false
+addons:
+  apt:
+    sources:
+      - sourceline: 'ppa:opencpu/jq'
+    packages:
+      - librdf0-dev
+      - libv8-dev
+      - libjq-dev
+      - libudunits2-dev
 after_success:
   - Rscript -e 'library(covr); codecov()'
