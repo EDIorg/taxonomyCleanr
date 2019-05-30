@@ -7,9 +7,6 @@ r_packages:
   - readr
   - reader
   - covr
-  - stats
-  - utils
-  - methods
   - EML
   - EDIutils
 r_github_packages:
