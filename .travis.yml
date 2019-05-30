@@ -12,6 +12,12 @@ r_packages:
 r_github_packages:
   - EDIorg/EDIutils
 warnings_are_errors: false
+matrix:
+  include:
+    - os: linux
+      r: devel
+    - os: linux
+      r: release
 addons:
   apt:
     sources:
