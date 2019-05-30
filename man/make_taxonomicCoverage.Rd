@@ -17,10 +17,13 @@ have been resolved.}
 
 \item{path}{(character) The path to which the taxonomicCoverage will be written, and
 or to where taxa_map.csv is located.}
+
+\item{write.file}{(logical) Flag to indicate if the resulting EML taxonomicCoverage element
+should be written to file as an xml document.}
 }
 \value{
-The taxonomicCoverage EML as an XML object, and or written to the file
-    taxonomicCoverage.xml in the directory specified by path.
+The taxonomicCoverage EML as an 'emld' 'list' object, and or written to
+    the file taxonomicCoverage.xml in the directory specified by path.
 }
 \description{
 Make the hierarchical taxonomicCoverage EML node set.

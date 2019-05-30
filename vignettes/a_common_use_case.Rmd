@@ -32,7 +32,7 @@ Load the taxonomic data into RStudio _as a data frame_. The taxa must be listed 
 
 ```{r load data, echo=TRUE, paged.print=TRUE}
 # Load test data installed with the taxonomyCleanr package
-data <- read.table(system.file('test_data.txt', package = 'taxonomyCleanr'), header = T, sep = '\t', stringsAsFactors = F)
+data <- read.table(system.file('example_data.txt', package = 'taxonomyCleanr'), header = T, sep = '\t', stringsAsFactors = F)
 ```
 
 This data table has 6 columns:
@@ -59,7 +59,7 @@ The taxa map (taxa_map.csv) links the raw data to the cleaned data. Each cleanin
 ```{r create taxa_map.csv}
 
 # Create the taxa map
-my_path <- 'C:/Users/Colin/Documents/data'
+my_path <- '/Users/csmith/Documents/data'
 taxa_map <- create_taxa_map(path = my_path, x = data, col = 'Species')
 ```
 
@@ -282,7 +282,9 @@ When creating EML metadata (Ecological Metadata Language), it is a good practice
 
 ```{r create taxonomicCoverage, message=FALSE, warning=FALSE}
 # Create the taxonomicCoverage EML node set and write to file
-make_taxonomicCoverage(path = my_path)
+output <- make_taxonomicCoverage(path = my_path, write.file = TRUE)
+output <- XML::xmlTreeParse(paste0(my_path, '/taxonomicCoverage.xml'))
+output$doc$children
 ```
 
 

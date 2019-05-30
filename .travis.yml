@@ -7,10 +7,24 @@ r_packages:
   - readr
   - reader
   - covr
-  - methods
+  - EML
 r_github_packages:
-  - clnsmth/EML103
   - EDIorg/EDIutils
 warnings_are_errors: false
+matrix:
+  include:
+    - os: linux
+      r: devel
+    - os: linux
+      r: release
+addons:
+  apt:
+    sources:
+      - sourceline: 'ppa:opencpu/jq'
+    packages:
+      - librdf0-dev
+      - libv8-dev
+      - libjq-dev
+      - libudunits2-dev
 after_success:
   - Rscript -e 'library(covr); codecov()'
