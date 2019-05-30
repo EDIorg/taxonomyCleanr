@@ -4,7 +4,7 @@ library(taxonomyCleanr)
 # Initialize test data --------------------------------------------------------
 
 data <- utils::read.table(
-  system.file('taxa_map.csv', package = 'taxonomyCleanr'),
+  system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv', package = 'taxonomyCleanr'),
   header = TRUE,
   sep = ',',
   as.is = TRUE
@@ -34,3 +34,4 @@ testthat::test_that('Return list', {
 testthat::test_that('List should be data frame', {
   expect_equal(class(taxclass[[1]]), 'data.frame')
 })
+

@@ -11,7 +11,7 @@ data <- utils::read.table(
 )
 
 taxa_map <- utils::read.table(
-  system.file('taxa_map.csv', package = 'taxonomyCleanr'),
+  system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv', package = 'taxonomyCleanr'),
   header = TRUE,
   sep = ',',
   as.is = T

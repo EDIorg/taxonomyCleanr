@@ -4,7 +4,7 @@ library(taxonomyCleanr)
 # Parameterize ----------------------------------------------------------------
 
 data <- utils::read.table(
-  system.file('taxa_map.csv', package = 'taxonomyCleanr'),
+  system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv', package = 'taxonomyCleanr'),
   header = TRUE,
   sep = ',',
   as.is = TRUE
@@ -30,25 +30,18 @@ testthat::test_that('Output table is standardized', {
 
   # ITIS
 
-  output <- colnames(
-    resolve_sci_taxa(
-      x = 'Oncorhynchus tshawytscha',
-      data.sources = 3
-    )
+  output <- resolve_sci_taxa(
+    x = 'Oncorhynchus tshawytscha',
+    data.sources = 3
   )
 
   expect_equal(
     all(
-      output %in%
+      colnames(output) %in%
         c('index', 'taxa', 'taxa_clean', 'rank', 'authority',
           'authority_id', 'score')
     ),
     TRUE
-  )
-
-  output <- resolve_sci_taxa(
-    x = 'Oncorhynchus tshawytscha',
-    data.sources = 3
   )
 
   expect_equal(
@@ -56,15 +49,13 @@ testthat::test_that('Output table is standardized', {
     'data.frame'
   )
 
-  output <- colnames(
-    resolve_sci_taxa(
-      path = path,
-      data.sources = 3
-    )
+  output <- resolve_sci_taxa(
+    path = path,
+    data.sources = 3
   )
 
   expect_equal(
-    all(output %in%
+    all(colnames(output) %in%
           c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
             'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
             'difference')
@@ -72,23 +63,16 @@ testthat::test_that('Output table is standardized', {
     TRUE
   )
 
-  expect_equal(
-    class(resolve_sci_taxa(path = path, data.sources = 3)),
-    'data.frame'
-  )
-
   # COL
 
-  output <- colnames(
-    resolve_sci_taxa(
-      x = 'Oncorhynchus tshawytscha',
-      data.sources = 1
-    )
+  output <- resolve_sci_taxa(
+    x = 'Oncorhynchus tshawytscha',
+    data.sources = 1
   )
 
   expect_equal(
     all(
-      output %in%
+      colnames(output) %in%
         c('index', 'taxa', 'taxa_clean', 'rank', 'authority',
           'authority_id', 'score')
     ),
@@ -97,24 +81,19 @@ testthat::test_that('Output table is standardized', {
 
   expect_equal(
     class(
-      resolve_sci_taxa(
-        x = 'Oncorhynchus tshawytscha',
-        data.sources = 1
-      )
+      output
     ),
     'data.frame'
   )
 
-  output <- colnames(
-    resolve_sci_taxa(
-      path = path,
-      data.sources = 1
-    )
+  output <- resolve_sci_taxa(
+    path = path,
+    data.sources = 1
   )
 
   expect_equal(
     all(
-      output %in%
+      colnames(output) %in%
         c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
           'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
           'difference')
@@ -123,26 +102,20 @@ testthat::test_that('Output table is standardized', {
   )
 
   expect_equal(
-    class(
-      resolve_sci_taxa(
-        path = path,
-        data.sources = 1)
-    ),
+    class(output),
     'data.frame'
   )
 
   # WORMS
 
-  output <- colnames(
-    resolve_sci_taxa(
-      x = 'Oncorhynchus tshawytscha',
-      data.sources = 9
-    )
+  output <- resolve_sci_taxa(
+    x = 'Oncorhynchus tshawytscha',
+    data.sources = 9
   )
 
   expect_equal(
     all(
-      output %in%
+      colnames(output) %in%
         c('index', 'taxa', 'taxa_clean', 'rank', 'authority',
           'authority_id', 'score')
     ),
@@ -150,24 +123,17 @@ testthat::test_that('Output table is standardized', {
   )
 
   expect_equal(
-    class(
-      resolve_sci_taxa(
-        x = 'Oncorhynchus tshawytscha',
-        data.sources = 9
-      )
-    ),
+    class(output),
     'data.frame'
   )
 
-  output <- colnames(
-    resolve_sci_taxa(
-      path = path,
-      data.sources = 9
-    )
+  output <- resolve_sci_taxa(
+    path = path,
+    data.sources = 9
   )
 
   expect_equal(all(
-    output %in%
+    colnames(output) %in%
       c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
         'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
         'difference')
@@ -177,51 +143,39 @@ testthat::test_that('Output table is standardized', {
 
   expect_equal(
     class(
-      resolve_sci_taxa(
-        path = path,
-        data.sources = 9
-      )
+      output
     ),
     'data.frame'
   )
 
   # GBIF
 
-  output <- colnames(
-    resolve_sci_taxa(
-      x = 'Oncorhynchus tshawytscha',
-      data.sources = 11
-    )
+  output <- resolve_sci_taxa(
+    x = 'Oncorhynchus tshawytscha',
+    data.sources = 11
   )
 
   expect_equal(
     all(
-      output %in% c('index', 'taxa', 'taxa_clean', 'rank', 'authority',
+      colnames(output) %in% c('index', 'taxa', 'taxa_clean', 'rank', 'authority',
                     'authority_id', 'score')
     ),
     TRUE
   )
 
   expect_equal(
-    class(
-      resolve_sci_taxa(
-        x = 'Oncorhynchus tshawytscha',
-        data.sources = 11
-      )
-    ),
+    class(output),
     'data.frame'
   )
 
-  output <- colnames(
-    resolve_sci_taxa(
-      path = path,
-      data.sources = 11
-    )
+  output <- resolve_sci_taxa(
+    path = path,
+    data.sources = 11
   )
 
   expect_equal(
     all(
-      output %in%
+      colnames(output) %in%
         c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
           'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
           'difference')
@@ -230,27 +184,20 @@ testthat::test_that('Output table is standardized', {
   )
 
   expect_equal(
-    class(
-      resolve_sci_taxa(
-        path = path,
-        data.sources = 11
-      )
-    ),
+    class(output),
     'data.frame'
   )
 
   # Tropicos
 
-  output <- colnames(
-    resolve_sci_taxa(
-      x = 'Oncorhynchus tshawytscha',
-      data.sources = 165
-    )
+  output <- resolve_sci_taxa(
+    x = 'Oncorhynchus tshawytscha',
+    data.sources = 165
   )
 
   expect_equal(
     all(
-      output %in%
+      colnames(output) %in%
         c('index', 'taxa', 'taxa_clean', 'rank', 'authority',
           'authority_id', 'score')
     ),
@@ -258,25 +205,18 @@ testthat::test_that('Output table is standardized', {
   )
 
   expect_equal(
-    class(
-      resolve_sci_taxa(
-        x = 'Oncorhynchus tshawytscha',
-        data.sources = 165
-      )
-    ),
+    class(output),
     'data.frame'
   )
 
-  output <- colnames(
-    resolve_sci_taxa(
-      path = path,
-      data.sources = 165
-    )
+  output <- resolve_sci_taxa(
+    path = path,
+    data.sources = 165
   )
 
   expect_equal(
     all(
-      output %in%
+      colnames(output) %in%
         c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
           'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
           'difference')
@@ -285,12 +225,7 @@ testthat::test_that('Output table is standardized', {
   )
 
   expect_equal(
-    class(
-      resolve_sci_taxa(
-        path = path,
-        data.sources = 165
-      )
-    ),
+    class(output),
     'data.frame'
   )
 

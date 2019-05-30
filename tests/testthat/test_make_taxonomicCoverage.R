@@ -5,7 +5,7 @@ library(EML)
 # Parameterize ----------------------------------------------------------------
 
 data <- utils::read.table(
-  system.file('taxa_map.csv', package = 'taxonomyCleanr'),
+  system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv', package = 'taxonomyCleanr'),
   header = TRUE,
   sep = ',',
   as.is = TRUE)

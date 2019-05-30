@@ -8,7 +8,6 @@ r_packages:
   - reader
   - covr
   - EML
-  - EDIutils
 r_github_packages:
   - EDIorg/EDIutils
 warnings_are_errors: false
