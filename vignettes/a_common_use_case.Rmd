@@ -282,7 +282,9 @@ When creating EML metadata (Ecological Metadata Language), it is a good practice
 
 ```{r create taxonomicCoverage, message=FALSE, warning=FALSE}
 # Create the taxonomicCoverage EML node set and write to file
-make_taxonomicCoverage(path = my_path)
+output <- make_taxonomicCoverage(path = my_path, write.file = TRUE)
+output <- XML::xmlTreeParse(paste0(my_path, '/taxonomicCoverage.xml'))
+output$doc$children
 ```
 
 

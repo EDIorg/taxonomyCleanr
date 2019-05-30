@@ -1,3 +1,8 @@
+# taxonomyCleanr 1.1.0
+
+#### 2019-05-28
+* __Enhancement:__ `make_taxonomicCoverage()` now works with `EML` v.2.0.0 and outputs the taxonomicCoverage node as a list object and/or an .xml file written to path. The argument `write.file` has been added to enable use of taxa_map.csv without writing to file. These changes are based on a pull request by @srearl.
+
 # taxonomyCleanr 1.0.1
 
 #### 2019-04-04
