@@ -74,6 +74,10 @@ revise_taxa <- function(path, x, col, sep){
     stop('Invalid "sep" value entered. Must be "," or "\\t".')
   }
 
+  # Coerce x to data frame
+
+  x <- as.data.frame(x)
+
   # Read taxa_map.csv -------------------------------------------------------
 
   taxa_map <- suppressMessages(
