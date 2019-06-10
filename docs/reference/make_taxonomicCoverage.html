@@ -173,45 +173,977 @@ Default is <code>TRUE</code>.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'># Create taxonomicCoverage from taxa_map.csv ----------------------------------
+    <pre class="examples"><div class='input'><span class='co'># Create taxonomicCoverage from taxa_map.csv ----------------------------------</span>
 
-# Copy taxa_map.csv from the taxonomyCleanr library to tempdir()
-file.copy(
-  from = system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv', package = 'taxonomyCleanr'),
-  to = tempdir()
-)
+<span class='co'># Copy taxa_map.csv from the taxonomyCleanr library to tempdir()</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/files'>file.copy</a></span>(
+  <span class='kw'>from</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>'/taxa_map_resolve_sci_taxa/taxa_map.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'taxonomyCleanr'</span>),
+  <span class='kw'>to</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>()
+)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'># Create taxonomicCoverage</span>
+<span class='no'>output</span> <span class='kw'>&lt;-</span> <span class='fu'>make_taxonomicCoverage</span>(
+  <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(),
+)</div><div class='output co'>#&gt; <span class='message'>Creating &lt;taxonomicCoverage&gt;</span></div><div class='output co'>#&gt; <span class='message'>Retrieving classifications</span></div><div class='output co'>#&gt; <span class='message'>Writing taxonomicCoverage.xml</span></div><div class='output co'>#&gt; <span class='message'>Done.</span></div><div class='input'>
+<span class='co'># View taxonomicCoverage list object</span>
+<span class='no'>output</span></div><div class='output co'>#&gt; $taxonomicClassification
+#&gt; $taxonomicClassification$taxonRankName
+#&gt; [1] "kingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonRankValue
+#&gt; [1] "Plantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subkingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Viridiplantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "infrakingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Streptophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Embryophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "division"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Tracheophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Spermatophytina"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "class"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Magnoliopsida"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superorder"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Asteranae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "order"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Asterales"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "family"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Asteraceae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "genus"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "Achillea"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...$...
+#&gt; [1] "species"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...$...
+#&gt; [1] "Achillea millefolium"
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; $taxonomicClassification
+#&gt; $taxonomicClassification$taxonRankName
+#&gt; [1] "kingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonRankValue
+#&gt; [1] "Plantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subkingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Viridiplantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "infrakingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Streptophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Embryophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "division"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Tracheophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Spermatophytina"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "class"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Magnoliopsida"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superorder"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Asteranae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "order"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Asterales"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "family"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Asteraceae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "genus"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "Crepis"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...$...
+#&gt; [1] "species"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...$...
+#&gt; [1] "Crepis tectorum"
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; $taxonomicClassification
+#&gt; $taxonomicClassification$taxonRankName
+#&gt; [1] "kingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonRankValue
+#&gt; [1] "Plantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subkingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Viridiplantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "infrakingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Streptophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Embryophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "division"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Tracheophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Spermatophytina"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "class"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Magnoliopsida"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superorder"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Lilianae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "order"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Poales"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "family"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Cyperaceae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "genus"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "Cyperus"
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; $taxonomicClassification
+#&gt; $taxonomicClassification$taxonRankName
+#&gt; [1] "kingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonRankValue
+#&gt; [1] "Plantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subkingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Viridiplantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "infrakingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Streptophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Embryophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "division"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Tracheophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Spermatophytina"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "class"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Magnoliopsida"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superorder"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Rosanae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "order"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Malpighiales"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "family"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Euphorbiaceae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "genus"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "Euphorbia"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...$...
+#&gt; [1] "species"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...$...
+#&gt; [1] "Euphorbia glyptosperma"
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; $taxonomicClassification
+#&gt; $taxonomicClassification$taxonRankName
+#&gt; [1] "kingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonRankValue
+#&gt; [1] "Plantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subkingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Viridiplantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "infrakingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Streptophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Embryophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "division"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Tracheophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Spermatophytina"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "class"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Magnoliopsida"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superorder"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Rosanae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "order"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Fabales"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "family"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Fabaceae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "genus"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "Lespedeza"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...$...
+#&gt; [1] "species"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...$...
+#&gt; [1] "Lespedeza capitata"
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; </div><div class='input'>
+<span class='co'># Verify taxonomicCoverage.xml has been written to file</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/files'>file.exists</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(), <span class='st'>'/taxonomicCoverage.xml'</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'># Create taxonomicCoverage from argument inputs -------------------------------</span>
 
-# Create taxonomicCoverage
-output <- make_taxonomicCoverage(
-  path = tempdir(),
-)
-
-# View taxonomicCoverage list object
-output
-
-# Verify taxonomicCoverage.xml has been written to file
-file.exists(paste0(tempdir(), '/taxonomicCoverage.xml'))
-
-# Create taxonomicCoverage from argument inputs -------------------------------
-
-# Create taxonomicCoverage
-output <- make_taxonomicCoverage(
-  taxa.clean = c('Crepis tectorum', 'Euphorbia glyptosperma'),
-  authority = c('ITIS', 'ITIS'),
-  authority.id = c('37212', '28074'),
-  path = tempdir(),
-)
-
-# View taxonomicCoverage list object
-output
-
-# Verify taxonomicCoverage.xml has been written to file
-file.exists(paste0(tempdir(), '/taxonomicCoverage.xml')
-
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:37:0: unexpected end of input</span>
-#&gt; <span class='error'>35: </span>
-#&gt; <span class='error'>36: </span>
-#&gt; <span class='error'>   ^</span></div></pre>
+<span class='co'># Create taxonomicCoverage</span>
+<span class='no'>output</span> <span class='kw'>&lt;-</span> <span class='fu'>make_taxonomicCoverage</span>(
+  <span class='kw'>taxa.clean</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>'Crepis tectorum'</span>, <span class='st'>'Euphorbia glyptosperma'</span>),
+  <span class='kw'>authority</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>'ITIS'</span>, <span class='st'>'ITIS'</span>),
+  <span class='kw'>authority.id</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>'37212'</span>, <span class='st'>'28074'</span>),
+  <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(),
+)</div><div class='output co'>#&gt; <span class='message'>Creating &lt;taxonomicCoverage&gt;</span></div><div class='output co'>#&gt; <span class='message'>Retrieving classifications</span></div><div class='output co'>#&gt; <span class='message'>Writing taxonomicCoverage.xml</span></div><div class='output co'>#&gt; <span class='message'>Done.</span></div><div class='input'>
+<span class='co'># View taxonomicCoverage list object</span>
+<span class='no'>output</span></div><div class='output co'>#&gt; $taxonomicClassification
+#&gt; $taxonomicClassification$taxonRankName
+#&gt; [1] "kingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonRankValue
+#&gt; [1] "Plantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subkingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Viridiplantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "infrakingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Streptophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Embryophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "division"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Tracheophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Spermatophytina"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "class"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Magnoliopsida"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superorder"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Asteranae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "order"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Asterales"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "family"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Asteraceae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "genus"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "Achillea"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...$...
+#&gt; [1] "species"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...$...
+#&gt; [1] "Achillea millefolium"
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; $taxonomicClassification
+#&gt; $taxonomicClassification$taxonRankName
+#&gt; [1] "kingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonRankValue
+#&gt; [1] "Plantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subkingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Viridiplantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "infrakingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Streptophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Embryophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "division"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Tracheophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Spermatophytina"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "class"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Magnoliopsida"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superorder"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Asteranae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "order"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Asterales"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "family"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Asteraceae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "genus"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "Crepis"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...$...
+#&gt; [1] "species"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...$...
+#&gt; [1] "Crepis tectorum"
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; $taxonomicClassification
+#&gt; $taxonomicClassification$taxonRankName
+#&gt; [1] "kingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonRankValue
+#&gt; [1] "Plantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subkingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Viridiplantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "infrakingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Streptophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Embryophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "division"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Tracheophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Spermatophytina"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "class"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Magnoliopsida"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superorder"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Lilianae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "order"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Poales"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "family"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Cyperaceae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "genus"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "Cyperus"
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; $taxonomicClassification
+#&gt; $taxonomicClassification$taxonRankName
+#&gt; [1] "kingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonRankValue
+#&gt; [1] "Plantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subkingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Viridiplantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "infrakingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Streptophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Embryophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "division"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Tracheophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Spermatophytina"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "class"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Magnoliopsida"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superorder"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Rosanae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "order"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Malpighiales"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "family"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Euphorbiaceae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "genus"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "Euphorbia"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...$...
+#&gt; [1] "species"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...$...
+#&gt; [1] "Euphorbia glyptosperma"
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; $taxonomicClassification
+#&gt; $taxonomicClassification$taxonRankName
+#&gt; [1] "kingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonRankValue
+#&gt; [1] "Plantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subkingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Viridiplantae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "infrakingdom"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Streptophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Embryophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "division"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Tracheophyta"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "subdivision"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Spermatophytina"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "class"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Magnoliopsida"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "superorder"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Rosanae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "order"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Fabales"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankName
+#&gt; [1] "family"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonRankValue
+#&gt; [1] "Fabaceae"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "genus"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; [1] "Lespedeza"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...$...
+#&gt; [1] "species"
+#&gt; 
+#&gt; $taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$taxonomicClassification$...$...$...
+#&gt; [1] "Lespedeza capitata"
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; </div><div class='input'>
+<span class='co'># Verify taxonomicCoverage.xml has been written to file</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/files'>file.exists</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(), <span class='st'>'/taxonomicCoverage.xml'</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

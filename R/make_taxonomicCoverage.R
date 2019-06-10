@@ -68,7 +68,7 @@
 #' output
 #'
 #' # Verify taxonomicCoverage.xml has been written to file
-#' file.exists(paste0(tempdir(), '/taxonomicCoverage.xml')
+#' file.exists(paste0(tempdir(), '/taxonomicCoverage.xml'))
 #'
 #' @export
 #'
