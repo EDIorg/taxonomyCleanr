@@ -1,89 +1,173 @@
 #' Make taxonomicCoverage EML
 #'
 #' @description
-#'     Make the hierarchical taxonomicCoverage EML node set.
+#'     Create the hierarchical rank specific EML for taxa that have been
+#'     resolved to an authority system (e.g. ITIS).
 #'
 #' @usage
-#'     make_taxonomicCoverage(taxa.clean, authority, authority.id, path = NULL)
+#'     make_taxonomicCoverage(
+#'       taxa.clean,
+#'       authority,
+#'       authority.id,
+#'       path,
+#'       write.file = TRUE
+#'     )
 #'
 #' @param taxa.clean
-#'     (character) Taxa names that have been resolved to a taxonomic authority.
+#'     (character) Taxa names as they appear in your dataset, or as they appear
+#'     in an authority system. Best practice is to align the names in your
+#'     dataset with those of the authority system.
 #' @param authority
-#'     (character) Authorities to which the taxa have been resolved. Valid
-#'     inputs are created by `resolve_sci_taxa`.
+#'     (character) Authority to which the taxa have been resolved. Valid inputs
+#'     are created by \code{resolve_sci_taxa()}.
 #' @param authority.id
-#'     (character) Taxonomic IDs corresponding the authority to which taxa
-#'     have been resolved.
+#'     (character) Authority specific identifiers for the resolved taxa.
 #' @param path
-#'     (character) The path to which the taxonomicCoverage will be written, and
-#'     or to where taxa_map.csv is located.
+#'     (character) Path to where taxonomicCoverage.xml will be written, and or
+#'     to where taxa_map.csv is located.
 #' @param write.file
-#'     (logical) Flag to indicate if the resulting EML taxonomicCoverage element
-#'     should be written to file as an xml document.
+#'     (logical) Whether taxonomicCoverage.xml should be written to file.
+#'     Default is \code{TRUE}.
 #'
 #' @return
-#'     The taxonomicCoverage EML as an 'emld' 'list' object, and or written to
-#'     the file taxonomicCoverage.xml in the directory specified by path.
+#'     The taxonomicCoverage as an 'emld' 'list' object (required for use in
+#'     the \code{EML} library), and written to taxonomicCoverage.xml if
+#'     \code{write.file = TRUE}.
+#'
+#' @examples
+#' # Create taxonomicCoverage from taxa_map.csv ----------------------------------
+#'
+#' # Copy taxa_map.csv from the taxonomyCleanr library to tempdir()
+#' file.copy(
+#'   from = system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv', package = 'taxonomyCleanr'),
+#'   to = tempdir()
+#' )
+#'
+#' # Create taxonomicCoverage
+#' output <- make_taxonomicCoverage(
+#'   path = tempdir(),
+#' )
+#'
+#' # View taxonomicCoverage list object
+#' output
+#'
+#' # Verify taxonomicCoverage.xml has been written to file
+#' file.exists(paste0(tempdir(), '/taxonomicCoverage.xml'))
+#'
+#' # Create taxonomicCoverage from argument inputs -------------------------------
+#'
+#' # Create taxonomicCoverage
+#' output <- make_taxonomicCoverage(
+#'   taxa.clean = c('Crepis tectorum', 'Euphorbia glyptosperma'),
+#'   authority = c('ITIS', 'ITIS'),
+#'   authority.id = c('37212', '28074'),
+#'   path = tempdir(),
+#' )
+#'
+#' # View taxonomicCoverage list object
+#' output
+#'
+#' # Verify taxonomicCoverage.xml has been written to file
+#' file.exists(paste0(tempdir(), '/taxonomicCoverage.xml')
 #'
 #' @export
 #'
 
-make_taxonomicCoverage <- function(taxa.clean, authority, authority.id,
-                                   path = NULL, write.file = TRUE){
+make_taxonomicCoverage <- function(
+  taxa.clean,
+  authority,
+  authority.id,
+  path,
+  write.file = TRUE){
 
   message('Creating <taxonomicCoverage>')
 
+  # FIXME: Not all taxonomic authority systems are supported by this function.
+  # Testing and reporting of supported authorities in the function
+  # documentation is needed. Additionally, the valid inputs to authority and
+  # authority ID need to be definied in the function documentation so users can
+  # manually supply this information if necessary.
+
   # Validate arguments --------------------------------------------------------
 
-  if (is.null(path) & isTRUE(write.file)){
+  # A path is required when writing to file
+
+  if (missing(path) & isTRUE(write.file)){
     stop('Input argument "path" is required when writing data to file.')
   }
 
-  # Get taxa clasifications ---------------------------------------------------
+  # The path must be valid
 
-  # Get classifications from authorities
-  message('Retrieving classifications')
-  if (!is.null(path) & file.exists(paste0(path, '/taxa_map.csv'))){
-    taxa_map <- utils::read.table(paste0(path, '/taxa_map.csv'),
-                                  header = T,
-                                  sep = ',',
-                                  stringsAsFactors = F)
-    data <- unname(get_classification(taxa.clean = taxa_map$taxa_clean,
-                                      authority = taxa_map$authority,
-                                      authority.id = taxa_map$authority_id,
-                                      path = path))
-  } else {
-    data <- unname(get_classification(taxa.clean = taxa.clean,
-                                      authority = authority,
-                                      authority.id = authority.id,
-                                      path = path))
+  if (!missing(path)){
+    EDIutils::validate_path(path)
   }
 
-  # Create helper function to accomodate different levels of taxonomic
-  # classification
-  dataframe_2_taxclass <- function(x){
-    if (('name' %in% colnames(x)) & ('rank' %in% colnames(x))){
-      df <- x[ , match(c('name', 'rank'), colnames(x))]
-      df <- as.data.frame(t(data.frame(df$name)))
-      colnames(df) <- x$rank
-      taxcov <- EML::set_taxonomicCoverage(df)
+  # Load data -----------------------------------------------------------------
+
+  # Load data from taxa_map.csv (if it exists).
+
+  if (!missing(path)){
+    if (file.exists(paste0(path, '/taxa_map.csv'))){
+      taxa_map <- utils::read.table(
+        paste0(path, '/taxa_map.csv'),
+        header = T,
+        sep = ',',
+        stringsAsFactors = F
+      )
+      taxa.clean <- taxa_map$taxa_clean
+      authority <- taxa_map$authority
+      authority.id <- taxa_map$authority_id
     }
   }
-  taxclass <- lapply(data, dataframe_2_taxclass)
 
-  # Create EML node set
-  taxcov <- EML::set_taxonomicCoverage(sci_names = taxclass)
+  # Retrieve taxonomic clasifications -----------------------------------------
+
+  message('Retrieving classifications')
+
+  # Retrieve taxonomic classifications.
+
+  data <- unname(
+    get_classification(
+      taxa.clean = taxa.clean,
+      authority = authority,
+      authority.id = authority.id,
+      path = path
+    )
+  )
+
+  # Create taxonomicCoverage --------------------------------------------------
+
+  # Create taxonomicCoverage (as a list object) from data containing varying
+  # rank levels.
+
+  taxonomicCoverage <- unlist(
+    lapply(
+      data,
+      function(x){
+        if (('name' %in% colnames(x)) & ('rank' %in% colnames(x))){
+          df <- x[ , match(c('name', 'rank'), colnames(x))]
+          df <- as.data.frame(t(data.frame(df$name)))
+          colnames(df) <- x$rank
+          list(taxonomicClassification = EML::set_taxonomicCoverage(df)$taxonomicClassification[[1]])
+        }
+      }
+    ),
+    recursive = FALSE
+  )
 
   # Write to file -------------------------------------------------------------
 
   if (isTRUE(write.file)){
     message('Writing taxonomicCoverage.xml')
-    EML::write_eml(eml = taxcov,
-                   file = paste0(path, "/", "taxonomicCoverage.xml"))
+    EML::write_eml(
+      eml = taxonomicCoverage,
+      file = paste0(path, '/taxonomicCoverage.xml')
+    )
   }
 
-  # Return output -------------------------------------------------------------
+  # Return object -------------------------------------------------------------
+
   message('Done.')
-  taxcov
+  taxonomicCoverage
 
 }

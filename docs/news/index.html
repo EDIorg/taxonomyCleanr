@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
       </span>
     </div>
 
@@ -115,43 +115,55 @@
       <small>Source: <a href='https://github.com/EDIorg/taxonomyCleanr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="taxonomycleanr-1-1-1" class="section level1">
+<h1 class="page-header">
+<a href="#taxonomycleanr-1-1-1" class="anchor"></a>taxonomyCleanr 1.1.1</h1>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>
+<strong>Missing taxonomicClassification:</strong> The taxonomicClassification element was missing from the taxonomicCoverage top-level list producing invalid EML. This issue has been fixed.</li>
+</ul>
+</div>
+</div>
     <div id="taxonomycleanr-1-1-0" class="section level1">
 <h1 class="page-header">
 <a href="#taxonomycleanr-1-1-0" class="anchor"></a>taxonomyCleanr 1.1.0</h1>
-<div id="section" class="section level4">
-<h4 class="hasAnchor">
-<a href="#section" class="anchor"></a>2019-05-28</h4>
+<div id="enhancements" class="section level2">
+<h2 class="hasAnchor">
+<a href="#enhancements" class="anchor"></a>Enhancements</h2>
 <ul>
 <li>
-<strong>Enhancement:</strong> <code><a href="../reference/make_taxonomicCoverage.html">make_taxonomicCoverage()</a></code> now works with <code>EML</code> v.2.0.0 and outputs the taxonomicCoverage node as a list object and/or an .xml file written to path. The argument <code>write.file</code> has been added to enable use of taxa_map.csv without writing to file. These changes are based on a pull request by <a href='https://github.com/srearl'>@srearl</a>.</li>
+<strong>EML v2.0.0:</strong> <code><a href="../reference/make_taxonomicCoverage.html">make_taxonomicCoverage()</a></code> now works with <code>EML</code> v.2.0.0 and outputs the taxonomicCoverage node as a list object and/or an .xml file written to path. The argument <code>write.file</code> has been added to enable use of taxa_map.csv without writing to file. These changes are based on a pull request by <a href='https://github.com/srearl'>@srearl</a>.</li>
 </ul>
 </div>
 </div>
     <div id="taxonomycleanr-1-0-1" class="section level1">
 <h1 class="page-header">
 <a href="#taxonomycleanr-1-0-1" class="anchor"></a>taxonomyCleanr 1.0.1</h1>
-<div id="section-1" class="section level4">
-<h4 class="hasAnchor">
-<a href="#section-1" class="anchor"></a>2019-04-04</h4>
+<div id="bug-fixes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
-<strong>Bug fix:</strong> Refactor calls to <code>taxize</code>. The <code>taxize</code> package changed to tibble outputs and taxonomyCleanr was expecting data frames. Inputs from taxize are now converted to data frames prior to processing. Thanks for reporting this issue <a href='https://github.com/srearl'>@srearl</a>!</li>
+<strong>Invalid input:</strong> Refactor calls to <code>taxize</code>. The <code>taxize</code> package changed to tibble outputs and taxonomyCleanr was expecting data frames. Inputs from taxize are now converted to data frames prior to processing. Thanks for reporting this issue <a href='https://github.com/srearl'>@srearl</a>!</li>
 </ul>
 </div>
 </div>
     <div id="taxonomycleanr-1-0-0" class="section level1">
 <h1 class="page-header">
 <a href="#taxonomycleanr-1-0-0" class="anchor"></a>taxonomyCleanr 1.0.0</h1>
-<div id="section-2" class="section level4">
-<h4 class="hasAnchor">
-<a href="#section-2" class="anchor"></a>2019-04-03</h4>
+<div id="enhancements-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#enhancements-1" class="anchor"></a>Enhancements</h2>
 <ul>
 <li>
-<strong>Enhancement:</strong> Clean up demonstration vignette.</li>
+<strong>Demo vignette:</strong> Clean up demonstration vignette.</li>
 <li>
-<strong>Enhancement:</strong> Build project website with <code>pkgdown</code>.</li>
+<strong>Project website:</strong> Build project website with <code>pkgdown</code>.</li>
 <li>
-<strong>Enhancement:</strong> Add change log!</li>
+<strong>Change log:</strong> Add change log!</li>
 </ul>
 </div>
 </div>
@@ -161,6 +173,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#taxonomycleanr-1-1-1">1.1.1</a></li>
         <li><a href="#taxonomycleanr-1-1-0">1.1.0</a></li>
         <li><a href="#taxonomycleanr-1-0-1">1.0.1</a></li>
         <li><a href="#taxonomycleanr-1-0-0">1.0.0</a></li>

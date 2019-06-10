@@ -4,27 +4,73 @@
 \alias{make_taxonomicCoverage}
 \title{Make taxonomicCoverage EML}
 \usage{
-make_taxonomicCoverage(taxa.clean, authority, authority.id, path = NULL)
+make_taxonomicCoverage(
+      taxa.clean,
+      authority,
+      authority.id,
+      path,
+      write.file = TRUE
+    )
 }
 \arguments{
-\item{taxa.clean}{(character) Taxa names that have been resolved to a taxonomic authority.}
+\item{taxa.clean}{(character) Taxa names as they appear in your dataset, or as they appear
+in an authority system. Best practice is to align the names in your
+dataset with those of the authority system.}
 
-\item{authority}{(character) Authorities to which the taxa have been resolved. Valid
-inputs are created by `resolve_sci_taxa`.}
+\item{authority}{(character) Authority to which the taxa have been resolved. Valid inputs
+are created by \code{resolve_sci_taxa()}.}
 
-\item{authority.id}{(character) Taxonomic IDs corresponding the authority to which taxa
-have been resolved.}
+\item{authority.id}{(character) Authority specific identifiers for the resolved taxa.}
 
-\item{path}{(character) The path to which the taxonomicCoverage will be written, and
-or to where taxa_map.csv is located.}
+\item{path}{(character) Path to where taxonomicCoverage.xml will be written, and or
+to where taxa_map.csv is located.}
 
-\item{write.file}{(logical) Flag to indicate if the resulting EML taxonomicCoverage element
-should be written to file as an xml document.}
+\item{write.file}{(logical) Whether taxonomicCoverage.xml should be written to file.
+Default is \code{TRUE}.}
 }
 \value{
-The taxonomicCoverage EML as an 'emld' 'list' object, and or written to
-    the file taxonomicCoverage.xml in the directory specified by path.
+The taxonomicCoverage as an 'emld' 'list' object (required for use in
+    the \code{EML} library), and written to taxonomicCoverage.xml if
+    \code{write.file = TRUE}.
 }
 \description{
-Make the hierarchical taxonomicCoverage EML node set.
+Create the hierarchical rank specific EML for taxa that have been
+    resolved to an authority system (e.g. ITIS).
+}
+\examples{
+# Create taxonomicCoverage from taxa_map.csv ----------------------------------
+
+# Copy taxa_map.csv from the taxonomyCleanr library to tempdir()
+file.copy(
+  from = system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv', package = 'taxonomyCleanr'),
+  to = tempdir()
+)
+
+# Create taxonomicCoverage
+output <- make_taxonomicCoverage(
+  path = tempdir(),
+)
+
+# View taxonomicCoverage list object
+output
+
+# Verify taxonomicCoverage.xml has been written to file
+file.exists(paste0(tempdir(), '/taxonomicCoverage.xml'))
+
+# Create taxonomicCoverage from argument inputs -------------------------------
+
+# Create taxonomicCoverage
+output <- make_taxonomicCoverage(
+  taxa.clean = c('Crepis tectorum', 'Euphorbia glyptosperma'),
+  authority = c('ITIS', 'ITIS'),
+  authority.id = c('37212', '28074'),
+  path = tempdir(),
+)
+
+# View taxonomicCoverage list object
+output
+
+# Verify taxonomicCoverage.xml has been written to file
+file.exists(paste0(tempdir(), '/taxonomicCoverage.xml')
+
 }
