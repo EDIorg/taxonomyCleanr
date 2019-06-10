@@ -51,9 +51,6 @@ output <- make_taxonomicCoverage(
   path = tempdir(),
 )
 
-# View taxonomicCoverage list object
-output
-
 # Verify taxonomicCoverage.xml has been written to file
 file.exists(paste0(tempdir(), '/taxonomicCoverage.xml'))
 
@@ -66,9 +63,6 @@ output <- make_taxonomicCoverage(
   authority.id = c('37212', '28074'),
   path = tempdir(),
 )
-
-# View taxonomicCoverage list object
-output
 
 # Verify taxonomicCoverage.xml has been written to file
 file.exists(paste0(tempdir(), '/taxonomicCoverage.xml'))
