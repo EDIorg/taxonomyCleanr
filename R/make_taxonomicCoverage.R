@@ -142,7 +142,10 @@ make_taxonomicCoverage <- function(
           df <- x[ , match(c('name', 'rank'), colnames(x))]
           df <- as.data.frame(t(data.frame(df$name)))
           colnames(df) <- x$rank
-          list(taxonomicClassification = EML::set_taxonomicCoverage(df)$taxonomicClassification[[1]])
+          list(
+            taxonomicCoverage = list(
+              taxonomicClassification = EML::set_taxonomicCoverage(df)$taxonomicClassification[[1]])
+          )
         }
       }
     ),
