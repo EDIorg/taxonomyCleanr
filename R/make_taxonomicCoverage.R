@@ -131,26 +131,21 @@ make_taxonomicCoverage <- function(
 
   # Create taxonomicCoverage --------------------------------------------------
 
+  # Convert data to named list objects for EML::set_taxonomicCoverage()
+
+  data <- lapply(
+    data,
+    function(x){
+      output <- x$name
+      names(output) <- x$rank
+      output
+    }
+  )
+
   # Create taxonomicCoverage (as a list object) from data containing varying
   # rank levels.
 
-  taxonomicCoverage <- unlist(
-    lapply(
-      data,
-      function(x){
-        if (('name' %in% colnames(x)) & ('rank' %in% colnames(x))){
-          df <- x[ , match(c('name', 'rank'), colnames(x))]
-          df <- as.data.frame(t(data.frame(df$name)))
-          colnames(df) <- x$rank
-          list(
-            taxonomicCoverage = list(
-              taxonomicClassification = EML::set_taxonomicCoverage(df)$taxonomicClassification[[1]])
-          )
-        }
-      }
-    ),
-    recursive = FALSE
-  )
+  taxonomicCoverage <- EML::set_taxonomicCoverage(data)
 
   # Write to file -------------------------------------------------------------
 

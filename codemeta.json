@@ -10,14 +10,14 @@
   "codeRepository": "https://github.com/EDIorg/taxonomyCleanr",
   "issueTracker": "https://github.com/EDIorg/taxonomyCleanr/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.4.0",
+    "version": "3.5.2",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.4.0 (2017-04-21)",
+  "runtimePlatform": "R version 3.5.2 (2018-12-20)",
   "author": [
     {
       "@type": "Person",
@@ -174,9 +174,12 @@
   ],
   "releaseNotes": "https://github.com/EDIorg/taxonomyCleanr/blob/master/NEWS.md",
   "readme": "https://github.com/EDIorg/taxonomyCleanr/blob/master/README.md",
-  "fileSize": "72.582KB",
+  "fileSize": "74.732KB",
   "contIntegration": [
     "https://travis-ci.org/EDIorg/taxonomyCleanr",
     "https://codecov.io/github/EDIorg/taxonomyCleanr?branch=master"
-  ]
+  ],
+  "contributor": {},
+  "copyrightHolder": {},
+  "funder": {}
 }

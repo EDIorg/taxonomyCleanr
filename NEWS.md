@@ -1,3 +1,9 @@
+# taxonomyCleanr 1.1.2
+
+## Bug fixes
+
+* __Invalid taxonomicCoverage EML:__ Invalid taxonomicCoverage EML was being created due to incorrectly nested list objects names. This issue has been fixed.
+
 # taxonomyCleanr 1.1.1
 
 ## Bug fixes
