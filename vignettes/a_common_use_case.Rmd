@@ -59,7 +59,7 @@ The taxa map (taxa_map.csv) links the raw data to the cleaned data. Each cleanin
 ```{r create taxa_map.csv}
 
 # Create the taxa map
-my_path <- '/Users/csmith/Documents/data'
+my_path <- 'C:\\Users\\Colin\\Documents\\data'
 taxa_map <- create_taxa_map(path = my_path, x = data, col = 'Species')
 ```
 

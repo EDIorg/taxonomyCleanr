@@ -32,7 +32,8 @@
 
 <meta property="og:title" content="Make taxonomicCoverage EML — make_taxonomicCoverage" />
 
-<meta property="og:description" content="Make the hierarchical taxonomicCoverage EML node set." />
+<meta property="og:description" content="Create the hierarchical rank specific EML for taxa that have been
+    resolved to an authority system (e.g. ITIS)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
       </span>
     </div>
 
@@ -121,47 +122,82 @@
 
     <div class="ref-description">
     
-    <p>Make the hierarchical taxonomicCoverage EML node set.</p>
+    <p>Create the hierarchical rank specific EML for taxa that have been
+    resolved to an authority system (e.g. ITIS).</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>make_taxonomicCoverage</span>(<span class='no'>taxa.clean</span>, <span class='no'>authority</span>, <span class='no'>authority.id</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>make_taxonomicCoverage</span>(
+      <span class='no'>taxa.clean</span>,
+      <span class='no'>authority</span>,
+      <span class='no'>authority.id</span>,
+      <span class='no'>path</span>,
+      <span class='kw'>write.file</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    )</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>taxa.clean</th>
-      <td><p>(character) Taxa names that have been resolved to a taxonomic authority.</p></td>
+      <td><p>(character) Taxa names as they appear in your dataset, or as they appear
+in an authority system. Best practice is to align the names in your
+dataset with those of the authority system.</p></td>
     </tr>
     <tr>
       <th>authority</th>
-      <td><p>(character) Authorities to which the taxa have been resolved. Valid
-inputs are created by `resolve_sci_taxa`.</p></td>
+      <td><p>(character) Authority to which the taxa have been resolved. Valid inputs
+are created by <code><a href='resolve_sci_taxa.html'>resolve_sci_taxa()</a></code>.</p></td>
     </tr>
     <tr>
       <th>authority.id</th>
-      <td><p>(character) Taxonomic IDs corresponding the authority to which taxa
-have been resolved.</p></td>
+      <td><p>(character) Authority specific identifiers for the resolved taxa.</p></td>
     </tr>
     <tr>
       <th>path</th>
-      <td><p>(character) The path to which the taxonomicCoverage will be written, and
-or to where taxa_map.csv is located.</p></td>
+      <td><p>(character) Path to where taxonomicCoverage.xml will be written, and or
+to where taxa_map.csv is located.</p></td>
     </tr>
     <tr>
       <th>write.file</th>
-      <td><p>(logical) Flag to indicate if the resulting EML taxonomicCoverage element
-should be written to file as an xml document.</p></td>
+      <td><p>(logical) Whether taxonomicCoverage.xml should be written to file.
+Default is <code>TRUE</code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The taxonomicCoverage EML as an 'emld' 'list' object, and or written to
-    the file taxonomicCoverage.xml in the directory specified by path.</p>
+    <p>The taxonomicCoverage as an 'emld' 'list' object (required for use in
+    the <code>EML</code> library), and written to taxonomicCoverage.xml if
+    <code>write.file = TRUE</code>.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Create taxonomicCoverage from taxa_map.csv ----------------------------------</span>
+
+<span class='co'># Copy taxa_map.csv from the taxonomyCleanr library to tempdir()</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/files'>file.copy</a></span>(
+  <span class='kw'>from</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>'/taxa_map_resolve_sci_taxa/taxa_map.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'taxonomyCleanr'</span>),
+  <span class='kw'>to</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>()
+)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'># Create taxonomicCoverage</span>
+<span class='no'>output</span> <span class='kw'>&lt;-</span> <span class='fu'>make_taxonomicCoverage</span>(
+  <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(),
+)</div><div class='output co'>#&gt; <span class='message'>Creating &lt;taxonomicCoverage&gt;</span></div><div class='output co'>#&gt; <span class='message'>Retrieving classifications</span></div><div class='output co'>#&gt; <span class='message'>Writing taxonomicCoverage.xml</span></div><div class='output co'>#&gt; <span class='message'>Done.</span></div><div class='input'>
+<span class='co'># Verify taxonomicCoverage.xml has been written to file</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/files'>file.exists</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(), <span class='st'>'/taxonomicCoverage.xml'</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'># Create taxonomicCoverage from argument inputs -------------------------------</span>
+
+<span class='co'># Create taxonomicCoverage</span>
+<span class='no'>output</span> <span class='kw'>&lt;-</span> <span class='fu'>make_taxonomicCoverage</span>(
+  <span class='kw'>taxa.clean</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>'Crepis tectorum'</span>, <span class='st'>'Euphorbia glyptosperma'</span>),
+  <span class='kw'>authority</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>'ITIS'</span>, <span class='st'>'ITIS'</span>),
+  <span class='kw'>authority.id</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>'37212'</span>, <span class='st'>'28074'</span>),
+  <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(),
+)</div><div class='output co'>#&gt; <span class='message'>Creating &lt;taxonomicCoverage&gt;</span></div><div class='output co'>#&gt; <span class='message'>Retrieving classifications</span></div><div class='output co'>#&gt; <span class='message'>Writing taxonomicCoverage.xml</span></div><div class='output co'>#&gt; <span class='message'>Done.</span></div><div class='input'>
+<span class='co'># Verify taxonomicCoverage.xml has been written to file</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/files'>file.exists</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(), <span class='st'>'/taxonomicCoverage.xml'</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -169,7 +205,9 @@ should be written to file as an xml document.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
@@ -180,7 +218,7 @@ should be written to file as an xml document.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>
