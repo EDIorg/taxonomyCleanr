@@ -16,7 +16,7 @@ written.}
 be cleaned.}
 }
 \value{
-A .csv file named (taxa_map.csv) written to path containing the fields:
+(data frame; taxa_map.csv) With the fields:
     \itemize{
         \item{'taxa_raw'} Unique taxa names listed in x.
         \item{'taxa_trimmed'} The contents of taxa_raw, but with white space
