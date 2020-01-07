@@ -49,19 +49,19 @@ testthat::test_that('Output table is standardized', {
     'data.frame'
   )
 
-  output <- resolve_sci_taxa(
-    path = path,
-    data.sources = 3
-  )
-
-  expect_equal(
-    all(colnames(output) %in%
-          c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
-            'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
-            'difference')
-    ),
-    TRUE
-  )
+  # output <- resolve_sci_taxa(
+  #   path = path,
+  #   data.sources = 3
+  # )
+  #
+  # expect_equal(
+  #   all(colnames(output) %in%
+  #         c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
+  #           'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
+  #           'difference')
+  #   ),
+  #   TRUE
+  # )
 
   # COL
 
@@ -86,25 +86,25 @@ testthat::test_that('Output table is standardized', {
     'data.frame'
   )
 
-  output <- resolve_sci_taxa(
-    path = path,
-    data.sources = 1
-  )
-
-  expect_equal(
-    all(
-      colnames(output) %in%
-        c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
-          'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
-          'difference')
-    ),
-    TRUE
-  )
-
-  expect_equal(
-    class(output),
-    'data.frame'
-  )
+  # output <- resolve_sci_taxa(
+  #   path = path,
+  #   data.sources = 1
+  # )
+  #
+  # expect_equal(
+  #   all(
+  #     colnames(output) %in%
+  #       c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
+  #         'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
+  #         'difference')
+  #   ),
+  #   TRUE
+  # )
+  #
+  # expect_equal(
+  #   class(output),
+  #   'data.frame'
+  # )
 
   # WORMS
 
@@ -127,26 +127,26 @@ testthat::test_that('Output table is standardized', {
     'data.frame'
   )
 
-  output <- resolve_sci_taxa(
-    path = path,
-    data.sources = 9
-  )
-
-  expect_equal(all(
-    colnames(output) %in%
-      c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
-        'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
-        'difference')
-    ),
-    TRUE
-  )
-
-  expect_equal(
-    class(
-      output
-    ),
-    'data.frame'
-  )
+  # output <- resolve_sci_taxa(
+  #   path = path,
+  #   data.sources = 9
+  # )
+  #
+  # expect_equal(all(
+  #   colnames(output) %in%
+  #     c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
+  #       'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
+  #       'difference')
+  #   ),
+  #   TRUE
+  # )
+  #
+  # expect_equal(
+  #   class(
+  #     output
+  #   ),
+  #   'data.frame'
+  # )
 
   # GBIF
 
@@ -168,25 +168,25 @@ testthat::test_that('Output table is standardized', {
     'data.frame'
   )
 
-  output <- resolve_sci_taxa(
-    path = path,
-    data.sources = 11
-  )
-
-  expect_equal(
-    all(
-      colnames(output) %in%
-        c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
-          'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
-          'difference')
-    ),
-    TRUE
-  )
-
-  expect_equal(
-    class(output),
-    'data.frame'
-  )
+  # output <- resolve_sci_taxa(
+  #   path = path,
+  #   data.sources = 11
+  # )
+  #
+  # expect_equal(
+  #   all(
+  #     colnames(output) %in%
+  #       c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
+  #         'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
+  #         'difference')
+  #   ),
+  #   TRUE
+  # )
+  #
+  # expect_equal(
+  #   class(output),
+  #   'data.frame'
+  # )
 
   # Tropicos
 
@@ -209,24 +209,24 @@ testthat::test_that('Output table is standardized', {
     'data.frame'
   )
 
-  output <- resolve_sci_taxa(
-    path = path,
-    data.sources = 165
-  )
-
-  expect_equal(
-    all(
-      colnames(output) %in%
-        c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
-          'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
-          'difference')
-    ),
-    TRUE
-  )
-
-  expect_equal(
-    class(output),
-    'data.frame'
-  )
+  # output <- resolve_sci_taxa(
+  #   path = path,
+  #   data.sources = 165
+  # )
+  #
+  # expect_equal(
+  #   all(
+  #     colnames(output) %in%
+  #       c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
+  #         'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
+  #         'difference')
+  #   ),
+  #   TRUE
+  # )
+  #
+  # expect_equal(
+  #   class(output),
+  #   'data.frame'
+  # )
 
 })
