@@ -69,8 +69,19 @@ replace_taxa <- function(input, output, x = NULL, col = NULL, path = NULL){
 
     # Read taxa_map.csv -------------------------------------------------------
 
-    x <- utils::read.table(paste0(path, '/taxa_map.csv'), header = T,sep = ',',
-      stringsAsFactors = F)
+    x <- suppressMessages(
+      as.data.frame(
+        readr::read_csv(
+          paste0(
+            path,
+            '/taxa_map.csv'
+          )
+        )
+      )
+    )
+
+    # x <- utils::read.table(paste0(path, '/taxa_map.csv'), header = T,sep = ',',
+    #   stringsAsFactors = F)
 
     # Update taxa ------------------------------------------------------------
 
