@@ -102,12 +102,7 @@ make_taxonomicCoverage <- function(
 
   if (!missing(path)){
     if (file.exists(paste0(path, '/taxa_map.csv'))){
-      taxa_map <- utils::read.table(
-        paste0(path, '/taxa_map.csv'),
-        header = T,
-        sep = ',',
-        stringsAsFactors = F
-      )
+      taxa_map <- read_taxa_map(path)
       taxa.clean <- taxa_map$taxa_clean
       authority <- taxa_map$authority
       authority.id <- taxa_map$authority_id

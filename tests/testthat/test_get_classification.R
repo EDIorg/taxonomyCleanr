@@ -3,12 +3,12 @@ library(taxonomyCleanr)
 
 # Initialize test data --------------------------------------------------------
 
-data <- utils::read.table(
+data <- data.table::fread(
   system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv', package = 'taxonomyCleanr'),
-  header = TRUE,
-  sep = ',',
-  as.is = TRUE
+  fill = TRUE,
+  blank.lines.skip = TRUE
 )
+
 data <- data[!is.na(data$authority), ]
 data <- data[!data$rank == 'Common', ]
 data <- data[data$authority == 'ITIS', ]

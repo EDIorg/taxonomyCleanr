@@ -32,7 +32,11 @@ Load the taxonomic data into RStudio _as a data frame_. The taxa must be listed 
 
 ```{r load data, echo=TRUE, paged.print=TRUE}
 # Load test data installed with the taxonomyCleanr package
-data <- read.table(system.file('example_data.txt', package = 'taxonomyCleanr'), header = T, sep = '\t', stringsAsFactors = F)
+data <- data.table::fread(
+  file = system.file('example_data.txt', package = 'taxonomyCleanr'),
+  fill = TRUE,
+  blank.lines.skip = TRUE
+)
 ```
 
 This data table has 6 columns:
@@ -243,7 +247,7 @@ Below is the taxa_map.csv for the cleaning procedures implemented on the test da
 - rank, authority, and authority_id contain values if the taxon was resolved, and contains NA otherwise.
 
 ```{r resolve_common_taxa_map, echo=FALSE}
-output <- read.table(paste0(my_path, '/taxa_map.csv'), header = T, sep = ',', stringsAsFactors = F)
+output <- read_taxa_map(my_path)
 # View taxa_map.csv after running resolve_common
 knitr::kable(output, caption = "taxa_map.csv after all the cleaning procedures have been applied.") %>%
   kableExtra::kable_styling() %>%

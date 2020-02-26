@@ -3,11 +3,10 @@ library(taxonomyCleanr)
 
 # Parameterize ----------------------------------------------------------------
 
-data <- utils::read.table(
-  system.file('taxa_map.csv', package = 'taxonomyCleanr'),
-  header = TRUE,
-  sep = ',',
-  as.is = TRUE
+data <- data.table::fread(
+  file = system.file('taxa_map.csv', package = 'taxonomyCleanr'),
+  fill = TRUE,
+  blank.lines.skip = TRUE
 )
 data <- data[!is.na(data$authority), ]
 data <- data[data$rank == 'Common', ]

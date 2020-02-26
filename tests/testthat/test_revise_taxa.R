@@ -3,13 +3,11 @@ library(taxonomyCleanr)
 
 # Parameterize ----------------------------------------------------------------
 
-data <- utils::read.table(
-  system.file('test_data.txt', package = 'taxonomyCleanr'),
-  header = TRUE,
-  sep = '\t',
-  as.is = TRUE
+data <- data.table::fread(
+  file = system.file('test_data.txt', package = 'taxonomyCleanr'),
+  fill = TRUE,
+  blank.lines.skip = TRUE
 )
-
 path <- system.file('taxa_map.csv', package = 'taxonomyCleanr')
 path <- substr(path, 1, nchar(path) - 13)
 

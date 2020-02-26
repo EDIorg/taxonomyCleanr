@@ -37,13 +37,14 @@ remove_taxa <- function(input, x = NULL, col = NULL, path = NULL){
   }
 
   if (!is.null(x)){
-    if ((class(x) != 'data.frame') & (class(x) != 'character')){
+    if (!any(class(x) == 'data.frame') & any(class(x) != 'character')){
       stop('Input argument "x" must be a data frame or of character class!')
     }
-    if (class(x) == 'data.frame'){
+    if (any(class(x) == 'data.frame')){
       if (is.null(col)){
         stop('Input argument "col" is missing!')
       }
+      x <- as.data.frame(x)
     } else if ((is.character(x))){
       x <- data.frame(
         taxa = x,
@@ -59,16 +60,7 @@ remove_taxa <- function(input, x = NULL, col = NULL, path = NULL){
     if (!isTRUE(file.exists(paste0(path, '/taxa_map.csv')))){
       stop('taxa_map.csv is missing! Create it with initialize_taxa_map.R.')
     }
-
-    x <- utils::read.table(
-      paste0(
-        path,
-        '/taxa_map.csv'
-      ),
-      header = T,
-      sep = ',',
-      stringsAsFactors = F
-    )
+    x <- read_taxa_map(path)
 
     # Update taxa ------------------------------------------------------------
 

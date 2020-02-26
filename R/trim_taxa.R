@@ -59,15 +59,7 @@ trim_taxa <- function(path = NULL, x = NULL){
 # Read taxa_map.csv -------------------------------------------------------
 
   if (!is.null(path)){
-    x <- utils::read.table(
-      paste0(
-        path,
-        '/taxa_map.csv'
-      ),
-      header = T,
-      sep = ',',
-      stringsAsFactors = F
-    )
+    taxa_map <- read_taxa_map(path)
   }
 
   # Replace underscores with blank spaces -------------------------------------

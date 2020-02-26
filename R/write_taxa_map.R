@@ -36,18 +36,18 @@ write_taxa_map <- function(x, path){
   }
   EDIutils::validate_path(path)
 
+  x <- as.data.frame(x)
+
   # Error if file is open ---------------------------------------------------
 
   use_i <- suppressWarnings(
     "try-error" %in% class(
-      try(readr::write_csv(
-        x = x,
-        path = paste0(
-          path,
-          '/taxa_map.csv'
-        )
-      ),
-          silent = TRUE
+      try(
+        data.table::fwrite(
+          x = x,
+          file = paste0(path, '/taxa_map.csv'), sep = ","
+        ),
+        silent = TRUE
       )
     )
   )

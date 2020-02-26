@@ -1,11 +1,10 @@
 language: r
 cache: packages
 r_packages:
+  - data.table
   - stringr
   - taxize
   - ritis
-  - readr
-  - reader
   - covr
   - EML
 r_github_packages:

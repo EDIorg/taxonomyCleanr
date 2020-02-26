@@ -3,13 +3,11 @@ library(taxonomyCleanr)
 
 # Parameterize ----------------------------------------------------------------
 
-data <- utils::read.table(
-  system.file('test_data.txt', package = 'taxonomyCleanr'),
-  header = TRUE,
-  sep = '\t',
-  as.is = T
+data <- data.table::fread(
+  file = system.file('test_data.txt', package = 'taxonomyCleanr'),
+  fill = TRUE,
+  blank.lines.skip = TRUE
 )
-
 path <- system.file('test_data.txt', package = 'taxonomyCleanr')
 path <- substr(path, 1, nchar(path) - 14)
 
@@ -23,8 +21,11 @@ testthat::test_that('Generate errors', {
 })
 
 testthat::test_that('Data source is taxa_map.csv', {
-  expect_equal(class(remove_taxa(input = 'Stipa spartea', path = path)),
-               'data.frame')
+  expect_true(
+    all(
+      class(remove_taxa(input = 'Stipa spartea', path = path)) %in% c("data.frame", "data.table")
+    )
+  )
 })
 
 testthat::test_that('Target taxa should be missing from output', {

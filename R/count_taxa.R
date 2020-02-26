@@ -33,13 +33,14 @@ count_taxa <- function(x, col = NULL, path = NULL){
   if (missing(x)){
     stop('Input argument "x" is missing!')
   } else {
-    if ((class(x) != 'data.frame') & (class(x) != 'character')){
+    if (!any(class(x) == 'data.frame') & any(class(x) != 'character')){
       stop('Input argument "x" must be a data frame or of character class!')
     } else {
-      if (class(x) == 'data.frame'){
+      if (any(class(x) == 'data.frame')){
         if (is.null(col)){
           stop('Input argument "col" is missing!')
         }
+        x <- as.data.frame(x)
       }
     }
   }
@@ -53,15 +54,8 @@ count_taxa <- function(x, col = NULL, path = NULL){
   # Read taxa_map.csv -----------------------------------------------------------
 
   if (!is.null(path)){
-    taxa_map <- utils::read.table(
-      paste0(
-        path,
-        '/taxa_map.csv'
-      ),
-      header = T,
-      sep = ',',
-      stringsAsFactors = F
-    )
+
+    taxa_map <- read_taxa_map(path)
 
     # Update x with taxa_trimmed ----------------------------------------------
 

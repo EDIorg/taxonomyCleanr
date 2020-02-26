@@ -3,13 +3,11 @@ library(taxonomyCleanr)
 
 # Parameterize ----------------------------------------------------------------
 
-data <- utils::read.table(
-  system.file('test_data.txt', package = 'taxonomyCleanr'),
-  header = TRUE,
-  sep = '\t',
-  as.is = T
+data <- data.table::fread(
+  file = system.file('test_data.txt', package = 'taxonomyCleanr'),
+  fill = TRUE,
+  blank.lines.skip = TRUE
 )
-
 path <- system.file('test_data.txt', package = 'taxonomyCleanr')
 path <- substr(path, 1, nchar(path) - 14)
 
@@ -23,12 +21,18 @@ testthat::test_that('Expect errors', {
 })
 
 testthat::test_that('Output class is data.frame', {
-  expect_equal(class(replace_taxa(input = 'Mosses', output = 'Mossez',
-                                  x = data, col = 'Species')),
-               'data.frame')
-  expect_equal(class(replace_taxa(input = 'Mosses', output = 'Mossez',
-                                  path = path)),
-               'data.frame')
+  expect_true(
+    all(
+      class(replace_taxa(input = 'Mosses', output = 'Mossez', x = data, col = 'Species')) %in%
+        c("data.frame", "data.table")
+    )
+  )
+  expect_true(
+    all(
+      class(replace_taxa(input = 'Mosses', output = 'Mossez', path = path)) %in%
+        c("data.frame", "data.table")
+    )
+  )
 })
 
 testthat::test_that('Target taxa should be replaced in output', {
@@ -88,9 +92,10 @@ testthat::test_that('Input can be character vector or data frame', {
     col = 'Species'
   )
   use_i2 <- data_out == output
-  expect_equal(
-    class(data_out),
-    'data.frame'
+  expect_true(
+    all(
+      class(data_out) %in% c("data.frame", "data.table")
+    )
   )
   expect_equal(
     sum(use_i),

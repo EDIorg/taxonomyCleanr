@@ -3,18 +3,19 @@ library(taxonomyCleanr)
 
 # Parameterize ----------------------------------------------------------------
 
-data <- utils::read.table(
-  system.file('test_data.txt', package = 'taxonomyCleanr'),
-  header = TRUE,
-  sep = '\t',
-  as.is = T
+data <- data.table::fread(
+  file = system.file('test_data.txt', package = 'taxonomyCleanr'),
+  fill = TRUE,
+  blank.lines.skip = TRUE
 )
 
-taxa_map <- utils::read.table(
-  system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv', package = 'taxonomyCleanr'),
-  header = TRUE,
-  sep = ',',
-  as.is = T
+taxa_map <- read_taxa_map(
+  dirname(
+    system.file(
+      '/taxa_map_resolve_sci_taxa/taxa_map.csv',
+      package = 'taxonomyCleanr'
+    )
+  )
 )
 
 counts <- count_taxa(x = data, col = 'Species')

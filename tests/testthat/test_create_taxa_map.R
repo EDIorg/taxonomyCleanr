@@ -3,11 +3,10 @@ library(taxonomyCleanr)
 
 # Initialize test data --------------------------------------------------------
 
-data <- utils::read.table(
-  system.file('test_data.txt', package = 'taxonomyCleanr'),
-  header = TRUE,
-  sep = '\t',
-  as.is = TRUE
+data <- data.table::fread(
+  file = system.file('test_data.txt', package = 'taxonomyCleanr'),
+  fill = TRUE,
+  blank.lines.skip = TRUE
 )
 
 taxa_map <- suppressWarnings(create_taxa_map(x = data, col = 'Species'))

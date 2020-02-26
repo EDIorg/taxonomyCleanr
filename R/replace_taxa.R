@@ -42,13 +42,14 @@ replace_taxa <- function(input, output, x = NULL, col = NULL, path = NULL){
   }
 
   if (!is.null(x)){
-    if ((class(x) != 'data.frame') & (class(x) != 'character')){
+    if (!any(class(x) == 'data.frame') & any(class(x) != 'character')){
       stop('Input argument "x" must be a data frame or of character class!')
     }
-    if (class(x) == 'data.frame'){
+    if (any(class(x) == 'data.frame')){
       if (is.null(col)){
         stop('Input argument "col" is missing!')
       }
+      x <- as.data.frame(x)
     } else if ((is.character(x))){
       x <- data.frame(
         taxa = x,
@@ -69,19 +70,7 @@ replace_taxa <- function(input, output, x = NULL, col = NULL, path = NULL){
 
     # Read taxa_map.csv -------------------------------------------------------
 
-    x <- suppressMessages(
-      as.data.frame(
-        readr::read_csv(
-          paste0(
-            path,
-            '/taxa_map.csv'
-          )
-        )
-      )
-    )
-
-    # x <- utils::read.table(paste0(path, '/taxa_map.csv'), header = T,sep = ',',
-    #   stringsAsFactors = F)
+    x <- read_taxa_map(path)
 
     # Update taxa ------------------------------------------------------------
 

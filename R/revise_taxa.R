@@ -80,16 +80,7 @@ revise_taxa <- function(path, x, col, sep){
 
   # Read taxa_map.csv -------------------------------------------------------
 
-  taxa_map <- suppressMessages(
-    as.data.frame(
-      readr::read_csv(
-        paste0(
-          path,
-          '/taxa_map.csv'
-        )
-      )
-    )
-  )
+  taxa_map <- read_taxa_map(path)
 
   # Update data ---------------------------------------------------------------
 

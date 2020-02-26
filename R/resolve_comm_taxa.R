@@ -72,21 +72,8 @@ resolve_comm_taxa <- function(x = NULL, data.sources, path = NULL){
   # Read taxa_map.csv -------------------------------------------------------
 
   if (!is.null(path)){
-
-    taxa_map <- suppressMessages(
-      as.data.frame(
-        readr::read_csv(
-          paste0(
-            path,
-            '/taxa_map.csv'
-          )
-        )
-      )
-    )
-
+    taxa_map <- read_taxa_map(path)
   } else {
-
-
 
   }
 
