@@ -8,11 +8,13 @@
 
 <title>Changelog • taxonomyCleanr</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -30,7 +32,9 @@
 
 
 
+
 <meta property="og:title" content="Changelog" />
+
 
 
 
@@ -60,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -91,7 +95,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/EDIorg/taxonomyCleanr">
@@ -115,60 +118,80 @@
       <small>Source: <a href='https://github.com/EDIorg/taxonomyCleanr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="taxonomycleanr-1-1-2" class="section level1">
+    <div id="taxonomycleanr-113" class="section level1">
 <h1 class="page-header">
-<a href="#taxonomycleanr-1-1-2" class="anchor"></a>taxonomyCleanr 1.1.2</h1>
-<div id="bug-fixes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<a href="#taxonomycleanr-113" class="anchor"></a>taxonomyCleanr 1.1.3</h1>
+<div id="bug-fixes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h3>
+<ul>
+<li>
+<strong>New table readers:</strong> Old table readers were inaccurately reading data (e.g. dropping quote characters). This has been fixed.</li>
+</ul>
+</div>
+<div id="enhancements" class="section level3">
+<h3 class="hasAnchor">
+<a href="#enhancements" class="anchor"></a>Enhancements</h3>
+<ul>
+<li>
+<strong>tibble input:</strong> Tibbles are now an accepted input taxonomyCleanr functions.</li>
+</ul>
+</div>
+</div>
+    <div id="taxonomycleanr-112" class="section level1">
+<h1 class="page-header">
+<a href="#taxonomycleanr-112" class="anchor"></a>taxonomyCleanr 1.1.2</h1>
+<div id="bug-fixes-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h3>
 <ul>
 <li>
 <strong>Invalid taxonomicCoverage EML:</strong> Invalid taxonomicCoverage EML was being created due to incorrectly nested list objects names. This issue has been fixed.</li>
 </ul>
 </div>
 </div>
-    <div id="taxonomycleanr-1-1-1" class="section level1">
+    <div id="taxonomycleanr-111" class="section level1">
 <h1 class="page-header">
-<a href="#taxonomycleanr-1-1-1" class="anchor"></a>taxonomyCleanr 1.1.1</h1>
-<div id="bug-fixes-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<a href="#taxonomycleanr-111" class="anchor"></a>taxonomyCleanr 1.1.1</h1>
+<div id="bug-fixes-2" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h3>
 <ul>
 <li>
 <strong>Missing taxonomicClassification:</strong> The taxonomicClassification element was missing from the taxonomicCoverage top-level list producing invalid EML. This issue has been fixed.</li>
 </ul>
 </div>
 </div>
-    <div id="taxonomycleanr-1-1-0" class="section level1">
+    <div id="taxonomycleanr-110" class="section level1">
 <h1 class="page-header">
-<a href="#taxonomycleanr-1-1-0" class="anchor"></a>taxonomyCleanr 1.1.0</h1>
-<div id="enhancements" class="section level2">
-<h2 class="hasAnchor">
-<a href="#enhancements" class="anchor"></a>Enhancements</h2>
+<a href="#taxonomycleanr-110" class="anchor"></a>taxonomyCleanr 1.1.0</h1>
+<div id="enhancements-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#enhancements-1" class="anchor"></a>Enhancements</h3>
 <ul>
 <li>
 <strong>EML v2.0.0:</strong> <code><a href="../reference/make_taxonomicCoverage.html">make_taxonomicCoverage()</a></code> now works with <code>EML</code> v.2.0.0 and outputs the taxonomicCoverage node as a list object and/or an .xml file written to path. The argument <code>write.file</code> has been added to enable use of taxa_map.csv without writing to file. These changes are based on a pull request by <a href='https://github.com/srearl'>@srearl</a>.</li>
 </ul>
 </div>
 </div>
-    <div id="taxonomycleanr-1-0-1" class="section level1">
+    <div id="taxonomycleanr-101" class="section level1">
 <h1 class="page-header">
-<a href="#taxonomycleanr-1-0-1" class="anchor"></a>taxonomyCleanr 1.0.1</h1>
-<div id="bug-fixes-2" class="section level2">
-<h2 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
+<a href="#taxonomycleanr-101" class="anchor"></a>taxonomyCleanr 1.0.1</h1>
+<div id="bug-fixes-3" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h3>
 <ul>
 <li>
 <strong>Invalid input:</strong> Refactor calls to <code>taxize</code>. The <code>taxize</code> package changed to tibble outputs and taxonomyCleanr was expecting data frames. Inputs from taxize are now converted to data frames prior to processing. Thanks for reporting this issue <a href='https://github.com/srearl'>@srearl</a>!</li>
 </ul>
 </div>
 </div>
-    <div id="taxonomycleanr-1-0-0" class="section level1">
+    <div id="taxonomycleanr-100" class="section level1">
 <h1 class="page-header">
-<a href="#taxonomycleanr-1-0-0" class="anchor"></a>taxonomyCleanr 1.0.0</h1>
-<div id="enhancements-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#enhancements-1" class="anchor"></a>Enhancements</h2>
+<a href="#taxonomycleanr-100" class="anchor"></a>taxonomyCleanr 1.0.0</h1>
+<div id="enhancements-2" class="section level3">
+<h3 class="hasAnchor">
+<a href="#enhancements-2" class="anchor"></a>Enhancements</h3>
 <ul>
 <li>
 <strong>Demo vignette:</strong> Clean up demonstration vignette.</li>
@@ -185,11 +208,12 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#taxonomycleanr-1-1-2">1.1.2</a></li>
-        <li><a href="#taxonomycleanr-1-1-1">1.1.1</a></li>
-        <li><a href="#taxonomycleanr-1-1-0">1.1.0</a></li>
-        <li><a href="#taxonomycleanr-1-0-1">1.0.1</a></li>
-        <li><a href="#taxonomycleanr-1-0-0">1.0.0</a></li>
+        <li><a href="#taxonomycleanr-113">1.1.3</a></li>
+        <li><a href="#taxonomycleanr-112">1.1.2</a></li>
+        <li><a href="#taxonomycleanr-111">1.1.1</a></li>
+        <li><a href="#taxonomycleanr-110">1.1.0</a></li>
+        <li><a href="#taxonomycleanr-101">1.0.1</a></li>
+        <li><a href="#taxonomycleanr-100">1.0.0</a></li>
       </ul>
     </div>
   </div>
