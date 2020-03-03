@@ -1,5 +1,5 @@
 ---
-title: "Tracking provenance through the cleaning process"
+title: "Tracking provenance throughout the cleaning process"
 output: html_document
 ---
 

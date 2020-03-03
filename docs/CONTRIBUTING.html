@@ -6,13 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Contributing • taxonomyCleanr</title>
+<title>Contributing Guidelines • taxonomyCleanr</title>
+
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -30,7 +32,9 @@
 
 
 
-<meta property="og:title" content="Contributing" />
+
+<meta property="og:title" content="Contributing Guidelines" />
+
 
 
 
@@ -60,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -83,7 +87,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/a_common_use_case.html">A common use case for the taxonomyCleanr</a>
+      <a href="articles/a_common_use_case.html">Tracking provenance throughout the cleaning process</a>
     </li>
   </ul>
 </li>
@@ -91,7 +95,6 @@
   <a href="news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/EDIorg/taxonomyCleanr">
@@ -111,22 +114,50 @@
 <div class="row">
   <div class="contents col-md-9">
     <div class="page-header">
-      <h1>Contributing</h1>
+      <h1>Contributing Guidelines</h1>
     </div>
 
-<div id="contributing" class="section level1">
+<div id="contributing-guidelines" class="section level1">
 
-<p>When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.</p>
-<p>Please note we have a code of conduct, please follow it in all your interactions with the project.</p>
-<div id="pull-request-process" class="section level2">
+<div id="git-structure" class="section level2">
 <h2 class="hasAnchor">
-<a href="#pull-request-process" class="anchor"></a>Pull Request Process</h2>
+<a href="#git-structure" class="anchor"></a>git structure</h2>
+<p>The active branch is <code>development</code>. <code>development</code> is merged into <code>master</code> for releases. Please submit your pull requests to <code>development</code>.</p>
+</div>
+<div id="repository-structure" class="section level2">
+<h2 class="hasAnchor">
+<a href="#repository-structure" class="anchor"></a>Repository structure</h2>
+<p>This repository is structured as a standard R package following the conventions outlined in the <a href="http://cran.r-project.org/doc/manuals/R-exts.html">Writing R extensions</a> manual. A few additional files are provided that are not part of the built R package and are listed in <code>.Rbuildignore</code>, such as <code>.travis.yml</code>, which is used for continuous testing and integration.</p>
+</div>
+<div id="code" class="section level2">
+<h2 class="hasAnchor">
+<a href="#code" class="anchor"></a>Code</h2>
+<p>All code for this package is found in <code>R/</code>. All functions should be thoroughly documented with <code>roxygen2</code> notation; see Documentation. Code should conform to the rOpenSci <a href="https://github.com/ropensci/onboarding/blob/master/packaging_guide.md">Style guide</a>.</p>
+</div>
+<div id="testing" class="section level2">
+<h2 class="hasAnchor">
+<a href="#testing" class="anchor"></a>Testing</h2>
+<p>Any new feature or bug-fix should include a unit-test demonstrating the change. Unit tests follow the <code>testthat</code> framework with files in <code>tests/testthat</code>. Please make sure that the testing suite passes before issuing a pull request. This can be done by running <code><a href="https://www.rdocumentation.org/packages/utils/topics/PkgUtils">check()</a></code> from the <code>devtools</code> package, which will also check for consistent documentation, etc.</p>
+<p>This package uses the <a href="https://github.com/craigcitro/r-travis">travis</a> continuous testing mechanism for R to ensure that the test suite is run on each push to Github. An icon at the top of the README.md indicates whether or not the tests are currently passing.</p>
+</div>
+<div id="documentation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#documentation" class="anchor"></a>Documentation</h2>
+<p>All of the function documentation is generated automatically. Please do not edit any of the documentation files in <code>man/</code> or the <code>NAMESPACE</code>. Instead, construct the appropriate <a href="https://github.com/klutometis/roxygen">roxygen2</a> documentation in the function files in <code>R/</code> themselves. The documentation is then generated by running the <code>document()</code> function from the <code>devtools</code> package. Please consult the <a href="http://adv-r.had.co.nz/">Advanced R programming</a> guide if this workflow is unfamiliar to you. Note that functions should include examples in the documentation. Please use <code>\dontrun</code> for examples that take more than a few seconds to execute or require an internet connection.</p>
+<p>Likewise, the README.md file in the base directory should not be edited directly. This file is created automatically from code that runs the examples shown, helping to ensure that they are functioning as advertised and consistent with the package README vignette. Instead, edit the <code>README.Rmd</code> source file in <code>manuscripts</code> and run <code>make</code> to build the README.</p>
+</div>
+<div id="general-development-goals--guidelines" class="section level2">
+<h2 class="hasAnchor">
+<a href="#general-development-goals--guidelines" class="anchor"></a>General Development Goals &amp; Guidelines</h2>
 <ol>
-<li>Develop your contribution and format using <a href="https://google.github.io/styleguide/Rguide.xml">Google’s R Style Guide</a>.</li>
-<li>Write a test for your contribution using <code>testthat</code>, and ensure other tests pass.</li>
-<li>Increment the version number in the DESCRIPTION file according with <a href="https://semver.org/">semantic versioning</a>.</li>
-<li>Submit the Pull Request for your contribution.</li>
+<li>High-level functions to align taxa to authority systems with little to no knowledge about the data (i.e. name matching).</li>
+<li>Errors and warnings should guide users to solutions.</li>
 </ol>
+</div>
+<div id="attribution" class="section level2">
+<h2 class="hasAnchor">
+<a href="#attribution" class="anchor"></a>Attribution</h2>
+<p>These contributing guidelines are based on those of the <a href="https://github.com/ropensci/EML/blob/master/CONTRIBUTING.md">rOpenSci EML project</a>.</p>
 </div>
 </div>
 

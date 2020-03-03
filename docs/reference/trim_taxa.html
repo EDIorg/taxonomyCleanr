@@ -8,11 +8,13 @@
 
 <title>Trim taxa — trim_taxa • taxonomyCleanr</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -30,11 +32,12 @@
 
 
 
-<meta property="og:title" content="Trim taxa — trim_taxa" />
 
+<meta property="og:title" content="Trim taxa — trim_taxa" />
 <meta property="og:description" content="Trim excess text from taxa names. Doing this before querying a taxonomic
-    authority reduces the frequency of mismatches." />
+    authority improves matching." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -64,7 +67,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -87,7 +90,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/a_common_use_case.html">A common use case for the taxonomyCleanr</a>
+      <a href="../articles/a_common_use_case.html">Tracking provenance throughout the cleaning process</a>
     </li>
   </ul>
 </li>
@@ -95,7 +98,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/EDIorg/taxonomyCleanr">
@@ -121,57 +123,186 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Trim excess text from taxa names. Doing this before querying a taxonomic
-    authority reduces the frequency of mismatches.</p>
-    
+    authority improves matching.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>trim_taxa</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>trim_taxa</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>A character string specifying the path to taxa_map.csv. This table
-tracks relationships between your raw and cleaned data and is operated
-on by this function.</p></td>
+      <th>x</th>
+      <td><p>(character) A list of taxa names</p></td>
     </tr>
     <tr>
-      <th>x</th>
-      <td><p>(character) A vector of taxa to be trimmed.</p></td>
+      <th>path</th>
+      <td><p>(character) The path to the directory containing taxa_map.csv</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     
 <ul>
-<li><p>1. An updated version of taxa_map.csv with trimmed taxa strings.</p></li>
-<li><p>2. A data frame of taxa_map.csv with trimmed taxa strings.</p></li>
+<li><p>If using <code>x</code>, then an updated list of taxa is returned.</p></li>
+<li><p>If using <code>path</code>, then an updated version of taxa_map.csv
+        is written to file and returned as a data frame.</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>List of conditions `trim_taxa` addresses:</p><ul>
-<li><p>'White spaces, trailing and leading' White spaces are common.</p></li>
-<li><p>'Species abbreviations trailing a genus value' E.g. "Sp.",
-        "Spp.", "Cf.", "Cf...", etc.</p></li>
+    <p>Characters trimmed by this function:</p><ul>
+<li><p>White spaces (trailing and leading)</p></li>
+<li><p>Species abbreviations following a genus value (e.g. "Sp.",
+        "Spp.", "Cf.", "Cf...", etc.)</p></li>
 </ul>
-    
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Input a list of names</span>
+
+<span class='no'>my_taxa</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Koeleria_cristata"</span>, <span class='st'>"Cyperus sp."</span>, <span class='st'>"Poa Cf.   "</span>)
+<span class='no'>my_taxa</span> <span class='kw'>&lt;-</span> <span class='fu'>trim_taxa</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>my_taxa</span>)
+<span class='no'>my_taxa</span></div><div class='output co'>#&gt; [1] "Koeleria cristata" "Cyperus"           "Poa"              </div><div class='input'>
+<span class='co'># Input taxa_map.csv</span>
+
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>data.table</span><span class='kw ns'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/fread.html'>fread</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"example_data.txt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'taxonomyCleanr'</span>))
+<span class='no'>my_path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>()
+<span class='no'>tm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='create_taxa_map.html'>create_taxa_map</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='no'>my_path</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>data</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"Species"</span>)
+<span class='no'>tm</span> <span class='kw'>&lt;-</span> <span class='fu'>trim_taxa</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='no'>my_path</span>)
+<span class='no'>tm</span></div><div class='output co'>#&gt;                              taxa_raw       taxa_trimmed taxa_replacement
+#&gt;  1:                            Mosses               &lt;NA&gt;               NA
+#&gt;  2:                  Unsorted biomass               &lt;NA&gt;               NA
+#&gt;  3:    Achillea millefolium(lanulosa)               &lt;NA&gt;               NA
+#&gt;  4:                   Crepis tectorum               &lt;NA&gt;               NA
+#&gt;  5:                       Cyperus sp.            Cyperus               NA
+#&gt;  6:            Euphorbia glyptosperma               &lt;NA&gt;               NA
+#&gt;  7:                Lespedeza capitata               &lt;NA&gt;               NA
+#&gt;  8: Achillea millefolium(lanulosaaaa)               &lt;NA&gt;               NA
+#&gt;  9:  Achillea millefolium(lanulosabb)               &lt;NA&gt;               NA
+#&gt; 10:  Achillea millefolium(lanulosacc)               &lt;NA&gt;               NA
+#&gt; 11:              Lepidium densiflorum               &lt;NA&gt;               NA
+#&gt; 12:                     Poa pratensis               &lt;NA&gt;               NA
+#&gt; 13:                  Rumex acetosella               &lt;NA&gt;               NA
+#&gt; 14:           Schizachyrium scoparium               &lt;NA&gt;               NA
+#&gt; 15:                Bouteloua gracilis               &lt;NA&gt;               NA
+#&gt; 16:                 Koeleria cristata               &lt;NA&gt;               NA
+#&gt; 17:                    Liatris aspera               &lt;NA&gt;               NA
+#&gt; 18:                  Lupinus perennis               &lt;NA&gt;               NA
+#&gt; 19:                  Panicum virgatum               &lt;NA&gt;               NA
+#&gt; 20:            Petalostemum purpureum               &lt;NA&gt;               NA
+#&gt; 21:             Petalostemum villosum               &lt;NA&gt;               NA
+#&gt; 22:                Solidago nemoralis               &lt;NA&gt;               NA
+#&gt; 23:                Sorghastrum nutans               &lt;NA&gt;               NA
+#&gt; 24:                     Stipa spartea               &lt;NA&gt;               NA
+#&gt; 25:                Andropogon gerardi               &lt;NA&gt;               NA
+#&gt; 26:            Bouteloua curtipendula               &lt;NA&gt;               NA
+#&gt; 27:                 Coreopsis palmata               &lt;NA&gt;               NA
+#&gt; 28:              Miscellaneous litter               &lt;NA&gt;               NA
+#&gt; 29:             Petalostemum candidum               &lt;NA&gt;               NA
+#&gt; 30:                   Solidago rigida               &lt;NA&gt;               NA
+#&gt; 31:            Sporobolus cryptandrus               &lt;NA&gt;               NA
+#&gt; 32:                  Agropyron repens               &lt;NA&gt;               NA
+#&gt; 33:                Aristida basiramea               &lt;NA&gt;               NA
+#&gt; 34:                     Digitaria sp.          Digitaria               NA
+#&gt; 35:               Erigeron canadensis               &lt;NA&gt;               NA
+#&gt; 36:                   Hedeoma hispida               &lt;NA&gt;               NA
+#&gt; 37:               Physalis virginiana               &lt;NA&gt;               NA
+#&gt; 38:             Taraxicum officinalis               &lt;NA&gt;               NA
+#&gt; 39:                   Agrostis scabra               &lt;NA&gt;               NA
+#&gt; 40:   Ambrosia artemisiifolia elatior               &lt;NA&gt;               NA
+#&gt; 41:            Eragrostis spectabilis               &lt;NA&gt;               NA
+#&gt; 42:                 Amorpha canescens               &lt;NA&gt;               NA
+#&gt; 43:                             -9999               &lt;NA&gt;               NA
+#&gt; 44:                      Yellow Perch               &lt;NA&gt;               NA
+#&gt; 45:                     Rainbow smelt               &lt;NA&gt;               NA
+#&gt; 46:                  Large mouth bass               &lt;NA&gt;               NA
+#&gt; 47:                 Petalostemum S.p.       Petalostemum               NA
+#&gt; 48:                           Poa Cf.                Poa               NA
+#&gt; 49:                Schizachyrium spp.      Schizachyrium               NA
+#&gt; 50:                      Petalostemum               &lt;NA&gt;               NA
+#&gt; 51:                         Poa cf...                Poa               NA
+#&gt; 52:                 Schizachyrium sPp      Schizachyrium               NA
+#&gt; 53:                _Koeleria_cristata  Koeleria cristata               NA
+#&gt; 54:                Lespedeza_capitata Lespedeza capitata               NA
+#&gt; 55:                  _Liatris_aspera_     Liatris aspera               NA
+#&gt; 56:                                                 &lt;NA&gt;               NA
+#&gt; 57:          Oncorhynchus tshawytscha               &lt;NA&gt;               NA
+#&gt; 58:            Oncorhynchus gorbuscha               &lt;NA&gt;               NA
+#&gt; 59:              Oncorhynchus kisutch               &lt;NA&gt;               NA
+#&gt;                              taxa_raw       taxa_trimmed taxa_replacement
+#&gt;     taxa_removed taxa_clean rank authority authority_id score difference
+#&gt;  1:           NA         NA   NA        NA           NA    NA         NA
+#&gt;  2:           NA         NA   NA        NA           NA    NA         NA
+#&gt;  3:           NA         NA   NA        NA           NA    NA         NA
+#&gt;  4:           NA         NA   NA        NA           NA    NA         NA
+#&gt;  5:           NA         NA   NA        NA           NA    NA         NA
+#&gt;  6:           NA         NA   NA        NA           NA    NA         NA
+#&gt;  7:           NA         NA   NA        NA           NA    NA         NA
+#&gt;  8:           NA         NA   NA        NA           NA    NA         NA
+#&gt;  9:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 10:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 11:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 12:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 13:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 14:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 15:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 16:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 17:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 18:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 19:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 20:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 21:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 22:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 23:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 24:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 25:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 26:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 27:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 28:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 29:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 30:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 31:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 32:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 33:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 34:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 35:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 36:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 37:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 38:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 39:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 40:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 41:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 42:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 43:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 44:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 45:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 46:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 47:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 48:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 49:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 50:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 51:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 52:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 53:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 54:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 55:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 56:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 57:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 58:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 59:           NA         NA   NA        NA           NA    NA         NA
+#&gt;     taxa_removed taxa_clean rank authority authority_id score difference</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-          </ul>
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
