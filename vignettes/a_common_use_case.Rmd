@@ -1,5 +1,5 @@
 ---
-title: "A common use case for the taxonomyCleanr"
+title: "Tracking provenance through the cleaning process"
 output: html_document
 ---
 
@@ -28,15 +28,11 @@ library(taxonomyCleanr)
 
 # Load data
 
-Load the taxonomic data into RStudio _as a data frame_. The taxa must be listed in a single column of character type class, not factor type class.
+Load the taxonomic data into RStudio as a data frame (or tibble). The taxa must be listed in a single column of character type class, not factor type class.
 
 ```{r load data, echo=TRUE, paged.print=TRUE}
 # Load test data installed with the taxonomyCleanr package
-data <- data.table::fread(
-  file = system.file('example_data.txt', package = 'taxonomyCleanr'),
-  fill = TRUE,
-  blank.lines.skip = TRUE
-)
+data <- data.table::fread(file = system.file('example_data.txt', package = 'taxonomyCleanr'))
 ```
 
 This data table has 6 columns:
@@ -63,7 +59,7 @@ The taxa map (taxa_map.csv) links the raw data to the cleaned data. Each cleanin
 ```{r create taxa_map.csv}
 
 # Create the taxa map
-my_path <- 'C:\\Users\\Colin\\Documents\\data'
+my_path <- tempdir()
 taxa_map <- create_taxa_map(path = my_path, x = data, col = 'Species')
 ```
 
@@ -201,7 +197,7 @@ Some of the taxa that couldn't be resolved by `resolve_sci_taxa` is because thei
 
 ```{r view_authorities_2, eval=FALSE}
 # View the list of authorities supported by resolve_comm_taxa
-view_authorities()
+view_taxa_authorities()
 ```
 
 ```{r view_authorities_table_2, echo=FALSE}

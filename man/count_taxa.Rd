@@ -23,6 +23,6 @@ is used by this function.}
     input, sorted alphabetically by taxa.
 }
 \description{
-View unique occurences and counts of taxa to help identify misspelled
-    taxon.
+View unique occurences and counts of taxa to help identify spelling
+    errors.
 }

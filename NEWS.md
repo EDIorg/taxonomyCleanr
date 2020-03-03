@@ -1,3 +1,9 @@
+# taxonomyCleanr 1.1.4
+
+### Bug fixes
+
+* __Broken vignette:__ The "common use case" vignette was throwing errors. This has been fixed.
+
 # taxonomyCleanr 1.1.3
 
 ### Bug fixes

@@ -1,8 +1,8 @@
 #' Get counts of unique taxa
 #'
 #' @description
-#'     View unique occurences and counts of taxa to help identify misspelled
-#'     taxon.
+#'     View unique occurences and counts of taxa to help identify spelling
+#'     errors.
 #'
 #' @usage
 #'     count_taxa(x, col = NULL, path = NULL)
