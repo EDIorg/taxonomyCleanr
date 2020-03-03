@@ -52,10 +52,10 @@ view_taxa_authorities <- function(){
   gnr_list[use_i, 'resolve_taxa'] <- 'supported'
   gnr_list[use_i, 'resolve_common'] <- 'not supported'
 
-  use_i <- gnr_list[ , 'title'] == 'Catalogue of Life'
-  gnr_list[use_i, 'return_to_user'] <- 'Catalogue of Life (COL)'
-  gnr_list[use_i, 'resolve_taxa'] <- 'supported'
-  gnr_list[use_i, 'resolve_common'] <- 'not supported'
+  # use_i <- gnr_list[ , 'title'] == 'Catalogue of Life'
+  # gnr_list[use_i, 'return_to_user'] <- 'Catalogue of Life (COL)'
+  # gnr_list[use_i, 'resolve_taxa'] <- 'supported'
+  # gnr_list[use_i, 'resolve_common'] <- 'not supported'
 
   use_i <- gnr_list[ , 'title'] == 'World Register of Marine Species'
   gnr_list[use_i, 'return_to_user'] <- 'World Register of Marine Species (WORMS)'

@@ -333,28 +333,28 @@ get_id <- function(taxon, authority){
 
   # Get authority and query for ID and rank
 
-  # Catalogue of Life
-  if ((!is.na(authority)) & (authority == 'Catalogue of Life')){
-    response <- taxize::get_ids_(
-      taxon,
-      'col'
-    )
-    if (nrow(response[[1]][[1]]) > 0){
-      response <- as.data.frame(response$col)
-      use_i <- response[ , 2] == taxon
-      response <- response[use_i, ]
-      if (nrow(response) > 0){
-        taxon_id <- as.character(response[1, 1])
-        taxon_rank <- response[1, 3]
-      } else {
-        taxon_id <- NA_character_
-        taxon_rank <- NA_character_
-      }
-    } else {
-      taxon_id <- NA_character_
-      taxon_rank <- NA_character_
-    }
-  }
+  # # Catalogue of Life
+  # if ((!is.na(authority)) & (authority == 'Catalogue of Life')){
+  #   response <- taxize::get_ids_(
+  #     taxon,
+  #     'col'
+  #   )
+  #   if (nrow(response[[1]][[1]]) > 0){
+  #     response <- as.data.frame(response$col)
+  #     use_i <- response[ , 2] == taxon
+  #     response <- response[use_i, ]
+  #     if (nrow(response) > 0){
+  #       taxon_id <- as.character(response[1, 1])
+  #       taxon_rank <- response[1, 3]
+  #     } else {
+  #       taxon_id <- NA_character_
+  #       taxon_rank <- NA_character_
+  #     }
+  #   } else {
+  #     taxon_id <- NA_character_
+  #     taxon_rank <- NA_character_
+  #   }
+  # }
 
   # ITIS
   if ((!is.na(authority)) & (authority == 'ITIS')){
