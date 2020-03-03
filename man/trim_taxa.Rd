@@ -4,30 +4,45 @@
 \alias{trim_taxa}
 \title{Trim taxa}
 \usage{
-trim_taxa(path = NULL, x = NULL)
+trim_taxa(x = NULL, path = NULL)
 }
 \arguments{
-\item{path}{A character string specifying the path to taxa_map.csv. This table
-tracks relationships between your raw and cleaned data and is operated
-on by this function.}
+\item{x}{(character) A list of taxa names}
 
-\item{x}{(character) A vector of taxa to be trimmed.}
+\item{path}{(character) The path to the directory containing taxa_map.csv}
 }
 \value{
 \itemize{
-        \item{1.} An updated version of taxa_map.csv with trimmed taxa strings.
-        \item{2.} A data frame of taxa_map.csv with trimmed taxa strings.
+        \item{If using \code{x}, then an updated list of taxa is returned.}
+        \item{If using \code{path}, then an updated version of taxa_map.csv
+        is written to file and returned as a data frame.}
     }
 }
 \description{
 Trim excess text from taxa names. Doing this before querying a taxonomic
-    authority reduces the frequency of mismatches.
+    authority improves matching.
 }
 \details{
-List of conditions `trim_taxa` addresses:
+Characters trimmed by this function:
     \itemize{
-        \item{'White spaces, trailing and leading'} White spaces are common.
-        \item{'Species abbreviations trailing a genus value'} E.g. "Sp.",
-        "Spp.", "Cf.", "Cf...", etc.
+        \item{White spaces (trailing and leading)}
+        \item{Species abbreviations following a genus value (e.g. "Sp.",
+        "Spp.", "Cf.", "Cf...", etc.)}
     }
+}
+\examples{
+# Input a list of names
+
+my_taxa <- c("Koeleria_cristata", "Cyperus sp.", "Poa Cf.   ")
+my_taxa <- trim_taxa(x = my_taxa)
+my_taxa
+
+# Input taxa_map.csv
+
+data <- data.table::fread(system.file("example_data.txt", package = 'taxonomyCleanr'))
+my_path <- tempdir()
+tm <- create_taxa_map(path = my_path, x = data, col = "Species")
+tm <- trim_taxa(path = my_path)
+tm
+
 }

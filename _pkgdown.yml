@@ -3,6 +3,7 @@ reference:
     desc: Functions for tracking changes during the data preparation and resolution steps. Most of the provenance tracking is automatically built into functions as optional arguments.
     contents:
     - create_taxa_map
+    - read_taxa_map
   - title: Prepare data
     desc: Functions for preparing data prior to sending to an authority system.
     contents:
