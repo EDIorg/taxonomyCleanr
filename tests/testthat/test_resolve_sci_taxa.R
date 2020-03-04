@@ -4,228 +4,48 @@ library(taxonomyCleanr)
 # Parameterize ----------------------------------------------------------------
 
 data <- data.table::fread(
-  file = system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv', package = 'taxonomyCleanr'),
-  fill = TRUE,
-  blank.lines.skip = TRUE
-)
-data <- data[!is.na(data$authority), ]
-data <- data[data$rank != 'Common', ]
-data <- data[1:3, ]
+  system.file('test_data.txt', package = 'taxonomyCleanr'))
 
-path <- system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv', package = 'taxonomyCleanr')
-path <- substr(path, 1, nchar(path) - 13)
-
-# Tests -----------------------------------------------------------------------
+# Input arguments -------------------------------------------------------------
 
 testthat::test_that('Expect errors', {
 
   expect_error(resolve_sci_taxa(data.sources = 3))
   expect_error(resolve_sci_taxa(x = 'Yellow Perch'))
-  expect_error(resolve_sci_taxa(path = path))
+  expect_error(resolve_sci_taxa(path = tempdir()))
 
 })
 
+# Standardized output ---------------------------------------------------------
+
 testthat::test_that('Output table is standardized', {
 
-  # ITIS
+  # Create helper function to check output format
 
-  output <- resolve_sci_taxa(
-    x = 'Oncorhynchus tshawytscha',
-    data.sources = 3
-  )
+  check_output_table <- function(taxa, data.source, path = NULL) {
 
-  expect_equal(
-    all(
-      colnames(output) %in%
-        c('index', 'taxa', 'taxa_clean', 'rank', 'authority',
-          'authority_id', 'score')
-    ),
-    TRUE
-  )
+    r <- resolve_sci_taxa(
+      x = taxa,
+      data.sources = data.source)
 
-  expect_equal(
-    class(output),
-    'data.frame'
-  )
+    expect_equal(
+      class(r),
+      'data.frame')
 
-  # output <- resolve_sci_taxa(
-  #   path = path,
-  #   data.sources = 3
-  # )
-  #
-  # expect_equal(
-  #   all(colnames(output) %in%
-  #         c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
-  #           'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
-  #           'difference')
-  #   ),
-  #   TRUE
-  # )
+    expect_true(
+      all(
+        colnames(r) %in%
+          c('index', 'taxa', 'taxa_clean', 'rank', 'authority',
+            'authority_id', 'score')))
 
-  # COL
+  }
 
-  output <- resolve_sci_taxa(
-    x = 'Oncorhynchus tshawytscha',
-    data.sources = 1
-  )
+  # Check outputs of accepted sources
 
-  expect_equal(
-    all(
-      colnames(output) %in%
-        c('index', 'taxa', 'taxa_clean', 'rank', 'authority',
-          'authority_id', 'score')
-    ),
-    TRUE
-  )
-
-  expect_equal(
-    class(
-      output
-    ),
-    'data.frame'
-  )
-
-  # output <- resolve_sci_taxa(
-  #   path = path,
-  #   data.sources = 1
-  # )
-  #
-  # expect_equal(
-  #   all(
-  #     colnames(output) %in%
-  #       c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
-  #         'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
-  #         'difference')
-  #   ),
-  #   TRUE
-  # )
-  #
-  # expect_equal(
-  #   class(output),
-  #   'data.frame'
-  # )
-
-  # WORMS
-
-  output <- resolve_sci_taxa(
-    x = 'Oncorhynchus tshawytscha',
-    data.sources = 9
-  )
-
-  expect_equal(
-    all(
-      colnames(output) %in%
-        c('index', 'taxa', 'taxa_clean', 'rank', 'authority',
-          'authority_id', 'score')
-    ),
-    TRUE
-  )
-
-  expect_equal(
-    class(output),
-    'data.frame'
-  )
-
-  # output <- resolve_sci_taxa(
-  #   path = path,
-  #   data.sources = 9
-  # )
-  #
-  # expect_equal(all(
-  #   colnames(output) %in%
-  #     c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
-  #       'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
-  #       'difference')
-  #   ),
-  #   TRUE
-  # )
-  #
-  # expect_equal(
-  #   class(
-  #     output
-  #   ),
-  #   'data.frame'
-  # )
-
-  # GBIF
-
-  output <- resolve_sci_taxa(
-    x = 'Oncorhynchus tshawytscha',
-    data.sources = 11
-  )
-
-  expect_equal(
-    all(
-      colnames(output) %in% c('index', 'taxa', 'taxa_clean', 'rank', 'authority',
-                    'authority_id', 'score')
-    ),
-    TRUE
-  )
-
-  expect_equal(
-    class(output),
-    'data.frame'
-  )
-
-  # output <- resolve_sci_taxa(
-  #   path = path,
-  #   data.sources = 11
-  # )
-  #
-  # expect_equal(
-  #   all(
-  #     colnames(output) %in%
-  #       c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
-  #         'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
-  #         'difference')
-  #   ),
-  #   TRUE
-  # )
-  #
-  # expect_equal(
-  #   class(output),
-  #   'data.frame'
-  # )
-
-  # Tropicos
-
-  output <- resolve_sci_taxa(
-    x = 'Oncorhynchus tshawytscha',
-    data.sources = 165
-  )
-
-  expect_equal(
-    all(
-      colnames(output) %in%
-        c('index', 'taxa', 'taxa_clean', 'rank', 'authority',
-          'authority_id', 'score')
-    ),
-    TRUE
-  )
-
-  expect_equal(
-    class(output),
-    'data.frame'
-  )
-
-  # output <- resolve_sci_taxa(
-  #   path = path,
-  #   data.sources = 165
-  # )
-  #
-  # expect_equal(
-  #   all(
-  #     colnames(output) %in%
-  #       c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
-  #         'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
-  #         'difference')
-  #   ),
-  #   TRUE
-  # )
-  #
-  # expect_equal(
-  #   class(output),
-  #   'data.frame'
-  # )
+  check_output_table("Oncorhynchus tshawytscha", data.source = 3)
+  # check_output_table("Oncorhynchus tshawytscha", data.source = 1)
+  check_output_table("Oncorhynchus tshawytscha", data.source = 9)
+  check_output_table("Oncorhynchus tshawytscha", data.source = 11)
+  check_output_table("Oncorhynchus tshawytscha", data.source = 165)
 
 })

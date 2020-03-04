@@ -52,15 +52,15 @@ write_taxa_map <- function(x, path){
     )
   )
 
-  if (isTRUE(use_i)){
-    stop(
-      paste0(
-        path,
-        '/',
-        fname,
-        '\n is in use by another program. Please close it and try again.'
-      )
-    )
-  }
+  # if (isTRUE(use_i)){
+  #   stop(
+  #     paste0(
+  #       path,
+  #       '/',
+  #       fname,
+  #       '\n is in use by another program. Please close it and try again.'
+  #     )
+  #   )
+  # }
 
 }

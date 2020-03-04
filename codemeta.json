@@ -6,7 +6,7 @@
   "@type": "SoftwareSourceCode",
   "identifier": "taxonomyCleanr",
   "description": "\n    Resolves user supplied taxonomy data against a taxonomic authority, retrieves taxonomic \n    serial numbers, updates users data, and creates the taxonomicCoverage metadata element in \n    the Ecological Metadata Language (EML).",
-  "name": "taxonomyCleanr: A workflow and set of functions to clean taxonomy data using R.",
+  "name": "taxonomyCleanr: A workflow and set of functions to clean taxonomy data using R",
   "codeRepository": "https://github.com/EDIorg/taxonomyCleanr",
   "issueTracker": "https://github.com/EDIorg/taxonomyCleanr/issues",
   "license": "https://spdx.org/licenses/MIT",
@@ -161,7 +161,7 @@
   ],
   "releaseNotes": "https://github.com/EDIorg/taxonomyCleanr/blob/master/NEWS.md",
   "readme": "https://github.com/EDIorg/taxonomyCleanr/blob/master/README.md",
-  "fileSize": "76.757KB",
+  "fileSize": "80.742KB",
   "contIntegration": [
     "https://travis-ci.org/EDIorg/taxonomyCleanr",
     "https://codecov.io/github/EDIorg/taxonomyCleanr?branch=master"

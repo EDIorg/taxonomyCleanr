@@ -4,18 +4,9 @@ library(taxonomyCleanr)
 # Parameterize ----------------------------------------------------------------
 
 data <- data.table::fread(
-  file = system.file('taxa_map.csv', package = 'taxonomyCleanr'),
-  fill = TRUE,
-  blank.lines.skip = TRUE
-)
-data <- data[!is.na(data$authority), ]
-data <- data[data$rank == 'Common', ]
-data <- data[data$authority == 'ITIS', ]
+  system.file('test_data.txt', package = 'taxonomyCleanr'))
 
-path <- system.file('taxa_map.csv', package = 'taxonomyCleanr')
-path <- substr(path, 1, nchar(path) - 13)
-
-# Tests -----------------------------------------------------------------------
+# Input arguments -------------------------------------------------------------
 
 testthat::test_that('Expect errors', {
 
@@ -27,40 +18,28 @@ testthat::test_that('Expect errors', {
 
 testthat::test_that('Output table is standardized', {
 
-  # ITIS
+  # Create helper function to check output format
 
-  output <- resolve_comm_taxa(
-    x = 'Yellow Perch',
-    data.sources = 3
-  )
+  check_output_table <- function(taxa, data.source, path = NULL) {
 
-  expect_equal(
-    all(
-      colnames(output) %in%
-        c('index', 'taxa', 'taxa_clean', 'rank', 'authority','authority_id')
-    ),
-    TRUE
-  )
+    r <- resolve_comm_taxa(
+      x = taxa,
+      data.sources = data.source)
 
-  expect_equal(
-    class(output),
-    'data.frame'
-  )
+    expect_equal(
+      class(r),
+      'data.frame')
 
-  output <- resolve_comm_taxa(
-    data.sources = 3,
-    path = path
-  )
+    expect_true(
+      all(
+        colnames(r) %in%
+          c('index', 'taxa', 'taxa_clean', 'rank', 'authority',
+            'authority_id', 'score')))
 
-  expect_equal(
-    all(
-      colnames(output) %in%
-        c('taxa_raw', 'taxa_trimmed', 'taxa_replacement', 'taxa_removed',
-          'taxa_clean', 'rank', 'authority', 'authority_id', 'score',
-          'difference'
-        )
-    ),
-    TRUE
-  )
+  }
+
+  # Check outputs of accepted sources
+
+  check_output_table("King salmon", data.source = 3)
 
 })

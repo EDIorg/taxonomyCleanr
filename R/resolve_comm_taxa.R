@@ -4,8 +4,6 @@
 #'     Resolve common names to preferred authorities and get associated ID's.
 #'     Run `view_taxa_authorities` to see supported authorities.
 #'
-#' @usage
-#'     resolve_comm_taxa(path = NULL, data.sources, x = NULL)
 #'
 #' @param x
 #'     (character) A vector of taxa names.

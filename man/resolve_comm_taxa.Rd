@@ -4,7 +4,7 @@
 \alias{resolve_comm_taxa}
 \title{Resolve taxa with common names}
 \usage{
-resolve_comm_taxa(path = NULL, data.sources, x = NULL)
+resolve_comm_taxa(x = NULL, data.sources, path = NULL)
 }
 \arguments{
 \item{x}{(character) A vector of taxa names.}
