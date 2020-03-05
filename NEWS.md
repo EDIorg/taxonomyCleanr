@@ -1,3 +1,13 @@
+# taxonomyCleanr 1.2.0
+
+### Enhancements
+
+These enhancements focus on making the resolve functions more robust and efficient, specifically:
+
+* Warn if an authority can't be reached
+* Don't try resolving taxa that have already been resolved
+* Return results even if the connection to the authority fails
+
 # taxonomyCleanr 1.1.3
 
 ### Bug fixes
