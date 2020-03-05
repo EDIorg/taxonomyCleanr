@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get taxonomic identifiers — get_id_common • taxonomyCleanr</title>
+<title>Validate arguments of taxonomyCleanr functions — validate_arguments • taxonomyCleanr</title>
 
 
 <!-- jquery -->
@@ -33,8 +33,8 @@
 
 
 
-<meta property="og:title" content="Get taxonomic identifiers — get_id_common" />
-<meta property="og:description" content="Get a taxonomic identifier for a taxon name and corresponding authority." />
+<meta property="og:title" content="Validate arguments of taxonomyCleanr functions — validate_arguments" />
+<meta property="og:description" content="Validate input arguments to taxonomyCleanr functions." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -116,37 +116,30 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get taxonomic identifiers</h1>
-    <small class="dont-index">Source: <a href='https://github.com/EDIorg/taxonomyCleanr/blob/master/R/resolve_comm_taxa.R'><code>R/resolve_comm_taxa.R</code></a></small>
-    <div class="hidden name"><code>get_id_common.Rd</code></div>
+    <h1>Validate arguments of taxonomyCleanr functions</h1>
+    <small class="dont-index">Source: <a href='https://github.com/EDIorg/taxonomyCleanr/blob/master/R/validate_arguments.R'><code>R/validate_arguments.R</code></a></small>
+    <div class="hidden name"><code>validate_arguments.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get a taxonomic identifier for a taxon name and corresponding authority.</p>
+    <p>Validate input arguments to taxonomyCleanr functions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_id_common</span>(<span class='no'>taxon</span>, <span class='no'>authority</span>)</pre>
+    <pre class="usage"><span class='fu'>validate_arguments</span>(<span class='no'>fun.name</span>, <span class='no'>fun.args</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>taxon</th>
-      <td><p>A character string specifying taxon to get the ID for.</p></td>
+      <th>fun.name</th>
+      <td><p>(character) Function name</p></td>
     </tr>
     <tr>
-      <th>authority</th>
-      <td><p>A character string specifying the authority from which to get the ID.</p></td>
+      <th>fun.args</th>
+      <td><p>(named list) Function arguments and values passed from the calling
+function.</p></td>
     </tr>
     </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    
-<ul>
-<li><p>taxon_id An authority ID for the taxon.</p></li>
-<li><p>rank The taxonomic rank of the taxon.</p></li>
-</ul>
 
 
   </div>
@@ -154,7 +147,6 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
     </ul>
 
   </div>
