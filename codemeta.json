@@ -157,11 +157,24 @@
       "identifier": "EDIutils",
       "name": "EDIutils",
       "sameAs": "https://github.com/EDIorg/EDIutils"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "httr",
+      "name": "httr",
+      "version": ">= 1.4.1",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=httr"
     }
   ],
   "releaseNotes": "https://github.com/EDIorg/taxonomyCleanr/blob/master/NEWS.md",
   "readme": "https://github.com/EDIorg/taxonomyCleanr/blob/master/README.md",
-  "fileSize": "80.742KB",
+  "fileSize": "81.722KB",
   "contIntegration": [
     "https://travis-ci.org/EDIorg/taxonomyCleanr",
     "https://codecov.io/github/EDIorg/taxonomyCleanr?branch=master"

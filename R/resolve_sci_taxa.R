@@ -1,114 +1,83 @@
-#' Resolve taxa with scientific names
+#' Resolve scientific names to an authority
 #'
 #' @description
-#'     Resolve taxa to preferred authorities and get associated ID's. Run
-#'     `view_taxa_authorities` to see supported authorities.
-#'
-#' @usage
-#'     resolve_sci_taxa(x = NULL, data.sources, path = NULL)
+#'     Resolve taxa to preferred authorities and get associated IDs.
 #'
 #' @param x
 #'     (character) A vector of taxa names.
 #' @param data.sources
-#'     An ordered numeric vector of ID's corresponding to data sources (i.e.
-#'     taxonomic authorities) you'd like to query, in the order of decreasing
-#'     preference. Run `view_taxa_authorities` to see data sources supported by
-#'     `resolve_sci_taxa`.
+#'     (numeric) An ordered vector of authority IDs to be queried (
+#'     \code{view_taxa_authorities()} lists currently supported authorities).
+#'     Taxa are resolved to authorities in the order listed. If an authority
+#'     and ID match cannot be made, then the next will be queried.
 #' @param path
-#'     A character string specifying the path to taxa_map.csv. This table
-#'     tracks relationships between your raw and cleaned data and is operated
-#'     on by this function. Create this file with `create_taxa_map`.
-#'
-#' @details
-#'     A taxa are resolved to data sources in order of listed preference. If
-#'     an authority and ID match can not be made, then the next preferred data
-#'     source will be queried, and so on.
+#'     (character) Path to directory containing taxa_map.csv. This tracks
+#'     provenance throughout the data cleaning process. Create this file with
+#'     \code{create_taxa_map()}.
 #'
 #' @return
-#'     \itemize{
-#'         \item{1.} An updated version of taxa_map.csv containing authorities
-#'         and corresponding IDs.
-#'         \item{2.} A data frame of taxa_map.csv with resolved authorities and
-#'         IDs.
-#'     }
+#'     (data frame; taxa_map.csv) If using \code{x}, then a data frame
+#'     containing the input taxa, accepted taxa name, rank, authority,
+#'     authority ID, and score are returned. If using \code{path}, then an
+#'     updated version of taxa_map.csv will be returned to \code{path} and
+#'     a data frame of taxa_map.csv to the R environment.
+#'
+#' @examples
+#' \dontrun{
+#'   # Input a list of taxa
+#'
+#'   r <- resolve_sci_taxa(
+#'     x = c("Cupressus macrocarpa", "Oncorhynchus tshawytscha", "Poa pratensis"),
+#'     data.sources = c(3,11))
+#'   r
+#'
+#'   # Input taxa_map.csv
+#'
+#'   data <- data.table::fread(file = system.file('example_data.txt', package = 'taxonomyCleanr'))
+#'   tm <- create_taxa_map(path = tempdir(), x = data, col = "Species")
+#'   r <- resolve_sci_taxa(data.sources = 3, path = tempdir())
+#'   tm <- read_taxa_map(path = tempdir())
+#' }
 #'
 #' @export
 #'
 
 resolve_sci_taxa <- function(x = NULL, data.sources, path = NULL){
 
-  # Check arguments ---------------------------------------------------------
+  # Validate arguments --------------------------------------------------------
 
-  if (!is.null(x) & !is.null(path)){
-    stop('Both "path" and "x" arguments are not allowed. Select one or the other.')
-  }
-
-  if (is.null(x)){
-
-    if (is.null(path)){
-      stop('Input argument "path" is missing!')
-    }
-
-    use_i <- file.exists(
-      paste0(
-        path,
-        '/taxa_map.csv'
-      )
-    )
-
-    if (!isTRUE(use_i)){
-      stop('taxa_map.csv is missing! Create it with initialize_taxa_map.R.')
-    }
-
-  }
-
-  if (missing(data.sources)){
-    stop('Input argument "data.sources" is missing!')
-  }
-
-  authorities <- view_taxa_authorities()
-  authorities <- authorities[authorities$resolve_sci_taxa == 'supported', ]
-  use_i <- as.character(data.sources) %in% as.character(authorities$id)
-  if (sum(use_i) != length(use_i)){
-    stop('Input argument "data.sources" contains unsupported data source IDs!')
-  }
+  validate_arguments("resolve_sci_taxa", as.list(environment()))
 
   # Read taxa_map.csv -------------------------------------------------------
 
   if (!is.null(path)){
     taxa_map <- read_taxa_map(path)
-  } else {
-
   }
 
   # Create taxa list ----------------------------------------------------------
 
-  if (!is.null(path)){
+  if (!is.null(path)) {
 
     taxa_list <- data.frame(
       index = seq(nrow(taxa_map)),
       taxa = rep(NA, nrow(taxa_map)),
-      stringsAsFactors = F
-    )
+      stringsAsFactors = F)
 
     taxa_list[ , 'taxa'] <- taxa_map[ , 'taxa_raw']
-
     use_i <- !is.na(taxa_map[ , 'taxa_trimmed'])
     taxa_list[use_i, 'taxa'] <- taxa_map[use_i, 'taxa_trimmed']
-
     use_i <- !is.na(taxa_map[ , 'taxa_replacement'])
     taxa_list[use_i, 'taxa'] <- taxa_map[use_i, 'taxa_replacement']
-
     use_i <- !is.na(taxa_map[ , 'taxa_removed'])
     taxa_list <- taxa_list[!use_i, ]
+    taxa_list <- taxa_list[is.na(taxa_map$authority_id), ]
 
   } else {
 
     taxa_list <- data.frame(
       index = seq(length(x)),
       taxa = rep(NA, length(x)),
-      stringsAsFactors = F
-    )
+      stringsAsFactors = F)
 
     taxa_list[ , 'taxa'] <- x
 
@@ -119,23 +88,18 @@ resolve_sci_taxa <- function(x = NULL, data.sources, path = NULL){
   query <- lapply(
     taxa_list[ , 'taxa'],
     optimize_match,
-    data.sources = data.sources
-  )
+    data.sources = data.sources)
 
   # Update taxa_map.csv -----------------------------------------------------
 
-  if (!is.null(path)){
+  if (!is.null(path)) {
 
     query <- data.frame(
       matrix(
-        unlist(
-          query
-        ),
+        unlist(query),
         nrow = length(query),
-        byrow = T
-      ),
-      stringsAsFactors = F
-    )
+        byrow = T),
+      stringsAsFactors = F)
 
     colnames(query) <- c(
       'taxa_clean',
@@ -145,23 +109,17 @@ resolve_sci_taxa <- function(x = NULL, data.sources, path = NULL){
       'score')
 
     use_i <- match(colnames(query), colnames(taxa_map))
-
     taxa_map[taxa_list[ ,'index'], use_i] <- query
-
     taxa_map[ , 'rank'] <- stringr::str_to_title(taxa_map[ , 'rank'])
 
   } else {
 
     query <- data.frame(
       matrix(
-        unlist(
-          query
-        ),
+        unlist(query),
         nrow = length(query),
-        byrow = T
-      ),
-      stringsAsFactors = F
-    )
+        byrow = T),
+      stringsAsFactors = F)
 
     colnames(query) <- c(
       'taxa_clean',
@@ -177,17 +135,14 @@ resolve_sci_taxa <- function(x = NULL, data.sources, path = NULL){
   # Document provenance -----------------------------------------------------
 
   if (!is.null(path)){
-
-    # Write to file
-    lib_path <- system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv',
-                            package = 'taxonomyCleanr')
-    lib_path <- substr(lib_path, 1, nchar(lib_path) - 13)
+    lib_path <- dirname(
+      system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv',
+                  package = 'taxonomyCleanr'))
     if (!missing(path)){
       if (path != lib_path){
         write_taxa_map(x = taxa_map, path = path)
       }
     }
-
   }
 
   # Return --------------------------------------------------------------------
@@ -252,21 +207,13 @@ get_authority <- function(taxon, data.source){
   # Call Global Names Resolver (GNR)
 
   query <- suppressWarnings(
-    as.data.frame(
-      taxize::gnr_resolve(
-        paste0(
-          taxon,
-          '*'
-          ),
-        resolve_once = T,
-        canonical = T,
-        best_match_only = T,
-        preferred_data_sources = as.character(
-          data.source
-          )
-        )
-      )
-    )
+      as.data.frame(
+        taxize::gnr_resolve(
+          paste0(taxon, '*'),
+          resolve_once = T,
+          canonical = T,
+          best_match_only = T,
+          preferred_data_sources = as.character(data.source))))
 
   # Return output -------------------------------------------------------------
 
@@ -357,16 +304,13 @@ get_id <- function(taxon, authority){
   # }
 
   # ITIS
-  if ((!is.na(authority)) & (authority == 'ITIS')){
+  if ((!is.na(authority)) & (authority == 'ITIS')) {
     response <- as.data.frame(
-      taxize::itis_terms(
-        taxon
-      )
-    )
-    if (nrow(response) > 0){
+      taxize::itis_terms(taxon))
+    if (nrow(response) > 0) {
       use_i <- response[ , 'scientificName'] == taxon
       response <- response[use_i, ]
-      if (nrow(response) > 0){
+      if (nrow(response) > 0) {
         taxon_id <- as.character(response[1, 'tsn'])
         taxon_rank <- taxize::itis_taxrank(as.numeric(taxon_id))
       } else {
@@ -386,13 +330,12 @@ get_id <- function(taxon, authority){
       searchtype = 'scientific',
       accepted = F,
       ask = F,
-      messages = F
-    )
-    if (!is.null(response[[1]])){
+      messages = F)
+    if (!is.null(response[[1]])) {
       response <- as.data.frame(response[[1]])
       use_i <- response[ , 2] == taxon
       response <- response[use_i, ]
-      if (nrow(response) > 0){
+      if (nrow(response) > 0) {
         taxon_id <- as.character(response[ , 'AphiaID'])
         response <- taxize::classification(taxon_id, db = 'worms')
         response <- as.data.frame(response[[1]])
@@ -409,6 +352,7 @@ get_id <- function(taxon, authority){
 
   # GBIF Backbone Taxonomy
   if ((!is.na(authority)) & (authority == 'GBIF Backbone Taxonomy')){
+
     response <- taxize::get_ids_(
       taxon,
       'gbif'
@@ -513,7 +457,6 @@ get_id <- function(taxon, authority){
 #'
 #' @export
 #'
-
 optimize_match <- function(x, data.sources){
 
   output <- data.frame(
@@ -522,27 +465,46 @@ optimize_match <- function(x, data.sources){
     authority = rep(NA_character_, length(data.sources)),
     authority_id = rep(NA_character_, length(data.sources)),
     score = rep(NA_character_, length(data.sources)),
-    stringsAsFactors = F
-  )
+    stringsAsFactors = F)
+
   j <- 1
 
   while (j != (length(data.sources)+1)){
 
     # Resolve name, authority, and score
 
-    out_auth <- get_authority(
-      taxon = x,
-      data.source = as.character(data.sources[j])
-    )
+    out_auth <- try(
+      get_authority(
+        taxon = x,
+        data.source = as.character(data.sources[j])),
+      silent = TRUE)
 
     # Resolve ID, and rank
 
-    out_id <- suppressWarnings(
-      get_id(
-        taxon = out_auth['resolved_name'],
-        authority = out_auth['authority']
-        )
-      )
+    if (class(out_auth) != "try-error") {
+      if (!is.na(out_auth['resolved_name']) & !is.na(out_auth['authority'])) {
+        out_id <- try(
+          suppressWarnings(
+            get_id(
+              taxon = out_auth['resolved_name'],
+              authority = out_auth['authority'])),
+          silent = TRUE)
+        if (class(out_id) == "try-error") {
+          out_id <- list(
+            'taxon_id' = NA_character_,
+            'taxon_rank' = NA_character_)
+        }
+      } else {
+        out_id <- list(
+          'taxon_id' = NA_character_,
+          'taxon_rank' = NA_character_)
+      }
+    } else {
+      out_auth <- list(
+        'resolved_name' =  NA_character_,
+        'authority' = NA_character_,
+        'score' = NA_character_)
+    }
 
     # Parse results into output data frame
 
@@ -552,7 +514,13 @@ optimize_match <- function(x, data.sources){
     output[j, 'authority_id'] <- out_id['taxon_id']
     output[j, 'score'] <- out_auth['score']
 
-    j <- j + 1
+    # Stop if a successful match has been made to save redundant effort
+
+    if (!is.na(output[j, 'authority_id'])) {
+      j <- length(data.sources) + 1
+    } else {
+      j <- j + 1
+    }
 
   }
 

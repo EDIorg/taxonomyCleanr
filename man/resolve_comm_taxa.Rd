@@ -2,36 +2,47 @@
 % Please edit documentation in R/resolve_comm_taxa.R
 \name{resolve_comm_taxa}
 \alias{resolve_comm_taxa}
-\title{Resolve taxa with common names}
+\title{Resolve common names to an authority}
 \usage{
 resolve_comm_taxa(x = NULL, data.sources, path = NULL)
 }
 \arguments{
 \item{x}{(character) A vector of taxa names.}
 
-\item{data.sources}{An ordered numeric vector of ID's corresponding to data sources (i.e.
-taxonomic authorities) to query, in the order of decreasing
-preference. Run `view_taxa_authorities` to see data sources supported
-by `resolve_comm_taxa`.}
+\item{data.sources}{(numeric) An ordered vector of authority IDs to be queried (
+\code{view_taxa_authorities()} lists currently supported authorities).
+Taxa are resolved to authorities in the order listed. If an authority
+and ID match cannot be made, then the next will be queried.}
 
-\item{path}{A character string specifying the path to taxa_map.csv. This table
-tracks relationships between your raw and cleaned data and is operated
-on by this function. Create this file with `create_taxa_map`.}
+\item{path}{(character) Path to directory containing taxa_map.csv. This tracks
+provenance throughout the data cleaning process. Create this file with
+\code{create_taxa_map()}.}
 }
 \value{
-\itemize{
-        \item{1.} An updated version of taxa_map.csv containing authorities
-        and corresponding IDs.
-        \item{2.} A data frame of taxa_map.csv with resolved authorities and
-        IDs.
-    }
+(data frame; taxa_map.csv) If using \code{x}, then a data frame
+    containing the input taxa, accepted taxa name, rank, authority,
+    authority ID, and score are returned. If using \code{path}, then an
+    updated version of taxa_map.csv will be returned to \code{path} and
+    a data frame of taxa_map.csv to the R environment.
 }
 \description{
-Resolve common names to preferred authorities and get associated ID's.
-    Run `view_taxa_authorities` to see supported authorities.
+Resolve taxa to preferred authorities and get associated IDs.
 }
-\details{
-Common names are resolved to data sources in order of listed preference.
-    If an authority and ID match can not be made, then the next preferred data
-    source will be queried, and so on.
+\examples{
+\dontrun{
+  # Input a list of taxa
+
+  r <- resolve_comm_taxa(
+    x = c("Monterey cypress", "King salmon", "Kentucky bluegrass"),
+    data.sources = 3)
+  r
+
+  # Input taxa_map.csv
+
+  data <- data.table::fread(file = system.file('example_data.txt', package = 'taxonomyCleanr'))
+  tm <- create_taxa_map(path = tempdir(), x = data, col = "Species")
+  r <- resolve_comm_taxa(data.sources = 3, path = tempdir())
+  tm <- read_taxa_map(path = tempdir())
+}
+
 }
