@@ -146,6 +146,7 @@ make_taxonomicCoverage <- function(
 
   if (isTRUE(write.file)){
     message('Writing taxonomicCoverage.xml')
+    emld::eml_version("eml-2.2.0")
     EML::write_eml(
       eml = taxonomicCoverage,
       file = paste0(path, '/taxonomicCoverage.xml')

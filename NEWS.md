@@ -1,3 +1,9 @@
+# taxonomyCleanr 1.3.0
+
+### Enhancement
+
+* __EML 2.2.0:__ EML output from `make_taxonomicCoverage()` now uses schema version 2.2.0. Note: Annotation has not yet been implemented.
+
 # taxonomyCleanr 1.2.0
 
 ### Enhancements
