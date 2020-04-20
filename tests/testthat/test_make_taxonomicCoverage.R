@@ -7,8 +7,7 @@ library(EML)
 data <- data.table::fread(
   file = system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv', package = 'taxonomyCleanr'),
   fill = TRUE,
-  blank.lines.skip = TRUE
-)
+  blank.lines.skip = TRUE)
 path <- system.file('test_data.txt', package = 'taxonomyCleanr')
 path <- substr(path, 1, nchar(path) - 14)
 taxcov <- EML::read_eml(
@@ -52,6 +51,7 @@ testthat::test_that('Write to path', {
 testthat::test_that('Output object', {
 
   # Output object class is a list
+
   expect_equal(
     suppressMessages(
       class(make_taxonomicCoverage(
@@ -60,5 +60,20 @@ testthat::test_that('Output object', {
         authority.id = data$authority_id,
         write.file = FALSE))),
       'list')
+
+  # Output includes unresolved taxa
+
+  use_i <- is.na(data$taxa_clean)
+  data$taxa_clean[use_i] <- data$taxa_raw[use_i]
+  r <- make_taxonomicCoverage(
+    taxa.clean = data$taxa_clean,
+    rank = data$rank,
+    authority = data$authority,
+    authority.id = data$authority_id,
+    write.file = FALSE)
+  for (i in which(use_i)) {
+    expect_true(
+      r$taxonomicClassification[[i]]$taxonRankName == "unknown")
+  }
 
 })

@@ -4,19 +4,14 @@
 #'     Create the hierarchical rank specific EML for taxa that have been
 #'     resolved to an authority system (e.g. ITIS).
 #'
-#' @usage
-#'     make_taxonomicCoverage(
-#'       taxa.clean,
-#'       authority,
-#'       authority.id,
-#'       path,
-#'       write.file = TRUE
-#'     )
-#'
 #' @param taxa.clean
 #'     (character) Taxa names as they appear in your dataset, or as they appear
 #'     in an authority system. Best practice is to align the names in your
 #'     dataset with those of the authority system.
+#' @param rank
+#'     (character) An optional argument to use when \code{taxa.clean} can't be
+#'     resolved to an authority. If no rank is specified in these cases, then
+#'     the rank will receive a value of NA.
 #' @param authority
 #'     (character) Authority to which the taxa have been resolved. Valid inputs
 #'     are created by \code{resolve_sci_taxa()}.
@@ -69,6 +64,7 @@
 
 make_taxonomicCoverage <- function(
   taxa.clean,
+  rank = NULL,
   authority,
   authority.id,
   path,
@@ -103,6 +99,8 @@ make_taxonomicCoverage <- function(
   if (!missing(path)){
     if (file.exists(paste0(path, '/taxa_map.csv'))){
       taxa_map <- read_taxa_map(path)
+      taxa_map$taxa_clean[is.na(taxa_map$taxa_clean)] <- taxa_map$taxa_raw[
+          is.na(taxa_map$taxa_clean)]
       taxa.clean <- taxa_map$taxa_clean
       authority <- taxa_map$authority
       authority.id <- taxa_map$authority_id
@@ -120,13 +118,12 @@ make_taxonomicCoverage <- function(
       taxa.clean = taxa.clean,
       authority = authority,
       authority.id = authority.id,
-      path = path
-    )
-  )
+      path = path))
 
   # Create taxonomicCoverage --------------------------------------------------
 
-  # Convert data to named list objects for EML::set_taxonomicCoverage()
+  # Convert data to named list objects for EML::set_taxonomicCoverage() and add
+  # ranks and values of unresolved taxa
 
   data <- lapply(
     data,
@@ -134,8 +131,15 @@ make_taxonomicCoverage <- function(
       output <- x$name
       names(output) <- x$rank
       output
-    }
-  )
+    })
+
+  use_i <- unlist(
+    lapply(
+      data,
+      is.null))
+  for (i in which(use_i)) {
+    data[[i]] <- c(unknown = taxa.clean[i])
+  }
 
   # Create taxonomicCoverage (as a list object) from data containing varying
   # rank levels.
@@ -149,8 +153,7 @@ make_taxonomicCoverage <- function(
     emld::eml_version("eml-2.2.0")
     EML::write_eml(
       eml = taxonomicCoverage,
-      file = paste0(path, '/taxonomicCoverage.xml')
-    )
+      file = paste0(path, '/taxonomicCoverage.xml'))
   }
 
   # Return object -------------------------------------------------------------

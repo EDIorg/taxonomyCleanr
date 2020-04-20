@@ -4,18 +4,17 @@
 \alias{make_taxonomicCoverage}
 \title{Make taxonomicCoverage EML}
 \usage{
-make_taxonomicCoverage(
-      taxa.clean,
-      authority,
-      authority.id,
-      path,
-      write.file = TRUE
-    )
+make_taxonomicCoverage(taxa.clean, rank = NULL, authority, authority.id,
+  path, write.file = TRUE)
 }
 \arguments{
 \item{taxa.clean}{(character) Taxa names as they appear in your dataset, or as they appear
 in an authority system. Best practice is to align the names in your
 dataset with those of the authority system.}
+
+\item{rank}{(character) An optional argument to use when \code{taxa.clean} can't be
+resolved to an authority. If no rank is specified in these cases, then
+the rank will receive a value of NA.}
 
 \item{authority}{(character) Authority to which the taxa have been resolved. Valid inputs
 are created by \code{resolve_sci_taxa()}.}

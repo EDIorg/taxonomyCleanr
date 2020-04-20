@@ -1,7 +1,8 @@
 # taxonomyCleanr 1.3.0
 
-### Enhancement
+### Enhancements
 
+* __Support unresolved taxa:__ Taxa that could not be resolved to an authority system are now included in EML outputs with an accompanied taxonomic rank value of "unknown".
 * __EML 2.2.0:__ EML output from `make_taxonomicCoverage()` now uses schema version 2.2.0. Note: Annotation has not yet been implemented.
 
 # taxonomyCleanr 1.2.0
