@@ -97,10 +97,8 @@ resolve_comm_taxa <- function(x = NULL, data.sources, path = NULL){
     taxa_list$taxa[use_i] <- taxa_map$taxa_replacement[use_i]
     use_i <- is.na(taxa_map$taxa_clean)
     taxa_list$taxa[!use_i] <- NA
-    taxa_list <- taxa_list[!use_i, ]
-    taxa_list <- taxa_list[is.na(taxa_map$authority_id), ]
-    use_i <- !is.na(taxa_map$taxa_removed)
-    taxa_list <- taxa_list[!use_i, ]
+    use_i <- is.na(taxa_map$authority_id) & is.na(taxa_map$taxa_removed)
+    taxa_list <- taxa_list[use_i, ]
 
   } else {
 
