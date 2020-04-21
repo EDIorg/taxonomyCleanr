@@ -64,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
       </span>
     </div>
 
@@ -118,16 +118,30 @@
       <small>Source: <a href='https://github.com/EDIorg/taxonomyCleanr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="taxonomycleanr-120" class="section level1">
+    <div id="taxonomycleanr-130" class="section level1">
 <h1 class="page-header">
-<a href="#taxonomycleanr-120" class="anchor"></a>taxonomyCleanr 1.2.0</h1>
+<a href="#taxonomycleanr-130" class="anchor"></a>taxonomyCleanr 1.3.0</h1>
 <div id="enhancements" class="section level3">
 <h3 class="hasAnchor">
 <a href="#enhancements" class="anchor"></a>Enhancements</h3>
+<ul>
+<li>
+<strong>Support unresolved taxa:</strong> Taxa that could not be resolved to an authority system are now included in EML outputs with an accompanied taxonomic rank value of âunknownâ.</li>
+<li>
+<strong>EML 2.2.0:</strong> EML output from <code><a href="../reference/make_taxonomicCoverage.html">make_taxonomicCoverage()</a></code> now uses schema version 2.2.0. Note: Annotation has not yet been implemented.</li>
+</ul>
+</div>
+</div>
+    <div id="taxonomycleanr-120" class="section level1">
+<h1 class="page-header">
+<a href="#taxonomycleanr-120" class="anchor"></a>taxonomyCleanr 1.2.0</h1>
+<div id="enhancements-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#enhancements-1" class="anchor"></a>Enhancements</h3>
 <p>These enhancements focus on making the resolve functions more robust and efficient, specifically:</p>
 <ul>
-<li>Warn if an authority can’t be reached</li>
-<li>Don’t try resolving taxa that have already been resolved</li>
+<li>Warn if an authority canât be reached</li>
+<li>Donât try resolving taxa that have already been resolved</li>
 <li>Return results even if the connection to the authority fails</li>
 </ul>
 </div>
@@ -140,12 +154,12 @@
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h3>
 <ul>
 <li>
-<strong>New table readers:</strong> Old table readers were inaccurately reading data (e.g. dropping quote characters). This has been fixed.</li>
+<strong>New table readers:</strong> Old table readers were inaccurately reading data (e.g.Â dropping quote characters). This has been fixed.</li>
 </ul>
 </div>
-<div id="enhancements-1" class="section level3">
+<div id="enhancements-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#enhancements-1" class="anchor"></a>Enhancements</h3>
+<a href="#enhancements-2" class="anchor"></a>Enhancements</h3>
 <ul>
 <li>
 <strong>tibble input:</strong> Tibbles are now an accepted input taxonomyCleanr functions.</li>
@@ -179,9 +193,9 @@
     <div id="taxonomycleanr-110" class="section level1">
 <h1 class="page-header">
 <a href="#taxonomycleanr-110" class="anchor"></a>taxonomyCleanr 1.1.0</h1>
-<div id="enhancements-2" class="section level3">
+<div id="enhancements-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#enhancements-2" class="anchor"></a>Enhancements</h3>
+<a href="#enhancements-3" class="anchor"></a>Enhancements</h3>
 <ul>
 <li>
 <strong>EML v2.0.0:</strong> <code><a href="../reference/make_taxonomicCoverage.html">make_taxonomicCoverage()</a></code> now works with <code>EML</code> v.2.0.0 and outputs the taxonomicCoverage node as a list object and/or an .xml file written to path. The argument <code>write.file</code> has been added to enable use of taxa_map.csv without writing to file. These changes are based on a pull request by <a href='https://github.com/srearl'>@srearl</a>.</li>
@@ -203,9 +217,9 @@
     <div id="taxonomycleanr-100" class="section level1">
 <h1 class="page-header">
 <a href="#taxonomycleanr-100" class="anchor"></a>taxonomyCleanr 1.0.0</h1>
-<div id="enhancements-3" class="section level3">
+<div id="enhancements-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#enhancements-3" class="anchor"></a>Enhancements</h3>
+<a href="#enhancements-4" class="anchor"></a>Enhancements</h3>
 <ul>
 <li>
 <strong>Demo vignette:</strong> Clean up demonstration vignette.</li>
@@ -222,6 +236,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#taxonomycleanr-130">1.3.0</a></li>
         <li><a href="#taxonomycleanr-120">1.2.0</a></li>
         <li><a href="#taxonomycleanr-113">1.1.3</a></li>
         <li><a href="#taxonomycleanr-112">1.1.2</a></li>
