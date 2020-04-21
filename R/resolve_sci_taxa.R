@@ -60,33 +60,30 @@ resolve_sci_taxa <- function(x = NULL, data.sources, path = NULL){
 
     taxa_list <- data.frame(
       index = seq(nrow(taxa_map)),
-      taxa = rep(NA, nrow(taxa_map)),
+      taxa = rep(NA_character_, nrow(taxa_map)),
       stringsAsFactors = F)
-
-    taxa_list[ , 'taxa'] <- taxa_map[ , 'taxa_raw']
-    use_i <- !is.na(taxa_map[ , 'taxa_trimmed'])
-    taxa_list[use_i, 'taxa'] <- taxa_map[use_i, 'taxa_trimmed']
-    use_i <- !is.na(taxa_map[ , 'taxa_replacement'])
-    taxa_list[use_i, 'taxa'] <- taxa_map[use_i, 'taxa_replacement']
-    use_i <- !is.na(taxa_map[ , 'taxa_removed'])
+    taxa_list$taxa <- taxa_map$taxa_raw
+    use_i <- !is.na(taxa_map$taxa_trimmed)
+    taxa_list$taxa[use_i] <- taxa_map$taxa_trimmed[use_i]
+    use_i <- !is.na(taxa_map$taxa_replacement)
+    taxa_list$taxa[use_i] <- taxa_map$taxa_replacement[use_i]
+    use_i <- !is.na(taxa_map$taxa_removed) | !is.na(taxa_map$authority_id)
     taxa_list <- taxa_list[!use_i, ]
-    taxa_list <- taxa_list[is.na(taxa_map$authority_id), ]
 
   } else {
 
     taxa_list <- data.frame(
       index = seq(length(x)),
-      taxa = rep(NA, length(x)),
+      taxa = rep(NA_character_, length(x)),
       stringsAsFactors = F)
-
-    taxa_list[ , 'taxa'] <- x
+    taxa_list$taxa <- x
 
   }
 
   # Optimize match ------------------------------------------------------------
 
-  query <- lapply(
-    taxa_list[ , 'taxa'],
+  r <- lapply(
+    unique(taxa_list$taxa),
     optimize_match,
     data.sources = data.sources)
 
@@ -94,47 +91,45 @@ resolve_sci_taxa <- function(x = NULL, data.sources, path = NULL){
 
   if (!is.null(path)) {
 
-    query <- data.frame(
+    r <- data.frame(
       matrix(
-        unlist(query),
-        nrow = length(query),
+        unlist(r),
+        nrow = length(r),
         byrow = T),
       stringsAsFactors = F)
-
-    colnames(query) <- c(
+    colnames(r) <- c(
       'taxa_clean',
       'rank',
       'authority',
       'authority_id',
       'score')
-
-    use_i <- match(colnames(query), colnames(taxa_map))
-    taxa_map[taxa_list[ ,'index'], use_i] <- query
-    taxa_map[ , 'rank'] <- stringr::str_to_title(taxa_map[ , 'rank'])
+    r$taxa <- unique(taxa_list$taxa)
+    rj <- dplyr::full_join(r, taxa_list, by = "taxa")
+    taxa_map[rj$index, c("taxa_clean", "rank", "authority", "authority_id", "score")] <-
+      dplyr::select(rj, -taxa, -index)
+    taxa_map$rank <- stringr::str_to_title(taxa_map$rank)
 
   } else {
 
-    query <- data.frame(
+    r <- data.frame(
       matrix(
-        unlist(query),
-        nrow = length(query),
+        unlist(r),
+        nrow = length(r),
         byrow = T),
       stringsAsFactors = F)
-
-    colnames(query) <- c(
+    colnames(r) <- c(
       'taxa_clean',
       'rank',
       'authority',
       'authority_id',
       'score')
-
-    taxa_map <- cbind(taxa_list, query)
+    taxa_map <- cbind(taxa_list, r)
 
   }
 
   # Document provenance -----------------------------------------------------
 
-  if (!is.null(path)){
+  if (!is.null(path)) {
     lib_path <- dirname(
       system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv',
                   package = 'taxonomyCleanr'))

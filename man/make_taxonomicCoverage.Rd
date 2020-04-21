@@ -4,8 +4,14 @@
 \alias{make_taxonomicCoverage}
 \title{Make taxonomicCoverage EML}
 \usage{
-make_taxonomicCoverage(taxa.clean, rank = NULL, authority, authority.id,
-  path, write.file = TRUE)
+make_taxonomicCoverage(
+  taxa.clean,
+  rank = NULL,
+  authority,
+  authority.id,
+  path,
+  write.file = TRUE
+)
 }
 \arguments{
 \item{taxa.clean}{(character) Taxa names as they appear in your dataset, or as they appear

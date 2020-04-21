@@ -138,6 +138,12 @@ read_taxa_map <- function(path) {
     file = paste0(path, "/taxa_map.csv"),
     fill = TRUE,
     blank.lines.skip = TRUE,
-    na.strings = ""
-  )
+    na.strings = "",
+    colClasses = rep(
+      "character",
+      max(
+        utils::count.fields(
+          paste0(path, "/taxa_map.csv"),
+          sep = ","),
+        na.rm = T)))
 }
