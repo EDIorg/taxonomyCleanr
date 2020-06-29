@@ -1,3 +1,9 @@
+# taxonomyCleanr 1.3.1
+
+### Bug fix
+
+* __get_classification():__ A deprecated argument in `taxize::classification()` was throwing errors. Thanks for the fix @srearl !
+
 # taxonomyCleanr 1.3.0
 
 ### Enhancements

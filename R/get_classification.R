@@ -40,7 +40,7 @@ get_classification <- function(taxa.clean, authority, authority.id, path = NULL)
   output <- suppressMessages(
     mapply(
       taxize::classification,
-      x = authority.id,
+      sci_id = authority.id,
       db = cw$machine.readable[use_i]
     )
   )
