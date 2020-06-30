@@ -6,18 +6,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tracking provenance throughout the cleaning process • taxonomyCleanr</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Tracking provenance throughout the cleaning process">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="taxonomyCleanr">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -30,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -38,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -63,8 +64,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/EDIorg/taxonomyCleanr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/EDIorg/taxonomyCleanr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -77,10 +78,11 @@
 <!--/.navbar -->
 
       
+
       </header><script src="a_common_use_case_files/kePrint-0.0.1/kePrint.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Tracking provenance throughout the cleaning process</h1>
+      <h1 data-toc-skip>Tracking provenance throughout the cleaning process</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/EDIorg/taxonomyCleanr/blob/master/vignettes/a_common_use_case.Rmd"><code>vignettes/a_common_use_case.Rmd</code></a></small>
@@ -100,16 +102,16 @@
 <h1 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h1>
 <p>Install <code>taxonomyCleanr</code> from the project GitHub.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># Install from GitHub</span></a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="co"># remotes::install_github('EDIorg/taxonomyCleanr')</span></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(taxonomyCleanr)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co"># Install from GitHub</span>
+<span class="co"># remotes::install_github('EDIorg/taxonomyCleanr')</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">taxonomyCleanr</span>)</pre></body></html></div>
 </div>
 <div id="load-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#load-data" class="anchor"></a>Load data</h1>
 <p>Load the taxonomic data into RStudio as a data frame (or tibble). The taxa must be listed in a single column of character type class, not factor type class.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># Load test data installed with the taxonomyCleanr package</span></a>
-<a class="sourceLine" id="cb2-2" title="2">data &lt;-<span class="st"> </span>data.table<span class="op">::</span><span class="kw">fread</span>(<span class="dt">file =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">'example_data.txt'</span>, <span class="dt">package =</span> <span class="st">'taxonomyCleanr'</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co"># Load test data installed with the taxonomyCleanr package</span>
+<span class="no">data</span> <span class="kw">&lt;-</span> <span class="kw pkg">data.table</span><span class="kw ns">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html">fread</a></span>(<span class="kw">file</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">'example_data.txt'</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">'taxonomyCleanr'</span>))</pre></body></html></div>
 <p>This data table has 6 columns:</p>
 <ul>
 <li>
@@ -2517,16 +2519,16 @@ Oncorhynchus kisutch
 <h1 class="hasAnchor">
 <a href="#create-taxa-map" class="anchor"></a>Create taxa map</h1>
 <p>The taxa map (taxa_map.csv) links the raw data to the cleaned data. Each cleaning function logs changes to taxa_map.csv thereby facilitating an understanding of how the data were changed and a means by which to update the raw data table. A thorough explanation of the maps contents will be provided after the cleaning and resolver processes have been run on these example data.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># Create the taxa map</span></a>
-<a class="sourceLine" id="cb3-2" title="2">my_path &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempdir</a></span>()</a>
-<a class="sourceLine" id="cb3-3" title="3">taxa_map &lt;-<span class="st"> </span><span class="kw"><a href="../reference/create_taxa_map.html">create_taxa_map</a></span>(<span class="dt">path =</span> my_path, <span class="dt">x =</span> data, <span class="dt">col =</span> <span class="st">'Species'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># Create the taxa map</span>
+<span class="no">my_path</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span>()
+<span class="no">taxa_map</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/create_taxa_map.html">create_taxa_map</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="no">data</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">'Species'</span>)</pre></body></html></div>
 </div>
 <div id="count-taxa" class="section level1">
 <h1 class="hasAnchor">
 <a href="#count-taxa" class="anchor"></a>Count taxa</h1>
 <p>Get the unique taxa names and respective counts with <code>count_taxa</code>. This function helps identify issues that should be fixed before sending the taxa list to the resolver functions. Doing so increases the success of an authority match. Notice, some of the taxa in the test data are obviously misspelled (e.g. <em>Achillea millefolium(lanulosa)</em> and <em>Achillea millefolium(lanulosaaaa)</em> likely represent the same taxon), and some of the listed names are clearly not taxa (e.g. <em>-9999</em> and <em>Miscellaneous litter</em>).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># Get unique taxa and counts</span></a>
-<a class="sourceLine" id="cb4-2" title="2">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/count_taxa.html">count_taxa</a></span>(<span class="dt">x =</span> data, <span class="dt">col =</span> <span class="st">'Species'</span>, <span class="dt">path =</span> my_path)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># Get unique taxa and counts</span>
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/count_taxa.html">count_taxa</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">data</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">'Species'</span>, <span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>)</pre></body></html></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; ">
 <table class="table table">
 <caption>
@@ -3020,11 +3022,11 @@ Yellow Perch
 <h1 class="hasAnchor">
 <a href="#trim-taxa" class="anchor"></a>Trim taxa</h1>
 <p>Several of the taxa have variations of common suffixes found in taxonomic data (e.g. <em>c.f.</em> and <em>sp.</em>), but frequently cause issues when searching taxonomic authorities. The <code>trim_taxa</code> function removes these excess characters as well as leading and trailing white spaces and under score characters.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># Trim excess characters from the taxa list</span></a>
-<a class="sourceLine" id="cb5-2" title="2">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trim_taxa.html">trim_taxa</a></span>(<span class="dt">path =</span> my_path)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># Trim excess characters from the taxa list</span>
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/trim_taxa.html">trim_taxa</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>)</pre></body></html></div>
 <p>Running <code>count_taxa</code> on the raw data frame (i.e. <em>data</em>), in combination with the information logged to taxa_map.csv from <code>trim_taxa</code>, creates a view of the updated taxa list.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="co"># View the taxa after running trim_taxa</span></a>
-<a class="sourceLine" id="cb6-2" title="2">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/count_taxa.html">count_taxa</a></span>(<span class="dt">x =</span> data, <span class="dt">col =</span> <span class="st">'Species'</span>, <span class="dt">path =</span> my_path)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co"># View the taxa after running trim_taxa</span>
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/count_taxa.html">count_taxa</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">data</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">'Species'</span>, <span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>)</pre></body></html></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; ">
 <table class="table table">
 <caption>
@@ -3470,14 +3472,14 @@ Yellow Perch
 <h1 class="hasAnchor">
 <a href="#replace-taxa" class="anchor"></a>Replace taxa</h1>
 <p>Some of the taxa are misspelled. Use <code>replace_taxa</code> to replace the misspelled taxa with the correct spelling, or the best guess of the correct spelling. Use <code>count_taxa</code> to verify these changes.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># Replace misspelled taxa with the correct spelling</span></a>
-<a class="sourceLine" id="cb7-2" title="2">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/replace_taxa.html">replace_taxa</a></span>(<span class="dt">path =</span> my_path, <span class="dt">input =</span> <span class="st">'Achillea millefolium(lanulosa)'</span>, <span class="dt">output =</span> <span class="st">'Achillea millefolium'</span>)</a>
-<a class="sourceLine" id="cb7-3" title="3">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/replace_taxa.html">replace_taxa</a></span>(<span class="dt">path =</span> my_path, <span class="dt">input =</span> <span class="st">'Achillea millefolium(lanulosaaaa)'</span>, <span class="dt">output =</span> <span class="st">'Achillea millefolium'</span>)</a>
-<a class="sourceLine" id="cb7-4" title="4">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/replace_taxa.html">replace_taxa</a></span>(<span class="dt">path =</span> my_path, <span class="dt">input =</span> <span class="st">'Achillea millefolium(lanulosabb)'</span>, <span class="dt">output =</span> <span class="st">'Achillea millefolium'</span>)</a>
-<a class="sourceLine" id="cb7-5" title="5">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/replace_taxa.html">replace_taxa</a></span>(<span class="dt">path =</span> my_path, <span class="dt">input =</span> <span class="st">'Achillea millefolium(lanulosacc)'</span>, <span class="dt">output =</span> <span class="st">'Achillea millefolium'</span>)</a>
-<a class="sourceLine" id="cb7-6" title="6"></a>
-<a class="sourceLine" id="cb7-7" title="7"><span class="co"># Get the list of unique taxa</span></a>
-<a class="sourceLine" id="cb7-8" title="8">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/count_taxa.html">count_taxa</a></span>(<span class="dt">x =</span> data, <span class="dt">col =</span> <span class="st">'Species'</span>, <span class="dt">path =</span> my_path)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co"># Replace misspelled taxa with the correct spelling</span>
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/replace_taxa.html">replace_taxa</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>, <span class="kw">input</span> <span class="kw">=</span> <span class="st">'Achillea millefolium(lanulosa)'</span>, <span class="kw">output</span> <span class="kw">=</span> <span class="st">'Achillea millefolium'</span>)
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/replace_taxa.html">replace_taxa</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>, <span class="kw">input</span> <span class="kw">=</span> <span class="st">'Achillea millefolium(lanulosaaaa)'</span>, <span class="kw">output</span> <span class="kw">=</span> <span class="st">'Achillea millefolium'</span>)
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/replace_taxa.html">replace_taxa</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>, <span class="kw">input</span> <span class="kw">=</span> <span class="st">'Achillea millefolium(lanulosabb)'</span>, <span class="kw">output</span> <span class="kw">=</span> <span class="st">'Achillea millefolium'</span>)
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/replace_taxa.html">replace_taxa</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>, <span class="kw">input</span> <span class="kw">=</span> <span class="st">'Achillea millefolium(lanulosacc)'</span>, <span class="kw">output</span> <span class="kw">=</span> <span class="st">'Achillea millefolium'</span>)
+
+<span class="co"># Get the list of unique taxa</span>
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/count_taxa.html">count_taxa</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">data</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">'Species'</span>, <span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>)</pre></body></html></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; ">
 <table class="table table">
 <caption>
@@ -3899,14 +3901,14 @@ Yellow Perch
 <h1 class="hasAnchor">
 <a href="#remove-taxa" class="anchor"></a>Remove taxa</h1>
 <p>Some taxa in the list are clearly not taxa, and should be removed with <code>remove_taxa</code> before attempting to resolve to an authority.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="co"># Remove taxa</span></a>
-<a class="sourceLine" id="cb8-2" title="2">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/remove_taxa.html">remove_taxa</a></span>(<span class="dt">path =</span> my_path, <span class="dt">input =</span> <span class="st">''</span>)</a>
-<a class="sourceLine" id="cb8-3" title="3">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/remove_taxa.html">remove_taxa</a></span>(<span class="dt">path =</span> my_path, <span class="dt">input =</span> <span class="st">'-9999'</span>)</a>
-<a class="sourceLine" id="cb8-4" title="4">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/remove_taxa.html">remove_taxa</a></span>(<span class="dt">path =</span> my_path, <span class="dt">input =</span> <span class="st">'Unsorted biomass'</span>)</a>
-<a class="sourceLine" id="cb8-5" title="5">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/remove_taxa.html">remove_taxa</a></span>(<span class="dt">path =</span> my_path, <span class="dt">input =</span> <span class="st">'Miscellaneous litter'</span>)</a>
-<a class="sourceLine" id="cb8-6" title="6"></a>
-<a class="sourceLine" id="cb8-7" title="7"><span class="co"># Get unique taxa and counts</span></a>
-<a class="sourceLine" id="cb8-8" title="8">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/count_taxa.html">count_taxa</a></span>(<span class="dt">x =</span> data, <span class="dt">col =</span> <span class="st">'Species'</span>, <span class="dt">path =</span> my_path)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co"># Remove taxa</span>
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/remove_taxa.html">remove_taxa</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>, <span class="kw">input</span> <span class="kw">=</span> <span class="st">''</span>)
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/remove_taxa.html">remove_taxa</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>, <span class="kw">input</span> <span class="kw">=</span> <span class="st">'-9999'</span>)
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/remove_taxa.html">remove_taxa</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>, <span class="kw">input</span> <span class="kw">=</span> <span class="st">'Unsorted biomass'</span>)
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/remove_taxa.html">remove_taxa</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>, <span class="kw">input</span> <span class="kw">=</span> <span class="st">'Miscellaneous litter'</span>)
+
+<span class="co"># Get unique taxa and counts</span>
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/count_taxa.html">count_taxa</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">data</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">'Species'</span>, <span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>)</pre></body></html></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; ">
 <table class="table table">
 <caption>
@@ -4297,8 +4299,8 @@ Yellow Perch
 <h1 class="hasAnchor">
 <a href="#resolve-scientific-taxa" class="anchor"></a>Resolve scientific taxa</h1>
 <p>Now the list of taxa looks reasonable. Extraneous characters have been removed, occurences of similarly spelled taxa have been harmonized, and non-taxa names have been removed. Send the list of taxa to <code>resolve_sci_taxa</code>, along with a preferred list of authorities to search, and successful hits will return the accepted scientific spelling, taxonomic serial number, and taxonomic rank. <code>resolve_sci_taxa</code> will give preference to the ordering of the taxonomic authorites input to the function. View the list of authorities supported by <code>resolve_sci_taxa</code> with <code>view_taxa_authorities</code></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># Supported authorities are listed in the column titled resolve_sci_taxa</span></a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="../reference/view_taxa_authorities.html">view_taxa_authorities</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co"># Supported authorities are listed in the column titled resolve_sci_taxa</span>
+<span class="fu"><a href="../reference/view_taxa_authorities.html">view_taxa_authorities</a></span>()</pre></body></html></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; ">
 <table class="table table">
 <caption>
@@ -4379,8 +4381,8 @@ not supported
 </table>
 </div>
 <p>The authorities <em>ITIS</em> and <em>WORMS</em> will be used.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="co"># Resolve taxa using ITIS and WORMS</span></a>
-<a class="sourceLine" id="cb10-2" title="2">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/resolve_sci_taxa.html">resolve_sci_taxa</a></span>(<span class="dt">path =</span> my_path, <span class="dt">data.sources =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>,<span class="dv">9</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co"># Resolve taxa using ITIS and WORMS</span>
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/resolve_sci_taxa.html">resolve_sci_taxa</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>, <span class="kw">data.sources</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>,<span class="fl">9</span>))</pre></body></html></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; ">
 <table class="table table">
 <caption>
@@ -6315,8 +6317,8 @@ NA
 <h1 class="hasAnchor">
 <a href="#resolve-common-taxa" class="anchor"></a>Resolve common taxa</h1>
 <p>Some of the taxa that couldn’t be resolved by <code>resolve_sci_taxa</code> is because their common names were listed. Use <code>resolve_comm_taxa</code> to attempt resolution of these common names to an authority. <code>resolve_comm_taxa</code> is similar to <code>resolve_sci_taxa</code> in that it requires a preferred list of authorities to search against. Select authorities supported by <code>resolve_comm_taxa</code>.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="co"># View the list of authorities supported by resolve_comm_taxa</span></a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="kw"><a href="../reference/view_taxa_authorities.html">view_taxa_authorities</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co"># View the list of authorities supported by resolve_comm_taxa</span>
+<span class="fu"><a href="../reference/view_taxa_authorities.html">view_taxa_authorities</a></span>()</pre></body></html></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; ">
 <table class="table table">
 <caption>
@@ -6396,8 +6398,8 @@ not supported
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># Resolve common using ITIS</span></a>
-<a class="sourceLine" id="cb12-2" title="2">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/resolve_comm_taxa.html">resolve_comm_taxa</a></span>(<span class="dt">path =</span> my_path, <span class="dt">data.sources =</span> <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="co"># Resolve common using ITIS</span>
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/resolve_comm_taxa.html">resolve_comm_taxa</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>, <span class="kw">data.sources</span> <span class="kw">=</span> <span class="fl">3</span>)</pre></body></html></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; ">
 <table class="table table">
 <caption>
@@ -6450,19 +6452,19 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-Mosses
+NA
 </td>
 <td style="text-align:left;">
-Common
+NA
 </td>
 <td style="text-align:left;">
-ITIS
+NA
 </td>
 <td style="text-align:left;">
-14189
+NA
 </td>
 <td style="text-align:left;">
-Mosses
+NA
 </td>
 <td style="text-align:left;">
 NA
@@ -7701,10 +7703,10 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-Common
+NA
 </td>
 <td style="text-align:left;">
-ITIS
+NA
 </td>
 <td style="text-align:left;">
 NA
@@ -7826,19 +7828,19 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-Yellow Perch
+NA
 </td>
 <td style="text-align:left;">
-Common
+NA
 </td>
 <td style="text-align:left;">
-ITIS
+NA
 </td>
 <td style="text-align:left;">
-168469
+NA
 </td>
 <td style="text-align:left;">
-Yellow Perch
+NA
 </td>
 <td style="text-align:left;">
 NA
@@ -7858,19 +7860,19 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-Rainbow smelt
+NA
 </td>
 <td style="text-align:left;">
-Common
+NA
 </td>
 <td style="text-align:left;">
-ITIS
+NA
 </td>
 <td style="text-align:left;">
-162041
+NA
 </td>
 <td style="text-align:left;">
-Rainbow smelt
+NA
 </td>
 <td style="text-align:left;">
 NA
@@ -8411,19 +8413,19 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-Mosses
+NA
 </td>
 <td style="text-align:left;">
-Common
+NA
 </td>
 <td style="text-align:left;">
-ITIS
+NA
 </td>
 <td style="text-align:left;">
-14189
+NA
 </td>
 <td style="text-align:left;">
-Mosses
+NA
 </td>
 <td style="text-align:left;">
 NA
@@ -9662,10 +9664,10 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-Common
+NA
 </td>
 <td style="text-align:left;">
-ITIS
+NA
 </td>
 <td style="text-align:left;">
 NA
@@ -9787,19 +9789,19 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-Yellow Perch
+NA
 </td>
 <td style="text-align:left;">
-Common
+NA
 </td>
 <td style="text-align:left;">
-ITIS
+NA
 </td>
 <td style="text-align:left;">
-168469
+NA
 </td>
 <td style="text-align:left;">
-Yellow Perch
+NA
 </td>
 <td style="text-align:left;">
 NA
@@ -9819,19 +9821,19 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-Rainbow smelt
+NA
 </td>
 <td style="text-align:left;">
-Common
+NA
 </td>
 <td style="text-align:left;">
-ITIS
+NA
 </td>
 <td style="text-align:left;">
-162041
+NA
 </td>
 <td style="text-align:left;">
-Rainbow smelt
+NA
 </td>
 <td style="text-align:left;">
 NA
@@ -10303,8 +10305,8 @@ NA
 <strong>taxa_authority_id</strong> - Identification number/value of the resolved taxon in the taxonomic authority.</li>
 </ul>
 <p>These 4 columns are appended to the raw data table and written to a file named “taxonomyCleanr_output”.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># Revise the raw data table and write to file</span></a>
-<a class="sourceLine" id="cb13-2" title="2">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/revise_taxa.html">revise_taxa</a></span>(<span class="dt">path =</span> my_path, <span class="dt">x =</span> data, <span class="dt">col =</span> <span class="st">'Species'</span>, <span class="dt">sep =</span> <span class="st">'</span><span class="ch">\t</span><span class="st">'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="co"># Revise the raw data table and write to file</span>
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/revise_taxa.html">revise_taxa</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="no">data</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">'Species'</span>, <span class="kw">sep</span> <span class="kw">=</span> <span class="st">'\t'</span>)</pre></body></html></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; ">
 <table class="table table">
 <caption>
@@ -10366,13 +10368,13 @@ Mosses
 Mosses
 </td>
 <td style="text-align:left;">
-Common
+NA
 </td>
 <td style="text-align:left;">
-ITIS
+NA
 </td>
 <td style="text-align:left;">
-14189
+NA
 </td>
 </tr>
 <tr>
@@ -12446,10 +12448,10 @@ Ambrosia artemisiifolia elatior
 Ambrosia artemisiifolia elatior
 </td>
 <td style="text-align:left;">
-Common
+NA
 </td>
 <td style="text-align:left;">
-ITIS
+NA
 </td>
 <td style="text-align:left;">
 NA
@@ -13566,13 +13568,13 @@ Mosses
 Mosses
 </td>
 <td style="text-align:left;">
-Common
+NA
 </td>
 <td style="text-align:left;">
-ITIS
+NA
 </td>
 <td style="text-align:left;">
-14189
+NA
 </td>
 </tr>
 <tr>
@@ -13598,13 +13600,13 @@ Yellow Perch
 Yellow Perch
 </td>
 <td style="text-align:left;">
-Common
+NA
 </td>
 <td style="text-align:left;">
-ITIS
+NA
 </td>
 <td style="text-align:left;">
-168469
+NA
 </td>
 </tr>
 <tr>
@@ -13630,13 +13632,13 @@ Rainbow smelt
 Rainbow smelt
 </td>
 <td style="text-align:left;">
-Common
+NA
 </td>
 <td style="text-align:left;">
-ITIS
+NA
 </td>
 <td style="text-align:left;">
-162041
+NA
 </td>
 </tr>
 <tr>
@@ -14123,31 +14125,15 @@ ITIS
 <h1 class="hasAnchor">
 <a href="#make-taxonomiccoverage-eml" class="anchor"></a>Make taxonomicCoverage EML</h1>
 <p>When creating EML metadata (Ecological Metadata Language), it is a good practice to include the taxonomic entities and their respective hierarchies to facilitate search and discovery.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="co"># Create the taxonomicCoverage EML node set and write to file</span></a>
-<a class="sourceLine" id="cb14-2" title="2">output &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make_taxonomicCoverage.html">make_taxonomicCoverage</a></span>(<span class="dt">path =</span> my_path, <span class="dt">write.file =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb14-3" title="3">output &lt;-<span class="st"> </span>XML<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/XML/topics/xmlTreeParse">xmlTreeParse</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(my_path, <span class="st">'/taxonomicCoverage.xml'</span>))</a>
-<a class="sourceLine" id="cb14-4" title="4">output<span class="op">$</span>doc<span class="op">$</span>children</a></code></pre></div>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="co"># Create the taxonomicCoverage EML node set and write to file</span>
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/make_taxonomicCoverage.html">make_taxonomicCoverage</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="no">my_path</span>, <span class="kw">write.file</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<span class="no">output</span> <span class="kw">&lt;-</span> <span class="kw pkg">XML</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/XML/man/xmlTreeParse.html">xmlTreeParse</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">my_path</span>, <span class="st">'/taxonomicCoverage.xml'</span>))
+<span class="no">output</span>$<span class="no">doc</span>$<span class="no">children</span></pre></body></html></div>
 <pre><code>## $eml
-## &lt;eml:eml packageId="06ef2126-9553-4025-8019-b909589cde11" system="uuid" schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd" xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2"&gt;
+## &lt;eml:eml packageId="9cca2fd8-345f-46f4-a8c6-da11721fc5c1" system="uuid" schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd" xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2"&gt;
 ##  &lt;taxonomicClassification&gt;
-##   &lt;taxonRankName&gt;kingdom&lt;/taxonRankName&gt;
-##   &lt;taxonRankValue&gt;Plantae&lt;/taxonRankValue&gt;
-##   &lt;taxonomicClassification&gt;
-##    &lt;taxonRankName&gt;subkingdom&lt;/taxonRankName&gt;
-##    &lt;taxonRankValue&gt;Viridiplantae&lt;/taxonRankValue&gt;
-##    &lt;taxonomicClassification&gt;
-##     &lt;taxonRankName&gt;infrakingdom&lt;/taxonRankName&gt;
-##     &lt;taxonRankValue&gt;Streptophyta&lt;/taxonRankValue&gt;
-##     &lt;taxonomicClassification&gt;
-##      &lt;taxonRankName&gt;superdivision&lt;/taxonRankName&gt;
-##      &lt;taxonRankValue&gt;Embryophyta&lt;/taxonRankValue&gt;
-##      &lt;taxonomicClassification&gt;
-##       &lt;taxonRankName&gt;division&lt;/taxonRankName&gt;
-##       &lt;taxonRankValue&gt;Bryophyta&lt;/taxonRankValue&gt;
-##      &lt;/taxonomicClassification&gt;
-##     &lt;/taxonomicClassification&gt;
-##    &lt;/taxonomicClassification&gt;
-##   &lt;/taxonomicClassification&gt;
+##   &lt;taxonRankName&gt;unknown&lt;/taxonRankName&gt;
+##   &lt;taxonRankValue&gt;Mosses&lt;/taxonRankValue&gt;
 ##  &lt;/taxonomicClassification&gt;
 ##  &lt;taxonomicClassification&gt;
 ##   &lt;taxonRankName&gt;unknown&lt;/taxonRankName&gt;
@@ -15590,120 +15576,12 @@ ITIS
 ##   &lt;taxonRankValue&gt;-9999&lt;/taxonRankValue&gt;
 ##  &lt;/taxonomicClassification&gt;
 ##  &lt;taxonomicClassification&gt;
-##   &lt;taxonRankName&gt;kingdom&lt;/taxonRankName&gt;
-##   &lt;taxonRankValue&gt;Animalia&lt;/taxonRankValue&gt;
-##   &lt;taxonomicClassification&gt;
-##    &lt;taxonRankName&gt;subkingdom&lt;/taxonRankName&gt;
-##    &lt;taxonRankValue&gt;Bilateria&lt;/taxonRankValue&gt;
-##    &lt;taxonomicClassification&gt;
-##     &lt;taxonRankName&gt;infrakingdom&lt;/taxonRankName&gt;
-##     &lt;taxonRankValue&gt;Deuterostomia&lt;/taxonRankValue&gt;
-##     &lt;taxonomicClassification&gt;
-##      &lt;taxonRankName&gt;phylum&lt;/taxonRankName&gt;
-##      &lt;taxonRankValue&gt;Chordata&lt;/taxonRankValue&gt;
-##      &lt;taxonomicClassification&gt;
-##       &lt;taxonRankName&gt;subphylum&lt;/taxonRankName&gt;
-##       &lt;taxonRankValue&gt;Vertebrata&lt;/taxonRankValue&gt;
-##       &lt;taxonomicClassification&gt;
-##        &lt;taxonRankName&gt;infraphylum&lt;/taxonRankName&gt;
-##        &lt;taxonRankValue&gt;Gnathostomata&lt;/taxonRankValue&gt;
-##        &lt;taxonomicClassification&gt;
-##         &lt;taxonRankName&gt;superclass&lt;/taxonRankName&gt;
-##         &lt;taxonRankValue&gt;Actinopterygii&lt;/taxonRankValue&gt;
-##         &lt;taxonomicClassification&gt;
-##          &lt;taxonRankName&gt;class&lt;/taxonRankName&gt;
-##          &lt;taxonRankValue&gt;Teleostei&lt;/taxonRankValue&gt;
-##          &lt;taxonomicClassification&gt;
-##           &lt;taxonRankName&gt;superorder&lt;/taxonRankName&gt;
-##           &lt;taxonRankValue&gt;Acanthopterygii&lt;/taxonRankValue&gt;
-##           &lt;taxonomicClassification&gt;
-##            &lt;taxonRankName&gt;order&lt;/taxonRankName&gt;
-##            &lt;taxonRankValue&gt;Perciformes&lt;/taxonRankValue&gt;
-##            &lt;taxonomicClassification&gt;
-##             &lt;taxonRankName&gt;suborder&lt;/taxonRankName&gt;
-##             &lt;taxonRankValue&gt;Percoidei&lt;/taxonRankValue&gt;
-##             &lt;taxonomicClassification&gt;
-##              &lt;taxonRankName&gt;family&lt;/taxonRankName&gt;
-##              &lt;taxonRankValue&gt;Percidae&lt;/taxonRankValue&gt;
-##              &lt;taxonomicClassification&gt;
-##               &lt;taxonRankName&gt;genus&lt;/taxonRankName&gt;
-##               &lt;taxonRankValue&gt;Perca&lt;/taxonRankValue&gt;
-##               &lt;taxonomicClassification&gt;
-##                &lt;taxonRankName&gt;species&lt;/taxonRankName&gt;
-##                &lt;taxonRankValue&gt;Perca flavescens&lt;/taxonRankValue&gt;
-##               &lt;/taxonomicClassification&gt;
-##              &lt;/taxonomicClassification&gt;
-##             &lt;/taxonomicClassification&gt;
-##            &lt;/taxonomicClassification&gt;
-##           &lt;/taxonomicClassification&gt;
-##          &lt;/taxonomicClassification&gt;
-##         &lt;/taxonomicClassification&gt;
-##        &lt;/taxonomicClassification&gt;
-##       &lt;/taxonomicClassification&gt;
-##      &lt;/taxonomicClassification&gt;
-##     &lt;/taxonomicClassification&gt;
-##    &lt;/taxonomicClassification&gt;
-##   &lt;/taxonomicClassification&gt;
+##   &lt;taxonRankName&gt;unknown&lt;/taxonRankName&gt;
+##   &lt;taxonRankValue&gt;Yellow Perch&lt;/taxonRankValue&gt;
 ##  &lt;/taxonomicClassification&gt;
 ##  &lt;taxonomicClassification&gt;
-##   &lt;taxonRankName&gt;kingdom&lt;/taxonRankName&gt;
-##   &lt;taxonRankValue&gt;Animalia&lt;/taxonRankValue&gt;
-##   &lt;taxonomicClassification&gt;
-##    &lt;taxonRankName&gt;subkingdom&lt;/taxonRankName&gt;
-##    &lt;taxonRankValue&gt;Bilateria&lt;/taxonRankValue&gt;
-##    &lt;taxonomicClassification&gt;
-##     &lt;taxonRankName&gt;infrakingdom&lt;/taxonRankName&gt;
-##     &lt;taxonRankValue&gt;Deuterostomia&lt;/taxonRankValue&gt;
-##     &lt;taxonomicClassification&gt;
-##      &lt;taxonRankName&gt;phylum&lt;/taxonRankName&gt;
-##      &lt;taxonRankValue&gt;Chordata&lt;/taxonRankValue&gt;
-##      &lt;taxonomicClassification&gt;
-##       &lt;taxonRankName&gt;subphylum&lt;/taxonRankName&gt;
-##       &lt;taxonRankValue&gt;Vertebrata&lt;/taxonRankValue&gt;
-##       &lt;taxonomicClassification&gt;
-##        &lt;taxonRankName&gt;infraphylum&lt;/taxonRankName&gt;
-##        &lt;taxonRankValue&gt;Gnathostomata&lt;/taxonRankValue&gt;
-##        &lt;taxonomicClassification&gt;
-##         &lt;taxonRankName&gt;superclass&lt;/taxonRankName&gt;
-##         &lt;taxonRankValue&gt;Actinopterygii&lt;/taxonRankValue&gt;
-##         &lt;taxonomicClassification&gt;
-##          &lt;taxonRankName&gt;class&lt;/taxonRankName&gt;
-##          &lt;taxonRankValue&gt;Teleostei&lt;/taxonRankValue&gt;
-##          &lt;taxonomicClassification&gt;
-##           &lt;taxonRankName&gt;superorder&lt;/taxonRankName&gt;
-##           &lt;taxonRankValue&gt;Protacanthopterygii&lt;/taxonRankValue&gt;
-##           &lt;taxonomicClassification&gt;
-##            &lt;taxonRankName&gt;order&lt;/taxonRankName&gt;
-##            &lt;taxonRankValue&gt;Osmeriformes&lt;/taxonRankValue&gt;
-##            &lt;taxonomicClassification&gt;
-##             &lt;taxonRankName&gt;suborder&lt;/taxonRankName&gt;
-##             &lt;taxonRankValue&gt;Osmeroidei&lt;/taxonRankValue&gt;
-##             &lt;taxonomicClassification&gt;
-##              &lt;taxonRankName&gt;superfamily&lt;/taxonRankName&gt;
-##              &lt;taxonRankValue&gt;Osmeroidea&lt;/taxonRankValue&gt;
-##              &lt;taxonomicClassification&gt;
-##               &lt;taxonRankName&gt;family&lt;/taxonRankName&gt;
-##               &lt;taxonRankValue&gt;Osmeridae&lt;/taxonRankValue&gt;
-##               &lt;taxonomicClassification&gt;
-##                &lt;taxonRankName&gt;genus&lt;/taxonRankName&gt;
-##                &lt;taxonRankValue&gt;Osmerus&lt;/taxonRankValue&gt;
-##                &lt;taxonomicClassification&gt;
-##                 &lt;taxonRankName&gt;species&lt;/taxonRankName&gt;
-##                 &lt;taxonRankValue&gt;Osmerus mordax&lt;/taxonRankValue&gt;
-##                &lt;/taxonomicClassification&gt;
-##               &lt;/taxonomicClassification&gt;
-##              &lt;/taxonomicClassification&gt;
-##             &lt;/taxonomicClassification&gt;
-##            &lt;/taxonomicClassification&gt;
-##           &lt;/taxonomicClassification&gt;
-##          &lt;/taxonomicClassification&gt;
-##         &lt;/taxonomicClassification&gt;
-##        &lt;/taxonomicClassification&gt;
-##       &lt;/taxonomicClassification&gt;
-##      &lt;/taxonomicClassification&gt;
-##     &lt;/taxonomicClassification&gt;
-##    &lt;/taxonomicClassification&gt;
-##   &lt;/taxonomicClassification&gt;
+##   &lt;taxonRankName&gt;unknown&lt;/taxonRankName&gt;
+##   &lt;taxonRankValue&gt;Rainbow smelt&lt;/taxonRankValue&gt;
 ##  &lt;/taxonomicClassification&gt;
 ##  &lt;taxonomicClassification&gt;
 ##   &lt;taxonRankName&gt;unknown&lt;/taxonRankName&gt;
@@ -16169,30 +16047,14 @@ ITIS
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#overview">Overview</a></li>
-      <li><a href="#installation">Installation</a></li>
-      <li><a href="#load-data">Load data</a></li>
-      <li><a href="#create-taxa-map">Create taxa map</a></li>
-      <li><a href="#count-taxa">Count taxa</a></li>
-      <li><a href="#trim-taxa">Trim taxa</a></li>
-      <li><a href="#replace-taxa">Replace taxa</a></li>
-      <li><a href="#remove-taxa">Remove taxa</a></li>
-      <li><a href="#resolve-scientific-taxa">Resolve scientific taxa</a></li>
-      <li><a href="#resolve-common-taxa">Resolve common taxa</a></li>
-      <li><a href="#taxa-map-overview">Taxa map overview</a></li>
-      <li><a href="#revise-taxa">Revise taxa</a></li>
-      <li><a href="#make-taxonomiccoverage-eml">Make taxonomicCoverage EML</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
+
 
 
       <footer><div class="copyright">
@@ -16200,12 +16062,14 @@ ITIS
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

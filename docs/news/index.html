@@ -10,21 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -48,9 +54,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -64,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -72,7 +79,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -97,8 +104,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/EDIorg/taxonomyCleanr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/EDIorg/taxonomyCleanr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -109,52 +116,65 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/EDIorg/taxonomyCleanr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="taxonomycleanr-131" class="section level1">
+<h1 class="page-header" data-toc-text="1.3.1">
+<a href="#taxonomycleanr-131" class="anchor"></a>taxonomyCleanr 1.3.1</h1>
+<div id="bug-fix" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fix" class="anchor"></a>Bug fix</h3>
+<ul>
+<li>
+<strong>get_classification():</strong> A deprecated argument in <code><a href="https://docs.ropensci.org/taxize/reference/classification.html">taxize::classification()</a></code> was throwing errors. Thanks for the fix <a href='https://github.com/srearl'>@srearl</a> !</li>
+</ul>
+</div>
+</div>
     <div id="taxonomycleanr-130" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.3.0">
 <a href="#taxonomycleanr-130" class="anchor"></a>taxonomyCleanr 1.3.0</h1>
 <div id="enhancements" class="section level3">
 <h3 class="hasAnchor">
 <a href="#enhancements" class="anchor"></a>Enhancements</h3>
 <ul>
 <li>
-<strong>Support unresolved taxa:</strong> Taxa that could not be resolved to an authority system are now included in EML outputs with an accompanied taxonomic rank value of âunknownâ.</li>
+<strong>Support unresolved taxa:</strong> Taxa that could not be resolved to an authority system are now included in EML outputs with an accompanied taxonomic rank value of “unknown”.</li>
 <li>
 <strong>EML 2.2.0:</strong> EML output from <code><a href="../reference/make_taxonomicCoverage.html">make_taxonomicCoverage()</a></code> now uses schema version 2.2.0. Note: Annotation has not yet been implemented.</li>
 </ul>
 </div>
 </div>
     <div id="taxonomycleanr-120" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.2.0">
 <a href="#taxonomycleanr-120" class="anchor"></a>taxonomyCleanr 1.2.0</h1>
 <div id="enhancements-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#enhancements-1" class="anchor"></a>Enhancements</h3>
 <p>These enhancements focus on making the resolve functions more robust and efficient, specifically:</p>
 <ul>
-<li>Warn if an authority canât be reached</li>
-<li>Donât try resolving taxa that have already been resolved</li>
+<li>Warn if an authority can’t be reached</li>
+<li>Don’t try resolving taxa that have already been resolved</li>
 <li>Return results even if the connection to the authority fails</li>
 </ul>
 </div>
 </div>
     <div id="taxonomycleanr-113" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.1.3">
 <a href="#taxonomycleanr-113" class="anchor"></a>taxonomyCleanr 1.1.3</h1>
 <div id="bug-fixes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h3>
 <ul>
 <li>
-<strong>New table readers:</strong> Old table readers were inaccurately reading data (e.g.Â dropping quote characters). This has been fixed.</li>
+<strong>New table readers:</strong> Old table readers were inaccurately reading data (e.g. dropping quote characters). This has been fixed.</li>
 </ul>
 </div>
 <div id="enhancements-2" class="section level3">
@@ -167,7 +187,7 @@
 </div>
 </div>
     <div id="taxonomycleanr-112" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.1.2">
 <a href="#taxonomycleanr-112" class="anchor"></a>taxonomyCleanr 1.1.2</h1>
 <div id="bug-fixes-1" class="section level3">
 <h3 class="hasAnchor">
@@ -179,7 +199,7 @@
 </div>
 </div>
     <div id="taxonomycleanr-111" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.1.1">
 <a href="#taxonomycleanr-111" class="anchor"></a>taxonomyCleanr 1.1.1</h1>
 <div id="bug-fixes-2" class="section level3">
 <h3 class="hasAnchor">
@@ -191,7 +211,7 @@
 </div>
 </div>
     <div id="taxonomycleanr-110" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.1.0">
 <a href="#taxonomycleanr-110" class="anchor"></a>taxonomyCleanr 1.1.0</h1>
 <div id="enhancements-3" class="section level3">
 <h3 class="hasAnchor">
@@ -203,7 +223,7 @@
 </div>
 </div>
     <div id="taxonomycleanr-101" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.0.1">
 <a href="#taxonomycleanr-101" class="anchor"></a>taxonomyCleanr 1.0.1</h1>
 <div id="bug-fixes-3" class="section level3">
 <h3 class="hasAnchor">
@@ -215,7 +235,7 @@
 </div>
 </div>
     <div id="taxonomycleanr-100" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.0.0">
 <a href="#taxonomycleanr-100" class="anchor"></a>taxonomyCleanr 1.0.0</h1>
 <div id="enhancements-4" class="section level3">
 <h3 class="hasAnchor">
@@ -232,23 +252,14 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#taxonomycleanr-130">1.3.0</a></li>
-        <li><a href="#taxonomycleanr-120">1.2.0</a></li>
-        <li><a href="#taxonomycleanr-113">1.1.3</a></li>
-        <li><a href="#taxonomycleanr-112">1.1.2</a></li>
-        <li><a href="#taxonomycleanr-111">1.1.1</a></li>
-        <li><a href="#taxonomycleanr-110">1.1.0</a></li>
-        <li><a href="#taxonomycleanr-101">1.0.1</a></li>
-        <li><a href="#taxonomycleanr-100">1.0.0</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -256,13 +267,16 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
