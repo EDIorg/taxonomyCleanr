@@ -1,3 +1,9 @@
+# taxonomyCleanr 1.3.2
+
+### Bug fix
+
+* __Resolve common taxa:__ Changes in `taxize::get_tsn_()` resulted in `resolve_comm_taxa()` unable to fetch data. This issue has been fixed. Thanks @srearl!
+
 # taxonomyCleanr 1.3.1
 
 ### Bug fix
