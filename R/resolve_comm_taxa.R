@@ -227,11 +227,9 @@ get_id_common <- function(taxon, authority){
   if ((!is.na(authority)) & (authority == 'ITIS')){
     response <- as.data.frame(
       taxize::get_tsn_(
-        searchterm = taxon,
+        sci_com = taxon,
         searchtype = 'common',
-        ask = F
-      )
-    )
+        ask = FALSE))
     if (nrow(response) > 0){
       use_i <- tolower(response[ , 3]) == tolower(taxon)
       response <- response[use_i, ]
