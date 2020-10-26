@@ -6,8 +6,7 @@ library(taxonomyCleanr)
 data <- data.table::fread(
   system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv', package = 'taxonomyCleanr'),
   fill = TRUE,
-  blank.lines.skip = TRUE
-)
+  blank.lines.skip = TRUE)
 
 data <- data[!is.na(data$authority), ]
 data <- data[!data$rank == 'Common', ]
@@ -16,13 +15,13 @@ data <- data[data$authority == 'ITIS', ]
 path <- system.file('test_data.txt', package = 'taxonomyCleanr')
 path <- substr(path, 1, nchar(path) - 14)
 
-taxclass <- get_classification(taxa.clean = data$taxa_clean[1],
-                               authority = data$authority[1],
-                               authority.id = as.numeric(data$authority_id[1]))
+taxclass <- get_classification(
+  taxa.clean = data$taxa_clean[1],
+  authority = data$authority[1],
+  authority.id = as.numeric(data$authority_id[1]))
 
-# Tests -----------------------------------------------------------------------
+# Test output attributes ------------------------------------------------------
 
-# Test output attributes
 testthat::test_that('Return list', {
   expect_equal(
     class(get_classification(
@@ -31,7 +30,24 @@ testthat::test_that('Return list', {
       authority.id = as.numeric(data$authority_id[1]))),
     'list')
 })
-testthat::test_that('List should be data frame', {
-  expect_equal(class(taxclass[[1]]), 'data.frame')
-})
 
+
+# Unresolvable names ----------------------------------------------------------
+
+testthat::test_that('Unresolvable names', {
+
+  data <- data.table::fread(
+    file = system.file(
+      '/taxa_map_resolve_sci_taxa/taxa_map.csv',
+      package = 'taxonomyCleanr'),
+    fill = TRUE,
+    blank.lines.skip = TRUE)
+
+  r <- get_classification(
+    taxa.clean = data$taxa_clean,
+    authority = data$authority,
+    authority.id = data$authority_id)
+
+  expect_equal(class(r), 'list')
+
+})

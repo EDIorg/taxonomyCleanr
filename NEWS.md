@@ -1,3 +1,11 @@
+# taxonomyCleanr 1.4.0
+
+### Enhancement
+
+* __Annotation:__ Authority system and taxon identifier are now listed for each taxonomicClassification node (taxonomic rank) created via `make_taxonomicCoverage()` or `get_classification()`. Fixes [issue #28](https://github.com/EDIorg/taxonomyCleanr/issues/28)
+
+* __Common names:__ All common names are listed, when available, for each taxonomicClassification node (taxonomic rank) created via `make_taxonomicCoverage()` or `get_classification()`. Fixes [issue #14](https://github.com/EDIorg/taxonomyCleanr/issues/14)
+
 # taxonomyCleanr 1.3.2
 
 ### Bug fix

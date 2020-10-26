@@ -25,8 +25,8 @@
 #'     Default is \code{TRUE}.
 #'
 #' @return
-#'     The taxonomicCoverage as an 'emld' 'list' object (required for use in
-#'     the \code{EML} library), and written to taxonomicCoverage.xml if
+#'     A list of taxonomicClassification as an 'emld' 'list' object (required for
+#'     use in the \code{EML} library), and written to taxonomicCoverage.xml if
 #'     \code{write.file = TRUE}.
 #'
 #' @examples
@@ -61,7 +61,6 @@
 #'
 #' @export
 #'
-
 make_taxonomicCoverage <- function(
   taxa.clean,
   rank = NULL,
@@ -81,13 +80,11 @@ make_taxonomicCoverage <- function(
   # Validate arguments --------------------------------------------------------
 
   # A path is required when writing to file
-
   if (missing(path) & isTRUE(write.file)){
     stop('Input argument "path" is required when writing data to file.')
   }
 
   # The path must be valid
-
   if (!missing(path)){
     EDIutils::validate_path(path)
   }
@@ -107,44 +104,29 @@ make_taxonomicCoverage <- function(
     }
   }
 
-  # Retrieve taxonomic clasifications -----------------------------------------
-
-  message('Retrieving classifications')
-
-  # Retrieve taxonomic classifications.
-
-  data <- unname(
-    get_classification(
-      taxa.clean = taxa.clean,
-      authority = authority,
-      authority.id = authority.id,
-      path = path))
+  # Remove any blank or missing taxa otherwise get_classification() will throw
+  # errors
+  missing_names <- is.na(taxa.clean) | taxa.clean == ""
+  taxa.clean <- taxa.clean[!missing_names]
+  authority <- authority[!missing_names]
+  authority.id <- authority.id[!missing_names]
 
   # Create taxonomicCoverage --------------------------------------------------
 
-  # Convert data to named list objects for EML::set_taxonomicCoverage() and add
-  # ranks and values of unresolved taxa
+  # This method supports EML annotation and more than one common name per taxon
+  # rank and thus requires a nested list structure not currently supported by
+  # EML::set_taxonomicCoverage().
 
-  data <- lapply(
-    data,
-    function(x){
-      output <- x$name
-      names(output) <- x$rank
-      output
-    })
+  # Retrieve taxonomic hierarchy and common names when possible
+  classifications <- get_classification(
+    taxa.clean = taxa.clean,
+    authority = authority,
+    authority.id = authority.id,
+    path = path)
 
-  use_i <- unlist(
-    lapply(
-      data,
-      is.null))
-  for (i in which(use_i)) {
-    data[[i]] <- c(unknown = taxa.clean[i])
-  }
-
-  # Create taxonomicCoverage (as a list object) from data containing varying
-  # rank levels.
-
-  taxonomicCoverage <- EML::set_taxonomicCoverage(data)
+  # Recursively convert classifications into the nested structure expected by
+  # EML::write_eml().
+  taxonomic_coverage <- set_taxonomic_coverage(classifications)
 
   # Write to file -------------------------------------------------------------
 
@@ -152,13 +134,59 @@ make_taxonomicCoverage <- function(
     message('Writing taxonomicCoverage.xml')
     emld::eml_version("eml-2.2.0")
     EML::write_eml(
-      eml = taxonomicCoverage,
+      eml = taxonomic_coverage,
       file = paste0(path, '/taxonomicCoverage.xml'))
   }
 
   # Return object -------------------------------------------------------------
 
   message('Done.')
-  taxonomicCoverage
+  return(taxonomic_coverage)
+
+}
+
+
+
+
+
+
+
+#' Create the taxonomicCoverage EML node
+#'
+#' @param sci_names
+#'     (list) Object returned by \code{taxonomyCleanr::get_classification()}.
+#'
+#' @return
+#' \item{list}{If \code{write.file = FALSE} an emld list object is returned
+#' for use with the EML R Package.}
+#' \item{.xml file}{If \code{write.file = TRUE} a .xml file is written to
+#' \code{path}}.
+#'
+set_taxonomic_coverage <- function(sci_names) {
+
+  pop <- function(taxa) {
+    if (length(taxa) > 1) {
+      list(
+        taxonRankName = taxa[[1]]$taxonRankName,
+        taxonRankValue = taxa[[1]]$taxonRankValue,
+        taxonId = taxa[[1]]$taxonId,
+        commonName = taxa[[1]]$commonName,
+        taxonomicClassification = pop(taxa[-1]))
+    } else {
+      list(
+        taxonRankName = taxa[[1]]$taxonRankName,
+        taxonRankValue = taxa[[1]]$taxonRankValue,
+        taxonId = taxa[[1]]$taxonId,
+        commonName = taxa[[1]]$commonName)
+    }
+  }
+
+  taxa <- lapply(
+    sci_names,
+    function(sci_name) {
+      pop(sci_name)
+    })
+
+  return(list(taxonomicClassification = taxa))
 
 }

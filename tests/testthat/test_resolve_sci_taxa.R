@@ -28,15 +28,14 @@ testthat::test_that('Output table is standardized', {
           c('index', 'taxa', 'taxa_clean', 'rank', 'authority',
             'authority_id', 'score')))
 
+    expect_true(complete.cases(r))
+
   }
 
-  # Check outputs of accepted sources
-
+  # Check outputs of accepted source
   check_output_table("Oncorhynchus tshawytscha", data.source = 3)
-  # check_output_table("Oncorhynchus tshawytscha", data.source = 1)
   check_output_table("Oncorhynchus tshawytscha", data.source = 9)
   check_output_table("Oncorhynchus tshawytscha", data.source = 11)
-  check_output_table("Oncorhynchus tshawytscha", data.source = 165)
 
 })
 

@@ -34,8 +34,8 @@ to where taxa_map.csv is located.}
 Default is \code{TRUE}.}
 }
 \value{
-The taxonomicCoverage as an 'emld' 'list' object (required for use in
-    the \code{EML} library), and written to taxonomicCoverage.xml if
+A list of taxonomicClassification as an 'emld' 'list' object (required for
+    use in the \code{EML} library), and written to taxonomicCoverage.xml if
     \code{write.file = TRUE}.
 }
 \description{

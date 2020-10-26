@@ -10,8 +10,6 @@ data <- data.table::fread(
   blank.lines.skip = TRUE)
 path <- system.file('test_data.txt', package = 'taxonomyCleanr')
 path <- substr(path, 1, nchar(path) - 14)
-taxcov <- EML::read_eml(
-  system.file('taxonomicCoverage.xml', package = 'taxonomyCleanr'))
 
 # Write to path ---------------------------------------------------------------
 
@@ -29,7 +27,7 @@ testthat::test_that('Write to path', {
   # Make function call
   output <- suppressMessages(
     make_taxonomicCoverage(
-      taxa.clean = data$taxa_clean,
+      taxa.clean = data$taxa_raw,
       authority = data$authority,
       authority.id = data$authority_id,
       path = tempdir(),

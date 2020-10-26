@@ -20,7 +20,11 @@ tracks relationships between your raw and cleaned data and is operated
 on by this function. Create this file with `create_taxa_map`.}
 }
 \value{
-(list) A list taxa with corresponding hierarchical names and ranks.
+(list of data frames) If \code{include.common} is FALSE, then a list of
+    data frames is returned.
+    (list of lists) If \code{include.common} is TRUE, then a list of named
+    lists is returned. This structure accomodates cases where a scientific
+    name and rank has more than one common name.
 }
 \description{
 Get the classification hierarchy of taxa.
