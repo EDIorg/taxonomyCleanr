@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get counts of unique taxa — count_taxa • taxonomyCleanr</title>
+<title>Create the taxonomicCoverage EML node — set_taxonomic_coverage • taxonomyCleanr</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Get counts of unique taxa — count_taxa" />
-<meta property="og:description" content="View unique occurences and counts of taxa to help identify spelling
-    errors." />
+<meta property="og:title" content="Create the taxonomicCoverage EML node — set_taxonomic_coverage" />
+<meta property="og:description" content="Create the taxonomicCoverage EML node" />
 
 
 
@@ -124,44 +123,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get counts of unique taxa</h1>
-    <small class="dont-index">Source: <a href='https://github.com/EDIorg/taxonomyCleanr/blob/master/R/count_taxa.R'><code>R/count_taxa.R</code></a></small>
-    <div class="hidden name"><code>count_taxa.Rd</code></div>
+    <h1>Create the taxonomicCoverage EML node</h1>
+    <small class="dont-index">Source: <a href='https://github.com/EDIorg/taxonomyCleanr/blob/master/R/make_taxonomicCoverage.R'><code>R/make_taxonomicCoverage.R</code></a></small>
+    <div class="hidden name"><code>set_taxonomic_coverage.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>View unique occurences and counts of taxa to help identify spelling
-    errors.</p>
+    <p>Create the taxonomicCoverage EML node</p>
     </div>
 
-    <pre class="usage"><span class='fu'>count_taxa</span>(<span class='no'>x</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>set_taxonomic_coverage</span>(<span class='no'>sci_names</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>(data frame or character) A data frame or vector of taxa names to be
-cleaned.</p></td>
-    </tr>
-    <tr>
-      <th>col</th>
-      <td><p>(character) A character string specifying the column in x containing
-taxa names to be cleaned. NOTE: Don't use this argument if x is of
-character class.</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>(character) A character string specifying the path to taxa_map.csv.
-This table tracks relationships between your raw and cleaned data and
-is used by this function.</p></td>
+      <th>sci_names</th>
+      <td><p>(list) Object returned by <code><a href='get_classification.html'>taxonomyCleanr::get_classification()</a></code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>(data frame) A data frame with taxa and associated counts found in the
-    input, sorted alphabetically by taxa.</p>
+    
+
+<dt>list</dt><dd><p>If <code>write.file = FALSE</code> an emld list object is returned
+for use with the EML R Package.</p></dd>
+<dt>.xml file</dt><dd><p>If <code>write.file = TRUE</code> a .xml file is written to
+<code>path</code></p></dd>.
+
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

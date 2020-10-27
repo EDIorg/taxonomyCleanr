@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
       </span>
     </div>
 
@@ -161,7 +161,11 @@ on by this function. Create this file with `create_taxa_map`.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>(list) A list taxa with corresponding hierarchical names and ranks.</p>
+    <p>(list of data frames) If <code>include.common</code> is FALSE, then a list of
+    data frames is returned.
+    (list of lists) If <code>include.common</code> is TRUE, then a list of named
+    lists is returned. This structure accomodates cases where a scientific
+    name and rank has more than one common name.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
       </span>
     </div>
 
@@ -79,7 +79,8 @@
 
       
 
-      </header><script src="a_common_use_case_files/kePrint-0.0.1/kePrint.js"></script><div class="row">
+      </header><link href="a_common_use_case_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="a_common_use_case_files/anchor-sections-1.0/anchor-sections.js"></script><script src="a_common_use_case_files/kePrint-0.0.1/kePrint.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Tracking provenance throughout the cleaning process</h1>
@@ -111,7 +112,7 @@
 <a href="#load-data" class="anchor"></a>Load data</h1>
 <p>Load the taxonomic data into RStudio as a data frame (or tibble). The taxa must be listed in a single column of character type class, not factor type class.</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co"># Load test data installed with the taxonomyCleanr package</span>
-<span class="no">data</span> <span class="kw">&lt;-</span> <span class="kw pkg">data.table</span><span class="kw ns">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html">fread</a></span>(<span class="kw">file</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">'example_data.txt'</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">'taxonomyCleanr'</span>))</pre></body></html></div>
+<span class="no">data</span> <span class="kw">&lt;-</span> <span class="kw pkg">data.table</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/fread.html">fread</a></span>(<span class="kw">file</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">'example_data.txt'</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">'taxonomyCleanr'</span>))</pre></body></html></div>
 <p>This data table has 6 columns:</p>
 <ul>
 <li>
@@ -6452,19 +6453,19 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-NA
+Mosses
 </td>
 <td style="text-align:left;">
-NA
+Common
 </td>
 <td style="text-align:left;">
-NA
+ITIS
 </td>
 <td style="text-align:left;">
-NA
+14189
 </td>
 <td style="text-align:left;">
-NA
+Mosses
 </td>
 <td style="text-align:left;">
 NA
@@ -7828,19 +7829,19 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-NA
+Yellow Perch
 </td>
 <td style="text-align:left;">
-NA
+Common
 </td>
 <td style="text-align:left;">
-NA
+ITIS
 </td>
 <td style="text-align:left;">
-NA
+168469
 </td>
 <td style="text-align:left;">
-NA
+Yellow Perch
 </td>
 <td style="text-align:left;">
 NA
@@ -7860,19 +7861,19 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-NA
+Rainbow smelt
 </td>
 <td style="text-align:left;">
-NA
+Common
 </td>
 <td style="text-align:left;">
-NA
+ITIS
 </td>
 <td style="text-align:left;">
-NA
+162041
 </td>
 <td style="text-align:left;">
-NA
+Rainbow smelt
 </td>
 <td style="text-align:left;">
 NA
@@ -8413,19 +8414,19 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-NA
+Mosses
 </td>
 <td style="text-align:left;">
-NA
+Common
 </td>
 <td style="text-align:left;">
-NA
+ITIS
 </td>
 <td style="text-align:left;">
-NA
+14189
 </td>
 <td style="text-align:left;">
-NA
+Mosses
 </td>
 <td style="text-align:left;">
 NA
@@ -9789,19 +9790,19 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-NA
+Yellow Perch
 </td>
 <td style="text-align:left;">
-NA
+Common
 </td>
 <td style="text-align:left;">
-NA
+ITIS
 </td>
 <td style="text-align:left;">
-NA
+168469
 </td>
 <td style="text-align:left;">
-NA
+Yellow Perch
 </td>
 <td style="text-align:left;">
 NA
@@ -9821,19 +9822,19 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-NA
+Rainbow smelt
 </td>
 <td style="text-align:left;">
-NA
+Common
 </td>
 <td style="text-align:left;">
-NA
+ITIS
 </td>
 <td style="text-align:left;">
-NA
+162041
 </td>
 <td style="text-align:left;">
-NA
+Rainbow smelt
 </td>
 <td style="text-align:left;">
 NA
@@ -10368,13 +10369,13 @@ Mosses
 Mosses
 </td>
 <td style="text-align:left;">
-NA
+Common
 </td>
 <td style="text-align:left;">
-NA
+ITIS
 </td>
 <td style="text-align:left;">
-NA
+14189
 </td>
 </tr>
 <tr>
@@ -13568,13 +13569,13 @@ Mosses
 Mosses
 </td>
 <td style="text-align:left;">
-NA
+Common
 </td>
 <td style="text-align:left;">
-NA
+ITIS
 </td>
 <td style="text-align:left;">
-NA
+14189
 </td>
 </tr>
 <tr>
@@ -13600,13 +13601,13 @@ Yellow Perch
 Yellow Perch
 </td>
 <td style="text-align:left;">
-NA
+Common
 </td>
 <td style="text-align:left;">
-NA
+ITIS
 </td>
 <td style="text-align:left;">
-NA
+168469
 </td>
 </tr>
 <tr>
@@ -13632,13 +13633,13 @@ Rainbow smelt
 Rainbow smelt
 </td>
 <td style="text-align:left;">
-NA
+Common
 </td>
 <td style="text-align:left;">
-NA
+ITIS
 </td>
 <td style="text-align:left;">
-NA
+162041
 </td>
 </tr>
 <tr>
@@ -14130,10 +14131,26 @@ ITIS
 <span class="no">output</span> <span class="kw">&lt;-</span> <span class="kw pkg">XML</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/XML/man/xmlTreeParse.html">xmlTreeParse</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">my_path</span>, <span class="st">'/taxonomicCoverage.xml'</span>))
 <span class="no">output</span>$<span class="no">doc</span>$<span class="no">children</span></pre></body></html></div>
 <pre><code>## $eml
-## &lt;eml:eml packageId="62406849-b63f-41e2-bbb6-80bcbfddd8a3" system="uuid" schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd" xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2"&gt;
+## &lt;eml:eml packageId="0d8e76b8-7659-40e6-8c39-bc56f4dfdfca" system="uuid" schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd" xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2"&gt;
 ##  &lt;taxonomicClassification&gt;
-##   &lt;taxonRankName&gt;unknown&lt;/taxonRankName&gt;
-##   &lt;taxonRankValue&gt;Mosses&lt;/taxonRankValue&gt;
+##   &lt;taxonRankName&gt;kingdom&lt;/taxonRankName&gt;
+##   &lt;taxonRankValue&gt;Plantae&lt;/taxonRankValue&gt;
+##   &lt;taxonomicClassification&gt;
+##    &lt;taxonRankName&gt;subkingdom&lt;/taxonRankName&gt;
+##    &lt;taxonRankValue&gt;Viridiplantae&lt;/taxonRankValue&gt;
+##    &lt;taxonomicClassification&gt;
+##     &lt;taxonRankName&gt;infrakingdom&lt;/taxonRankName&gt;
+##     &lt;taxonRankValue&gt;Streptophyta&lt;/taxonRankValue&gt;
+##     &lt;taxonomicClassification&gt;
+##      &lt;taxonRankName&gt;superdivision&lt;/taxonRankName&gt;
+##      &lt;taxonRankValue&gt;Embryophyta&lt;/taxonRankValue&gt;
+##      &lt;taxonomicClassification&gt;
+##       &lt;taxonRankName&gt;division&lt;/taxonRankName&gt;
+##       &lt;taxonRankValue&gt;Bryophyta&lt;/taxonRankValue&gt;
+##      &lt;/taxonomicClassification&gt;
+##     &lt;/taxonomicClassification&gt;
+##    &lt;/taxonomicClassification&gt;
+##   &lt;/taxonomicClassification&gt;
 ##  &lt;/taxonomicClassification&gt;
 ##  &lt;taxonomicClassification&gt;
 ##   &lt;taxonRankName&gt;unknown&lt;/taxonRankName&gt;
@@ -15576,12 +15593,120 @@ ITIS
 ##   &lt;taxonRankValue&gt;-9999&lt;/taxonRankValue&gt;
 ##  &lt;/taxonomicClassification&gt;
 ##  &lt;taxonomicClassification&gt;
-##   &lt;taxonRankName&gt;unknown&lt;/taxonRankName&gt;
-##   &lt;taxonRankValue&gt;Yellow Perch&lt;/taxonRankValue&gt;
+##   &lt;taxonRankName&gt;kingdom&lt;/taxonRankName&gt;
+##   &lt;taxonRankValue&gt;Animalia&lt;/taxonRankValue&gt;
+##   &lt;taxonomicClassification&gt;
+##    &lt;taxonRankName&gt;subkingdom&lt;/taxonRankName&gt;
+##    &lt;taxonRankValue&gt;Bilateria&lt;/taxonRankValue&gt;
+##    &lt;taxonomicClassification&gt;
+##     &lt;taxonRankName&gt;infrakingdom&lt;/taxonRankName&gt;
+##     &lt;taxonRankValue&gt;Deuterostomia&lt;/taxonRankValue&gt;
+##     &lt;taxonomicClassification&gt;
+##      &lt;taxonRankName&gt;phylum&lt;/taxonRankName&gt;
+##      &lt;taxonRankValue&gt;Chordata&lt;/taxonRankValue&gt;
+##      &lt;taxonomicClassification&gt;
+##       &lt;taxonRankName&gt;subphylum&lt;/taxonRankName&gt;
+##       &lt;taxonRankValue&gt;Vertebrata&lt;/taxonRankValue&gt;
+##       &lt;taxonomicClassification&gt;
+##        &lt;taxonRankName&gt;infraphylum&lt;/taxonRankName&gt;
+##        &lt;taxonRankValue&gt;Gnathostomata&lt;/taxonRankValue&gt;
+##        &lt;taxonomicClassification&gt;
+##         &lt;taxonRankName&gt;superclass&lt;/taxonRankName&gt;
+##         &lt;taxonRankValue&gt;Actinopterygii&lt;/taxonRankValue&gt;
+##         &lt;taxonomicClassification&gt;
+##          &lt;taxonRankName&gt;class&lt;/taxonRankName&gt;
+##          &lt;taxonRankValue&gt;Teleostei&lt;/taxonRankValue&gt;
+##          &lt;taxonomicClassification&gt;
+##           &lt;taxonRankName&gt;superorder&lt;/taxonRankName&gt;
+##           &lt;taxonRankValue&gt;Acanthopterygii&lt;/taxonRankValue&gt;
+##           &lt;taxonomicClassification&gt;
+##            &lt;taxonRankName&gt;order&lt;/taxonRankName&gt;
+##            &lt;taxonRankValue&gt;Perciformes&lt;/taxonRankValue&gt;
+##            &lt;taxonomicClassification&gt;
+##             &lt;taxonRankName&gt;suborder&lt;/taxonRankName&gt;
+##             &lt;taxonRankValue&gt;Percoidei&lt;/taxonRankValue&gt;
+##             &lt;taxonomicClassification&gt;
+##              &lt;taxonRankName&gt;family&lt;/taxonRankName&gt;
+##              &lt;taxonRankValue&gt;Percidae&lt;/taxonRankValue&gt;
+##              &lt;taxonomicClassification&gt;
+##               &lt;taxonRankName&gt;genus&lt;/taxonRankName&gt;
+##               &lt;taxonRankValue&gt;Perca&lt;/taxonRankValue&gt;
+##               &lt;taxonomicClassification&gt;
+##                &lt;taxonRankName&gt;species&lt;/taxonRankName&gt;
+##                &lt;taxonRankValue&gt;Perca flavescens&lt;/taxonRankValue&gt;
+##               &lt;/taxonomicClassification&gt;
+##              &lt;/taxonomicClassification&gt;
+##             &lt;/taxonomicClassification&gt;
+##            &lt;/taxonomicClassification&gt;
+##           &lt;/taxonomicClassification&gt;
+##          &lt;/taxonomicClassification&gt;
+##         &lt;/taxonomicClassification&gt;
+##        &lt;/taxonomicClassification&gt;
+##       &lt;/taxonomicClassification&gt;
+##      &lt;/taxonomicClassification&gt;
+##     &lt;/taxonomicClassification&gt;
+##    &lt;/taxonomicClassification&gt;
+##   &lt;/taxonomicClassification&gt;
 ##  &lt;/taxonomicClassification&gt;
 ##  &lt;taxonomicClassification&gt;
-##   &lt;taxonRankName&gt;unknown&lt;/taxonRankName&gt;
-##   &lt;taxonRankValue&gt;Rainbow smelt&lt;/taxonRankValue&gt;
+##   &lt;taxonRankName&gt;kingdom&lt;/taxonRankName&gt;
+##   &lt;taxonRankValue&gt;Animalia&lt;/taxonRankValue&gt;
+##   &lt;taxonomicClassification&gt;
+##    &lt;taxonRankName&gt;subkingdom&lt;/taxonRankName&gt;
+##    &lt;taxonRankValue&gt;Bilateria&lt;/taxonRankValue&gt;
+##    &lt;taxonomicClassification&gt;
+##     &lt;taxonRankName&gt;infrakingdom&lt;/taxonRankName&gt;
+##     &lt;taxonRankValue&gt;Deuterostomia&lt;/taxonRankValue&gt;
+##     &lt;taxonomicClassification&gt;
+##      &lt;taxonRankName&gt;phylum&lt;/taxonRankName&gt;
+##      &lt;taxonRankValue&gt;Chordata&lt;/taxonRankValue&gt;
+##      &lt;taxonomicClassification&gt;
+##       &lt;taxonRankName&gt;subphylum&lt;/taxonRankName&gt;
+##       &lt;taxonRankValue&gt;Vertebrata&lt;/taxonRankValue&gt;
+##       &lt;taxonomicClassification&gt;
+##        &lt;taxonRankName&gt;infraphylum&lt;/taxonRankName&gt;
+##        &lt;taxonRankValue&gt;Gnathostomata&lt;/taxonRankValue&gt;
+##        &lt;taxonomicClassification&gt;
+##         &lt;taxonRankName&gt;superclass&lt;/taxonRankName&gt;
+##         &lt;taxonRankValue&gt;Actinopterygii&lt;/taxonRankValue&gt;
+##         &lt;taxonomicClassification&gt;
+##          &lt;taxonRankName&gt;class&lt;/taxonRankName&gt;
+##          &lt;taxonRankValue&gt;Teleostei&lt;/taxonRankValue&gt;
+##          &lt;taxonomicClassification&gt;
+##           &lt;taxonRankName&gt;superorder&lt;/taxonRankName&gt;
+##           &lt;taxonRankValue&gt;Protacanthopterygii&lt;/taxonRankValue&gt;
+##           &lt;taxonomicClassification&gt;
+##            &lt;taxonRankName&gt;order&lt;/taxonRankName&gt;
+##            &lt;taxonRankValue&gt;Osmeriformes&lt;/taxonRankValue&gt;
+##            &lt;taxonomicClassification&gt;
+##             &lt;taxonRankName&gt;suborder&lt;/taxonRankName&gt;
+##             &lt;taxonRankValue&gt;Osmeroidei&lt;/taxonRankValue&gt;
+##             &lt;taxonomicClassification&gt;
+##              &lt;taxonRankName&gt;superfamily&lt;/taxonRankName&gt;
+##              &lt;taxonRankValue&gt;Osmeroidea&lt;/taxonRankValue&gt;
+##              &lt;taxonomicClassification&gt;
+##               &lt;taxonRankName&gt;family&lt;/taxonRankName&gt;
+##               &lt;taxonRankValue&gt;Osmeridae&lt;/taxonRankValue&gt;
+##               &lt;taxonomicClassification&gt;
+##                &lt;taxonRankName&gt;genus&lt;/taxonRankName&gt;
+##                &lt;taxonRankValue&gt;Osmerus&lt;/taxonRankValue&gt;
+##                &lt;taxonomicClassification&gt;
+##                 &lt;taxonRankName&gt;species&lt;/taxonRankName&gt;
+##                 &lt;taxonRankValue&gt;Osmerus mordax&lt;/taxonRankValue&gt;
+##                &lt;/taxonomicClassification&gt;
+##               &lt;/taxonomicClassification&gt;
+##              &lt;/taxonomicClassification&gt;
+##             &lt;/taxonomicClassification&gt;
+##            &lt;/taxonomicClassification&gt;
+##           &lt;/taxonomicClassification&gt;
+##          &lt;/taxonomicClassification&gt;
+##         &lt;/taxonomicClassification&gt;
+##        &lt;/taxonomicClassification&gt;
+##       &lt;/taxonomicClassification&gt;
+##      &lt;/taxonomicClassification&gt;
+##     &lt;/taxonomicClassification&gt;
+##    &lt;/taxonomicClassification&gt;
+##   &lt;/taxonomicClassification&gt;
 ##  &lt;/taxonomicClassification&gt;
 ##  &lt;taxonomicClassification&gt;
 ##   &lt;taxonRankName&gt;unknown&lt;/taxonRankName&gt;
