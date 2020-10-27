@@ -137,13 +137,5 @@ read_taxa_map <- function(path) {
   data.table::fread(
     file = paste0(path, "/taxa_map.csv"),
     fill = TRUE,
-    blank.lines.skip = TRUE,
-    na.strings = "",
-    colClasses = rep(
-      "character",
-      max(
-        utils::count.fields(
-          paste0(path, "/taxa_map.csv"),
-          sep = ","),
-        na.rm = T)))
+    blank.lines.skip = TRUE)
 }
