@@ -92,12 +92,11 @@ make_taxonomicCoverage <- function(
   # Load data -----------------------------------------------------------------
 
   # Load data from taxa_map.csv (if it exists).
-
-  if (!missing(path)){
-    if (file.exists(paste0(path, '/taxa_map.csv'))){
+  if (!missing(path)) {
+    if (file.exists(paste0(path, '/taxa_map.csv'))) {
       taxa_map <- read_taxa_map(path)
-      taxa_map$taxa_clean[is.na(taxa_map$taxa_clean)] <- taxa_map$taxa_raw[
-          is.na(taxa_map$taxa_clean)]
+      taxa_map$taxa_clean[is.na(taxa_map$taxa_clean)] <-
+        taxa_map$taxa_raw[is.na(taxa_map$taxa_clean)]
       taxa.clean <- taxa_map$taxa_clean
       authority <- taxa_map$authority
       authority.id <- taxa_map$authority_id
