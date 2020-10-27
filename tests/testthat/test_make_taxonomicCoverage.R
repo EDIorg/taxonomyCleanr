@@ -4,18 +4,28 @@ library(EML)
 
 # Parameterize ----------------------------------------------------------------
 
+# Remove any test files existing in tempdir()
+unlink(
+  c(paste0(tempdir(), "/taxa_map.csv"),
+    paste0(tempdir(), "/taxonomicCoverage.xml")),
+  recursive = TRUE,
+  force = TRUE)
+
+# Use a random subset of the data
 data <- data.table::fread(
-  file = system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv', package = 'taxonomyCleanr'),
+  file = system.file(
+    '/taxa_map_resolve_sci_taxa/taxa_map.csv',
+    package = 'taxonomyCleanr'),
   fill = TRUE,
   blank.lines.skip = TRUE)
-path <- system.file('test_data.txt', package = 'taxonomyCleanr')
-path <- substr(path, 1, nchar(path) - 14)
+data <- data[sample(nrow(data), nrow(data)/2), ]
 
-# Write to path ---------------------------------------------------------------
+# Arguments -------------------------------------------------------------------
 
-testthat::test_that('Write to path', {
+testthat::test_that('Arguments', {
 
   # write.file = TRUE requires a valid path
+
   expect_error(
     suppressMessages(
       make_taxonomicCoverage(
@@ -24,8 +34,15 @@ testthat::test_that('Write to path', {
         authority.id = data$authority_id,
         write.file = TRUE)))
 
-  # Make function call
-  output <- suppressMessages(
+})
+
+# Input is a list of names ----------------------------------------------------
+
+testthat::test_that('Input is a list of names', {
+
+  # Call with list of taxa
+
+  r <- suppressMessages(
     make_taxonomicCoverage(
       taxa.clean = data$taxa_raw,
       authority = data$authority,
@@ -33,45 +50,94 @@ testthat::test_that('Write to path', {
       path = tempdir(),
       write.file = TRUE))
 
-  # File type is .xml
-  expect_true(
-    'taxonomicCoverage.xml' %in% list.files(tempdir()))
+  expect_true('taxonomicCoverage.xml' %in% list.files(tempdir()))
+  expect_true(length(r$taxonomicClassification) == nrow(data))
 
-  # Reading taxonomicCoverage.xml creates an object of class 'emld' 'list'
-  expect_true(
-    all(class(EML::read_eml(paste0(tempdir(), '/taxonomicCoverage.xml'))) %in%
-      c('emld', 'list')))
+  # Unresolved taxa are included in the output
 
-})
+  if (any(is.na(data$taxa_clean))) {
+    unresolvable_taxa <- which(is.na(data$taxa_clean))
+    for (i in unresolvable_taxa) {
+      expect_true(r$taxonomicClassification[[i]]$taxonRankName == "unknown")
+      expect_true(r$taxonomicClassification[[i]]$taxonRankValue ==
+                    data[unresolvable_taxa, "taxa_raw"])
+      expect_true(
+        is.na(r$taxonomicClassification[[i]]$taxonId$provider))
+      expect_true(
+        is.na(r$taxonomicClassification[[i]]$taxonId$taxonId))
+      expect_true(
+        length(r$taxonomicClassification[[i]]$commonName) == 0)
+    }
+  }
 
-# Output object ---------------------------------------------------------------
+  # Resolved taxa have expected content. Only checking the first level.
 
-testthat::test_that('Output object', {
-
-  # Output object class is a list
-
-  expect_equal(
-    suppressMessages(
-      class(make_taxonomicCoverage(
-        taxa.clean = data$taxa_clean,
-        authority = data$authority,
-        authority.id = data$authority_id,
-        write.file = FALSE))),
-      'list')
-
-  # Output includes unresolved taxa
-
-  use_i <- is.na(data$taxa_clean)
-  data$taxa_clean[use_i] <- data$taxa_raw[use_i]
-  r <- make_taxonomicCoverage(
-    taxa.clean = data$taxa_clean,
-    rank = data$rank,
-    authority = data$authority,
-    authority.id = data$authority_id,
-    write.file = FALSE)
-  for (i in which(use_i)) {
-    expect_true(
-      r$taxonomicClassification[[i]]$taxonRankName == "unknown")
+  resolvable_taxa <- which(!is.na(data$taxa_clean))
+  for (i in resolvable_taxa) {
+    expect_true(is.character(r$taxonomicClassification[[i]]$taxonRankName))
+    expect_true(is.character(r$taxonomicClassification[[i]]$taxonRankValue))
+    expect_true(is.character(r$taxonomicClassification[[i]]$taxonId$provider))
+    expect_true(is.character(r$taxonomicClassification[[i]]$taxonId$taxonId))
+    expect_true(is.character(r$taxonomicClassification[[i]]$commonName[[1]]))
   }
 
 })
+
+# Input is taxa_map -----------------------------------------------------------
+
+testthat::test_that('Input is taxa_map', {
+
+  file.copy(
+    system.file(
+      '/taxa_map_resolve_sci_taxa/taxa_map.csv',
+      package = 'taxonomyCleanr'),
+    tempdir())
+
+  data <- read_taxa_map(tempdir())
+
+  r <- suppressMessages(
+    make_taxonomicCoverage(
+      path = tempdir(),
+      write.file = TRUE))
+
+  expect_true('taxonomicCoverage.xml' %in% list.files(tempdir()))
+  expect_true(length(r$taxonomicClassification) == nrow(data))
+
+  # Unresolved taxa are included in the output
+
+  if (any(is.na(data$taxa_clean))) {
+    unresolvable_taxa <- which(is.na(data$taxa_clean))
+    for (i in unresolvable_taxa) {
+      expect_true(r$taxonomicClassification[[i]]$taxonRankName == "unknown")
+      expect_true(r$taxonomicClassification[[i]]$taxonRankValue ==
+                    data[unresolvable_taxa, "taxa_raw"])
+      expect_true(
+        is.na(r$taxonomicClassification[[i]]$taxonId$provider))
+      expect_true(
+        is.na(r$taxonomicClassification[[i]]$taxonId$taxonId))
+      expect_true(
+        length(r$taxonomicClassification[[i]]$commonName) == 0)
+    }
+  }
+
+  # Resolved taxa have expected content. Only checking the first level.
+
+  resolvable_taxa <- which(!is.na(data$taxa_clean))
+  for (i in resolvable_taxa) {
+    expect_true(is.character(r$taxonomicClassification[[i]]$taxonRankName))
+    expect_true(is.character(r$taxonomicClassification[[i]]$taxonRankValue))
+    expect_true(is.character(r$taxonomicClassification[[i]]$taxonId$provider))
+    expect_true(is.character(r$taxonomicClassification[[i]]$taxonId$taxonId))
+    expect_true(is.character(r$taxonomicClassification[[i]]$commonName[[1]]))
+  }
+
+  # Clean up
+
+  unlink(
+    c(paste0(tempdir(), "/taxa_map.csv"),
+      paste0(tempdir(), "/taxonomicCoverage.xml")),
+    recursive = TRUE,
+    force = TRUE)
+
+})
+
