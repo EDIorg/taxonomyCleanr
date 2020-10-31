@@ -68,24 +68,32 @@ get_classification <- function(taxa.clean,
 
   # Get all available ranks and names -----------------------------------------
 
-  message("Retrieving hierarhy")
+  message("Retrieving hierarchy")
 
   output <- suppressMessages(
-    mapply(
-      taxize::classification,
-      sci_id = authority.id,
-      db = cw$machine.readable[use_i]))
+    unname(
+      mapply(
+        taxize::classification,
+        sci_id = as.character(authority.id),
+        db = cw$machine.readable[use_i])))
 
   # Repair instances that could not be resolved otherwise these unresolvable
   # taxa will be dropped from the return object.
-  unresolvable_taxa <- which(is.na(names(output)))
+
+  unresolvable_taxa <- which(
+    unlist(
+      lapply(
+        output,
+        function(x) {
+          !is.data.frame(x)
+        })))
+
   if (length(unresolvable_taxa != 0)) {
     for (i in unresolvable_taxa) {
       output[[i]] <- data.frame(
         name = taxa.clean[i],
         rank = "unknown",
         id = NA_character_)
-      names(output)[i] <- taxa.clean[i]
     }
   }
 
@@ -154,8 +162,8 @@ get_classification <- function(taxa.clean,
           return(taxonomic_classification)
 
         })
-
       return(restructured_taxon_hierarchy)
+
     },
     taxon_hierarchy = output,
     authority = authorities,

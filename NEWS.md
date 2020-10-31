@@ -1,3 +1,9 @@
+# taxonomyCleanr 1.4.1
+
+### Bug fix
+
+* __get_classification():__ Was throwing errors for unresolvable taxa. No long doing this.
+
 # taxonomyCleanr 1.4.0
 
 ### Enhancement

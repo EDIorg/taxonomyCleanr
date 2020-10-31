@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
       </span>
     </div>
 
@@ -175,131 +175,131 @@
 <span class='no'>my_taxa</span></div><div class='output co'>#&gt; [1] "Koeleria cristata" "Cyperus"           "Poa"              </div><div class='input'>
 <span class='co'># Input taxa_map.csv</span>
 
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>data.table</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/data.table/man/fread.html'>fread</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"example_data.txt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'taxonomyCleanr'</span>))
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>data.table</span><span class='kw ns'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/fread.html'>fread</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"example_data.txt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'taxonomyCleanr'</span>))
 <span class='no'>my_path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>()
 <span class='no'>tm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='create_taxa_map.html'>create_taxa_map</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='no'>my_path</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>data</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"Species"</span>)
 <span class='no'>tm</span> <span class='kw'>&lt;-</span> <span class='fu'>trim_taxa</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='no'>my_path</span>)
 <span class='no'>tm</span></div><div class='output co'>#&gt;                              taxa_raw       taxa_trimmed taxa_replacement
-#&gt;  1:                            Mosses               &lt;NA&gt;             &lt;NA&gt;
-#&gt;  2:                  Unsorted biomass               &lt;NA&gt;             &lt;NA&gt;
-#&gt;  3:    Achillea millefolium(lanulosa)               &lt;NA&gt;             &lt;NA&gt;
-#&gt;  4:                   Crepis tectorum               &lt;NA&gt;             &lt;NA&gt;
-#&gt;  5:                       Cyperus sp.            Cyperus             &lt;NA&gt;
-#&gt;  6:            Euphorbia glyptosperma               &lt;NA&gt;             &lt;NA&gt;
-#&gt;  7:                Lespedeza capitata               &lt;NA&gt;             &lt;NA&gt;
-#&gt;  8: Achillea millefolium(lanulosaaaa)               &lt;NA&gt;             &lt;NA&gt;
-#&gt;  9:  Achillea millefolium(lanulosabb)               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 10:  Achillea millefolium(lanulosacc)               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 11:              Lepidium densiflorum               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 12:                     Poa pratensis               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 13:                  Rumex acetosella               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 14:           Schizachyrium scoparium               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 15:                Bouteloua gracilis               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 16:                 Koeleria cristata               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 17:                    Liatris aspera               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 18:                  Lupinus perennis               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 19:                  Panicum virgatum               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 20:            Petalostemum purpureum               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 21:             Petalostemum villosum               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 22:                Solidago nemoralis               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 23:                Sorghastrum nutans               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 24:                     Stipa spartea               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 25:                Andropogon gerardi               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 26:            Bouteloua curtipendula               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 27:                 Coreopsis palmata               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 28:              Miscellaneous litter               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 29:             Petalostemum candidum               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 30:                   Solidago rigida               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 31:            Sporobolus cryptandrus               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 32:                  Agropyron repens               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 33:                Aristida basiramea               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 34:                     Digitaria sp.          Digitaria             &lt;NA&gt;
-#&gt; 35:               Erigeron canadensis               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 36:                   Hedeoma hispida               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 37:               Physalis virginiana               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 38:             Taraxicum officinalis               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 39:                   Agrostis scabra               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 40:   Ambrosia artemisiifolia elatior               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 41:            Eragrostis spectabilis               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 42:                 Amorpha canescens               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 43:                             -9999               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 44:                      Yellow Perch               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 45:                     Rainbow smelt               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 46:                  Large mouth bass               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 47:                 Petalostemum S.p.       Petalostemum             &lt;NA&gt;
-#&gt; 48:                           Poa Cf.                Poa             &lt;NA&gt;
-#&gt; 49:                Schizachyrium spp.      Schizachyrium             &lt;NA&gt;
-#&gt; 50:                      Petalostemum               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 51:                         Poa cf...                Poa             &lt;NA&gt;
-#&gt; 52:                 Schizachyrium sPp      Schizachyrium             &lt;NA&gt;
-#&gt; 53:                _Koeleria_cristata  Koeleria cristata             &lt;NA&gt;
-#&gt; 54:                Lespedeza_capitata Lespedeza capitata             &lt;NA&gt;
-#&gt; 55:                  _Liatris_aspera_     Liatris aspera             &lt;NA&gt;
-#&gt; 56:                                                 &lt;NA&gt;             &lt;NA&gt;
-#&gt; 57:          Oncorhynchus tshawytscha               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 58:            Oncorhynchus gorbuscha               &lt;NA&gt;             &lt;NA&gt;
-#&gt; 59:              Oncorhynchus kisutch               &lt;NA&gt;             &lt;NA&gt;
+#&gt;  1:                            Mosses               &lt;NA&gt;               NA
+#&gt;  2:                  Unsorted biomass               &lt;NA&gt;               NA
+#&gt;  3:    Achillea millefolium(lanulosa)               &lt;NA&gt;               NA
+#&gt;  4:                   Crepis tectorum               &lt;NA&gt;               NA
+#&gt;  5:                       Cyperus sp.            Cyperus               NA
+#&gt;  6:            Euphorbia glyptosperma               &lt;NA&gt;               NA
+#&gt;  7:                Lespedeza capitata               &lt;NA&gt;               NA
+#&gt;  8: Achillea millefolium(lanulosaaaa)               &lt;NA&gt;               NA
+#&gt;  9:  Achillea millefolium(lanulosabb)               &lt;NA&gt;               NA
+#&gt; 10:  Achillea millefolium(lanulosacc)               &lt;NA&gt;               NA
+#&gt; 11:              Lepidium densiflorum               &lt;NA&gt;               NA
+#&gt; 12:                     Poa pratensis               &lt;NA&gt;               NA
+#&gt; 13:                  Rumex acetosella               &lt;NA&gt;               NA
+#&gt; 14:           Schizachyrium scoparium               &lt;NA&gt;               NA
+#&gt; 15:                Bouteloua gracilis               &lt;NA&gt;               NA
+#&gt; 16:                 Koeleria cristata               &lt;NA&gt;               NA
+#&gt; 17:                    Liatris aspera               &lt;NA&gt;               NA
+#&gt; 18:                  Lupinus perennis               &lt;NA&gt;               NA
+#&gt; 19:                  Panicum virgatum               &lt;NA&gt;               NA
+#&gt; 20:            Petalostemum purpureum               &lt;NA&gt;               NA
+#&gt; 21:             Petalostemum villosum               &lt;NA&gt;               NA
+#&gt; 22:                Solidago nemoralis               &lt;NA&gt;               NA
+#&gt; 23:                Sorghastrum nutans               &lt;NA&gt;               NA
+#&gt; 24:                     Stipa spartea               &lt;NA&gt;               NA
+#&gt; 25:                Andropogon gerardi               &lt;NA&gt;               NA
+#&gt; 26:            Bouteloua curtipendula               &lt;NA&gt;               NA
+#&gt; 27:                 Coreopsis palmata               &lt;NA&gt;               NA
+#&gt; 28:              Miscellaneous litter               &lt;NA&gt;               NA
+#&gt; 29:             Petalostemum candidum               &lt;NA&gt;               NA
+#&gt; 30:                   Solidago rigida               &lt;NA&gt;               NA
+#&gt; 31:            Sporobolus cryptandrus               &lt;NA&gt;               NA
+#&gt; 32:                  Agropyron repens               &lt;NA&gt;               NA
+#&gt; 33:                Aristida basiramea               &lt;NA&gt;               NA
+#&gt; 34:                     Digitaria sp.          Digitaria               NA
+#&gt; 35:               Erigeron canadensis               &lt;NA&gt;               NA
+#&gt; 36:                   Hedeoma hispida               &lt;NA&gt;               NA
+#&gt; 37:               Physalis virginiana               &lt;NA&gt;               NA
+#&gt; 38:             Taraxicum officinalis               &lt;NA&gt;               NA
+#&gt; 39:                   Agrostis scabra               &lt;NA&gt;               NA
+#&gt; 40:   Ambrosia artemisiifolia elatior               &lt;NA&gt;               NA
+#&gt; 41:            Eragrostis spectabilis               &lt;NA&gt;               NA
+#&gt; 42:                 Amorpha canescens               &lt;NA&gt;               NA
+#&gt; 43:                             -9999               &lt;NA&gt;               NA
+#&gt; 44:                      Yellow Perch               &lt;NA&gt;               NA
+#&gt; 45:                     Rainbow smelt               &lt;NA&gt;               NA
+#&gt; 46:                  Large mouth bass               &lt;NA&gt;               NA
+#&gt; 47:                 Petalostemum S.p.       Petalostemum               NA
+#&gt; 48:                           Poa Cf.                Poa               NA
+#&gt; 49:                Schizachyrium spp.      Schizachyrium               NA
+#&gt; 50:                      Petalostemum               &lt;NA&gt;               NA
+#&gt; 51:                         Poa cf...                Poa               NA
+#&gt; 52:                 Schizachyrium sPp      Schizachyrium               NA
+#&gt; 53:                _Koeleria_cristata  Koeleria cristata               NA
+#&gt; 54:                Lespedeza_capitata Lespedeza capitata               NA
+#&gt; 55:                  _Liatris_aspera_     Liatris aspera               NA
+#&gt; 56:                                                 &lt;NA&gt;               NA
+#&gt; 57:          Oncorhynchus tshawytscha               &lt;NA&gt;               NA
+#&gt; 58:            Oncorhynchus gorbuscha               &lt;NA&gt;               NA
+#&gt; 59:              Oncorhynchus kisutch               &lt;NA&gt;               NA
 #&gt;                              taxa_raw       taxa_trimmed taxa_replacement
 #&gt;     taxa_removed taxa_clean rank authority authority_id score difference
-#&gt;  1:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt;  2:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt;  3:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt;  4:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt;  5:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt;  6:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt;  7:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt;  8:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt;  9:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 10:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 11:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 12:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 13:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 14:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 15:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 16:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 17:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 18:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 19:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 20:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 21:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 22:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 23:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 24:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 25:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 26:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 27:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 28:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 29:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 30:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 31:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 32:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 33:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 34:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 35:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 36:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 37:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 38:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 39:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 40:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 41:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 42:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 43:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 44:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 45:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 46:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 47:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 48:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 49:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 50:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 51:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 52:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 53:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 54:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 55:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 56:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 57:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 58:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
-#&gt; 59:         &lt;NA&gt;       &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;
+#&gt;  1:           NA         NA   NA        NA           NA    NA         NA
+#&gt;  2:           NA         NA   NA        NA           NA    NA         NA
+#&gt;  3:           NA         NA   NA        NA           NA    NA         NA
+#&gt;  4:           NA         NA   NA        NA           NA    NA         NA
+#&gt;  5:           NA         NA   NA        NA           NA    NA         NA
+#&gt;  6:           NA         NA   NA        NA           NA    NA         NA
+#&gt;  7:           NA         NA   NA        NA           NA    NA         NA
+#&gt;  8:           NA         NA   NA        NA           NA    NA         NA
+#&gt;  9:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 10:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 11:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 12:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 13:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 14:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 15:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 16:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 17:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 18:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 19:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 20:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 21:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 22:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 23:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 24:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 25:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 26:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 27:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 28:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 29:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 30:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 31:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 32:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 33:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 34:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 35:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 36:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 37:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 38:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 39:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 40:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 41:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 42:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 43:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 44:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 45:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 46:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 47:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 48:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 49:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 50:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 51:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 52:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 53:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 54:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 55:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 56:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 57:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 58:           NA         NA   NA        NA           NA    NA         NA
+#&gt; 59:           NA         NA   NA        NA           NA    NA         NA
 #&gt;     taxa_removed taxa_clean rank authority authority_id score difference</div><div class='input'>
 </div></pre>
   </div>

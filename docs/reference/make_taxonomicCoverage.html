@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
       </span>
     </div>
 
@@ -196,9 +196,9 @@ Default is <code>TRUE</code>.</p></td>
 <span class='co'># Create taxonomicCoverage</span>
 <span class='no'>output</span> <span class='kw'>&lt;-</span> <span class='fu'>make_taxonomicCoverage</span>(
   <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(),
-)</div><div class='output co'>#&gt; <span class='message'>Creating &lt;taxonomicCoverage&gt;</span></div><div class='output co'>#&gt; <span class='message'>Retrieving classifications</span></div><div class='output co'>#&gt; <span style='color: #0000BB;'>==</span><span>  1 queries  </span><span style='color: #0000BB;'>===============</span><span></div><div class='output co'>#&gt; <span class='error'>Error: Not Found (HTTP 404)</span></div><div class='input'>
+)</div><div class='output co'>#&gt; <span class='message'>Creating &lt;taxonomicCoverage&gt;</span></div><div class='output co'>#&gt; <span class='message'>Retrieving hierarhy</span></div><div class='output co'>#&gt; <span class='message'>Retrieving common names</span></div><div class='output co'>#&gt; <span class='message'>Writing taxonomicCoverage.xml</span></div><div class='output co'>#&gt; <span class='message'>Done.</span></div><div class='input'>
 <span class='co'># Verify taxonomicCoverage.xml has been written to file</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.exists</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>'/taxonomicCoverage.xml'</span>))</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.exists</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>'/taxonomicCoverage.xml'</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># Create taxonomicCoverage from argument inputs -------------------------------</span>
 
 <span class='co'># Create taxonomicCoverage</span>
@@ -207,10 +207,10 @@ Default is <code>TRUE</code>.</p></td>
   <span class='kw'>authority</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'ITIS'</span>, <span class='st'>'ITIS'</span>),
   <span class='kw'>authority.id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'37212'</span>, <span class='st'>'28074'</span>),
   <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(),
-)</div><div class='output co'>#&gt; <span class='message'>Creating &lt;taxonomicCoverage&gt;</span></div><div class='output co'>#&gt; <span class='message'>Retrieving classifications</span></div><div class='output co'>#&gt; </span><span style='color: #0000BB;'>==</span><span>  1 queries  </span><span style='color: #0000BB;'>===============</span><span></div><div class='output co'>#&gt; <span class='error'>Error: Not Found (HTTP 404)</span></div><div class='input'>
+)</div><div class='output co'>#&gt; <span class='message'>Creating &lt;taxonomicCoverage&gt;</span></div><div class='output co'>#&gt; <span class='message'>Retrieving hierarhy</span></div><div class='output co'>#&gt; <span class='message'>Retrieving common names</span></div><div class='output co'>#&gt; <span class='message'>Writing taxonomicCoverage.xml</span></div><div class='output co'>#&gt; <span class='message'>Done.</span></div><div class='input'>
 <span class='co'># Verify taxonomicCoverage.xml has been written to file</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.exists</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>'/taxonomicCoverage.xml'</span>))</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
-</div></span></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.exists</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>'/taxonomicCoverage.xml'</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

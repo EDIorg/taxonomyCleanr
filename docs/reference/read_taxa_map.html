@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
       </span>
     </div>
 
@@ -151,69 +151,69 @@
     <pre class="examples"><div class='input'><span class='no'>mypath</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"taxa_map.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"taxonomyCleanr"</span>))
 <span class='no'>taxa_map</span> <span class='kw'>&lt;-</span> <span class='fu'>read_taxa_map</span>(<span class='no'>mypath</span>)
 <span class='no'>taxa_map</span></div><div class='output co'>#&gt;                              taxa_raw       taxa_trimmed     taxa_replacement
-#&gt;  1:                            Mosses                 NA                   NA
-#&gt;  2:                  Unsorted biomass                 NA                   NA
-#&gt;  3:    Achillea millefolium(lanulosa)                 NA Achillea millefolium
-#&gt;  4:                   Crepis tectorum                 NA                   NA
-#&gt;  5:                       Cyperus sp.            Cyperus                   NA
-#&gt;  6:            Euphorbia glyptosperma                 NA                   NA
-#&gt;  7:                Lespedeza capitata                 NA                   NA
-#&gt;  8: Achillea millefolium(lanulosaaaa)                 NA Achillea millefolium
-#&gt;  9:  Achillea millefolium(lanulosabb)                 NA Achillea millefolium
-#&gt; 10:  Achillea millefolium(lanulosacc)                 NA Achillea millefolium
-#&gt; 11:              Lepidium densiflorum                 NA                   NA
-#&gt; 12:                     Poa pratensis                 NA                   NA
-#&gt; 13:                  Rumex acetosella                 NA                   NA
-#&gt; 14:           Schizachyrium scoparium                 NA                   NA
-#&gt; 15:                Bouteloua gracilis                 NA                   NA
-#&gt; 16:                 Koeleria cristata                 NA                   NA
-#&gt; 17:                    Liatris aspera                 NA                   NA
-#&gt; 18:                  Lupinus perennis                 NA                   NA
-#&gt; 19:                  Panicum virgatum                 NA                   NA
-#&gt; 20:            Petalostemum purpureum                 NA                   NA
-#&gt; 21:             Petalostemum villosum                 NA                   NA
-#&gt; 22:                Solidago nemoralis                 NA                   NA
-#&gt; 23:                Sorghastrum nutans                 NA                   NA
-#&gt; 24:                     Stipa spartea                 NA                   NA
-#&gt; 25:                Andropogon gerardi                 NA                   NA
-#&gt; 26:            Bouteloua curtipendula                 NA                   NA
-#&gt; 27:                 Coreopsis palmata                 NA                   NA
-#&gt; 28:              Miscellaneous litter                 NA                   NA
-#&gt; 29:             Petalostemum candidum                 NA                   NA
-#&gt; 30:                   Solidago rigida                 NA                   NA
-#&gt; 31:            Sporobolus cryptandrus                 NA                   NA
-#&gt; 32:                  Agropyron repens                 NA                   NA
-#&gt; 33:                Aristida basiramea                 NA                   NA
-#&gt; 34:                     Digitaria sp.          Digitaria                   NA
-#&gt; 35:               Erigeron canadensis                 NA                   NA
-#&gt; 36:                   Hedeoma hispida                 NA                   NA
-#&gt; 37:               Physalis virginiana                 NA                   NA
-#&gt; 38:             Taraxicum officinalis                 NA                   NA
-#&gt; 39:                   Agrostis scabra                 NA                   NA
-#&gt; 40:   Ambrosia artemisiifolia elatior                 NA                   NA
-#&gt; 41:            Eragrostis spectabilis                 NA                   NA
-#&gt; 42:                 Amorpha canescens                 NA                   NA
-#&gt; 43:                             -9999                 NA                   NA
-#&gt; 44:                      Yellow Perch                 NA                   NA
-#&gt; 45:                     Rainbow smelt                 NA                   NA
-#&gt; 46:                  Large mouth bass                 NA                   NA
-#&gt; 47:                 Petalostemum S.p.       Petalostemum                   NA
-#&gt; 48:                           Poa Cf.                Poa                   NA
-#&gt; 49:                Schizachyrium spp.      Schizachyrium                   NA
-#&gt; 50:                      Petalostemum                 NA                   NA
-#&gt; 51:                         Poa cf...                Poa                   NA
-#&gt; 52:                 Schizachyrium sPp      Schizachyrium                   NA
-#&gt; 53:                _Koeleria_cristata  Koeleria cristata                   NA
-#&gt; 54:                Lespedeza_capitata Lespedeza capitata                   NA
-#&gt; 55:                  _Liatris_aspera_     Liatris aspera                   NA
-#&gt; 56:                                NA                 NA                   NA
-#&gt; 57:          Oncorhynchus tshawytscha                 NA                   NA
-#&gt; 58:            Oncorhynchus gorbuscha                 NA                   NA
-#&gt; 59:              Oncorhynchus kisutch                 NA                   NA
+#&gt;  1:                            Mosses               &lt;NA&gt;                 &lt;NA&gt;
+#&gt;  2:                  Unsorted biomass               &lt;NA&gt;                 &lt;NA&gt;
+#&gt;  3:    Achillea millefolium(lanulosa)               &lt;NA&gt; Achillea millefolium
+#&gt;  4:                   Crepis tectorum               &lt;NA&gt;                 &lt;NA&gt;
+#&gt;  5:                       Cyperus sp.            Cyperus                 &lt;NA&gt;
+#&gt;  6:            Euphorbia glyptosperma               &lt;NA&gt;                 &lt;NA&gt;
+#&gt;  7:                Lespedeza capitata               &lt;NA&gt;                 &lt;NA&gt;
+#&gt;  8: Achillea millefolium(lanulosaaaa)               &lt;NA&gt; Achillea millefolium
+#&gt;  9:  Achillea millefolium(lanulosabb)               &lt;NA&gt; Achillea millefolium
+#&gt; 10:  Achillea millefolium(lanulosacc)               &lt;NA&gt; Achillea millefolium
+#&gt; 11:              Lepidium densiflorum               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 12:                     Poa pratensis               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 13:                  Rumex acetosella               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 14:           Schizachyrium scoparium               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 15:                Bouteloua gracilis               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 16:                 Koeleria cristata               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 17:                    Liatris aspera               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 18:                  Lupinus perennis               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 19:                  Panicum virgatum               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 20:            Petalostemum purpureum               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 21:             Petalostemum villosum               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 22:                Solidago nemoralis               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 23:                Sorghastrum nutans               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 24:                     Stipa spartea               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 25:                Andropogon gerardi               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 26:            Bouteloua curtipendula               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 27:                 Coreopsis palmata               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 28:              Miscellaneous litter               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 29:             Petalostemum candidum               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 30:                   Solidago rigida               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 31:            Sporobolus cryptandrus               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 32:                  Agropyron repens               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 33:                Aristida basiramea               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 34:                     Digitaria sp.          Digitaria                 &lt;NA&gt;
+#&gt; 35:               Erigeron canadensis               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 36:                   Hedeoma hispida               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 37:               Physalis virginiana               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 38:             Taraxicum officinalis               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 39:                   Agrostis scabra               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 40:   Ambrosia artemisiifolia elatior               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 41:            Eragrostis spectabilis               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 42:                 Amorpha canescens               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 43:                             -9999               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 44:                      Yellow Perch               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 45:                     Rainbow smelt               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 46:                  Large mouth bass               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 47:                 Petalostemum S.p.       Petalostemum                 &lt;NA&gt;
+#&gt; 48:                           Poa Cf.                Poa                 &lt;NA&gt;
+#&gt; 49:                Schizachyrium spp.      Schizachyrium                 &lt;NA&gt;
+#&gt; 50:                      Petalostemum               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 51:                         Poa cf...                Poa                 &lt;NA&gt;
+#&gt; 52:                 Schizachyrium sPp      Schizachyrium                 &lt;NA&gt;
+#&gt; 53:                _Koeleria_cristata  Koeleria cristata                 &lt;NA&gt;
+#&gt; 54:                Lespedeza_capitata Lespedeza capitata                 &lt;NA&gt;
+#&gt; 55:                  _Liatris_aspera_     Liatris aspera                 &lt;NA&gt;
+#&gt; 56:                              &lt;NA&gt;               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 57:          Oncorhynchus tshawytscha               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 58:            Oncorhynchus gorbuscha               &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 59:              Oncorhynchus kisutch               &lt;NA&gt;                 &lt;NA&gt;
 #&gt;                              taxa_raw       taxa_trimmed     taxa_replacement
 #&gt;     taxa_removed                      taxa_clean         rank         authority
 #&gt;  1:           NA                          Mosses       Common              ITIS
-#&gt;  2:           NA                              NA           NA                NA
+#&gt;  2:           NA                            &lt;NA&gt;         &lt;NA&gt;              &lt;NA&gt;
 #&gt;  3:           NA            Achillea millefolium      Species              ITIS
 #&gt;  4:           NA                 Crepis tectorum      Species              ITIS
 #&gt;  5:           NA                         Cyperus        Genus              ITIS
@@ -231,16 +231,16 @@
 #&gt; 17:           NA                  Liatris aspera      Species              ITIS
 #&gt; 18:           NA                Lupinus perennis      Species              ITIS
 #&gt; 19:           NA                Panicum virgatum      Species              ITIS
-#&gt; 20:           NA                              NA           NA                NA
-#&gt; 21:           NA                              NA           NA                NA
+#&gt; 20:           NA                            &lt;NA&gt;         &lt;NA&gt;              &lt;NA&gt;
+#&gt; 21:           NA                            &lt;NA&gt;         &lt;NA&gt;              &lt;NA&gt;
 #&gt; 22:           NA              Solidago nemoralis      Species              ITIS
 #&gt; 23:           NA              Sorghastrum nutans      Species              ITIS
 #&gt; 24:         TRUE                   Stipa spartea      Species              ITIS
 #&gt; 25:           NA              Andropogon gerardi      Species              ITIS
 #&gt; 26:           NA          Bouteloua curtipendula      Species              ITIS
 #&gt; 27:           NA               Coreopsis palmata      Species              ITIS
-#&gt; 28:           NA                              NA           NA                NA
-#&gt; 29:           NA                              NA           NA                NA
+#&gt; 28:           NA                            &lt;NA&gt;         &lt;NA&gt;              &lt;NA&gt;
+#&gt; 29:           NA                            &lt;NA&gt;         &lt;NA&gt;              &lt;NA&gt;
 #&gt; 30:           NA                 Solidago rigida      Species              ITIS
 #&gt; 31:           NA          Sporobolus cryptandrus      Species              ITIS
 #&gt; 32:           NA                Agropyron repens      Species              ITIS
@@ -254,30 +254,30 @@
 #&gt; 40:           NA Ambrosia artemisiifolia elatior Infraspecies Catalogue of Life
 #&gt; 41:           NA          Eragrostis spectabilis      Species              ITIS
 #&gt; 42:           NA               Amorpha canescens      Species              ITIS
-#&gt; 43:         TRUE                              NA           NA                NA
+#&gt; 43:         TRUE                            &lt;NA&gt;         &lt;NA&gt;              &lt;NA&gt;
 #&gt; 44:           NA                    Yellow Perch       Common              ITIS
 #&gt; 45:           NA                   Rainbow smelt       Common              ITIS
-#&gt; 46:           NA                              NA           NA                NA
-#&gt; 47:           NA                              NA           NA                NA
+#&gt; 46:           NA                            &lt;NA&gt;         &lt;NA&gt;              &lt;NA&gt;
+#&gt; 47:           NA                            &lt;NA&gt;         &lt;NA&gt;              &lt;NA&gt;
 #&gt; 48:           NA                             Poa        Genus              ITIS
 #&gt; 49:           NA                   Schizachyrium        Genus              ITIS
-#&gt; 50:           NA                              NA           NA                NA
+#&gt; 50:           NA                            &lt;NA&gt;         &lt;NA&gt;              &lt;NA&gt;
 #&gt; 51:           NA                             Poa        Genus              ITIS
 #&gt; 52:           NA                   Schizachyrium        Genus              ITIS
 #&gt; 53:           NA               Koeleria cristata      Species              ITIS
 #&gt; 54:           NA              Lespedeza capitata      Species              ITIS
 #&gt; 55:           NA                  Liatris aspera      Species              ITIS
-#&gt; 56:         TRUE                              NA           NA                NA
+#&gt; 56:         TRUE                            &lt;NA&gt;         &lt;NA&gt;              &lt;NA&gt;
 #&gt; 57:           NA        Oncorhynchus tshawytscha      Species              ITIS
 #&gt; 58:           NA          Oncorhynchus gorbuscha      Species              ITIS
 #&gt; 59:           NA            Oncorhynchus kisutch      Species              ITIS
 #&gt;     taxa_removed                      taxa_clean         rank         authority
 #&gt;                         authority_id score difference
 #&gt;  1:                            14189    NA         NA
-#&gt;  2:                               NA    NA         NA
+#&gt;  2:                             &lt;NA&gt;    NA         NA
 #&gt;  3:                            35423 0.988         NA
 #&gt;  4:                            37212 0.988         NA
-#&gt;  5:                            39882  0.75         NA
+#&gt;  5:                            39882 0.750         NA
 #&gt;  6:                            28074 0.988         NA
 #&gt;  7:                            25897 0.988         NA
 #&gt;  8:                            35423 0.988         NA
@@ -292,43 +292,43 @@
 #&gt; 17:                            37909 0.988         NA
 #&gt; 18:                            26091 0.988         NA
 #&gt; 19:                            40913 0.988         NA
-#&gt; 20:                               NA    NA         NA
-#&gt; 21:                               NA    NA         NA
+#&gt; 20:                             &lt;NA&gt;    NA         NA
+#&gt; 21:                             &lt;NA&gt;    NA         NA
 #&gt; 22:                            36281 0.988         NA
 #&gt; 23:                            42102 0.988         NA
 #&gt; 24:                            42166 0.988         NA
 #&gt; 25:                           786156 0.988         NA
 #&gt; 26:                            41500 0.988         NA
 #&gt; 27:                            37148 0.988         NA
-#&gt; 28:                               NA    NA         NA
-#&gt; 29:                               NA    NA         NA
+#&gt; 28:                             &lt;NA&gt;    NA         NA
+#&gt; 29:                             &lt;NA&gt;    NA         NA
 #&gt; 30:                            36297 0.988         NA
 #&gt; 31:                            42132 0.988         NA
 #&gt; 32:                            40382 0.988         NA
 #&gt; 33:                            41412 0.988         NA
-#&gt; 34:                            40603  0.75         NA
+#&gt; 34:                            40603 0.750         NA
 #&gt; 35:                           196266 0.988         NA
 #&gt; 36:                           502890 0.988         NA
 #&gt; 37:                            30612 0.988         NA
-#&gt; 38:                            36213  0.75         NA
+#&gt; 38:                            36213 0.750         NA
 #&gt; 39:                            40424 0.988         NA
 #&gt; 40: b6b7cf5b0ace61a8272ae8d52f69de6d 0.999         NA
 #&gt; 41:                            40717 0.988         NA
 #&gt; 42:                            25371 0.988         NA
-#&gt; 43:                               NA    NA         NA
+#&gt; 43:                             &lt;NA&gt;    NA         NA
 #&gt; 44:                           168469    NA         NA
 #&gt; 45:                           162041    NA         NA
-#&gt; 46:                               NA    NA         NA
-#&gt; 47:                               NA    NA         NA
-#&gt; 48:                            41074  0.75         NA
-#&gt; 49:                            42069  0.75         NA
-#&gt; 50:                               NA    NA         NA
-#&gt; 51:                            41074  0.75         NA
-#&gt; 52:                            42069  0.75         NA
+#&gt; 46:                             &lt;NA&gt;    NA         NA
+#&gt; 47:                             &lt;NA&gt;    NA         NA
+#&gt; 48:                            41074 0.750         NA
+#&gt; 49:                            42069 0.750         NA
+#&gt; 50:                             &lt;NA&gt;    NA         NA
+#&gt; 51:                            41074 0.750         NA
+#&gt; 52:                            42069 0.750         NA
 #&gt; 53:                           515476 0.988         NA
 #&gt; 54:                            25897 0.988         NA
 #&gt; 55:                            37909 0.988         NA
-#&gt; 56:                               NA    NA         NA
+#&gt; 56:                             &lt;NA&gt;    NA         NA
 #&gt; 57:                           161980 0.988         NA
 #&gt; 58:                           161975 0.988         NA
 #&gt; 59:                           161977 0.988         NA
