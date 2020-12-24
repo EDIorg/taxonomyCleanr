@@ -2,30 +2,40 @@
 % Please edit documentation in R/get_classification.R
 \name{get_classification}
 \alias{get_classification}
-\title{Get taxa classification hierarchy}
+\title{Get the taxonomic classification hierarchy for taxa resolved to supported authorities}
 \usage{
-get_classification(taxa.clean, authority, authority.id, path = NULL)
+get_classification(
+  taxa.clean,
+  authority = NA,
+  authority.id = NA,
+  rank = NA,
+  path = NULL
+)
 }
 \arguments{
-\item{taxa.clean}{(character) Name of taxa resolved to an authority.}
+\item{taxa.clean}{(character) Taxa names}
 
-\item{authority}{(character) Vector of authorities corresponding to taxonomic IDs listed
-in the "authority.id" argument below. Get data.sources and IDs with
-`resolve_sci_taxa`.}
+\item{authority}{(character) Authority \code{taxa.clean} have been resolved to, otherwise \code{NA}. Supported authorities include: "ITIS", "WORMS", "GBIF".}
 
-\item{authority.id}{(character) Vector taxonomic IDs corresponding to an authority.}
+\item{authority.id}{(character) ID of \code{taxa.clean} within the \code{authority}, otherwise \code{NA}}
 
-\item{path}{A character string specifying the path to taxa_map.csv. This table
-tracks relationships between your raw and cleaned data and is operated
-on by this function. Create this file with `create_taxa_map`.}
+\item{rank}{(character) Rank (e.g. "Genus", "Species") of \code{taxa.clean}, otherwise \code{NA}. This is useful when \code{taxa.clean} can't be resolved to an \code{authority} and the rank must be manually defined.}
+
+\item{path}{(character) Path of the directory containing taxa_map.csv.}
 }
 \value{
-(list of data frames) If \code{include.common} is FALSE, then a list of
-    data frames is returned.
-    (list of lists) If \code{include.common} is TRUE, then a list of named
-    lists is returned. This structure accomodates cases where a scientific
-    name and rank has more than one common name.
+(list) For \code{taxa.clean} resolved to a supported authority, each item in the list is a classification hierarchy (also a list), including one or more common names (only when \code{authority} is ITIS or WORMS) and authority IDs for each rank-value pair. For \code{taxa.clean} not resolved to a supported authority, each item is listed as defined in the \code{taxa.clean}, \code{authority}, and \code{authority.id} arguments.
 }
 \description{
-Get the classification hierarchy of taxa.
+Get the taxonomic classification hierarchy for taxa resolved to supported authorities
+}
+\details{
+Only taxa resolved to supported authorities can be expanded into a full taxonomic classification with common names. Taxa resolved to unsupported authorities, or not resolved at all, will be listed as is defined in the \code{taxa.clean}, \code{authority}, and \code{authority.id} arguments.
+
+    Supported authorities are recognized by a controlled set of representations.
+    \itemize{
+    \item{ITIS can be: "ITIS", "itis", "Integrated Taxonomic Information System", or "https://www.itis.gov/".}
+    \item{WORMS can be: "WORMS", "worms", "World Register of Marine Species", or "http://www.marinespecies.org/".}
+    \item{GBIF can be: "GBIF", "gbif", "GBIF Backbone Taxonomy", or "https://gbif.org".}
+    }
 }

@@ -1,3 +1,9 @@
+# taxonomyCleanr 1.5.0
+
+### Enhancement
+
+* __Improve handling of unsupported authorities:__ Methods have been improved for unsupported authorities (i.e. authorities other than "ITIS", "WORMS", "GBIF"). Users can now annotate outputs of `make_taxonomicCoverage()` with the `authority` and `authority.id` arguments. Values for these args will be listed in the return object "as is" and should correspond to the authority home page URL/URI and the taxon's ID within that authority system, respectively. Additionally, users can now manually define the taxon's `rank`. _NOTE: These new methods don't facilitate expansion of a taxon resolved in an unsupported system to the full classification hierarchy that is currently available when using ITIS, WORMS, or GBIF. That will require additional effort._ Furthermore, methods for supported authorities are more clearly defined in function docs. The enhancement partially addresses [EMLassemblyline issue #50](https://github.com/EDIorg/EMLassemblyline/issues/50).
+
 # taxonomyCleanr 1.4.1
 
 ### Bug fix

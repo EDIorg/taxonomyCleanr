@@ -1,36 +1,35 @@
-#' Get taxa classification hierarchy
-#'
-#' @description
-#'     Get the classification hierarchy of taxa.
-#'
-#' @usage
-#'     get_classification(taxa.clean, authority, authority.id, path = NULL)
+#' Get the taxonomic classification hierarchy for taxa resolved to supported authorities
 #'
 #' @param taxa.clean
-#'     (character) Name of taxa resolved to an authority.
+#'     (character) Taxa names
 #' @param authority
-#'     (character) Vector of authorities corresponding to taxonomic IDs listed
-#'     in the "authority.id" argument below. Get data.sources and IDs with
-#'     `resolve_sci_taxa`.
+#'     (character) Authority \code{taxa.clean} have been resolved to, otherwise \code{NA}. Supported authorities include: "ITIS", "WORMS", "GBIF".
 #' @param authority.id
-#'     (character) Vector taxonomic IDs corresponding to an authority.
+#'     (character) ID of \code{taxa.clean} within the \code{authority}, otherwise \code{NA}
+#' @param rank
+#'     (character) Rank (e.g. "Genus", "Species") of \code{taxa.clean}, otherwise \code{NA}. This is useful when \code{taxa.clean} can't be resolved to an \code{authority} and the rank must be manually defined.
 #' @param path
-#'     A character string specifying the path to taxa_map.csv. This table
-#'     tracks relationships between your raw and cleaned data and is operated
-#'     on by this function. Create this file with `create_taxa_map`.
+#'     (character) Path of the directory containing taxa_map.csv.
 #'
 #' @return
-#'     (list of data frames) If \code{include.common} is FALSE, then a list of
-#'     data frames is returned.
-#'     (list of lists) If \code{include.common} is TRUE, then a list of named
-#'     lists is returned. This structure accomodates cases where a scientific
-#'     name and rank has more than one common name.
+#'     (list) For \code{taxa.clean} resolved to a supported authority, each item in the list is a classification hierarchy (also a list), including one or more common names (only when \code{authority} is ITIS or WORMS) and authority IDs for each rank-value pair. For \code{taxa.clean} not resolved to a supported authority, each item is listed as defined in the \code{taxa.clean}, \code{authority}, and \code{authority.id} arguments.
+#'
+#' @details
+#'     Only taxa resolved to supported authorities can be expanded into a full taxonomic classification with common names. Taxa resolved to unsupported authorities, or not resolved at all, will be listed as is defined in the \code{taxa.clean}, \code{authority}, and \code{authority.id} arguments.
+#'
+#'     Supported authorities are recognized by a controlled set of representations.
+#'     \itemize{
+#'     \item{ITIS can be: "ITIS", "itis", "Integrated Taxonomic Information System", or "https://www.itis.gov/".}
+#'     \item{WORMS can be: "WORMS", "worms", "World Register of Marine Species", or "http://www.marinespecies.org/".}
+#'     \item{GBIF can be: "GBIF", "gbif", "GBIF Backbone Taxonomy", or "https://gbif.org".}
+#'     }
 #'
 #' @export
 #'
 get_classification <- function(taxa.clean,
-                               authority,
-                               authority.id,
+                               authority = NA,
+                               authority.id = NA,
+                               rank = NA,
                                path = NULL) {
 
   # Parameterize --------------------------------------------------------------
@@ -39,136 +38,213 @@ get_classification <- function(taxa.clean,
     human.readable = c(
       'Catalogue of Life',
       'ITIS',
+      'Integrated Taxonomic Information System',
+      'https://www.itis.gov/',
+      'itis',
       'World Register of Marine Species',
+      'WORMS',
+      'http://www.marinespecies.org/',
+      'worms',
       'GBIF Backbone Taxonomy',
+      'GBIF',
+      'gbif',
+      'https://gbif.org',
       'Tropicos - Missouri Botanical Garden'),
     machine.readable = c(
       'col',
       'itis',
+      'itis',
+      'itis',
+      'itis',
       'worms',
+      'worms',
+      'worms',
+      'worms',
+      'gbif',
+      'gbif',
+      'gbif',
       'gbif',
       'tropicos'),
     stringsAsFactors = F)
 
-  # Defaulting to a vaild option allows taxize::classification() to procede
-  # without error. The true authority is added after taxize::classification()
-  # runs.
-  use_i <- match(authority, cw$human.readable)
-  missing_authorities <- which(is.na(use_i))
-  use_i[is.na(use_i)] <- 2
+  supported <- unique.data.frame(
+    data.frame(
+      taxa.clean = taxa.clean[authority %in% cw$human.readable],
+      authority = cw$machine.readable[
+        match(authority[authority %in% cw$human.readable], cw$human.readable)],
+      authority.id = authority.id[authority %in% cw$human.readable],
+      rank = rank[authority %in% cw$human.readable],
+      stringsAsFactors = FALSE))
 
-  # Validate inputs -----------------------------------------------------------
+  unsupported <- unique.data.frame(
+    data.frame(
+      taxa.clean = taxa.clean[!(authority %in% cw$human.readable)],
+      authority = authority[!(authority %in% cw$human.readable)],
+      authority.id = authority.id[!(authority %in% cw$human.readable)],
+      rank = rank[!(authority %in% cw$human.readable)],
+      stringsAsFactors = FALSE))
 
-  # Alert users when taxonomic classifications cannot be expanded
-  if (any(!(cw$machine.readable[use_i] %in% c("itis", "worms")))) {
-    warning(
-      "Full taxonomic hierarchies can only be retrieved for ITIS and ",
-      "WORMS.", call. = FALSE)
+  # Supported authorities -----------------------------------------------------
+
+  if (nrow(supported) != 0) {
+
+    message("Retrieving classifications")
+
+    classifications <- suppressMessages(
+      unname(
+        mapply(
+          taxize::classification,
+          sci_id = supported$authority.id,
+          db = supported$authority)))
+
+    # Move "false supported" to "unsupported" so taxa won't be lost from the
+    # returned object. This can happen when the authority + ID pair doesn't
+    # resolve due to inaccuracies
+
+    i <- is.na(classifications)
+
+    unsupported <- rbind(
+      unsupported,
+      data.frame(
+        taxa.clean = supported$taxa.clean[i],
+        authority = supported$authority[i],
+        authority.id = supported$authority.id[i],
+        rank = supported$rank[i],
+        stringsAsFactors = FALSE))
+
+    supported <- supported[!i, ]
+    classifications <- classifications[!i]
+
+    # Get all common names and restructure for annotation. Add the authority
+    # system identifier and common names (there may be more than one) to each
+    # name + rank pair. This will be used by make_taxonomicCoverage() to
+    # annotate the output EML metadata.
+
+    output_supported <- mapply(
+      FUN = function(classification, authority) {
+
+        restructured_classification <- apply(
+          classification,
+          1,
+          function(row) {
+
+            # Set Authority system identifier (i.e. provider)
+            if (authority == "itis") {
+              provider <- "https://itis.gov"
+            } else if (authority == "worms") {
+              provider <- "http://marinespecies.org"
+            } else if (authority == "gbif") {
+              provider <- "https://gbif.org"
+            }  else {
+              provider <- NA_character_
+            }
+
+            # Get common name(s). Only English language is supported (currently).
+            # GBIF doesn't support common name fetching (currently).
+            if (authority == "itis") {
+              names_common <- tryCatch({
+                r <- ritis::common_names(row[["id"]])
+                suppressWarnings(
+                  r$commonName[r$language == "English"])
+              }, error = function(e) {
+                NULL
+              })
+            } else if (authority == "worms") {
+              names_common <- tryCatch({
+                r <- worrms::wm_common_id(as.numeric(row[["id"]]))
+                suppressWarnings(
+                  r$vernacular[r$language == "English"])
+              }, error = function(e) {
+                NULL
+              })
+            } else {
+              names_common <- NULL
+            }
+
+            # Restructure
+            classification <- list(
+              taxonRankName = row[["rank"]],
+              taxonRankValue = row[["name"]],
+              commonName = as.list(names_common),
+              taxonId = list(
+                provider = provider,
+                taxonId = trimws(row[["id"]])))
+
+            return(classification)
+
+          })
+
+        return(restructured_classification)
+
+      },
+      classification = classifications,
+      authority = supported$authority,
+      SIMPLIFY = FALSE)
+
+    output_supported <- unname(output_supported)
+
+  } else {
+    output_supported <- NULL
   }
 
-  # Get all available ranks and names -----------------------------------------
+  # Unsupported authorities ---------------------------------------------------
 
-  message("Retrieving hierarchy")
+  if (nrow(unsupported) != 0) {
 
-  output <- suppressMessages(
-    unname(
-      mapply(
-        taxize::classification,
-        sci_id = as.character(authority.id),
-        db = cw$machine.readable[use_i])))
+    classifications <- unname(
+      split(
+        data.frame(
+          name = unsupported$taxa.clean,
+          rank = unsupported$rank,
+          id = unsupported$authority.id,
+          stringsAsFactors = FALSE),
+        seq(nrow(unsupported))))
 
-  # Repair instances that could not be resolved otherwise these unresolvable
-  # taxa will be dropped from the return object.
+    # List names and ranks "as is" and restructure for annotation. Add the
+    # authority system identifier to each name + rank pair. This will be used
+    # by make_taxonomicCoverage() to annotate the output EML metadata.
 
-  unresolvable_taxa <- which(
-    unlist(
-      lapply(
-        output,
-        function(x) {
-          !is.data.frame(x)
-        })))
+    output_unsupported <- mapply(
+      FUN = function(classification, authority) {
 
-  if (length(unresolvable_taxa != 0)) {
-    for (i in unresolvable_taxa) {
-      output[[i]] <- data.frame(
-        name = taxa.clean[i],
-        rank = "unknown",
-        id = NA_character_)
-    }
+        restructured_classification <- apply(
+          classification,
+          1,
+          function(row) {
+
+            # Set Authority system identifier (i.e. provider)
+            if (!is.na(authority) | ("" %in% authority)) {
+              provider <- authority
+            } else {
+              provider <- NA_character_
+            }
+
+            # Restructure
+            classification <- list(
+              taxonRankName = row[["rank"]],
+              taxonRankValue = row[["name"]],
+              taxonId = list(
+                provider = provider,
+                taxonId = trimws(row[["id"]])))
+
+            return(classification)
+
+          })
+
+        return(restructured_classification)
+
+      },
+      classification = classifications,
+      authority = unsupported$authority,
+      SIMPLIFY = FALSE)
+
+  } else {
+    output_unsupported <- NULL
   }
 
-  # Get all common names and restructure for annotation -----------------------
+  # Combine -------------------------------------------------------------------
 
-  # Add the authority system identifier and common names (there may be more
-  # than one) to each name + rank pair. This will be used by
-  # make_taxonomicCoverage() to annotate the output EML metadata.
-
-  message("Retrieving common names")
-
-  # Add missing authorities removed for taxize::classification() above
-  authorities <- cw$machine.readable[use_i]
-  authorities[missing_authorities] <- "unknown"
-
-  # Iterate through each taxon's hierarchy
-  output <- mapply(
-    FUN = function(taxon_hierarchy, authority) {
-
-      restructured_taxon_hierarchy <- apply(
-        taxon_hierarchy,
-        1,
-        function(row) {
-
-          # Set Authority system identifier (i.e. provider)
-          if (authority == "itis") {
-            provider <- "https://itis.gov"
-          } else if (authority == "worms") {
-            provider <- "http://marinespecies.org"
-          } else if (authority == "gbif") {
-            provider <- "https://gbif.org"
-          }  else {
-            provider <- NA_character_
-          }
-
-          # Get common name(s). Only English language is supported (currently).
-          if (authority == "itis") {
-            names_common <- tryCatch({
-              r <- ritis::common_names(row[["id"]])
-              suppressWarnings(
-                r$commonName[r$language == "English"])
-            }, error = function(e) {
-              NULL
-            })
-          } else if (authority == "worms") {
-            names_common <- tryCatch({
-              r <- worrms::wm_common_id(as.numeric(row[["id"]]))
-              suppressWarnings(
-                r$vernacular[r$language == "English"])
-            }, error = function(e) {
-              NULL
-            })
-          } else {
-            names_common <- NULL
-          }
-
-          # Restructure
-          taxonomic_classification <- list(
-            taxonRankName = row[["rank"]],
-            taxonRankValue = row[["name"]],
-            commonName = as.list(names_common),
-            taxonId = list(
-              provider = provider,
-              taxonId = trimws(row[["id"]])))
-
-          return(taxonomic_classification)
-
-        })
-      return(restructured_taxon_hierarchy)
-
-    },
-    taxon_hierarchy = output,
-    authority = authorities,
-    SIMPLIFY = FALSE)
-
-  return(unname(output))
+  return(c(output_supported, output_unsupported))
 
 }
+

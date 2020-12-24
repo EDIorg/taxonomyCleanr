@@ -1,71 +1,60 @@
-#' Make taxonomicCoverage EML
-#'
-#' @description
-#'     Create the hierarchical rank specific EML for taxa that have been
-#'     resolved to an authority system (e.g. ITIS).
+#' Make taxonomicCoverage EML node
 #'
 #' @param taxa.clean
-#'     (character) Taxa names as they appear in your dataset, or as they appear
-#'     in an authority system. Best practice is to align the names in your
-#'     dataset with those of the authority system.
-#' @param rank
-#'     (character) An optional argument to use when \code{taxa.clean} can't be
-#'     resolved to an authority. If no rank is specified in these cases, then
-#'     the rank will receive a value of NA.
+#'     (character) Taxa names as they appear in your dataset
 #' @param authority
-#'     (character) Authority to which the taxa have been resolved. Valid inputs
-#'     are created by \code{resolve_sci_taxa()}.
+#'     (character) Authority \code{taxa.clean} have been resolved to. Supported authorities include: "ITIS", "WORMS", "GBIF". For unsupported authorities, list the home page URL. For unresolved taxa use \code{NA}.
 #' @param authority.id
-#'     (character) Authority specific identifiers for the resolved taxa.
+#'     (character) ID of \code{taxa.clean} within the \code{authority}, otherwise \code{NA}
+#' @param rank
+#'     (character) Rank (e.g. "Genus", "Species") of \code{taxa.clean}, otherwise \code{NA}. This is useful when \code{taxa.clean} can't be resolved to an \code{authority} and the rank must be manually defined.
 #' @param path
-#'     (character) Path to where taxonomicCoverage.xml will be written, and or
-#'     to where taxa_map.csv is located.
+#'     (character) Path of the directory to which taxonomicCoverage.xml will be written. Can also be the path of the directory containing taxa_map.csv, if using as inputs to this function.
 #' @param write.file
-#'     (logical) Whether taxonomicCoverage.xml should be written to file.
-#'     Default is \code{TRUE}.
+#'     (logical) Whether taxonomicCoverage.xml should be written to file. Default is \code{TRUE}.
 #'
 #' @return
-#'     A list of taxonomicClassification as an 'emld' 'list' object (required for
-#'     use in the \code{EML} library), and written to taxonomicCoverage.xml if
-#'     \code{write.file = TRUE}.
+#' \item{emld list}{The taxonomicClassification EML node for use in constructing EML metadata with the EML R library.}
+#' \item{taxonomicCoverage.xml}{If \code{write.file = TRUE}.}
+#'
+#' @details This function uses \code{get_classification()} to expand taxa, resolved to supported authorities, into full taxonomic classification. Each level of classification is accompanied by an annotation (listing the \code{authority} and \code{authority.id}) and common names (only when \code{authority} is ITIS or WORMS). Taxa resolved to unsupported authorities, or not resolved at all, will be listed as is defined in the \code{taxa.clean}, \code{authority}, and \code{authority.id} arguments.
+#'
+#' @note The name of this function is a bit misleading. The return value is actually a list of taxonomicClassification nodes, which occur immediately below taxonomicCoverage (i.e. ../taxonomicCoverage/taxonomicClassification).
 #'
 #' @examples
-#' # Create taxonomicCoverage from taxa_map.csv ----------------------------------
+#' \dontrun{
 #'
-#' # Copy taxa_map.csv from the taxonomyCleanr library to tempdir()
-#' file.copy(
-#'   from = system.file('/taxa_map_resolve_sci_taxa/taxa_map.csv', package = 'taxonomyCleanr'),
-#'   to = tempdir()
-#' )
+#' # Set working directory
+#' setwd("/Users/me/Documents/data_packages/pkg_260")
 #'
-#' # Create taxonomicCoverage
-#' output <- make_taxonomicCoverage(
-#'   path = tempdir(),
-#' )
+#' # For taxa resolved to a supported authority
+#' taxcov <- make_taxonomicCoverage(
+#'   taxa.clean = c("Oncorhynchus tshawytscha", "Oncorhynchus nerka"),
+#'   authority = c("WORMS", "WORMS"),
+#'   authority.id = c("158075", "254569"),
+#'   path = ".")
 #'
-#' # Verify taxonomicCoverage.xml has been written to file
-#' file.exists(paste0(tempdir(), '/taxonomicCoverage.xml'))
+#' # For taxa resolved to an unsupported authority
+#' taxcov <- make_taxonomicCoverage(
+#'   taxa.clean = c("Taxon-1", "Taxon-2"),
+#'   authority = c("https://some-authority.org", "https://some-authority.org"),
+#'   authority.id = c("123", "456"),
+#'   path = ".")
 #'
-#' # Create taxonomicCoverage from argument inputs -------------------------------
+#' # For taxa not resolved to an authority
+#' taxcov <- make_taxonomicCoverage(
+#'   taxa.clean = c("Taxon-1", "Taxon-2"),
+#'   path = ".")
 #'
-#' # Create taxonomicCoverage
-#' output <- make_taxonomicCoverage(
-#'   taxa.clean = c('Crepis tectorum', 'Euphorbia glyptosperma'),
-#'   authority = c('ITIS', 'ITIS'),
-#'   authority.id = c('37212', '28074'),
-#'   path = tempdir(),
-#' )
-#'
-#' # Verify taxonomicCoverage.xml has been written to file
-#' file.exists(paste0(tempdir(), '/taxonomicCoverage.xml'))
+#' }
 #'
 #' @export
 #'
 make_taxonomicCoverage <- function(
   taxa.clean,
+  authority = NA,
+  authority.id = NA,
   rank = NULL,
-  authority,
-  authority.id,
   path,
   write.file = TRUE){
 
@@ -117,6 +106,7 @@ make_taxonomicCoverage <- function(
   # EML::set_taxonomicCoverage().
 
   # Retrieve taxonomic hierarchy and common names when possible
+
   classifications <- get_classification(
     taxa.clean = taxa.clean,
     authority = authority,
