@@ -54,7 +54,7 @@ make_taxonomicCoverage <- function(
   taxa.clean,
   authority = NA,
   authority.id = NA,
-  rank = NULL,
+  rank = NA,
   path,
   write.file = TRUE){
 
@@ -111,6 +111,7 @@ make_taxonomicCoverage <- function(
     taxa.clean = taxa.clean,
     authority = authority,
     authority.id = authority.id,
+    rank = rank,
     path = path)
 
   # Recursively convert classifications into the nested structure expected by
