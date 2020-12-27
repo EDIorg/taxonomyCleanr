@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make taxonomicCoverage EML — make_taxonomicCoverage • taxonomyCleanr</title>
+<title>Make taxonomicCoverage EML node — make_taxonomicCoverage • taxonomyCleanr</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Make taxonomicCoverage EML — make_taxonomicCoverage" />
-<meta property="og:description" content="Create the hierarchical rank specific EML for taxa that have been
-    resolved to an authority system (e.g. ITIS)." />
+<meta property="og:title" content="Make taxonomicCoverage EML node — make_taxonomicCoverage" />
+<meta property="og:description" content="Make taxonomicCoverage EML node" />
 
 
 
@@ -73,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.0</span>
       </span>
     </div>
 
@@ -81,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -107,7 +106,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/EDIorg/taxonomyCleanr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -124,92 +123,94 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make taxonomicCoverage EML</h1>
+    <h1>Make taxonomicCoverage EML node</h1>
     <small class="dont-index">Source: <a href='https://github.com/EDIorg/taxonomyCleanr/blob/master/R/make_taxonomicCoverage.R'><code>R/make_taxonomicCoverage.R</code></a></small>
     <div class="hidden name"><code>make_taxonomicCoverage.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create the hierarchical rank specific EML for taxa that have been
-    resolved to an authority system (e.g. ITIS).</p>
+    <p>Make taxonomicCoverage EML node</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_taxonomicCoverage</span>(
-  <span class='no'>taxa.clean</span>,
-  <span class='kw'>rank</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>authority</span>,
-  <span class='no'>authority.id</span>,
-  <span class='no'>path</span>,
-  <span class='kw'>write.file</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>make_taxonomicCoverage</span><span class='op'>(</span>
+  <span class='va'>taxa.clean</span>,
+  authority <span class='op'>=</span> <span class='cn'>NA</span>,
+  authority.id <span class='op'>=</span> <span class='cn'>NA</span>,
+  rank <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>path</span>,
+  write.file <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>taxa.clean</th>
-      <td><p>(character) Taxa names as they appear in your dataset, or as they appear
-in an authority system. Best practice is to align the names in your
-dataset with those of the authority system.</p></td>
-    </tr>
-    <tr>
-      <th>rank</th>
-      <td><p>(character) An optional argument to use when <code>taxa.clean</code> can't be
-resolved to an authority. If no rank is specified in these cases, then
-the rank will receive a value of NA.</p></td>
+      <td><p>(character) Taxa names as they appear in your dataset</p></td>
     </tr>
     <tr>
       <th>authority</th>
-      <td><p>(character) Authority to which the taxa have been resolved. Valid inputs
-are created by <code><a href='resolve_sci_taxa.html'>resolve_sci_taxa()</a></code>.</p></td>
+      <td><p>(character) Authority <code>taxa.clean</code> have been resolved to. Supported authorities include: "ITIS", "WORMS", "GBIF". For unsupported authorities, list the home page URL. For unresolved taxa use <code>NA</code>.</p></td>
     </tr>
     <tr>
       <th>authority.id</th>
-      <td><p>(character) Authority specific identifiers for the resolved taxa.</p></td>
+      <td><p>(character) ID of <code>taxa.clean</code> within the <code>authority</code>, otherwise <code>NA</code></p></td>
+    </tr>
+    <tr>
+      <th>rank</th>
+      <td><p>(character) Rank (e.g. "Genus", "Species") of <code>taxa.clean</code>, otherwise <code>NA</code>. This is useful when <code>taxa.clean</code> can't be resolved to an <code>authority</code> and the rank must be manually defined.</p></td>
     </tr>
     <tr>
       <th>path</th>
-      <td><p>(character) Path to where taxonomicCoverage.xml will be written, and or
-to where taxa_map.csv is located.</p></td>
+      <td><p>(character) Path of the directory to which taxonomicCoverage.xml will be written. Can also be the path of the directory containing taxa_map.csv, if using as inputs to this function.</p></td>
     </tr>
     <tr>
       <th>write.file</th>
-      <td><p>(logical) Whether taxonomicCoverage.xml should be written to file.
-Default is <code>TRUE</code>.</p></td>
+      <td><p>(logical) Whether taxonomicCoverage.xml should be written to file. Default is <code>TRUE</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of taxonomicClassification as an 'emld' 'list' object (required for
-    use in the <code>EML</code> library), and written to taxonomicCoverage.xml if
-    <code>write.file = TRUE</code>.</p>
+    
+
+<dt>emld list</dt><dd><p>The taxonomicClassification EML node for use in constructing EML metadata with the EML R library.</p></dd>
+<dt>taxonomicCoverage.xml</dt><dd><p>If <code>write.file = TRUE</code>.</p></dd>
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This function uses <code><a href='get_classification.html'>get_classification()</a></code> to expand taxa, resolved to supported authorities, into full taxonomic classification. Each level of classification is accompanied by an annotation (listing the <code>authority</code> and <code>authority.id</code>) and common names (only when <code>authority</code> is ITIS or WORMS). Taxa resolved to unsupported authorities, or not resolved at all, will be listed as is defined in the <code>taxa.clean</code>, <code>authority</code>, and <code>authority.id</code> arguments.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>The name of this function is a bit misleading. The return value is actually a list of taxonomicClassification nodes, which occur immediately below taxonomicCoverage (i.e. ../taxonomicCoverage/taxonomicClassification).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Create taxonomicCoverage from taxa_map.csv ----------------------------------</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 
-<span class='co'># Copy taxa_map.csv from the taxonomyCleanr library to tempdir()</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.copy</a></span>(
-  <span class='kw'>from</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'/taxa_map_resolve_sci_taxa/taxa_map.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'taxonomyCleanr'</span>),
-  <span class='kw'>to</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>()
-)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='co'># Create taxonomicCoverage</span>
-<span class='no'>output</span> <span class='kw'>&lt;-</span> <span class='fu'>make_taxonomicCoverage</span>(
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(),
-)</div><div class='output co'>#&gt; <span class='message'>Creating &lt;taxonomicCoverage&gt;</span></div><div class='output co'>#&gt; <span class='message'>Retrieving hierarhy</span></div><div class='output co'>#&gt; <span class='message'>Retrieving common names</span></div><div class='output co'>#&gt; <span class='message'>Writing taxonomicCoverage.xml</span></div><div class='output co'>#&gt; <span class='message'>Done.</span></div><div class='input'>
-<span class='co'># Verify taxonomicCoverage.xml has been written to file</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.exists</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>'/taxonomicCoverage.xml'</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='co'># Create taxonomicCoverage from argument inputs -------------------------------</span>
+<span class='co'># Set working directory</span>
+<span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span><span class='op'>(</span><span class='st'>"/Users/me/Documents/data_packages/pkg_260"</span><span class='op'>)</span>
 
-<span class='co'># Create taxonomicCoverage</span>
-<span class='no'>output</span> <span class='kw'>&lt;-</span> <span class='fu'>make_taxonomicCoverage</span>(
-  <span class='kw'>taxa.clean</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'Crepis tectorum'</span>, <span class='st'>'Euphorbia glyptosperma'</span>),
-  <span class='kw'>authority</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'ITIS'</span>, <span class='st'>'ITIS'</span>),
-  <span class='kw'>authority.id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'37212'</span>, <span class='st'>'28074'</span>),
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(),
-)</div><div class='output co'>#&gt; <span class='message'>Creating &lt;taxonomicCoverage&gt;</span></div><div class='output co'>#&gt; <span class='message'>Retrieving hierarhy</span></div><div class='output co'>#&gt; <span class='message'>Retrieving common names</span></div><div class='output co'>#&gt; <span class='message'>Writing taxonomicCoverage.xml</span></div><div class='output co'>#&gt; <span class='message'>Done.</span></div><div class='input'>
-<span class='co'># Verify taxonomicCoverage.xml has been written to file</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.exists</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>'/taxonomicCoverage.xml'</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'># For taxa resolved to a supported authority</span>
+<span class='va'>taxcov</span> <span class='op'>&lt;-</span> <span class='fu'>make_taxonomicCoverage</span><span class='op'>(</span>
+  taxa.clean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Oncorhynchus tshawytscha"</span>, <span class='st'>"Oncorhynchus nerka"</span><span class='op'>)</span>,
+  authority <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"WORMS"</span>, <span class='st'>"WORMS"</span><span class='op'>)</span>,
+  authority.id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"158075"</span>, <span class='st'>"254569"</span><span class='op'>)</span>,
+  path <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span>
+
+<span class='co'># For taxa resolved to an unsupported authority</span>
+<span class='va'>taxcov</span> <span class='op'>&lt;-</span> <span class='fu'>make_taxonomicCoverage</span><span class='op'>(</span>
+  taxa.clean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Taxon-1"</span>, <span class='st'>"Taxon-2"</span><span class='op'>)</span>,
+  authority <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"https://some-authority.org"</span>, <span class='st'>"https://some-authority.org"</span><span class='op'>)</span>,
+  authority.id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"123"</span>, <span class='st'>"456"</span><span class='op'>)</span>,
+  path <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span>
+
+<span class='co'># For taxa not resolved to an authority</span>
+<span class='va'>taxcov</span> <span class='op'>&lt;-</span> <span class='fu'>make_taxonomicCoverage</span><span class='op'>(</span>
+  taxa.clean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Taxon-1"</span>, <span class='st'>"Taxon-2"</span><span class='op'>)</span>,
+  path <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span>
+
+<span class='op'>}</span>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -226,7 +227,7 @@ Default is <code>TRUE</code>.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

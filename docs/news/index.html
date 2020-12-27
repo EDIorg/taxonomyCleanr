@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.0</span>
       </span>
     </div>
 
@@ -79,7 +79,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -105,7 +105,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/EDIorg/taxonomyCleanr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -126,6 +126,18 @@
       <small>Source: <a href='https://github.com/EDIorg/taxonomyCleanr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="taxonomycleanr-150" class="section level1">
+<h1 class="page-header" data-toc-text="1.5.0">
+<a href="#taxonomycleanr-150" class="anchor"></a>taxonomyCleanr 1.5.0</h1>
+<div id="enhancement" class="section level3">
+<h3 class="hasAnchor">
+<a href="#enhancement" class="anchor"></a>Enhancement</h3>
+<ul>
+<li>
+<strong>Improve handling of unsupported authorities:</strong> Methods have been improved for unsupported authorities (i.e. authorities other than “ITIS”, “WORMS”, “GBIF”). Users can now annotate outputs of <code><a href="../reference/make_taxonomicCoverage.html">make_taxonomicCoverage()</a></code> with the <code>authority</code> and <code>authority.id</code> arguments. Values for these args will be listed in the return object “as is” and should correspond to the authority home page URL/URI and the taxon’s ID within that authority system, respectively. Additionally, users can now manually define the taxon’s <code>rank</code>. <em>NOTE: These new methods don’t facilitate expansion of a taxon resolved in an unsupported system to the full classification hierarchy that is currently available when using ITIS, WORMS, or GBIF. That will require additional effort.</em> Furthermore, methods for supported authorities are more clearly defined in function docs. The enhancement partially addresses <a href="https://github.com/EDIorg/EMLassemblyline/issues/50">EMLassemblyline issue <a href='https://github.com/EDIorg/taxonomyCleanr/issues/50'>#50</a></a>.</li>
+</ul>
+</div>
+</div>
     <div id="taxonomycleanr-141" class="section level1">
 <h1 class="page-header" data-toc-text="1.4.1">
 <a href="#taxonomycleanr-141" class="anchor"></a>taxonomyCleanr 1.4.1</h1>
@@ -141,9 +153,9 @@
     <div id="taxonomycleanr-140" class="section level1">
 <h1 class="page-header" data-toc-text="1.4.0">
 <a href="#taxonomycleanr-140" class="anchor"></a>taxonomyCleanr 1.4.0</h1>
-<div id="enhancement" class="section level3">
+<div id="enhancement-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#enhancement" class="anchor"></a>Enhancement</h3>
+<a href="#enhancement-1" class="anchor"></a>Enhancement</h3>
 <ul>
 <li><p><strong>Annotation:</strong> Authority system and taxon identifier are now listed for each taxonomicClassification node (taxonomic rank) created via <code><a href="../reference/make_taxonomicCoverage.html">make_taxonomicCoverage()</a></code> or <code><a href="../reference/get_classification.html">get_classification()</a></code>. Fixes <a href="https://github.com/EDIorg/taxonomyCleanr/issues/28">issue <a href='https://github.com/EDIorg/taxonomyCleanr/issues/28'>#28</a></a></p></li>
 <li><p><strong>Common names:</strong> All common names are listed, when available, for each taxonomicClassification node (taxonomic rank) created via <code><a href="../reference/make_taxonomicCoverage.html">make_taxonomicCoverage()</a></code> or <code><a href="../reference/get_classification.html">get_classification()</a></code>. Fixes <a href="https://github.com/EDIorg/taxonomyCleanr/issues/14">issue <a href='https://github.com/EDIorg/taxonomyCleanr/issues/14'>#14</a></a></p></li>
@@ -303,7 +315,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

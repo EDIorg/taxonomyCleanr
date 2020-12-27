@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.0</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -107,7 +107,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/EDIorg/taxonomyCleanr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -134,7 +134,7 @@
     authority improves matching.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>trim_taxa</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>trim_taxa</span><span class='op'>(</span>x <span class='op'>=</span> <span class='cn'>NULL</span>, path <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,16 +170,18 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Input a list of names</span>
 
-<span class='no'>my_taxa</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Koeleria_cristata"</span>, <span class='st'>"Cyperus sp."</span>, <span class='st'>"Poa Cf.   "</span>)
-<span class='no'>my_taxa</span> <span class='kw'>&lt;-</span> <span class='fu'>trim_taxa</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>my_taxa</span>)
-<span class='no'>my_taxa</span></div><div class='output co'>#&gt; [1] "Koeleria cristata" "Cyperus"           "Poa"              </div><div class='input'>
+<span class='va'>my_taxa</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Koeleria_cristata"</span>, <span class='st'>"Cyperus sp."</span>, <span class='st'>"Poa Cf.   "</span><span class='op'>)</span>
+<span class='va'>my_taxa</span> <span class='op'>&lt;-</span> <span class='fu'>trim_taxa</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>my_taxa</span><span class='op'>)</span>
+<span class='va'>my_taxa</span>
+</div><div class='output co'>#&gt; [1] "Koeleria cristata" "Cyperus"           "Poa"              </div><div class='input'>
 <span class='co'># Input taxa_map.csv</span>
 
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>data.table</span><span class='kw ns'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/fread.html'>fread</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"example_data.txt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'taxonomyCleanr'</span>))
-<span class='no'>my_path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>()
-<span class='no'>tm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='create_taxa_map.html'>create_taxa_map</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='no'>my_path</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>data</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"Species"</span>)
-<span class='no'>tm</span> <span class='kw'>&lt;-</span> <span class='fu'>trim_taxa</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='no'>my_path</span>)
-<span class='no'>tm</span></div><div class='output co'>#&gt;                              taxa_raw       taxa_trimmed taxa_replacement
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>data.table</span><span class='fu'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/fread.html'>fread</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"example_data.txt"</span>, package <span class='op'>=</span> <span class='st'>'taxonomyCleanr'</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>my_path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>tm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='create_taxa_map.html'>create_taxa_map</a></span><span class='op'>(</span>path <span class='op'>=</span> <span class='va'>my_path</span>, x <span class='op'>=</span> <span class='va'>data</span>, col <span class='op'>=</span> <span class='st'>"Species"</span><span class='op'>)</span>
+<span class='va'>tm</span> <span class='op'>&lt;-</span> <span class='fu'>trim_taxa</span><span class='op'>(</span>path <span class='op'>=</span> <span class='va'>my_path</span><span class='op'>)</span>
+<span class='va'>tm</span>
+</div><div class='output co'>#&gt;                              taxa_raw       taxa_trimmed taxa_replacement
 #&gt;  1:                            Mosses               &lt;NA&gt;               NA
 #&gt;  2:                  Unsorted biomass               &lt;NA&gt;               NA
 #&gt;  3:    Achillea millefolium(lanulosa)               &lt;NA&gt;               NA
@@ -317,7 +319,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
