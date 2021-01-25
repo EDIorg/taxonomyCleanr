@@ -45,7 +45,7 @@ testthat::test_that('Input is a list of names', {
   r <- make_taxonomicCoverage(
     taxa.clean = "Oncorhynchus tshawytscha",
     authority = "WORMS",
-    authority.id = "158075",
+    authority.id = "161980",
     path = tempdir(),
     write.file = TRUE)
 

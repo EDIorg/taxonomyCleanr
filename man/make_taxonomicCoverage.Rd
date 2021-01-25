@@ -8,7 +8,7 @@ make_taxonomicCoverage(
   taxa.clean,
   authority = NA,
   authority.id = NA,
-  rank = NULL,
+  rank = NA,
   path,
   write.file = TRUE
 )

@@ -22,9 +22,7 @@ view_taxa_authorities <- function(){
 
   # Get GNR datasources -----------------------------------------------------
 
-  gnr_list <- as.data.frame(
-    taxize::gnr_datasources()
-  )
+  gnr_list <- load_gnr_datasources()
 
   # Mark supported databases ------------------------------------------------
 
@@ -71,4 +69,23 @@ view_taxa_authorities <- function(){
 
   taxonomic_authorities
 
+}
+
+
+
+
+
+
+
+
+#' Load and fix GNR Datasources
+#'
+#' @return (data.frame) GNR datasources from \code{taxize::gnr_datasources()}
+#'
+#' @details This fixes bugs in taxize which otherwise produce inconsistent datasource names (e.g. "Integrated Taxonomic Information SystemITIS" rather than expected "ITIS")
+#'
+load_gnr_datasources <- function() {
+  gnr_list <- as.data.frame(taxize::gnr_datasources())
+  gnr_list$title[gnr_list$id == "3"] <- "ITIS"
+  return(gnr_list)
 }

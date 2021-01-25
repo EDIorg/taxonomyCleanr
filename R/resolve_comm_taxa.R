@@ -213,9 +213,7 @@ get_id_common <- function(taxon, authority){
 
   # Match authority -----------------------------------------------------------
 
-  gnr_list <- as.data.frame(
-    taxize::gnr_datasources()
-  )
+  gnr_list <- load_gnr_datasources()
   use_i <- authority == gnr_list[ , 'id']
   authority <- gnr_list[use_i, 'title']
 

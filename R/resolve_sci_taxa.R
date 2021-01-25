@@ -184,9 +184,7 @@ get_authority <- function(taxon, data.source){
 
   # Resolve taxa to authority -------------------------------------------------
 
-  gnr_list <- as.data.frame(
-    taxize::gnr_datasources()
-  )
+  gnr_list <- load_gnr_datasources()
   use_i <- gnr_list[ , 'id'] == data.source
 
   message(
@@ -232,7 +230,7 @@ get_authority <- function(taxon, data.source){
 
     list(
       'resolved_name' =  query[1, 'matched_name2'],
-      'authority' = query[1, 'data_source_title'],
+      'authority' = gnr_list$title[gnr_list$id == data.source],
       'score' = query[1, 'score'])
   }
 

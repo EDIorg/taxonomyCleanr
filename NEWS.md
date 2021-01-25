@@ -1,3 +1,9 @@
+# taxonomyCleanr 1.5.1
+
+### Bug fix
+
+* __ITIS title change:__ Resolving to ITIS began failing due to a change in title (from "ITIS" to "Integrated Taxonomic Information SystemITIS" listed in the return from `taxize::gnr_datasources()`. The fix uses data source IDs rather than titles so no related issues are expected unless the IDs change.
+
 # taxonomyCleanr 1.5.0
 
 ### Enhancement
