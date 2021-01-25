@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Resolve common names to an authority — resolve_comm_taxa • taxonomyCleanr</title>
+<title>Load and fix GNR Datasources — load_gnr_datasources • taxonomyCleanr</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Resolve common names to an authority — resolve_comm_taxa" />
-<meta property="og:description" content="Resolve taxa to preferred authorities and get associated IDs." />
+<meta property="og:title" content="Load and fix GNR Datasources — load_gnr_datasources" />
+<meta property="og:description" content="Load and fix GNR Datasources" />
 
 
 
@@ -123,65 +123,25 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Resolve common names to an authority</h1>
-    <small class="dont-index">Source: <a href='https://github.com/EDIorg/taxonomyCleanr/blob/master/R/resolve_comm_taxa.R'><code>R/resolve_comm_taxa.R</code></a></small>
-    <div class="hidden name"><code>resolve_comm_taxa.Rd</code></div>
+    <h1>Load and fix GNR Datasources</h1>
+    <small class="dont-index">Source: <a href='https://github.com/EDIorg/taxonomyCleanr/blob/master/R/view_taxa_authorities.R'><code>R/view_taxa_authorities.R</code></a></small>
+    <div class="hidden name"><code>load_gnr_datasources.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Resolve taxa to preferred authorities and get associated IDs.</p>
+    <p>Load and fix GNR Datasources</p>
     </div>
 
-    <pre class="usage"><span class='fu'>resolve_comm_taxa</span><span class='op'>(</span>x <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>data.sources</span>, path <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>load_gnr_datasources</span><span class='op'>(</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>(character) A vector of taxa names.</p></td>
-    </tr>
-    <tr>
-      <th>data.sources</th>
-      <td><p>(numeric) An ordered vector of authority IDs to be queried (
-<code><a href='view_taxa_authorities.html'>view_taxa_authorities()</a></code> lists currently supported authorities).
-Taxa are resolved to authorities in the order listed. If an authority
-and ID match cannot be made, then the next will be queried.</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>(character) Path to directory containing taxa_map.csv. This tracks
-provenance throughout the data cleaning process. Create this file with
-<code><a href='create_taxa_map.html'>create_taxa_map()</a></code>.</p></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>(data frame; taxa_map.csv) If using <code>x</code>, then a data frame
-    containing the input taxa, accepted taxa name, rank, authority,
-    authority ID, and score are returned. If using <code>path</code>, then an
-    updated version of taxa_map.csv will be returned to <code>path</code> and
-    a data frame of taxa_map.csv to the R environment.</p>
+    <p>(data.frame) GNR datasources from <code><a href='https://docs.ropensci.org/taxize/reference/gnr_datasources.html'>taxize::gnr_datasources()</a></code></p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='co'># Input a list of taxa</span>
+    <p>This fixes bugs in taxize which otherwise produce inconsistent datasource names (e.g. "Integrated Taxonomic Information SystemITIS" rather than expected "ITIS")</p>
 
-  <span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'>resolve_comm_taxa</span><span class='op'>(</span>
-    x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Monterey cypress"</span>, <span class='st'>"King salmon"</span>, <span class='st'>"Kentucky bluegrass"</span><span class='op'>)</span>,
-    data.sources <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-  <span class='va'>r</span>
-
-  <span class='co'># Input taxa_map.csv</span>
-
-  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>data.table</span><span class='fu'>::</span><span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/fread.html'>fread</a></span><span class='op'>(</span>file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>'example_data.txt'</span>, package <span class='op'>=</span> <span class='st'>'taxonomyCleanr'</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='va'>tm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='create_taxa_map.html'>create_taxa_map</a></span><span class='op'>(</span>path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, x <span class='op'>=</span> <span class='va'>data</span>, col <span class='op'>=</span> <span class='st'>"Species"</span><span class='op'>)</span>
-  <span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'>resolve_comm_taxa</span><span class='op'>(</span>data.sources <span class='op'>=</span> <span class='fl'>3</span>, path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='va'>tm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_taxa_map.html'>read_taxa_map</a></span><span class='op'>(</span>path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
