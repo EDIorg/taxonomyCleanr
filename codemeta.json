@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/EDIorg/taxonomyCleanr",
   "issueTracker": "https://github.com/EDIorg/taxonomyCleanr/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -175,7 +175,7 @@
   ],
   "releaseNotes": "https://github.com/EDIorg/taxonomyCleanr/blob/master/NEWS.md",
   "readme": "https://github.com/EDIorg/taxonomyCleanr/blob/master/README.md",
-  "fileSize": "90.104KB",
+  "fileSize": "90.168KB",
   "contIntegration": [
     "https://travis-ci.org/EDIorg/taxonomyCleanr",
     "https://codecov.io/github/EDIorg/taxonomyCleanr?branch=master"

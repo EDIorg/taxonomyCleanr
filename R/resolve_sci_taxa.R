@@ -504,7 +504,7 @@ optimize_match <- function(x, data.sources){
     output[j, 'taxa_clean'] <- out_auth['resolved_name']
     output[j, 'rank'] <- out_id['taxon_rank']
     output[j, 'authority'] <- out_auth['authority']
-    output[j, 'authority_id'] <- out_id['taxon_id']
+    output[j, 'authority_id'] <- out_id['taxon_id'][[1]][1]
     output[j, 'score'] <- out_auth['score']
 
     # Stop if a successful match has been made to save redundant effort

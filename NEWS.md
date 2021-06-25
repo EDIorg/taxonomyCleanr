@@ -1,3 +1,9 @@
+# taxonomyCleanr 1.5.2
+
+### Bug fix
+
+* __Match selection:__ Select first match when more than one is found.
+
 # taxonomyCleanr 1.5.1
 
 ### Bug fix
