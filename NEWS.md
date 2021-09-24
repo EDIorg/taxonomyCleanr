@@ -1,3 +1,8 @@
+# taxonomyCleanr 1.5.3
+
+### Bug fix
+* __Fix unexpected responses:__ Some taxa known to be in an authority were not found by `resolve_sci_taxa()`. This fixes [EMLassemblyline issue #89](https://github.com/EDIorg/EMLassemblyline/issues/89)
+
 # taxonomyCleanr 1.5.2
 
 ### Bug fix
