@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">taxonomyCleanr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.4</span>
       </span>
     </div>
 
@@ -126,12 +126,37 @@
       <small>Source: <a href='https://github.com/EDIorg/taxonomyCleanr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="taxonomycleanr-152" class="section level1">
-<h1 class="page-header" data-toc-text="1.5.2">
-<a href="#taxonomycleanr-152" class="anchor"></a>taxonomyCleanr 1.5.2</h1>
+    <div id="taxonomycleanr-154" class="section level1">
+<h1 class="page-header" data-toc-text="1.5.4">
+<a href="#taxonomycleanr-154" class="anchor"></a>taxonomyCleanr 1.5.4</h1>
 <div id="bug-fix" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bug-fix" class="anchor"></a>Bug fix</h3>
+<ul>
+<li>
+<strong>make_taxonomicCoverage():</strong> <code><a href="../reference/make_taxonomicCoverage.html">make_taxonomicCoverage()</a></code> was failing when <code>taxa.clean = NA</code>. This has been fixed.</li>
+</ul>
+</div>
+</div>
+    <div id="taxonomycleanr-153" class="section level1">
+<h1 class="page-header" data-toc-text="1.5.3">
+<a href="#taxonomycleanr-153" class="anchor"></a>taxonomyCleanr 1.5.3</h1>
+<div id="bug-fix-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fix-1" class="anchor"></a>Bug fix</h3>
+<ul>
+<li>
+<strong>Fix unexpected responses:</strong> Some taxa known to be in an authority were not found by <code><a href="../reference/resolve_sci_taxa.html">resolve_sci_taxa()</a></code>. This fixes <a href="https://github.com/EDIorg/EMLassemblyline/issues/89">EMLassemblyline issue <a href='https://github.com/EDIorg/taxonomyCleanr/issues/89'>#89</a></a>
+</li>
+</ul>
+</div>
+</div>
+    <div id="taxonomycleanr-152" class="section level1">
+<h1 class="page-header" data-toc-text="1.5.2">
+<a href="#taxonomycleanr-152" class="anchor"></a>taxonomyCleanr 1.5.2</h1>
+<div id="bug-fix-2" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fix-2" class="anchor"></a>Bug fix</h3>
 <ul>
 <li>
 <strong>Match selection:</strong> Select first match when more than one is found.</li>
@@ -141,9 +166,9 @@
     <div id="taxonomycleanr-151" class="section level1">
 <h1 class="page-header" data-toc-text="1.5.1">
 <a href="#taxonomycleanr-151" class="anchor"></a>taxonomyCleanr 1.5.1</h1>
-<div id="bug-fix-1" class="section level3">
+<div id="bug-fix-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fix-1" class="anchor"></a>Bug fix</h3>
+<a href="#bug-fix-3" class="anchor"></a>Bug fix</h3>
 <ul>
 <li>
 <strong>ITIS title change:</strong> Resolving to ITIS began failing due to a change in title (from “ITIS” to “Integrated Taxonomic Information SystemITIS” listed in the return from <code><a href="https://docs.ropensci.org/taxize/reference/gnr_datasources.html">taxize::gnr_datasources()</a></code>. The fix uses data source IDs rather than titles so no related issues are expected unless the IDs change.</li>
@@ -165,9 +190,9 @@
     <div id="taxonomycleanr-141" class="section level1">
 <h1 class="page-header" data-toc-text="1.4.1">
 <a href="#taxonomycleanr-141" class="anchor"></a>taxonomyCleanr 1.4.1</h1>
-<div id="bug-fix-2" class="section level3">
+<div id="bug-fix-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fix-2" class="anchor"></a>Bug fix</h3>
+<a href="#bug-fix-4" class="anchor"></a>Bug fix</h3>
 <ul>
 <li>
 <strong>get_classification():</strong> Was throwing errors for unresolvable taxa. No long doing this.</li>
@@ -189,9 +214,9 @@
     <div id="taxonomycleanr-132" class="section level1">
 <h1 class="page-header" data-toc-text="1.3.2">
 <a href="#taxonomycleanr-132" class="anchor"></a>taxonomyCleanr 1.3.2</h1>
-<div id="bug-fix-3" class="section level3">
+<div id="bug-fix-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fix-3" class="anchor"></a>Bug fix</h3>
+<a href="#bug-fix-5" class="anchor"></a>Bug fix</h3>
 <ul>
 <li>
 <strong>Resolve common taxa:</strong> Changes in <code><a href="https://docs.ropensci.org/taxize/reference/get_tsn.html">taxize::get_tsn_()</a></code> resulted in <code><a href="../reference/resolve_comm_taxa.html">resolve_comm_taxa()</a></code> unable to fetch data. This issue has been fixed. Thanks <a href='https://github.com/srearl'>@srearl</a>!</li>
@@ -201,9 +226,9 @@
     <div id="taxonomycleanr-131" class="section level1">
 <h1 class="page-header" data-toc-text="1.3.1">
 <a href="#taxonomycleanr-131" class="anchor"></a>taxonomyCleanr 1.3.1</h1>
-<div id="bug-fix-4" class="section level3">
+<div id="bug-fix-6" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fix-4" class="anchor"></a>Bug fix</h3>
+<a href="#bug-fix-6" class="anchor"></a>Bug fix</h3>
 <ul>
 <li>
 <strong>get_classification():</strong> A deprecated argument in <code><a href="https://docs.ropensci.org/taxize/reference/classification.html">taxize::classification()</a></code> was throwing errors. Thanks for the fix <a href='https://github.com/srearl'>@srearl</a> !</li>

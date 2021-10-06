@@ -1,3 +1,8 @@
+# taxonomyCleanr 1.5.4
+
+### Bug fix
+* __make_taxonomicCoverage():__ `make_taxonomicCoverage()` was failing when `taxa.clean = NA`. This has been fixed.
+
 # taxonomyCleanr 1.5.3
 
 ### Bug fix

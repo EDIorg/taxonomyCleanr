@@ -94,10 +94,12 @@ make_taxonomicCoverage <- function(
 
   # Remove any blank or missing taxa otherwise get_classification() will throw
   # errors
+
   missing_names <- is.na(taxa.clean) | taxa.clean == ""
   taxa.clean <- taxa.clean[!missing_names]
   authority <- authority[!missing_names]
   authority.id <- authority.id[!missing_names]
+  rank <- rank[!missing_names]
 
   # Create taxonomicCoverage --------------------------------------------------
 
