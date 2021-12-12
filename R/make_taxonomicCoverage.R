@@ -75,7 +75,7 @@ make_taxonomicCoverage <- function(
 
   # The path must be valid
   if (!missing(path)){
-    EDIutils::validate_path(path)
+    validate_path(path)
   }
 
   # Load data -----------------------------------------------------------------

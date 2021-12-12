@@ -1,3 +1,7 @@
+# taxonomyCleanr 1.6.0
+
+* Integrated some EDIutils functions and removed the package dependency
+
 # taxonomyCleanr 1.5.4
 
 ### Bug fix
