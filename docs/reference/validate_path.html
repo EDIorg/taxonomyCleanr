@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Write taxa map — write_taxa_map • taxonomyCleanr</title>
+<title>Validate path — validate_path • taxonomyCleanr</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,9 @@
 
 
 
-<meta property="og:title" content="Write taxa map — write_taxa_map" />
-<meta property="og:description" content="Writes information created in the `taxonomyCleanr` workflow to
-    taxa_map.csv. An error is issued if the file is open by another
-    application." />
+<meta property="og:title" content="Validate path — validate_path" />
+<meta property="og:description" content="Use dir.exists to determine whether the input path is valid and
+    returns an error message if not." />
 
 
 
@@ -125,40 +124,30 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Write taxa map</h1>
+    <h1>Validate path</h1>
     <small class="dont-index">Source: <a href='https://github.com/EDIorg/taxonomyCleanr/blob/master/R/write_taxa_map.R'><code>R/write_taxa_map.R</code></a></small>
-    <div class="hidden name"><code>write_taxa_map.Rd</code></div>
+    <div class="hidden name"><code>validate_path.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Writes information created in the `taxonomyCleanr` workflow to
-    taxa_map.csv. An error is issued if the file is open by another
-    application.</p>
+    <p>Use <code>dir.exists</code> to determine whether the input path is valid and
+    returns an error message if not.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>write_taxa_map</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>path</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>validate_path</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A data frame representation of taxa_map.csv. Data frame contents will
-be written to file.</p></td>
-    </tr>
-    <tr>
       <th>path</th>
-      <td><p>A character string specifying the path of where taxa_map.csv
-should be written or is written.</p></td>
+      <td><p>A character string specifying a path to the dataset working directory.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The taxa_map.csv file, or an updated version of this file to path.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>initialize_taxa_table</p></div>
+    <p>A warning message if the path leads to a non-existant directory.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
