@@ -1,3 +1,5 @@
+# taxonomyCleanr 1.6.2.9000
+
 # taxonomyCleanr 1.6.2
 
 * Remove EDIutils dependency (take 3). Was still listed in the package DESCRIPTION

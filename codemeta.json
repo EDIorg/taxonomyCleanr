@@ -7,7 +7,7 @@
   "codeRepository": "https://github.com/EDIorg/taxonomyCleanr",
   "issueTracker": "https://github.com/EDIorg/taxonomyCleanr/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "1.6.2",
+  "version": "1.6.2.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -176,8 +176,5 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "808.606KB",
-  "releaseNotes": "https://github.com/EDIorg/taxonomyCleanr/blob/master/NEWS.md",
-  "readme": "https://github.com/EDIorg/taxonomyCleanr/blob/master/README.md",
-  "contIntegration": ["https://travis-ci.org/EDIorg/taxonomyCleanr", "https://codecov.io/github/EDIorg/taxonomyCleanr?branch=master"]
+  "fileSize": "825.68KB"
 }
