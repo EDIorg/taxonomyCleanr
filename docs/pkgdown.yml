@@ -1,7 +1,7 @@
 pandoc: 2.11.4
-pkgdown: 1.6.1
+pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
   a_common_use_case: a_common_use_case.html
-last_built: 2022-01-25T20:26Z
+last_built: 2022-05-12T20:21Z
 

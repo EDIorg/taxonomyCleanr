@@ -1,16 +1,13 @@
 {
-  "@context": [
-    "https://doi.org/10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "taxonomyCleanr",
-  "description": "\n    Resolves user supplied taxonomy data against a taxonomic authority, retrieves taxonomic \n    serial numbers, updates users data, and creates the taxonomicCoverage metadata element in \n    the Ecological Metadata Language (EML).",
+  "description": " Resolves user supplied taxonomy data against a taxonomic authority, retrieves taxonomic serial numbers, updates users data, and creates the taxonomicCoverage metadata element in the Ecological Metadata Language (EML).",
   "name": "taxonomyCleanr: A workflow and set of functions to clean taxonomy data using R",
   "codeRepository": "https://github.com/EDIorg/taxonomyCleanr",
   "issueTracker": "https://github.com/EDIorg/taxonomyCleanr/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -73,8 +70,8 @@
       "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
     }
   ],
-  "softwareRequirements": [
-    {
+  "softwareRequirements": {
+    "1": {
       "@type": "SoftwareApplication",
       "identifier": "data.table",
       "name": "data.table",
@@ -87,7 +84,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=data.table"
     },
-    {
+    "2": {
       "@type": "SoftwareApplication",
       "identifier": "stringr",
       "name": "stringr",
@@ -100,7 +97,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=stringr"
     },
-    {
+    "3": {
       "@type": "SoftwareApplication",
       "identifier": "taxize",
       "name": "taxize",
@@ -113,7 +110,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=taxize"
     },
-    {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "ritis",
       "name": "ritis",
@@ -126,7 +123,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=ritis"
     },
-    {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "covr",
       "name": "covr",
@@ -138,7 +135,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=covr"
     },
-    {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "EML",
       "name": "EML",
@@ -151,7 +148,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=EML"
     },
-    {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "httr",
       "name": "httr",
@@ -164,7 +161,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=httr"
     },
-    {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "worrms",
       "name": "worrms",
@@ -176,13 +173,11 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=worrms"
-    }
-  ],
+    },
+    "SystemRequirements": null
+  },
+  "fileSize": "808.606KB",
   "releaseNotes": "https://github.com/EDIorg/taxonomyCleanr/blob/master/NEWS.md",
   "readme": "https://github.com/EDIorg/taxonomyCleanr/blob/master/README.md",
-  "fileSize": "794.437KB",
-  "contIntegration": ["https://travis-ci.org/EDIorg/taxonomyCleanr", "https://codecov.io/github/EDIorg/taxonomyCleanr?branch=master"],
-  "contributor": {},
-  "copyrightHolder": {},
-  "funder": {}
+  "contIntegration": ["https://travis-ci.org/EDIorg/taxonomyCleanr", "https://codecov.io/github/EDIorg/taxonomyCleanr?branch=master"]
 }
