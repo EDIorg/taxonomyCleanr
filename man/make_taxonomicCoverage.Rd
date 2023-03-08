@@ -16,7 +16,7 @@ make_taxonomicCoverage(
 \arguments{
 \item{taxa.clean}{(character) Taxa names as they appear in your dataset}
 
-\item{authority}{(character) Authority \code{taxa.clean} have been resolved to. Supported authorities include: "ITIS", "WORMS", "GBIF". For unsupported authorities, list the home page URL. For unresolved taxa use \code{NA}.}
+\item{authority}{(character) Authorities \code{taxa.clean} have been resolved to. Supported authorities include: "ITIS", "WORMS", "GBIF". For unsupported authorities, list the home page URL. For unresolved taxa use \code{NA}. If only one authority is provided, function will use that authority for all entries. If more than one authority, e.g. four, but fewer than the length of \code{taxa.clean}, is provided, function will only expand into full taxonomic classification for the first names, up to the number of authorities provided (e.g. the first four in \code{taxa.clean}); the rest of the names will not be expanded.}
 
 \item{authority.id}{(character) ID of \code{taxa.clean} within the \code{authority}, otherwise \code{NA}}
 
