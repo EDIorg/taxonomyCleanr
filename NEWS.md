@@ -1,4 +1,6 @@
-# taxonomyCleanr 1.6.2.9000
+# taxonomyCleanr 1.6.3
+
+* `make_taxonomicCoverage()` now accepts `authority` arguments of length == 1 rather than requiring a length equal to `taxa.clean` (@atn38, #46).
 
 # taxonomyCleanr 1.6.2
 
