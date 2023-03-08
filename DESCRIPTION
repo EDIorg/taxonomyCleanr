@@ -1,7 +1,9 @@
 Package: taxonomyCleanr
 Title: A workflow and set of functions to clean taxonomy data using R
 Version: 1.6.2.9000
-Authors@R: person("Colin", "Smith", email = "csmith.tar@gmail.com", role = c("aut", "cre"), comment = "https://orcid.org/0000-0003-2261-9931")
+Authors@R: 
+    person("Colin", "Smith", email = "csmith.tar@gmail.com", role = c("aut", "cre"), comment = "https://orcid.org/0000-0003-2261-9931"),
+    person(given = "An T.", family = "Nguyen", role = "ctb")
 Description:
     Resolves user supplied taxonomy data against a taxonomic authority, retrieves taxonomic 
     serial numbers, updates users data, and creates the taxonomicCoverage metadata element in 
@@ -18,7 +20,7 @@ Imports:
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
 Suggests: 
     testthat,
     knitr,
