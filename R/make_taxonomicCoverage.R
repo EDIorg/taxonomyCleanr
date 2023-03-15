@@ -77,7 +77,7 @@ make_taxonomicCoverage <- function(
   if (!missing(path)){
     validate_path(path)
   }
-  
+
   if (!is.na(authority) & length(authority) == 1) {
     authority <- rep(authority, times = length(taxa.clean))
     }
@@ -157,6 +157,8 @@ make_taxonomicCoverage <- function(
 #' for use with the EML R Package.}
 #' \item{.xml file}{If \code{write.file = TRUE} a .xml file is written to
 #' \code{path}}.
+#'
+#' @keywords internal
 #'
 set_taxonomic_coverage <- function(sci_names) {
 

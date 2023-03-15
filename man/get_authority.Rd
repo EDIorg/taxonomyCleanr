@@ -24,3 +24,4 @@ options and ID's.}
 Use fuzzy searching in the Global Names Resolver to correct spelling
     and locate appropriate authorities.
 }
+\keyword{internal}

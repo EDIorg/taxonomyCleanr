@@ -21,9 +21,8 @@
 #' @seealso
 #'     initialize_taxa_table
 #'
+#' @keywords internal
 #'
-#'
-
 write_taxa_map <- function(x, path){
 
   # Check arguments ---------------------------------------------------------
@@ -86,9 +85,8 @@ write_taxa_map <- function(x, path){
 #' @return
 #'     A warning message if the path leads to a non-existant directory.
 #'
-#' @export
+#' @keywords internal
 #'
-
 validate_path <- function(path){
 
   # Validate path -------------------------------------------------------------

@@ -15,3 +15,4 @@ Load and fix GNR Datasources
 \details{
 This fixes bugs in taxize which otherwise produce inconsistent datasource names (e.g. "Integrated Taxonomic Information SystemITIS" rather than expected "ITIS")
 }
+\keyword{internal}

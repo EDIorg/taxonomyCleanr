@@ -10,6 +10,8 @@
 #'     function.
 #'
 #'
+#' @keywords internal
+#'
 validate_arguments <- function(fun.name, fun.args){
 
   # Parameterize --------------------------------------------------------------

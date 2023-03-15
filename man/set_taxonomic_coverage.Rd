@@ -18,3 +18,4 @@ for use with the EML R Package.}
 \description{
 Create the taxonomicCoverage EML node
 }
+\keyword{internal}

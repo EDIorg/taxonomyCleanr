@@ -24,3 +24,4 @@ Writes information created in the `taxonomyCleanr` workflow to
 \seealso{
 initialize_taxa_table
 }
+\keyword{internal}

@@ -167,7 +167,7 @@ resolve_sci_taxa <- function(x = NULL, data.sources, path = NULL) {
 #'         \item{score} Relative match score provided by the authority.
 #'     }
 #'
-#' @export
+#' @keywords internal
 #'
 get_authority <- function(taxon, data.source){
 
@@ -222,9 +222,8 @@ get_authority <- function(taxon, data.source){
 #'         \item{rank} The taxonomic rank of the taxon.
 #'     }
 #'
-#' @export
+#' @keywords internal
 #'
-
 get_id <- function(taxon, authority){
 
   taxon_id <- NA_character_
@@ -409,7 +408,7 @@ get_id <- function(taxon, authority){
 #'
 #'     }
 #'
-#' @export
+#' @keywords internal
 #'
 optimize_match <- function(x, data.sources){
 

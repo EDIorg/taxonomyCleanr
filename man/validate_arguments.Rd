@@ -15,3 +15,4 @@ function.}
 \description{
 Validate input arguments to taxonomyCleanr functions.
 }
+\keyword{internal}

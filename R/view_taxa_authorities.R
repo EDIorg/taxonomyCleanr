@@ -84,6 +84,8 @@ view_taxa_authorities <- function(){
 #'
 #' @details This fixes bugs in taxize which otherwise produce inconsistent datasource names (e.g. "Integrated Taxonomic Information SystemITIS" rather than expected "ITIS")
 #'
+#' @keywords internal
+#'
 load_gnr_datasources <- function() {
   gnr_list <- as.data.frame(taxize::gnr_datasources())
   gnr_list$title[gnr_list$id == "3"] <- "ITIS"

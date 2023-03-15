@@ -27,3 +27,4 @@ Optimize the taxon match to an authority based on completeness of
     returned information. A complete return contains both an authority
     name and an authority ID for a taxon.
 }
+\keyword{internal}

@@ -20,3 +20,4 @@ get_id_common(taxon, authority)
 \description{
 Get a taxonomic identifier for a taxon name and corresponding authority.
 }
+\keyword{internal}

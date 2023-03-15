@@ -201,9 +201,8 @@ resolve_comm_taxa <- function(x = NULL, data.sources, path = NULL){
 #'         \item{rank} The taxonomic rank of the taxon.
 #'     }
 #'
-#' @export
+#' @keywords internal
 #'
-
 get_id_common <- function(taxon, authority){
 
   taxon_id <- NA_character_
@@ -400,9 +399,8 @@ get_id_common <- function(taxon, authority){
 #'
 #'     }
 #'
-#' @export
+#' @keywords internal
 #'
-
 optimize_match_common <- function(x, data.sources){
 
   output <- data.frame(
