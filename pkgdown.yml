@@ -1,0 +1,10 @@
+pandoc: 2.19.2
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  a_common_use_case: a_common_use_case.html
+last_built: 2023-03-15T19:07Z
+urls:
+  reference: https://ediorg.github.io/taxonomyCleanr/reference
+  article: https://ediorg.github.io/taxonomyCleanr/articles
+
