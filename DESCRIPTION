@@ -26,5 +26,6 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-URL: https://github.com/EDIorg/taxonomyCleanr
+URL: https://github.com/EDIorg/taxonomyCleanr,
+    https://ediorg.github.io/taxonomyCleanr/
 BugReports: https://github.com/EDIorg/taxonomyCleanr/issues

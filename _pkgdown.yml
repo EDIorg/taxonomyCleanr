@@ -1,28 +1,30 @@
+url: https://ediorg.github.io/taxonomyCleanr/
 reference:
-  - title: Track provenance
-    desc: Functions for tracking changes during the data preparation and resolution steps. Most of the provenance tracking is automatically built into functions as optional arguments.
-    contents:
-    - create_taxa_map
-    - read_taxa_map
-  - title: Prepare data
-    desc: Functions for preparing data prior to sending to an authority system.
-    contents:
-    - count_taxa
-    - remove_taxa
-    - replace_taxa
-    - trim_taxa
-  - title: Resolve to authority
-    desc: Functions for resolving taxa to authority systems
-    contents:
-    - get_classification
-    - resolve_comm_taxa
-    - resolve_sci_taxa
-    - view_taxa_authorities
-  - title: Make metadata
-    desc: Functions for creating EML
-    contents:
-    - make_taxonomicCoverage
-  - title: Update raw data
-    desc: Functions for updating the raw data table
-    contents:
-    - revise_taxa
+- title: Track provenance
+  desc: Functions for tracking changes during the data preparation and resolution
+    steps. Most of the provenance tracking is automatically built into functions as
+    optional arguments.
+  contents:
+  - create_taxa_map
+  - read_taxa_map
+- title: Prepare data
+  desc: Functions for preparing data prior to sending to an authority system.
+  contents:
+  - count_taxa
+  - remove_taxa
+  - replace_taxa
+  - trim_taxa
+- title: Resolve to authority
+  desc: Functions for resolving taxa to authority systems
+  contents:
+  - get_classification
+  - resolve_comm_taxa
+  - resolve_sci_taxa
+  - view_taxa_authorities
+- title: Make metadata
+  desc: Functions for creating EML
+  contents: make_taxonomicCoverage
+- title: Update raw data
+  desc: Functions for updating the raw data table
+  contents: revise_taxa
+
