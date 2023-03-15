@@ -1,3 +1,7 @@
+# taxonomyCleanr 1.6.4
+
+* A syntax error introduced to the DESCRIPTION file in v1.6.3 is now fixed (@pendragon1998, #48).
+
 # taxonomyCleanr 1.6.3
 
 * `make_taxonomicCoverage()` now accepts `authority` arguments of length == 1 rather than requiring a length equal to `taxa.clean` (@atn38, #46).
