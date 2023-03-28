@@ -78,9 +78,9 @@ make_taxonomicCoverage <- function(
     validate_path(path)
   }
 
-  if (!is.na(authority) & length(authority) == 1) {
+  if (any(!is.na(authority)) & length(authority) == 1) {
     authority <- rep(authority, times = length(taxa.clean))
-    }
+  }
 
   # Load data -----------------------------------------------------------------
 
