@@ -1,3 +1,7 @@
+# taxonomyCleanr 1.6.5
+
+* A logic issue in the original implementation of v1.6.3 is now fixed (@RobLBaker, #49).
+
 # taxonomyCleanr 1.6.4
 
 * A syntax error introduced to the DESCRIPTION file in v1.6.3 is now fixed (@pendragon1998, #48).
