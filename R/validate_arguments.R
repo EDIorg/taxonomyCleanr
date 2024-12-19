@@ -30,10 +30,15 @@ validate_arguments <- function(fun.name, fun.args){
       httr::status_code(r) == 200
     }
 
+    amphibiaweb_ping <- function (what = "status", ...) {
+      r <- httr::GET("https://amphibiaweb.org/cgi/amphib_ws")
+      httr::status_code(r) == 200
+    }
+
     pingers <- data.frame(
-      id = c(3, 9, 11, 165),
-      fun = c("taxize::itis_ping()", "worms_ping()", "taxize::gbif_ping()", "taxize::tropicos_ping()"),
-      name = c("ITIS", "WORMS", "GBIF", "TROPICOS"),
+      id = c(3, 9, 11, 118, 165),
+      fun = c("taxize::itis_ping()", "worms_ping()", "taxize::gbif_ping()", "amphibiaweb_ping()", "taxize::tropicos_ping()"),
+      name = c("ITIS", "WORMS", "GBIF", "AMPHIBIAWEB", "TROPICOS"),
       stringsAsFactors = FALSE)
 
     use_i <- unlist(
