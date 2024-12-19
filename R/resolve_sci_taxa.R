@@ -353,6 +353,22 @@ get_id <- function(taxon, authority){
     }
   }
 
+
+  # AmphibiaWeb
+  if ((!is.na(authority)) & (authority == 'AmphibiaWeb')){
+    tryCatch(
+      {
+        response <- taxize::gna_verifier(taxon, data_sources = 118, capitalize = TRUE)
+        taxon_id <- as.character(response[1, 'recordId'])
+        taxon_rank <- "species" # AmphibiaWeb only hosts species-level taxa
+      },
+      error = function(cond) {
+        taxon_id <- NA_character_
+        taxon_rank <- NA_character_
+      }
+    )
+  }
+
   # Return --------------------------------------------------------------------
 
   if (!exists('taxon_id')){
