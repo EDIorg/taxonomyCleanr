@@ -119,13 +119,6 @@
     },
     "3": {
       "@type": "SoftwareApplication",
-      "identifier": "taxize",
-      "name": "taxize",
-      "version": ">= 0.9.99",
-      "sameAs": "https://github.com/ropensci/taxize"
-    },
-    "4": {
-      "@type": "SoftwareApplication",
       "identifier": "ritis",
       "name": "ritis",
       "version": ">= 1.0.0",
@@ -137,7 +130,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=ritis"
     },
-    "5": {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "covr",
       "name": "covr",
@@ -149,7 +142,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=covr"
     },
-    "6": {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "EML",
       "name": "EML",
@@ -162,7 +155,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=EML"
     },
-    "7": {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "httr",
       "name": "httr",
@@ -175,7 +168,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=httr"
     },
-    "8": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "worrms",
       "name": "worrms",
@@ -190,5 +183,5 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "809.573KB"
+  "fileSize": "809.566KB"
 }
