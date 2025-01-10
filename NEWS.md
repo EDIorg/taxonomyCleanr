@@ -1,3 +1,7 @@
+# taxonomyCleanr 1.6.6
+
+* The installation issues due to `taxize` and `bold` being removed from CRAN are temporarily fixed (#52).
+
 # taxonomyCleanr 1.6.5
 
 * A logic issue in the original implementation of v1.6.3 is now fixed (@RobLBaker, #49).
