@@ -60,10 +60,17 @@ view_taxa_authorities <- function(){
   gnr_list[use_i, 'resolve_taxa'] <- 'supported'
   gnr_list[use_i, 'resolve_common'] <- 'not supported'
 
+  use_i <- gnr_list[ , 'title'] == 'AmphibiaWeb'
+  gnr_list[use_i, 'return_to_user'] <- 'AmphibiaWeb'
+  gnr_list[use_i, 'resolve_taxa'] <- 'supported'
+  gnr_list[use_i, 'resolve_common'] <- 'not supported'
+
   use_i <- !is.na(gnr_list$return_to_user)
   taxonomic_authorities <- gnr_list[use_i, c('id', 'return_to_user', 'resolve_taxa', 'resolve_common')]
   colnames(taxonomic_authorities) <- c('id', 'authority', 'resolve_sci_taxa', 'resolve_comm_taxa')
   rownames(taxonomic_authorities) <- c()
+
+
 
   # Return
 
