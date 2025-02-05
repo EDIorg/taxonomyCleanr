@@ -1,6 +1,6 @@
 Package: taxonomyCleanr
 Title: A workflow and set of functions to clean taxonomy data using R
-Version: 1.6.5
+Version: 1.6.6
 Authors@R: c(
     person("Colin", "Smith", email = "csmith.tar@gmail.com", role = c("aut", "cre"), comment = "https://orcid.org/0000-0003-2261-9931"),
     person(given = "An T.", family = "Nguyen", role = "ctb"))
@@ -11,8 +11,9 @@ Description:
 Imports:
     data.table (>= 1.12.2),
     stringr (>= 1.2.0),
-    taxize (>= 0.9.99),
     ritis (>= 1.0.0),
+    taxize,
+    bold,
     covr,
     EML (>= 2.0.3),
     httr (>= 1.4.1),
@@ -20,7 +21,10 @@ Imports:
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.2
+RoxygenNote: 7.2.0
+Remotes:
+    ropensci/bold,
+    ropensci/taxize
 Suggests: 
     testthat,
     knitr,
