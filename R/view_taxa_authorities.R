@@ -22,7 +22,7 @@ view_taxa_authorities <- function(){
 
   # Get GNR datasources -----------------------------------------------------
 
-  gnr_list <- load_gnr_datasources()
+  gnr_list <- load_gna_data_sources()
 
   # Mark supported databases ------------------------------------------------
 
@@ -45,7 +45,7 @@ view_taxa_authorities <- function(){
   gnr_list[use_i, 'resolve_taxa'] <- 'supported'
   gnr_list[use_i, 'resolve_common'] <- 'not supported'
 
-  use_i <- gnr_list[ , 'title'] == 'GBIF Backbone Taxonomy'
+  use_i <- gnr_list[ , 'title'] == 'Global Biodiversity Information Facility Backbone Taxonomy'
   gnr_list[use_i, 'return_to_user'] <- 'Global Biodiversity Information Facility (GBIF)'
   gnr_list[use_i, 'resolve_taxa'] <- 'supported'
   gnr_list[use_i, 'resolve_common'] <- 'not supported'
@@ -78,16 +78,16 @@ view_taxa_authorities <- function(){
 
 
 
-#' Load and fix GNR Datasources
+#' Load and fix gna Datasources
 #'
-#' @return (data.frame) GNR datasources from \code{taxize::gnr_datasources()}
+#' @return (data.frame) gna datasources from \code{taxize::gna_data_sources()}
 #'
 #' @details This fixes bugs in taxize which otherwise produce inconsistent datasource names (e.g. "Integrated Taxonomic Information SystemITIS" rather than expected "ITIS")
 #'
 #' @keywords internal
 #'
-load_gnr_datasources <- function() {
-  gnr_list <- as.data.frame(taxize::gnr_datasources())
-  gnr_list$title[gnr_list$id == "3"] <- "ITIS"
-  return(gnr_list)
+load_gna_data_sources <- function() {
+  gna_list <- as.data.frame(taxize::gna_data_sources())
+  gna_list$title[gna_list$id == "3"] <- "ITIS"
+  return(gna_list)
 }

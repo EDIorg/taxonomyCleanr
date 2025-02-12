@@ -212,7 +212,7 @@ get_id_common <- function(taxon, authority){
 
   # Match authority -----------------------------------------------------------
 
-  gnr_list <- load_gnr_datasources()
+  gnr_list <- load_gna_data_sources()
   use_i <- authority == gnr_list[ , 'id']
   authority <- gnr_list[use_i, 'title']
 
