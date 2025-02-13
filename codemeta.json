@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/EDIorg/taxonomyCleanr",
   "issueTracker": "https://github.com/EDIorg/taxonomyCleanr/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "1.6.6",
+  "version": "1.6.7",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -132,6 +132,19 @@
     },
     "4": {
       "@type": "SoftwareApplication",
+      "identifier": "taxize",
+      "name": "taxize",
+      "version": ">= 0.10.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=taxize"
+    },
+    "5": {
+      "@type": "SoftwareApplication",
       "identifier": "covr",
       "name": "covr",
       "provider": {
@@ -142,7 +155,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=covr"
     },
-    "5": {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "EML",
       "name": "EML",
@@ -155,7 +168,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=EML"
     },
-    "6": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "httr",
       "name": "httr",
@@ -168,7 +181,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=httr"
     },
-    "7": {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "worrms",
       "name": "worrms",
@@ -183,5 +196,5 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "809.566KB"
+  "fileSize": "809.694KB"
 }

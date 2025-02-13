@@ -1,3 +1,7 @@
+# taxonomyCleanr 1.6.7
+
+* Update code to utilize the latest `taxize` API, addressing backward compatibility issues introduced in version `0.10.0`. Note, the semantics of the `score` value may have changed. The original semantics were vague, and there is no mapping between to the new version. We are using the `parsingQualityScore`.
+
 # taxonomyCleanr 1.6.6
 
 * The installation issues due to `taxize` and `bold` being removed from CRAN are temporarily fixed (#52).
