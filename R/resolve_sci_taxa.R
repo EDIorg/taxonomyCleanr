@@ -172,22 +172,20 @@ resolve_sci_taxa <- function(x = NULL, data.sources, path = NULL) {
 get_authority <- function(taxon, data.source){
 
   # Tell user what authority is being queried
-  gnr_list <- load_gnr_datasources()
-  use_i <- gnr_list[ , 'id'] == data.source
-  message('Searching ', gnr_list[use_i, 'title'],' for "',taxon,'"')
+  gna_list <- load_gna_data_sources()
+  use_i <- gna_list[ , 'id'] == data.source
+  message('Searching ', gna_list[use_i, 'title'],' for "',taxon,'"')
 
   # User Global Names Resolver to see if the taxon can be found in data.source
   resp <- suppressWarnings(
-    taxize::gnr_resolve(sci = taxon,
-                        data_source_ids = as.character(data.source),
-                        resolve_once = TRUE,
-                        canonical = TRUE,
-                        best_match_only = TRUE))
+    taxize::gna_verifier(names = taxon,
+                         data_sources = as.character(data.source),
+                         all_matches = FALSE))
   # Parse response and return and first item found
   if (nrow(resp) != 0) {
-    res <- list(resolved_name = resp$matched_name2[1],
-                authority = gnr_list$title[use_i],
-                score = resp$score[1])
+    res <- list(resolved_name = resp$matchedCanonicalFull[1],
+                authority = gna_list$title[use_i],
+                score = resp$parsingQualityScore[1])
     return(res)
   } else {
     res <- list(resolved_name =  NA_character_,
@@ -304,7 +302,7 @@ get_id <- function(taxon, authority){
   }
 
   # GBIF Backbone Taxonomy
-  if ((!is.na(authority)) & (authority == 'GBIF Backbone Taxonomy')){
+  if ((!is.na(authority)) & (authority == 'Global Biodiversity Information Facility Backbone Taxonomy')){
 
     response <- taxize::get_ids_(
       taxon,
@@ -426,23 +424,23 @@ optimize_match <- function(x, data.sources){
   while (j != (length(data.sources)+1)) {
 
     # Does taxon resolve to data.sources[j]?
-    gnrr <- try(
+    gnar <- try(
       get_authority(taxon = x,
                     data.source = as.character(data.sources[j])),
       silent = TRUE)
 
-    # Try for ID and rank if GNR didn't error, then add results
-    if (class(gnrr) != "try-error") {
+    # Try for ID and rank if gna didn't error, then add results
+    if (class(gnar) != "try-error") {
       id <- try(
         suppressWarnings(
-          get_id(taxon = x, authority = gnrr$authority)),
+          get_id(taxon = x, authority = gnar$authority)),
         silent = TRUE)
       if (class(id) != "try-error") {
         output$authority_id[j] <- id$taxon_id
         output$rank[j] <- id$taxon_rank
         output$taxa_clean[j] <- x
-        output$authority[j] <- gnrr$authority
-        output$score[j] <- gnrr$score
+        output$authority[j] <- gnar$authority
+        output$score[j] <- gnar$score
       }
     }
 

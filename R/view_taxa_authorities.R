@@ -20,48 +20,48 @@
 
 view_taxa_authorities <- function(){
 
-  # Get GNR datasources -----------------------------------------------------
+  # Get gna datasources -----------------------------------------------------
 
-  gnr_list <- load_gnr_datasources()
+  gna_list <- load_gna_data_sources()
 
   # Mark supported databases ------------------------------------------------
 
-  gnr_list$return_to_user <- NA
-  gnr_list$resolve_taxa <- NA
-  gnr_list$resolve_common <- NA
+  gna_list$return_to_user <- NA
+  gna_list$resolve_taxa <- NA
+  gna_list$resolve_common <- NA
 
-  use_i <- gnr_list[ , 'title'] == 'ITIS'
-  gnr_list[use_i, 'return_to_user'] <- 'Integrated Taxonomic Information System (ITIS)'
-  gnr_list[use_i, 'resolve_taxa'] <- 'supported'
-  gnr_list[use_i, 'resolve_common'] <- 'supported'
+  use_i <- gna_list[ , 'title'] == 'ITIS'
+  gna_list[use_i, 'return_to_user'] <- 'Integrated Taxonomic Information System (ITIS)'
+  gna_list[use_i, 'resolve_taxa'] <- 'supported'
+  gna_list[use_i, 'resolve_common'] <- 'supported'
 
-  use_i <- gnr_list[ , 'title'] == 'EOL'
-  gnr_list[use_i, 'return_to_user'] <- 'Encyclopedia of Life (EOL)'
-  gnr_list[use_i, 'resolve_taxa'] <- 'not supported'
-  gnr_list[use_i, 'resolve_common'] <- 'not supported'
+  use_i <- gna_list[ , 'title'] == 'EOL'
+  gna_list[use_i, 'return_to_user'] <- 'Encyclopedia of Life (EOL)'
+  gna_list[use_i, 'resolve_taxa'] <- 'not supported'
+  gna_list[use_i, 'resolve_common'] <- 'not supported'
 
-  use_i <- gnr_list[ , 'title'] == 'Tropicos - Missouri Botanical Garden'
-  gnr_list[use_i, 'return_to_user'] <- 'Tropicos - Missouri Botanical Garden'
-  gnr_list[use_i, 'resolve_taxa'] <- 'supported'
-  gnr_list[use_i, 'resolve_common'] <- 'not supported'
+  use_i <- gna_list[ , 'title'] == 'Tropicos - Missouri Botanical Garden'
+  gna_list[use_i, 'return_to_user'] <- 'Tropicos - Missouri Botanical Garden'
+  gna_list[use_i, 'resolve_taxa'] <- 'supported'
+  gna_list[use_i, 'resolve_common'] <- 'not supported'
 
-  use_i <- gnr_list[ , 'title'] == 'GBIF Backbone Taxonomy'
-  gnr_list[use_i, 'return_to_user'] <- 'Global Biodiversity Information Facility (GBIF)'
-  gnr_list[use_i, 'resolve_taxa'] <- 'supported'
-  gnr_list[use_i, 'resolve_common'] <- 'not supported'
+  use_i <- gna_list[ , 'title'] == 'Global Biodiversity Information Facility Backbone Taxonomy'
+  gna_list[use_i, 'return_to_user'] <- 'Global Biodiversity Information Facility (GBIF)'
+  gna_list[use_i, 'resolve_taxa'] <- 'supported'
+  gna_list[use_i, 'resolve_common'] <- 'not supported'
 
-  # use_i <- gnr_list[ , 'title'] == 'Catalogue of Life'
-  # gnr_list[use_i, 'return_to_user'] <- 'Catalogue of Life (COL)'
-  # gnr_list[use_i, 'resolve_taxa'] <- 'supported'
-  # gnr_list[use_i, 'resolve_common'] <- 'not supported'
+  # use_i <- gna_list[ , 'title'] == 'Catalogue of Life'
+  # gna_list[use_i, 'return_to_user'] <- 'Catalogue of Life (COL)'
+  # gna_list[use_i, 'resolve_taxa'] <- 'supported'
+  # gna_list[use_i, 'resolve_common'] <- 'not supported'
 
-  use_i <- gnr_list[ , 'title'] == 'World Register of Marine Species'
-  gnr_list[use_i, 'return_to_user'] <- 'World Register of Marine Species (WORMS)'
-  gnr_list[use_i, 'resolve_taxa'] <- 'supported'
-  gnr_list[use_i, 'resolve_common'] <- 'not supported'
+  use_i <- gna_list[ , 'title'] == 'World Register of Marine Species'
+  gna_list[use_i, 'return_to_user'] <- 'World Register of Marine Species (WORMS)'
+  gna_list[use_i, 'resolve_taxa'] <- 'supported'
+  gna_list[use_i, 'resolve_common'] <- 'not supported'
 
-  use_i <- !is.na(gnr_list$return_to_user)
-  taxonomic_authorities <- gnr_list[use_i, c('id', 'return_to_user', 'resolve_taxa', 'resolve_common')]
+  use_i <- !is.na(gna_list$return_to_user)
+  taxonomic_authorities <- gna_list[use_i, c('id', 'return_to_user', 'resolve_taxa', 'resolve_common')]
   colnames(taxonomic_authorities) <- c('id', 'authority', 'resolve_sci_taxa', 'resolve_comm_taxa')
   rownames(taxonomic_authorities) <- c()
 
@@ -78,16 +78,16 @@ view_taxa_authorities <- function(){
 
 
 
-#' Load and fix GNR Datasources
+#' Load and fix gna Datasources
 #'
-#' @return (data.frame) GNR datasources from \code{taxize::gnr_datasources()}
+#' @return (data.frame) gna datasources from \code{taxize::gna_data_sources()}
 #'
 #' @details This fixes bugs in taxize which otherwise produce inconsistent datasource names (e.g. "Integrated Taxonomic Information SystemITIS" rather than expected "ITIS")
 #'
 #' @keywords internal
 #'
-load_gnr_datasources <- function() {
-  gnr_list <- as.data.frame(taxize::gnr_datasources())
-  gnr_list$title[gnr_list$id == "3"] <- "ITIS"
-  return(gnr_list)
+load_gna_data_sources <- function() {
+  gna_list <- as.data.frame(taxize::gna_data_sources())
+  gna_list$title[gna_list$id == "3"] <- "ITIS"
+  return(gna_list)
 }
