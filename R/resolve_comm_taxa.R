@@ -212,9 +212,9 @@ get_id_common <- function(taxon, authority){
 
   # Match authority -----------------------------------------------------------
 
-  gnr_list <- load_gna_data_sources()
-  use_i <- authority == gnr_list[ , 'id']
-  authority <- gnr_list[use_i, 'title']
+  gna_list <- load_gna_data_sources()
+  use_i <- authority == gna_list[ , 'id']
+  authority <- gna_list[use_i, 'title']
 
   # Get ID and rank from taxon and authority ----------------------------------
 
